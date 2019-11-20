@@ -1,5 +1,5 @@
 <template>
-  <v-layout column justify-center align-center>
+  <v-layout>
     <login title="Refineria"></login>
   </v-layout>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div class="o-wrapper o-wrapper--xl">
+  <div class="o-wrapper o-wrapper--xxl">
     <div class="o-layout o-layout--gutter-l c-block">
       <div class="o-layout__item c-block__video u-2/3 u-pdt-h ">
         <div class="c-video">
@@ -24,8 +24,12 @@
             Global Knowledge Network
           </div>
           <div class="c-login__login">
-            <v-btn depressed color="primary" large> Create Account</v-btn>
-            <v-btn outlined color="primary" large>Login</v-btn>
+            <div class="u-mrb-s">
+              <v-btn depressed color="primary"> Create Account</v-btn>
+            </div>
+            <div>
+              <v-btn outlined color="primary">Login</v-btn>
+            </div>
           </div>
         </div>
       </div>
@@ -46,16 +50,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-v-btn {
+.v-btn {
   text-transform: capitalize;
-  width: 100%;
+  min-width: 262px !important;
+  height: 56px !important;
   letter-spacing: 0;
-  font-weight: 300;
+  font-weight: 500;
   letter-spacing: 0;
+  font-family: Roboto;
 }
 .c-block {
-  &__login {
-    border-right: 2px rgba(0, 0, 0, 0.2);
+  min-height: 100%;
+  &__video {
+    border-right: 2px solid rgba(0, 0, 0, 0.2);
   }
 }
 .c-video {
