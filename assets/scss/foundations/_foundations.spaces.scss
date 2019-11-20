@@ -15,6 +15,7 @@
   --space-xh   : 72px;
   --space-xxh  : 80px;
   --space-xxxh : 88px;
+  --space-8xh : 120px;
 }
 
 
@@ -31,5 +32,6 @@ $f-spaces: (
   'h'    : var(--space-h),
   'xh'   : var(--space-xh),
   'xxh'  : var(--space-xxh),
-  'xxxh' : var(--space-xxxh)
+  'xxxh' : var(--space-xxxh),
+  '8xh' : var(--space-8xh)
 ) !default;

@@ -1,7 +1,7 @@
 <template>
   <div class="o-wrapper o-wrapper--xxl">
     <div class="o-layout o-layout--gutter-l c-block">
-      <div class="o-layout__item c-block__video u-2/3 u-pdt-h ">
+      <div class="o-layout__item c-block__video u-3/4 u-pdt-h ">
         <div class="c-video">
           <div class="c-video__title u-pdl-h">
             Trade your knowledge anywhere and everywhere.
@@ -15,7 +15,7 @@
           </div>
         </div>
       </div>
-      <div class="o-layout__item u-1/3 u-pdt-h c-block__login u-align-center">
+      <div class="o-layout__item u-1/4 u-pdt-h c-block__login u-align-center">
         <div class="c-login">
           <div class="c-login__logo">
             <img src="@/assets/svg/networksv_logo.svg" />
@@ -40,12 +40,7 @@
 <script>
 export default {
   name: 'Login',
-  props: {
-    title: {
-      type: String,
-      default: 'caracol'
-    }
-  }
+  props: {}
 }
 </script>
 
