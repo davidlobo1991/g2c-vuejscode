@@ -1,27 +1,16 @@
 <template>
   <div class="o-wrapper o-wrapper--xl">
     <div class="o-layout o-layout--gutter-l">
-      <div class="o-layout__item  u-1/3 u-pdt-h">
-        <div class="c-step">
-          <div class="c-step__logo">
-            <img src="@/assets/svg/networksv_logo.svg" />
-          </div>
-          <div class="c-step__steps">
-            <div class="c-steps">
-              <v-icon>mdi-check-circle-outline</v-icon>
-              Username
-            </div>
-            <div class="c-steps">
-              <v-icon>mdi-checkbox-blank-circle-outline</v-icon>
-              Security Key
-            </div>
-          </div>
-        </div>
-      </div>
+      <navigation-steps ref="NavigationSteps" />
       <div class="o-layout__item u-2/3 u-pdt-h u-align-left">
         <div class="c-info u-pdh-8xh">
           <div class="c-info__text">
-            These words are your Security Key.
+            These words are your Security Key. They will be required to access
+            your account and wallet.<br />
+            Without them all your data and funds will become inaccessible
+            forever.<br />NetworkSV do not have access nor can’t restore your
+            Security Key.<br />Write down these 12 words in that order in a
+            piece of paper and keep them in a safe place.
           </div>
           <div class="c-info__secretword u-align-center u-pdv-xxxh">
             sudden awkward slam gown vapor change meat cable hover section cart
@@ -42,13 +31,57 @@
         </div>
       </div>
     </div>
+
+    <button @click="navigationPrevious">
+      Previous
+    </button>
+    <button @click="navigationNext">
+      Next
+    </button>
+    {{ step }}
+
+    <div v-show="1 === step">
+      step 1
+    </div>
+    <div v-show="2 === step">
+      step 2
+    </div>
+    <div v-show="3 === step">
+      step 3
+    </div>
   </div>
 </template>
 
 <script>
+import NavigationSteps from '~/components/NavigationSteps'
+
 export default {
   name: 'Login',
-  props: {}
+  components: {
+    NavigationSteps
+  },
+  props: {},
+  data() {
+    return {
+      step: 1
+    }
+  },
+  watch: {
+    step(value) {
+      console.info(value)
+      this.$refs.NavigationSteps.setStep(value)
+
+      this.$emit('enviarAlPadre', value)
+    }
+  },
+  methods: {
+    navigationNext() {
+      this.step = this.step + 1
+    },
+    navigationPrevious() {
+      this.step = this.step - 1
+    }
+  }
 }
 </script>
 
@@ -65,19 +98,7 @@ export default {
 .mdi-check-circle-outline {
   color: #18de82;
 }
-.c-step {
-  &__logo {
-    padding-bottom: 120px;
-  }
-}
-.c-steps {
-  color: #8c8c8c;
-  font-family: Roboto;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 21px;
-  padding-bottom: 40px;
-}
+
 .c-info {
   &__text {
     padding-top: 30px;

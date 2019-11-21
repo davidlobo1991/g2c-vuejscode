@@ -2,7 +2,7 @@
   <v-app>
     <v-content>
       <h1>
-        adasdasddsadasdasdas
+        Layout 2
       </h1>
       <nuxt />
     </v-content>

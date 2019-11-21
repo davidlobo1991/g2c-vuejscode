@@ -24,11 +24,35 @@
             Global Knowledge Network
           </div>
           <div class="c-login__login">
-            <div class="u-mrb-s">
-              <v-btn depressed color="primary"> Create Account</v-btn>
+            <div v-show="userNameInputIsVisible" class="u-mrb-s c-login__cont">
+              <v-text-field
+                label="Username (Handle)"
+                outlined
+                hide-details="true"
+                class="c-login__cont--input u-mrb-s"
+              >
+              </v-text-field>
+              <div class="u-mrb-s">
+                <v-btn depressed color="primary" to="/step-2" nuxt>
+                  Next
+                </v-btn>
+              </div>
+              <p class="c-login__details">
+                Already a member?
+                <a @click="showUserNameInput" href="#">
+                  Login
+                </a>
+              </p>
             </div>
-            <div>
-              <v-btn outlined color="primary">Login</v-btn>
+            <div v-show="!userNameInputIsVisible">
+              <div class="u-mrb-s">
+                <v-btn @click="showUserNameInput" depressed color="primary">
+                  Create Account
+                </v-btn>
+              </div>
+              <div>
+                <v-btn outlined color="primary">Login</v-btn>
+              </div>
             </div>
           </div>
         </div>
@@ -40,7 +64,16 @@
 <script>
 export default {
   name: 'Login',
-  props: {}
+  data() {
+    return {
+      userNameInputIsVisible: false
+    }
+  },
+  methods: {
+    showUserNameInput() {
+      this.userNameInputIsVisible = !this.userNameInputIsVisible
+    }
+  }
 }
 </script>
 
@@ -55,7 +88,7 @@ export default {
   font-family: Roboto;
 }
 .c-block {
-  min-height: 100%;
+  height: 100vh;
   &__video {
     border-right: 2px solid rgba(0, 0, 0, 0.2);
   }
@@ -79,9 +112,7 @@ export default {
   }
 }
 .c-login {
-  text-algin: center;
   &__login {
-    text-algin: center;
     width: 100%;
   }
   &__subtitle {
@@ -93,6 +124,26 @@ export default {
     letter-spacing: 0.17px;
     line-height: 23px;
     text-align: center;
+  }
+  &__details {
+    padding-top: 80px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19px;
+    text-align: center;
+  }
+  &__cont {
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+    &--input {
+      width: 262px;
+      height: 56px;
+    }
+    &--link {
+      color: #1976d2;
+      cursor: pointer;
+    }
   }
 }
 </style>

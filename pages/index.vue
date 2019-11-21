@@ -1,16 +1,16 @@
 <template>
   <v-layout>
     <!-- <login title="Refineria"></login> -->
-    <step></step>
+    <Login></Login>
   </v-layout>
 </template>
 
 <script>
-import Step from '~/components/Step.vue'
+import Login from '~/components/Login.vue'
 
 export default {
   components: {
-    Step
+    Login
   }
 }
 </script>
