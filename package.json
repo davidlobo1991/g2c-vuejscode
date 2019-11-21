@@ -16,9 +16,9 @@
     "*.{js,vue}": "eslint"
   },
   "dependencies": {
+    "nuxt": "^2.0.0",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/pwa": "^3.0.0-0",
-    "nuxt": "^2.0.0",
     "sass-loader": "^8.0.0"
   },
   "devDependencies": {
