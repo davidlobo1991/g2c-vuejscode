@@ -1,25 +1,34 @@
 <template>
   <section id="NavigationSteps" ref="NavigationSteps">
-    <div class="o-layout__item  u-1/3 u-pdt-h">
-      <div class="c-step">
-        <div class="c-step__logo">
-          <img src="@/assets/svg/networksv_logo.svg" />
+    <div class="c-step">
+      <div class="c-step__logo">
+        <!-- <img src="@/assets/svg/networksv_logo.svg" /> -->
+        <nuxt-link
+          :src="require('@/assets/svg/networksv_logo.svg')"
+          tag="img"
+          to="/"
+        />
+      </div>
+      <div class="c-step__steps">
+        <div class="c-steps">
+          <v-icon>mdi-check-circle-outline</v-icon>
+          Username
         </div>
-        <div class="c-step__steps">
-          <div class="c-steps">
-            <v-icon>mdi-check-circle-outline</v-icon>
-            Username
-          </div>
-          <div class="c-steps">
-            <v-icon>mdi-checkbox-blank-circle-outline</v-icon>
+        <div v-if="step >= 1" class="c-steps">
+          <v-icon v-if="step < 2">mdi-checkbox-blank-circle-outline</v-icon>
+          <v-icon v-if="step >= 2">mdi-check-circle-outline</v-icon>
+          <span v-bind:class="{ 'c-steps--current': step == 1 }">
             Security Key
-          </div>
-          <div class="c-steps">
-            <v-icon>mdi-checkbox-blank-circle-outline</v-icon>
-            Phone Verification
-          </div>
-          <h1>{{ step }}</h1>
+          </span>
         </div>
+        <div v-if="step >= 2" class="c-steps">
+          <v-icon v-if="step < 3">mdi-checkbox-blank-circle-outline</v-icon>
+          <v-icon v-if="step >= 3">mdi-check-circle-outline</v-icon>
+          <span v-bind:class="{ 'c-steps--current': step == 2 }">
+            Phone Verification
+          </span>
+        </div>
+        <h1>{{ step }}</h1>
       </div>
     </div>
   </section>
@@ -42,6 +51,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.v-btn {
+  text-transform: capitalize;
+  letter-spacing: 0px;
+  height: 54px;
+  width: 118px;
+}
+.v-icon {
+  font-size: 36px;
+}
+.mdi-check-circle-outline {
+  color: #18de82;
+}
 .c-step {
   &__logo {
     padding-bottom: 120px;
@@ -54,5 +75,8 @@ export default {
   font-weight: 500;
   line-height: 21px;
   padding-bottom: 40px;
+  &--current {
+    color: #000;
+  }
 }
 </style>
