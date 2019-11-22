@@ -38,7 +38,7 @@ export default {
   name: 'NavigationSteps',
   data() {
     return {
-      step: 0
+      step: 1
     }
   },
   methods: {
