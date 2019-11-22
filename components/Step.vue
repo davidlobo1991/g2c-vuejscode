@@ -69,35 +69,35 @@
               class="c-info__pincode-cont u-align-center u-flex u-flex-right u-pdt-xxxl u-pdb-l"
             >
               <v-text-field
-                class="c-info__pincode__number c-info__no-arrows u-mrh-xs"
+                class="c-info__pincode__number u-mrh-xs"
                 outlined
                 maxlength="1"
                 height="64px"
                 type="number"
               ></v-text-field>
               <v-text-field
-                class="c-info__pincode__number c-info__no-arrows u-mrh-xs"
+                class="c-info__pincode__number u-mrh-xs"
                 outlined
                 maxlength="1"
                 height="64px"
                 type="number"
               ></v-text-field>
               <v-text-field
-                class="c-info__pincode__number c-info__no-arrows u-mrh-xs"
+                class="c-info__pincode__number u-mrh-xs"
                 outlined
                 maxlength="1"
                 height="64px"
                 type="number"
               ></v-text-field>
               <v-text-field
-                class="c-info__pincode__number c-info__no-arrows u-mrh-xs"
+                class="c-info__pincode__number u-mrh-xs"
                 outlined
                 maxlength="1"
                 height="64px"
                 type="number"
               ></v-text-field>
               <v-text-field
-                class="c-info__pincode__number c-info__no-arrows u-mrl-xs"
+                class="c-info__pincode__number u-mrl-xs"
                 outlined
                 maxlength="1"
                 height="64px"
@@ -236,10 +236,6 @@ export default {
         text-align: center;
       }
     }
-  }
-  &__no-arrows {
-    -webkit-appearance: none;
-    -moz-appearance: textfield;
   }
 }
 </style>
