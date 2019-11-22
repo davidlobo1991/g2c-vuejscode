@@ -22,13 +22,12 @@
           </span>
         </div>
         <div v-if="step >= 2" class="c-steps">
-          <v-icon v-if="step < 3">mdi-checkbox-blank-circle-outline</v-icon>
-          <v-icon v-if="step >= 3">mdi-check-circle-outline</v-icon>
-          <span v-bind:class="{ 'c-steps--current': step == 2 }">
+          <v-icon>mdi-checkbox-blank-circle-outline</v-icon>
+          <!-- <v-icon v-if="step >= 3">mdi-check-circle-outline</v-icon> -->
+          <span v-bind:class="{ 'c-steps--current': step >= 2 }">
             Phone Verification
           </span>
         </div>
-        <h1>{{ step }}</h1>
       </div>
     </div>
   </section>
@@ -58,7 +57,8 @@ export default {
   width: 118px;
 }
 .v-icon {
-  font-size: 36px;
+  font-size: 27px;
+  padding-right: 25px;
 }
 .mdi-check-circle-outline {
   color: #18de82;
@@ -74,7 +74,9 @@ export default {
   font-size: 16px;
   font-weight: 500;
   line-height: 21px;
-  padding-bottom: 40px;
+  padding-bottom: 30px;
+  display: flex;
+  align-items: center;
   &--current {
     color: #000;
   }
