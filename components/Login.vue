@@ -121,7 +121,6 @@ export default {
       this.viewportWidth = this.getWidth()
     },
     getWidth() {
-      // return "hola"
       return Math.max(
         document.documentElement.clientWidth,
         window.innerWidth || 0
@@ -236,9 +235,14 @@ export default {
     height: 100%;
     flex-flow: column-reverse;
     padding-bottom: 0;
+    &__login {
+      height: 100%;
+      padding-bottom: 0;
+    }
     &__video {
       border-right: none;
       border-bottom: none;
+      padding-bottom: 0;
     }
   }
   .c-video {
@@ -257,6 +261,7 @@ export default {
   }
   .c-login {
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
+    // height: 100%;
     &__logo img {
       width: 110px;
     }
@@ -264,6 +269,21 @@ export default {
       font-size: 14px;
       padding-top: 12px;
       padding-bottom: 17px;
+    }
+    &__details {
+      padding: 0;
+      position: absolute;
+      bottom: 0;
+    }
+    &__cont {
+      display: flex;
+      align-items: center;
+      flex-flow: column;
+      &--input {
+        // padding-top: 113px;
+        // width: 262px;
+        // height: 56px;
+      }
     }
   }
 }

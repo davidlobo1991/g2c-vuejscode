@@ -9,7 +9,7 @@
 import Step from '~/components/Step.vue'
 
 export default {
-  layout: 'default2',
+  layout: 'default',
   components: {
     Step
   },
