@@ -1,9 +1,15 @@
 <template>
-  <div class="o-wrapper o-wrapper--xxl">
+  <div class="o-wrapper o-wrapper--xxl u-custom-wrapper">
     <div class="o-layout o-layout--gutter-l c-block">
-      <div class="o-layout__item c-block__video u-3/4 u-pdt-h ">
+      <div
+        v-if="
+          viewportWidth > 900 ||
+            (viewportWidth < 900 && !createAccountIsVisible && !loginIsVisible)
+        "
+        class="o-layout__item c-block__video u-1/1 u-3/4@m"
+      >
         <div class="c-video">
-          <div class="c-video__title u-pdl-h">
+          <div class="c-video__title">
             Trade your knowledge anywhere and everywhere.
           </div>
           <div class="c-video__video">
@@ -15,16 +21,18 @@
           </div>
         </div>
       </div>
-      <div class="o-layout__item u-1/4 u-pdt-h c-block__login u-align-center">
+      <div
+        class="o-layout__item u-1/1 u-1/4@m c-block__login u-pdt-h u-align-center"
+      >
         <div class="c-login">
           <div class="c-login__logo">
-            <img src="@/assets/svg/networksv_logo.svg" />
+            <img @click="showMenu" src="@/assets/svg/networksv_logo.svg" />
           </div>
           <div class="c-login__subtitle">
             Global Knowledge Network
           </div>
           <div class="c-login__login">
-            <div v-show="userNameInputIsVisible" class="u-mrb-s c-login__cont">
+            <div v-show="createAccountIsVisible" class="u-mrb-s c-login__cont">
               <v-text-field
                 label="Username (Handle)"
                 outlined
@@ -39,19 +47,44 @@
               </div>
               <p class="c-login__details">
                 Already a member?
-                <a @click="showUserNameInput" href="#">
+                <a @click="showLogin" href="#">
                   Login
                 </a>
               </p>
             </div>
-            <div v-show="!userNameInputIsVisible">
+            <div v-show="loginIsVisible" class="u-mrb-s c-login__cont">
+              <v-text-field
+                label="Username (Handle)"
+                outlined
+                hide-details="true"
+                class="c-login__cont--input u-mrb-s"
+              >
+              </v-text-field>
+              <v-textarea
+                outlined
+                class="c-login__cont--textarea"
+                label="Security Key"
+              ></v-textarea>
               <div class="u-mrb-s">
-                <v-btn @click="showUserNameInput" depressed color="primary">
+                <v-btn depressed color="primary">
+                  Login
+                </v-btn>
+              </div>
+              <p class="c-login__details">
+                Don’t have an account?
+                <a @click="showCreateUser" href="#">
+                  Create Account
+                </a>
+              </p>
+            </div>
+            <div v-show="!createAccountIsVisible && !loginIsVisible">
+              <div class="u-pdb-s">
+                <v-btn @click="showCreateUser" depressed color="primary">
                   Create Account
                 </v-btn>
               </div>
-              <div>
-                <v-btn outlined color="primary">Login</v-btn>
+              <div class="u-pdb-s">
+                <v-btn @click="showLogin" outlined color="primary">Login</v-btn>
               </div>
             </div>
           </div>
@@ -66,12 +99,45 @@ export default {
   name: 'Login',
   data() {
     return {
-      userNameInputIsVisible: false
+      createAccountIsVisible: false,
+      loginIsVisible: false,
+      viewportWidth: 0
     }
   },
+  beforeMount() {
+    window.addEventListener('resize', this.onWindowSizeChange)
+  },
+  mounted() {
+    this.viewportWidth = this.getWidth()
+    if (this.viewportWidth < 900) {
+      this.pinInputHeight = '56px'
+    }
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.onWindowSizeChange)
+  },
   methods: {
-    showUserNameInput() {
-      this.userNameInputIsVisible = !this.userNameInputIsVisible
+    onWindowSizeChange() {
+      this.viewportWidth = this.getWidth()
+    },
+    getWidth() {
+      // return "hola"
+      return Math.max(
+        document.documentElement.clientWidth,
+        window.innerWidth || 0
+      )
+    },
+    showMenu() {
+      this.createAccountIsVisible = false
+      this.loginIsVisible = false
+    },
+    showCreateUser() {
+      this.createAccountIsVisible = true
+      this.loginIsVisible = false
+    },
+    showLogin() {
+      this.loginIsVisible = true
+      this.createAccountIsVisible = false
     }
   }
 }
@@ -103,6 +169,9 @@ export default {
     font-weight: bold;
     letter-spacing: 0.35px;
     line-height: 40px;
+    margin-top: 72px;
+    padding-left: 83px;
+    padding-top: 25px;
   }
   &__video {
     padding-top: 70px;
@@ -140,9 +209,61 @@ export default {
       width: 262px;
       height: 56px;
     }
+    &--textarea {
+      width: 262px;
+    }
     &--link {
       color: #1976d2;
       cursor: pointer;
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .v-btn {
+    min-width: 180px !important;
+  }
+}
+
+@media screen and (max-width: 899px) {
+  .v-btn {
+    min-width: 262px !important;
+  }
+  .u-custom-wrapper {
+    padding: 0;
+  }
+  .c-block {
+    height: 100%;
+    flex-flow: column-reverse;
+    padding-bottom: 0;
+    &__video {
+      border-right: none;
+      border-bottom: none;
+    }
+  }
+  .c-video {
+    &__title {
+      height: auto;
+      width: auto;
+      font-size: 33px;
+      padding-left: 30px;
+      padding-right: 30px;
+      padding-bottom: 0;
+      margin-top: 0;
+    }
+    &__video {
+      padding-top: 26px;
+    }
+  }
+  .c-login {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
+    &__logo img {
+      width: 110px;
+    }
+    &__subtitle {
+      font-size: 14px;
+      padding-top: 12px;
+      padding-bottom: 17px;
     }
   }
 }

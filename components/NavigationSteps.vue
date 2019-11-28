@@ -81,4 +81,14 @@ export default {
     color: #000;
   }
 }
+@media screen and (max-width: 899px) {
+  .c-step {
+    &__logo {
+      padding-bottom: 0;
+    }
+    &__steps {
+      display: none;
+    }
+  }
+}
 </style>
