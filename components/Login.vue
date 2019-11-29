@@ -34,9 +34,9 @@
           <div class="c-login__login">
             <div v-show="createAccountIsVisible" class="u-mrb-s c-login__cont">
               <v-text-field
+                :hide-details="true"
                 label="Username (Handle)"
                 outlined
-                hide-details="true"
                 class="c-login__cont--input u-mrb-s"
               >
               </v-text-field>
@@ -54,9 +54,9 @@
             </div>
             <div v-show="loginIsVisible" class="u-mrb-s c-login__cont">
               <v-text-field
+                :hide-details="true"
                 label="Username (Handle)"
                 outlined
-                hide-details="true"
                 class="c-login__cont--input u-mrb-s"
               >
               </v-text-field>

@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     enviarAlPadre(value) {
-      console.info(`Hola desde el padre ${value}`)
+      // console.info(`Hola desde el padre ${value}`)
     }
   }
 }

@@ -60,7 +60,52 @@
   </div>
 </template>
 
-<script></script>
+<script>
+export default {
+  name: 'PinVerify',
+  data() {
+    return {
+      viewportWidth: 0,
+      pinInputHeight: '64px'
+    }
+  },
+  beforeMount() {
+    window.addEventListener('resize', this.onWindowSizeChange)
+  },
+  mounted() {
+    this.viewportWidth = this.getWidth()
+    if (this.viewportWidth < 900) {
+      this.pinInputHeight = '56px'
+    }
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.onWindowSizeChange)
+  },
+  methods: {
+    onWindowSizeChange() {
+      this.viewportWidth = this.getWidth()
+    },
+    getWidth() {
+      return Math.max(
+        document.documentElement.clientWidth,
+        window.innerWidth || 0
+      )
+    },
+    showMenu() {
+      this.createAccountIsVisible = false
+      this.loginIsVisible = false
+    },
+    showCreateUser() {
+      this.createAccountIsVisible = true
+      this.loginIsVisible = false
+    },
+    showLogin() {
+      this.loginIsVisible = true
+      this.createAccountIsVisible = false
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .c-info {

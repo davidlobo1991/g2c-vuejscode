@@ -64,7 +64,7 @@ export default {
     return {
       step: 1,
       responsabilityCheck: false,
-      pinInputHeight: '64px',
+      // pinInputHeight: '64px',
       viewportWidth: 0
     }
   },
@@ -85,9 +85,9 @@ export default {
   },
   mounted() {
     this.viewportWidth = this.getWidth()
-    if (this.viewportWidth < 900) {
-      this.pinInputHeight = '56px'
-    }
+    // if (this.viewportWidth < 900) {
+    //   this.pinInputHeight = '56px'
+    // }
   },
   destroyed() {
     window.removeEventListener('resize', this.onWindowSizeChange)
