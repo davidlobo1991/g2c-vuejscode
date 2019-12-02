@@ -505,11 +505,10 @@ export default {
   &__cards {
     width: 100%;
     &__wrapper {
-      // background-color: green;
       width: 100%;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      justify-items: center;
     }
     &__card {
       margin-bottom: 20px;
@@ -532,6 +531,7 @@ export default {
         margin-bottom: 13px;
         margin-top: 7px;
         border-radius: 50px;
+        flex-shrink: 0;
       }
       &--img {
         object-fit: cover;
@@ -576,6 +576,35 @@ export default {
       &--button {
         width: 100%;
         height: 40px !important;
+      }
+    }
+  }
+}
+@media screen and (max-width: 1800px) {
+  .c-home {
+    &__cards {
+      &__card {
+        width: 280px;
+        height: 360px;
+        font-size: 15px;
+        &--img-cont {
+          width: 122px;
+          height: 122px;
+        }
+        &--username {
+          font-size: 12px;
+          padding-bottom: 10px;
+        }
+        &--description {
+          font-size: 13px;
+          min-height: 33px;
+        }
+        &--details {
+          font-size: 12px;
+          &-num {
+            font-size: 16px;
+          }
+        }
       }
     }
   }
