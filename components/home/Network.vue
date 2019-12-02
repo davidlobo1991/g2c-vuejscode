@@ -1,5 +1,6 @@
 <template>
   <section class="c-home">
+    <WelcomeBanner />
     <div class="c-home__wrapper">
       <div class="c-home__search--cont">
         <v-text-field
@@ -186,11 +187,7 @@
                 Recommends
               </div>
             </div>
-            <v-btn
-              depressed
-              class="c-home__cards__card--button"
-              color="primary"
-            >
+            <v-btn depressed class="c-home__cards__card--button">
               1$ - Connect
             </v-btn>
           </div>
@@ -452,12 +449,32 @@
 </template>
 
 <script>
+import WelcomeBanner from '~/components/banners/WelcomeBanner'
+
 export default {
-  name: 'Network'
+  name: 'Network',
+  components: {
+    WelcomeBanner
+  }
 }
 </script>
 
 <style lang="scss" scoped>
+/* Clase repetida en componente Sidebar. Buescar manera de ponerla global */
+.u-status {
+  &--available {
+    background-color: #18de82;
+  }
+  &--bussy {
+    background-color: #dd183c;
+  }
+  &--absent {
+    background-color: #dbdb18;
+  }
+  &--invisible {
+    background-color: #d6d6d6;
+  }
+}
 .c-home {
   background-color: #fdfdfd;
   width: 100%;
@@ -538,6 +555,15 @@ export default {
         width: 100%;
         height: 100%;
         border-radius: 50%;
+      }
+      &--status {
+        position: absolute;
+        border-radius: 50px;
+        border: 2px solid #fff;
+        width: 15px;
+        height: 15px;
+        bottom: 10%;
+        right: 10%;
       }
       &--name {
         font-weight: 500;

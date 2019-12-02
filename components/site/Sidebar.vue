@@ -64,6 +64,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/* Clase repetida en componente Network. Buescar manera de ponerla global */
 .u-status {
   &--available {
     background-color: #18de82;
