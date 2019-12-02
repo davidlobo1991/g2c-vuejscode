@@ -35,6 +35,7 @@
             </v-icon>
             Messages
           </a>
+          <span class="c-sidebar__menu--notification">4</span>
         </li>
         <li class="c-sidebar__menu--item">
           <a href="" class="c-sidebar__menu--link">
@@ -131,13 +132,19 @@ export default {
     &--cont {
       color: #8c8c8c;
       padding: 0;
-      width: 90%;
+      width: 85%;
     }
     &--item {
       padding-bottom: 35px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       &-active {
         padding-bottom: 35px;
         color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         & .c-sidebar__menu--icon {
           color: #fff;
         }
@@ -154,6 +161,17 @@ export default {
           color: #fff;
         }
       }
+    }
+    &--notification {
+      background-color: #f34101;
+      color: #fff;
+      font-size: 12px;
+      border-radius: 50px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      height: 20px;
+      width: 20px;
     }
     &--icon {
       padding-right: 15px;

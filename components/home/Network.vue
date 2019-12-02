@@ -79,12 +79,8 @@
                 Recommends
               </div>
             </div>
-            <v-btn
-              depressed
-              class="c-home__cards__card--button"
-              color="primary"
-            >
-              1$ - Connect
+            <v-btn text class="c-home__cards__card--button" color="primary">
+              View Profile
             </v-btn>
           </div>
 
@@ -156,7 +152,7 @@
               class="c-home__cards__card--button"
               color="primary"
             >
-              1$ - Connect
+              Connect
             </v-btn>
           </div>
 
@@ -188,7 +184,7 @@
               </div>
             </div>
             <v-btn depressed class="c-home__cards__card--button">
-              1$ - Connect
+              1$ - Pending
             </v-btn>
           </div>
           <div class="c-home__cards__card">
