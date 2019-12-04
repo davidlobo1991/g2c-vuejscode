@@ -130,7 +130,7 @@
                 </span>
               </v-tooltip>
             </div>
-            <v-switch @change="togglePrices" class="mt-0 pt-0" hideDetails>
+            <v-switch @change="togglePrices" class="mt-0 pt-0" hide-details>
             </v-switch>
           </div>
           <div v-show="IsShowingPrices">
@@ -148,7 +148,7 @@
                   </span>
                 </v-tooltip>
               </div>
-              <v-switch @change="toggleInput" class="mt-0 pt-0" hideDetails>
+              <v-switch @change="toggleInput" class="mt-0 pt-0" hide-details>
               </v-switch>
             </div>
             <div class="c-account__pricing--input-cont">
@@ -235,7 +235,7 @@
                 </span>
               </v-tooltip>
             </div>
-            <v-switch class="mt-0 pt-0" hideDetails></v-switch>
+            <v-switch class="mt-0 pt-0" hide-details></v-switch>
           </div>
         </div>
       </div>
