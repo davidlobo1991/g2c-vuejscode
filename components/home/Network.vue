@@ -55,7 +55,7 @@
           <div class="c-home__cards__card">
             <div class="c-home__cards__card--img-cont">
               <nuxt-link
-                :src="require('@/assets/images/persona1.jpg')"
+                :src="require('@/assets/images/persona1.png')"
                 tag="img"
                 to="/"
                 class="c-home__cards__card--img"
@@ -87,7 +87,7 @@
           <div class="c-home__cards__card">
             <div class="c-home__cards__card--img-cont">
               <nuxt-link
-                :src="require('@/assets/images/persona1.jpg')"
+                :src="require('@/assets/images/persona1.png')"
                 tag="img"
                 to="/"
                 class="c-home__cards__card--img"
@@ -123,7 +123,7 @@
           <div class="c-home__cards__card">
             <div class="c-home__cards__card--img-cont">
               <nuxt-link
-                :src="require('@/assets/images/persona1.jpg')"
+                :src="require('@/assets/images/persona1.png')"
                 tag="img"
                 to="/"
                 class="c-home__cards__card--img"
@@ -159,7 +159,7 @@
           <div class="c-home__cards__card">
             <div class="c-home__cards__card--img-cont">
               <nuxt-link
-                :src="require('@/assets/images/persona1.jpg')"
+                :src="require('@/assets/images/persona1.png')"
                 tag="img"
                 to="/"
                 class="c-home__cards__card--img"
@@ -190,7 +190,7 @@
           <div class="c-home__cards__card">
             <div class="c-home__cards__card--img-cont">
               <nuxt-link
-                :src="require('@/assets/images/persona1.jpg')"
+                :src="require('@/assets/images/persona1.png')"
                 tag="img"
                 to="/"
                 class="c-home__cards__card--img"
@@ -226,7 +226,7 @@
           <div class="c-home__cards__card">
             <div class="c-home__cards__card--img-cont">
               <nuxt-link
-                :src="require('@/assets/images/persona1.jpg')"
+                :src="require('@/assets/images/persona1.png')"
                 tag="img"
                 to="/"
                 class="c-home__cards__card--img"
@@ -262,7 +262,7 @@
           <div class="c-home__cards__card">
             <div class="c-home__cards__card--img-cont">
               <nuxt-link
-                :src="require('@/assets/images/persona1.jpg')"
+                :src="require('@/assets/images/persona1.png')"
                 tag="img"
                 to="/"
                 class="c-home__cards__card--img"
@@ -298,7 +298,7 @@
           <div class="c-home__cards__card">
             <div class="c-home__cards__card--img-cont">
               <nuxt-link
-                :src="require('@/assets/images/persona1.jpg')"
+                :src="require('@/assets/images/persona1.png')"
                 tag="img"
                 to="/"
                 class="c-home__cards__card--img"
@@ -334,7 +334,43 @@
           <div class="c-home__cards__card">
             <div class="c-home__cards__card--img-cont">
               <nuxt-link
-                :src="require('@/assets/images/persona1.jpg')"
+                :src="require('@/assets/images/persona1.png')"
+                tag="img"
+                to="/account"
+                class="c-home__cards__card--img"
+              />
+              <div
+                class="c-home__cards__card--status u-status--available"
+              ></div>
+            </div>
+            <div class="c-home__cards__card--name">Gabel Sheber</div>
+            <div class="c-home__cards__card--username">@gabelsh</div>
+            <div class="c-home__cards__card--description">
+              Company’s Legal Advisor & Chess Amateur
+            </div>
+            <div class="c-home__cards__card--details-cont">
+              <div class="c-home__cards__card--details">
+                <span class="c-home__cards__card--details-num">210</span>
+                Connexions
+              </div>
+              <div class="c-home__cards__card--details">
+                <span class="c-home__cards__card--details-num">176</span>
+                Recommends
+              </div>
+            </div>
+            <v-btn
+              depressed
+              class="c-home__cards__card--button"
+              color="primary"
+            >
+              1$ - Connect
+            </v-btn>
+          </div>
+
+          <div class="c-home__cards__card">
+            <div class="c-home__cards__card--img-cont">
+              <nuxt-link
+                :src="require('@/assets/images/persona1.png')"
                 tag="img"
                 to="/"
                 class="c-home__cards__card--img"
@@ -370,43 +406,7 @@
           <div class="c-home__cards__card">
             <div class="c-home__cards__card--img-cont">
               <nuxt-link
-                :src="require('@/assets/images/persona1.jpg')"
-                tag="img"
-                to="/"
-                class="c-home__cards__card--img"
-              />
-              <div
-                class="c-home__cards__card--status u-status--available"
-              ></div>
-            </div>
-            <div class="c-home__cards__card--name">Gabel Sheber</div>
-            <div class="c-home__cards__card--username">@gabelsh</div>
-            <div class="c-home__cards__card--description">
-              Company’s Legal Advisor & Chess Amateur
-            </div>
-            <div class="c-home__cards__card--details-cont">
-              <div class="c-home__cards__card--details">
-                <span class="c-home__cards__card--details-num">210</span>
-                Connexions
-              </div>
-              <div class="c-home__cards__card--details">
-                <span class="c-home__cards__card--details-num">176</span>
-                Recommends
-              </div>
-            </div>
-            <v-btn
-              depressed
-              class="c-home__cards__card--button"
-              color="primary"
-            >
-              1$ - Connect
-            </v-btn>
-          </div>
-
-          <div class="c-home__cards__card">
-            <div class="c-home__cards__card--img-cont">
-              <nuxt-link
-                :src="require('@/assets/images/persona1.jpg')"
+                :src="require('@/assets/images/persona1.png')"
                 tag="img"
                 to="/"
                 class="c-home__cards__card--img"

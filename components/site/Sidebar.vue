@@ -10,9 +10,9 @@
       <div class="c-sidebar__profile--cont">
         <div class="c-sidebar__profile--img-cont">
           <nuxt-link
-            :src="require('@/assets/images/persona1.jpg')"
+            :src="require('@/assets/images/persona1.png')"
             tag="img"
-            to="/"
+            to="/account"
             class="c-sidebar__profile--img"
           />
           <div class="c-sidebar__profile--status u-status--available"></div>
