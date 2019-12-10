@@ -179,19 +179,25 @@ export default {
     }
   }
 }
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: 1500px) {
   .c-sidebar {
     font-size: 15px;
-    &--img-cont {
-      width: 70px;
-      height: 70px;
+    &__logo {
+      width: 100px;
     }
-    &--status {
-      width: 10px;
-      height: 10px;
-      bottom: 6%;
-      right: 6%;
-      border: 1px solid #fff;
+    &__profile {
+      &--img-cont {
+        width: 70px;
+        height: 70px;
+        border: 1px solid #fff;
+      }
+      &--status {
+        width: 10px;
+        height: 10px;
+        bottom: 6%;
+        right: 6%;
+        border: 1px solid #fff;
+      }
     }
   }
 }

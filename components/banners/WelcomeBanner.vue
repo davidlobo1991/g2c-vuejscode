@@ -32,4 +32,10 @@
     height: 40px !important;
   }
 }
+@media screen and (max-width: 1500px) {
+  .c-banner {
+    font-size: 15px;
+    padding: 0 32px;
+  }
+}
 </style>

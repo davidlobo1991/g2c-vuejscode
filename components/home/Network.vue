@@ -631,10 +631,18 @@ export default {
     }
   }
 }
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: 1500px) {
   .c-home {
     &__navbar {
       font-size: 15px;
+    }
+    &__search {
+      &--cont {
+        min-width: 436px;
+      }
+      &--input {
+        // max-width: 436px;
+      }
     }
   }
 }
