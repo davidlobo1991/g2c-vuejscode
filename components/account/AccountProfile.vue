@@ -9,6 +9,16 @@
         class="c-account__profile--img"
       />
       <div class="c-account__profile--status u-status--available"></div>
+      <div class="c-account__profile--details-cont">
+        <div class="c-account__profile--details">
+          <span class="c-account__profile--details-num">210</span>
+          Connections
+        </div>
+        <div class="c-account__profile--details">
+          <span class="c-account__profile--details-num">176</span>
+          Recommends
+        </div>
+      </div>
     </div>
     <div class="c-account__profile--text-cont">
       <div class="c-account__profile--name">Jessica O'Mallie</div>
@@ -80,12 +90,6 @@ export default {
     background-color: #d6d6d6;
   }
 }
-.u-color-blue {
-  color: #0bbadc;
-}
-.u-color-green {
-  color: #1dff96;
-}
 .c-account {
   &__profile {
     display: flex;
@@ -126,6 +130,24 @@ export default {
       bottom: 10%;
       right: 10%;
     }
+    &--details-cont {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding-top: 25px;
+    }
+    &--details {
+      text-align: center;
+      // width: 45%;
+      font-size: 15px;
+      color: #8c8c8c;
+      &-num {
+        display: block;
+        color: #4d4d4d;
+        font-size: 19px;
+        font-weight: bold;
+      }
+    }
     &--text-cont {
       padding-left: 40px;
     }
@@ -144,6 +166,8 @@ export default {
       opacity: 0.8;
       color: #525252;
       font-size: 18px;
+      width: 72%;
+      padding-top: 10px;
     }
     &--label {
       margin-bottom: 5px;
@@ -154,6 +178,53 @@ export default {
       font-weight: 500;
       padding-top: 25px;
       padding-bottom: 10px;
+    }
+  }
+}
+@media screen and (max-width: 1500px) {
+  .c-account {
+    &__profile {
+      &--img-cont {
+        width: 178px;
+        height: 178px;
+      }
+      &--edit {
+        font-size: 15px;
+      }
+      &--img-cont {
+        position: relative;
+        width: 178px;
+        height: 178px;
+        border: 2px solid #fff;
+        border-radius: 50px;
+        flex-shrink: 0;
+      }
+      &--status {
+        border: 1px solid #fff;
+        width: 16px;
+        height: 16px;
+      }
+      &--details {
+        font-size: 14px;
+        &-num {
+          font-size: 15px;
+        }
+      }
+      &--name {
+        font-size: 16px;
+      }
+      &--username {
+        font-size: 14px;
+      }
+      &--description {
+        font-size: 15px;
+      }
+      &--summary {
+        font-size: 15px;
+      }
+      &--title {
+        font-size: 14px;
+      }
     }
   }
 }

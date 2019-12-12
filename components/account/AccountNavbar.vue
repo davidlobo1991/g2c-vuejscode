@@ -2,16 +2,25 @@
   <div class="c-account__navbar">
     <ul class="c-account__navbar--menu">
       <li class="c-account__navbar--item-active">
-        <a href="#" class="c-account__navbar--link">ACCOUNT</a>
+        <nuxt-link to="/account/profile" class="c-account__navbar--link">
+          ACCOUNT
+        </nuxt-link>
       </li>
       <li class="c-account__navbar--item">
-        <a href="#" class="c-account__navbar--link">CALENDAR</a>
+        <nuxt-link to="/account/profile" class="c-account__navbar--link">
+          CALENDAR
+        </nuxt-link>
       </li>
       <li class="c-account__navbar--item">
-        <a href="#" class="c-account__navbar--link">ACTIVITY</a>
+        <nuxt-link to="/account/profile" class="c-account__navbar--link">
+          ACTIVITY
+        </nuxt-link>
+        {{ ActiveTab }}
       </li>
       <li class="c-account__navbar--item">
-        <a href="#" class="c-account__navbar--link">SETTINGS</a>
+        <nuxt-link to="/account/settings" class="c-account__navbar--link">
+          SETTINGS
+        </nuxt-link>
       </li>
     </ul>
   </div>
@@ -19,7 +28,10 @@
 
 <script>
 export default {
-  name: 'AccountNavbar'
+  name: 'AccountNavbar',
+  data: () => ({
+    ActiveTab: 'X'
+  })
 }
 </script>
 
@@ -57,6 +69,13 @@ export default {
       &:hover {
         color: rgba(82, 82, 82, 0.8);
       }
+    }
+  }
+}
+@media screen and (max-width: 1500px) {
+  .c-account {
+    &__navbar {
+      font-size: 15px;
     }
   }
 }

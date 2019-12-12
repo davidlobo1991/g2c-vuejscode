@@ -1,47 +1,37 @@
 <template>
-  <div class="o-wrapper o-wrapper--xl u-pdt-xxxl c-info__wrapper">
-    <div class="o-layout o-layout--gutter-l ">
-      <div
-        class="o-layout__item u-1/1 u-1/3@m u-flex u-flex-center u-pdt-h u-pdt-custom"
-      >
-        <navigation-steps ref="NavigationSteps" />
+  <div class="c-register__wrapper">
+    <div class="c-register__left-side">
+      <navigation-steps ref="NavigationSteps" />
+    </div>
+    <div class="c-register__right-side">
+      <div v-show="1 === step">
+        <RegisterEmail />
       </div>
-      <div
-        class="o-layout__item u-1/1 u-2/3@m u-pdt-h u-pdt-custom u-align-left "
-      >
-        <div v-show="1 === step">
-          <TwelveWordsGenerator
-            ref="TwelveWordsGenerator"
-            @CheckResponsability="getCheck"
-          />
-        </div>
-        <div v-show="2 === step">
-          <TelephoneVerify />
-        </div>
-        <div v-show="3 === step">
-          <PinVerify />
-        </div>
-        <div class="c-info__button u-align-right">
-          <v-btn
-            v-bind:disabled="responsabilityCheck ? false : true"
-            v-if="step != 3"
-            @click="navigationNext"
-            depressed
-            x-large
-            color="primary"
-          >
-            Next
-          </v-btn>
-        </div>
+      <div v-show="2 === step">
+        <TwelveWordsGenerator
+          ref="TwelveWordsGenerator"
+          @CheckResponsability="getCheck"
+        />
+      </div>
+      <div v-show="3 === step">
+        <TelephoneVerify />
+      </div>
+      <div v-show="4 === step">
+        <PinVerify />
+      </div>
+      <div class="c-info__button u-align-right">
+        <v-btn
+          v-bind:disabled="responsabilityCheck ? false : true"
+          v-if="step != 4"
+          @click="navigationNext"
+          depressed
+          x-large
+          color="primary"
+        >
+          Next
+        </v-btn>
       </div>
     </div>
-    <!-- <button @click="navigationPrevious">
-      Previous
-    </button>
-    <button @click="navigationNext">
-      Next
-    </button>
-    {{ step }} -->
   </div>
 </template>
 
@@ -50,6 +40,7 @@ import NavigationSteps from '~/components/register_process/NavigationSteps'
 import TwelveWordsGenerator from '~/components/register_process/TwelveWordsGenerator'
 import TelephoneVerify from '~/components/register_process/TelephoneVerify'
 import PinVerify from '~/components/register_process/PinVerify'
+import RegisterEmail from '~/components/register_process/RegisterEmail'
 
 export default {
   name: 'Login',
@@ -57,13 +48,14 @@ export default {
     NavigationSteps,
     TwelveWordsGenerator,
     TelephoneVerify,
-    PinVerify
+    PinVerify,
+    RegisterEmail
   },
   props: {},
   data() {
     return {
       step: 1,
-      responsabilityCheck: false,
+      responsabilityCheck: true,
       // pinInputHeight: '64px',
       viewportWidth: 0
     }
@@ -116,6 +108,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.c-register {
+  &__wrapper {
+    display: flex;
+    width: 100%;
+  }
+  &__left-side {
+    width: 35%;
+    background-color: #f5f8fd;
+    box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.1);
+    padding-top: 5%;
+    display: flex;
+    justify-content: center;
+  }
+  &__right-side {
+    width: 65%;
+    padding-top: 5%;
+  }
+}
 .c-info {
   &__button {
     padding-right: var(--space-8xh);

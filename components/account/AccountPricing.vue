@@ -43,14 +43,14 @@
           Request Connection
         </div>
         <v-text-field
-          v-bind:disabled="IsInputActive ? true : false"
+          v-bind:disabled="IsInputActive ? false : true"
           v-model="connectionPrice"
           class="c-pricing--input"
           filled
           rounded
           dense
           single-line
-          prefix="$"
+          suffix="$"
         >
         </v-text-field>
       </div>
@@ -59,14 +59,14 @@
           Message
         </div>
         <v-text-field
-          v-bind:disabled="IsInputActive ? true : false"
+          v-bind:disabled="IsInputActive ? false : true"
           v-model="messagePrice"
           class="c-pricing--input"
           filled
           rounded
           dense
           single-line
-          prefix="$"
+          suffix="$"
         >
         </v-text-field>
       </div>
@@ -75,14 +75,14 @@
           eMeeting Deposit
         </div>
         <v-text-field
-          v-bind:disabled="IsInputActive ? true : false"
+          v-bind:disabled="IsInputActive ? false : true"
           v-model="depositPrice"
           class="c-pricing--input"
           filled
           rounded
           dense
           single-line
-          prefix="$"
+          suffix="$"
         >
         </v-text-field>
       </div>
@@ -91,19 +91,19 @@
           eMeeting Price/Minute
         </div>
         <v-text-field
-          v-bind:disabled="IsInputActive ? true : false"
+          v-bind:disabled="IsInputActive ? false : true"
           v-model="emeetingPrice"
           class="c-pricing--input"
           filled
           rounded
           dense
           single-line
-          prefix="$"
+          suffix="$"
         >
         </v-text-field>
       </div>
       <v-btn
-        v-bind:disabled="IsInputActive ? true : false"
+        v-bind:disabled="IsInputActive ? false : true"
         large
         color="primary"
         class="c-pricing--save-btn"

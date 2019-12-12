@@ -9,10 +9,9 @@
         <v-select
           :items="items"
           class="c-account__stats--lastmonth"
-          label="Last month"
           color="#fff"
           item-color="#fff"
-          light
+          dark
         >
         </v-select>
       </div>
@@ -55,6 +54,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.u-color-blue {
+  color: #0bbadc;
+}
+.u-color-green {
+  color: #1dff96;
+}
 .c-account {
   &__stats {
     min-height: 367px;
@@ -87,16 +92,13 @@ export default {
       font-weight: 500;
       padding-bottom: 35px;
     }
-    &--lastmonth-cont {
-      max-width: 90px;
+    &--lastmonth {
+      max-width: 130px;
     }
     &--lastmonth.v-text-field > .v-input__control > .v-input__slot:before {
       border-style: none;
     }
     &--lastmonth.v-text-field > .v-input__control > .v-input__slot:after {
-      border-style: none;
-    }
-    &--lastmonth .v-input__control {
       border-style: none;
     }
     &--balance-cont {

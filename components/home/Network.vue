@@ -72,7 +72,7 @@
             <div class="c-home__cards__card--details-cont">
               <div class="c-home__cards__card--details">
                 <span class="c-home__cards__card--details-num">210</span>
-                Connexions
+                Connections
               </div>
               <div class="c-home__cards__card--details">
                 <span class="c-home__cards__card--details-num">176</span>
@@ -104,7 +104,7 @@
             <div class="c-home__cards__card--details-cont">
               <div class="c-home__cards__card--details">
                 <span class="c-home__cards__card--details-num">210</span>
-                Connexions
+                Connections
               </div>
               <div class="c-home__cards__card--details">
                 <span class="c-home__cards__card--details-num">176</span>
@@ -140,7 +140,7 @@
             <div class="c-home__cards__card--details-cont">
               <div class="c-home__cards__card--details">
                 <span class="c-home__cards__card--details-num">210</span>
-                Connexions
+                Connections
               </div>
               <div class="c-home__cards__card--details">
                 <span class="c-home__cards__card--details-num">176</span>
@@ -176,7 +176,7 @@
             <div class="c-home__cards__card--details-cont">
               <div class="c-home__cards__card--details">
                 <span class="c-home__cards__card--details-num">210</span>
-                Connexions
+                Connections
               </div>
               <div class="c-home__cards__card--details">
                 <span class="c-home__cards__card--details-num">176</span>
@@ -207,7 +207,7 @@
             <div class="c-home__cards__card--details-cont">
               <div class="c-home__cards__card--details">
                 <span class="c-home__cards__card--details-num">210</span>
-                Connexions
+                Connections
               </div>
               <div class="c-home__cards__card--details">
                 <span class="c-home__cards__card--details-num">176</span>
@@ -243,7 +243,7 @@
             <div class="c-home__cards__card--details-cont">
               <div class="c-home__cards__card--details">
                 <span class="c-home__cards__card--details-num">210</span>
-                Connexions
+                Connections
               </div>
               <div class="c-home__cards__card--details">
                 <span class="c-home__cards__card--details-num">176</span>
@@ -279,7 +279,7 @@
             <div class="c-home__cards__card--details-cont">
               <div class="c-home__cards__card--details">
                 <span class="c-home__cards__card--details-num">210</span>
-                Connexions
+                Connections
               </div>
               <div class="c-home__cards__card--details">
                 <span class="c-home__cards__card--details-num">176</span>
@@ -315,7 +315,7 @@
             <div class="c-home__cards__card--details-cont">
               <div class="c-home__cards__card--details">
                 <span class="c-home__cards__card--details-num">210</span>
-                Connexions
+                Connections
               </div>
               <div class="c-home__cards__card--details">
                 <span class="c-home__cards__card--details-num">176</span>
@@ -351,7 +351,7 @@
             <div class="c-home__cards__card--details-cont">
               <div class="c-home__cards__card--details">
                 <span class="c-home__cards__card--details-num">210</span>
-                Connexions
+                Connections
               </div>
               <div class="c-home__cards__card--details">
                 <span class="c-home__cards__card--details-num">176</span>
@@ -387,7 +387,7 @@
             <div class="c-home__cards__card--details-cont">
               <div class="c-home__cards__card--details">
                 <span class="c-home__cards__card--details-num">210</span>
-                Connexions
+                Connections
               </div>
               <div class="c-home__cards__card--details">
                 <span class="c-home__cards__card--details-num">176</span>
@@ -423,7 +423,7 @@
             <div class="c-home__cards__card--details-cont">
               <div class="c-home__cards__card--details">
                 <span class="c-home__cards__card--details-num">210</span>
-                Connexions
+                Connections
               </div>
               <div class="c-home__cards__card--details">
                 <span class="c-home__cards__card--details-num">176</span>
@@ -582,6 +582,7 @@ export default {
         justify-content: space-between;
         padding: 0 24px;
         width: 100%;
+        padding-bottom: 7px;
       }
       &--details {
         text-align: center;

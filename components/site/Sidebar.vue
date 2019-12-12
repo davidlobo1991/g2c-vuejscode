@@ -1,59 +1,61 @@
 <template>
   <section class="c-sidebar">
     <div class="c-sidebar__wrapper">
-      <nuxt-link
-        :src="require('@/assets/svg/networksv_logo_white.svg')"
-        tag="img"
-        to="/home"
-        class="c-sidebar__logo"
-      />
-      <div class="c-sidebar__profile--cont">
-        <div class="c-sidebar__profile--img-cont">
-          <nuxt-link
-            :src="require('@/assets/images/persona1.png')"
-            tag="img"
-            to="/account"
-            class="c-sidebar__profile--img"
-          />
-          <div class="c-sidebar__profile--status u-status--available"></div>
+      <div class="c-sidebar__fixed-cont">
+        <nuxt-link
+          :src="require('@/assets/svg/networksv_logo_white.svg')"
+          tag="img"
+          to="/home"
+          class="c-sidebar__logo"
+        />
+        <div class="c-sidebar__profile--cont">
+          <div class="c-sidebar__profile--img-cont">
+            <nuxt-link
+              :src="require('@/assets/images/persona1.png')"
+              tag="img"
+              to="/account/profile"
+              class="c-sidebar__profile--img"
+            />
+            <div class="c-sidebar__profile--status u-status--available"></div>
+          </div>
+          <div class="c-sidebar__profile--name">Jessica O'Malllie</div>
         </div>
-        <div class="c-sidebar__profile--name">Jessica O'Malllie</div>
+        <ul class="c-sidebar__menu--cont">
+          <li class="c-sidebar__menu--item-active">
+            <a href="" class="c-sidebar__menu--link">
+              <v-icon class="c-sidebar__menu--icon">
+                mdi-account-multiple
+              </v-icon>
+              Network
+            </a>
+          </li>
+          <li class="c-sidebar__menu--item">
+            <a href="" class="c-sidebar__menu--link">
+              <v-icon class="c-sidebar__menu--icon">
+                mdi-message-text
+              </v-icon>
+              Messages
+            </a>
+            <span class="c-sidebar__menu--notification">4</span>
+          </li>
+          <li class="c-sidebar__menu--item">
+            <a href="" class="c-sidebar__menu--link">
+              <v-icon class="c-sidebar__menu--icon">
+                mdi-bookmark-multiple
+              </v-icon>
+              eMeetings
+            </a>
+          </li>
+          <li class="c-sidebar__menu--item">
+            <a href="" class="c-sidebar__menu--link">
+              <v-icon class="c-sidebar__menu--icon">
+                mdi-forum
+              </v-icon>
+              Forum
+            </a>
+          </li>
+        </ul>
       </div>
-      <ul class="c-sidebar__menu--cont">
-        <li class="c-sidebar__menu--item-active">
-          <a href="" class="c-sidebar__menu--link">
-            <v-icon class="c-sidebar__menu--icon">
-              mdi-account-multiple
-            </v-icon>
-            Network
-          </a>
-        </li>
-        <li class="c-sidebar__menu--item">
-          <a href="" class="c-sidebar__menu--link">
-            <v-icon class="c-sidebar__menu--icon">
-              mdi-message-text
-            </v-icon>
-            Messages
-          </a>
-          <span class="c-sidebar__menu--notification">4</span>
-        </li>
-        <li class="c-sidebar__menu--item">
-          <a href="" class="c-sidebar__menu--link">
-            <v-icon class="c-sidebar__menu--icon">
-              mdi-bookmark-multiple
-            </v-icon>
-            eMeetings
-          </a>
-        </li>
-        <li class="c-sidebar__menu--item">
-          <a href="" class="c-sidebar__menu--link">
-            <v-icon class="c-sidebar__menu--icon">
-              mdi-forum
-            </v-icon>
-            Forum
-          </a>
-        </li>
-      </ul>
     </div>
   </section>
 </template>
@@ -87,10 +89,15 @@ export default {
   background-color: #1f2531;
   min-width: 14%;
   &__wrapper {
-    display: flex;
-    flex-flow: column;
-    padding-top: 32px;
-    align-items: center;
+    // display: flex;
+    // flex-flow: column;
+    // align-items: center;
+    padding: 32px 15px;
+  }
+  &__fixed-cont {
+    min-width: 12%;
+    position: fixed;
+    text-align: center;
   }
   &__logo {
     padding-bottom: 50px;
@@ -132,7 +139,7 @@ export default {
     &--cont {
       color: #8c8c8c;
       padding: 0;
-      width: 85%;
+      width: 100%;
     }
     &--item {
       padding-bottom: 35px;
@@ -197,6 +204,11 @@ export default {
         bottom: 6%;
         right: 6%;
         border: 1px solid #fff;
+      }
+    }
+    &__menu {
+      &--icon {
+        font-size: 17px;
       }
     }
   }

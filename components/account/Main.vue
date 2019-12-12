@@ -1,6 +1,6 @@
 <template>
   <section class="c-account">
-    <AccountNavbar />
+    <AccountNavbar :ActiveTab="Account" />
     <div class="c-account__wrapper-section">
       <div class="c-account__left-cont">
         <AccountProfile />
@@ -46,11 +46,11 @@ export default {
     display: flex;
   }
   &__right-cont {
-    width: 50%;
+    width: 40%;
     margin-left: 12px;
   }
   &__left-cont {
-    width: 50%;
+    width: 60%;
     margin-right: 12px;
   }
 }
