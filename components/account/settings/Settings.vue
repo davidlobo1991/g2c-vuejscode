@@ -1,6 +1,6 @@
 <template>
   <section class="c-settings">
-    <AccountNavbar />
+    <AccountNavbar active-tab="Settings" />
     <div class="c-settings__wrapper">
       <div class="c-settings__box">
         <div class="c-settings__title">

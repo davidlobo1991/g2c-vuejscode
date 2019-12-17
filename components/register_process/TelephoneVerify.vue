@@ -11,21 +11,34 @@
         :items="prefixes"
         :rules="[rules.required, rules.counter]"
         outlined
-        height="64px"
+        height="90px"
         label="Country"
-        class="o-layout__item u-1/1 u-1/4@m u-pdr-s c-info__input--prefix"
+        class="o-layout__item u-1/1 u-1/4@m u-pdr-s c-info__input--prefix c-test"
       ></v-select>
       <v-text-field
         :rules="[rules.required, rules.counter]"
         outlined
-        height="64px"
-        class="o-layout__item u-1/1 u-1/4@m c-info__input--phone"
+        height="90px"
+        class="o-layout__item u-1/1 u-1/4@m c-info__input--phone c-test"
         label="Phone number"
         type="number"
       ></v-text-field>
     </div>
     <div class="c-info__responsability">
-      <div class="c-info__responsability--title">I'm a UK resident</div>
+      <div class="c-info__responsability--title">
+        I'm a UK resident
+        <v-tooltip right color="#25273A" max-width="270px">
+          <template v-slot:activator="{ on }">
+            <v-icon v-on="on" class="c-info__more-info">
+              mdi-help-circle
+            </v-icon>
+          </template>
+          <span>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla id
+            rutrum urna, et sodales arcu.
+          </span>
+        </v-tooltip>
+      </div>
       <div class="u-flex u-flex-between u-flex-middle">
         <div class="c-info__responsability--text">
           I'll let NetworkSV (a UK Company) charge me VAT.
@@ -43,7 +56,7 @@ export default {
   name: 'TelephoneVerify',
   data() {
     return {
-      prefixes: ['Spain (+34)', 'Spain (+44)', 'Spain (+33)'],
+      prefixes: ['(+34) Spain', '(+44) United Kingdom', '(+33) France'],
       rules: {
         required: (value) => !!value || 'Required'
         // counter: (value) => value.length <= 9 || 'Wrong phone number'
@@ -53,27 +66,58 @@ export default {
 }
 </script>
 
+<style lang="scss">
+.c-info__input--prefix .v-input__control .v-input__slot {
+  font-size: 20px;
+  line-height: 23px !important;
+}
+.c-info__input--prefix
+  .v-input__control
+  .v-input__slot
+  .v-select__slot
+  .v-select__selections {
+  line-height: 23px;
+}
+.c-info__input--prefix
+  .v-input__control
+  .v-input__slot
+  .v-select__slot
+  .v-label {
+  font-size: 23px;
+  top: 34px !important;
+}
+.c-info__input--prefix
+  .v-input__control
+  .v-input__slot
+  .v-select__slot
+  .v-label--active {
+  transform: translateY(-40px) scale(0.75) !important;
+}
+.c-info__input--phone .v-input__control .v-input__slot {
+  font-size: 20px;
+  line-height: 23px !important;
+}
+.c-info__input--phone
+  .v-input__control
+  .v-input__slot
+  .v-text-field__slot
+  .v-label {
+  font-size: 23px;
+  top: 34px !important;
+}
+.c-info__input--phone
+  .v-input__control
+  .v-input__slot
+  .v-text-field__slot
+  .v-label--active {
+  transform: translateY(-40px) scale(0.75) !important;
+}
+</style>
 <style lang="scss" scoped>
-// .c-info {
-//   padding-left: 120px;
-//   padding-right: 120px;
-//   &__text {
-//     padding-top: 30px;
-//     color: #4d4d4d;
-//     font-family: Roboto;
-//     font-size: 16px;
-//     line-height: 21px;
-//   }
-//   &__input--prefix {
-//     max-width: 148px;
-//   }
-// }
 .c-info {
   color: #4d4d4d;
-  // padding-left: 120px;
-  // padding-right: 120px;
   font-size: 22px;
-  width: 50%;
+  width: 45%;
   margin: 0 auto;
   &__text {
     color: #4d4d4d;
@@ -84,7 +128,7 @@ export default {
       display: block;
       font-size: 25px;
       font-weight: 500;
-      padding-bottom: 40px;
+      padding-bottom: 10px;
     }
     &--highlighted {
       display: block;
@@ -95,6 +139,7 @@ export default {
   &__responsability {
     &--title {
       font-weight: 500;
+      padding-right: 15px;
     }
     &--toggle {
       transform: scale(1.2);
@@ -102,15 +147,22 @@ export default {
   }
   &__phone-cont {
     padding-top: 40px;
-    justify-content: center;
+    padding-bottom: 40px;
   }
   &__input {
     &--prefix {
-      max-width: 200px;
+      max-width: 230px;
     }
     &--phone {
-      max-width: 275px;
+      max-width: 325px;
     }
+  }
+  &__more-info {
+    color: #e2edfa;
+    background-color: #0087ff;
+    border-radius: 50px;
+    height: 20px;
+    width: 20px;
   }
 }
 @media screen and (max-width: 899px) {

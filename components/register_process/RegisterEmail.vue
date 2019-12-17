@@ -7,7 +7,7 @@
       Text explaining why do we need your email. We won't spam.
     </div>
     <div class="c-info__input-cont">
-      <v-text-field label="Email" outlined class="c-info__input">
+      <v-text-field label="Email" outlined height="90px" class="c-info__input">
       </v-text-field>
     </div>
   </div>
@@ -19,6 +19,22 @@ export default {
 }
 </script>
 
+<style>
+.c-info__input .v-input__control .v-input__slot {
+  font-size: 30px;
+}
+.c-info__input .v-input__control .v-input__slot .v-text-field__slot .v-label {
+  font-size: 23px;
+  top: 34px !important;
+}
+.c-info__input
+  .v-input__control
+  .v-input__slot
+  .v-text-field__slot
+  .v-label--active {
+  transform: translateY(-38px) scale(0.75) !important;
+}
+</style>
 <style lang="scss" scoped>
 .v-text-field__slot {
   font-size: 80px !important;
@@ -35,11 +51,11 @@ export default {
       display: block;
       font-size: 25px;
       font-weight: 500;
-      padding-bottom: 40px;
+      padding-bottom: 10px;
     }
   }
   &__input-cont {
-    max-width: 40%;
+    max-width: 46%;
     margin: 0 auto;
     padding-top: 40px;
   }

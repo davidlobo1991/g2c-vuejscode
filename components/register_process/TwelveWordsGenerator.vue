@@ -16,11 +16,13 @@
       sudden awkward slam gown vapor change meat cable hover section cart
     </div>
     <div class="c-info__responsability">
-      <div class="c-info__responsability--title">Responsability Disclaimer</div>
+      <div class="c-info__responsability--title">
+        Responsability Disclaimer
+      </div>
       <div class="u-flex u-flex-between u-flex-middle">
         <div class="c-info__responsability--text">
-          I have writen down these 12 words and I am resposable to keep them in
-          a safe place.
+          I have writen down these 12 words and I am resposible to keeping them
+          in a safe place.
         </div>
         <div class="c-info__responsability--toggle">
           <v-switch v-on:change="acceptedCheck" color="#376EFA"></v-switch>
@@ -81,8 +83,8 @@ export default {
   &__responsability {
     // color: #4d4d4d;
     // font-family: Roboto;
-    padding-left: 120px;
-    padding-right: 120px;
+    width: 95%;
+    margin: 00 auto;
     &--title {
       font-weight: 500;
     }

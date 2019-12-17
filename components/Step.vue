@@ -19,14 +19,17 @@
       <div v-show="4 === step">
         <PinVerify />
       </div>
-      <div class="c-info__button u-align-right">
+      <div :style="cssProps" class="c-info__button-cont u-align-right">
         <v-btn
-          v-bind:disabled="responsabilityCheck ? false : true"
+          v-bind:disabled="
+            responsabilityCheck == false && step == 2 ? true : false
+          "
           v-if="step != 4"
           @click="navigationNext"
           depressed
           x-large
           color="primary"
+          class="c-info__button"
         >
           Next
         </v-btn>
@@ -55,9 +58,17 @@ export default {
   data() {
     return {
       step: 1,
-      responsabilityCheck: true,
+      responsabilityCheck: false,
       // pinInputHeight: '64px',
-      viewportWidth: 0
+      viewportWidth: 0,
+      variableWidth: 27
+    }
+  },
+  computed: {
+    cssProps() {
+      return {
+        '--variable-wrapper': this.variableWidth + '%'
+      }
     }
   },
   watch: {
@@ -65,6 +76,12 @@ export default {
       this.$refs.NavigationSteps.setStep(value)
 
       this.$emit('enviarAlPadre', value)
+
+      if (value === 2) {
+        this.variableWidth = 12
+      } else {
+        this.variableWidth = 27
+      }
     },
     viewportWidth(value) {
       if (this.viewportWidth < 900) {
@@ -107,6 +124,15 @@ export default {
 }
 </script>
 
+<style>
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+</style>
 <style lang="scss" scoped>
 .c-register {
   &__wrapper {
@@ -124,11 +150,19 @@ export default {
   &__right-side {
     width: 65%;
     padding-top: 5%;
+    width: 60%;
+    margin: 0 auto;
   }
 }
 .c-info {
+  &__button-cont {
+    // padding-right: 27%;
+    padding-right: var(--variable-wrapper);
+  }
   &__button {
-    padding-right: var(--space-8xh);
+    width: 180px;
+    height: 80px !important;
+    font-size: 21px;
   }
 }
 @media screen and (max-width: 899px) {
@@ -139,7 +173,7 @@ export default {
     &__wrapper {
       padding: 28px 0 0 0 !important;
     }
-    &__button {
+    &__button-cont {
       padding-right: 0;
       padding-top: 35px;
       text-align: center !important;

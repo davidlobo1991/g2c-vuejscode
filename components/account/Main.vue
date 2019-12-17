@@ -1,6 +1,6 @@
 <template>
   <section class="c-account">
-    <AccountNavbar :ActiveTab="Account" />
+    <AccountNavbar active-tab="Account" />
     <div class="c-account__wrapper-section">
       <div class="c-account__left-cont">
         <AccountProfile />

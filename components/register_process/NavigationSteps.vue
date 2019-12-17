@@ -18,21 +18,33 @@
           <div v-if="step >= 1" class="c-step__steps">
             <v-icon v-if="step < 2">mdi-checkbox-blank-circle-outline</v-icon>
             <v-icon v-if="step >= 2">mdi-check-circle-outline</v-icon>
-            <span v-bind:class="{ 'c-step__steps--current': step == 1 }">
+            <span
+              v-bind:class="{
+                'c-step__steps--current': step == 1
+              }"
+            >
               Email
             </span>
           </div>
           <div v-if="step >= 2" class="c-step__steps">
             <v-icon v-if="step < 3">mdi-checkbox-blank-circle-outline</v-icon>
             <v-icon v-if="step >= 3">mdi-check-circle-outline</v-icon>
-            <span v-bind:class="{ 'c-step__steps--current': step == 2 }">
+            <span
+              v-bind:class="{
+                'c-step__steps--current': step == 2
+              }"
+            >
               Security Key
             </span>
           </div>
           <div v-if="step >= 3" class="c-step__steps">
             <v-icon>mdi-checkbox-blank-circle-outline</v-icon>
             <!-- <v-icon v-if="step >= 3">mdi-check-circle-outline</v-icon> -->
-            <span v-bind:class="{ 'c-step__steps--current': step >= 3 }">
+            <span
+              v-bind:class="{
+                'c-step__steps--current': step >= 3
+              }"
+            >
               Phone Verification
             </span>
           </div>

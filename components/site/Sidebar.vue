@@ -18,7 +18,9 @@
             />
             <div class="c-sidebar__profile--status u-status--available"></div>
           </div>
-          <div class="c-sidebar__profile--name">Jessica O'Malllie</div>
+          <div class="c-sidebar__profile--name">
+            Jessica O'Malllie
+          </div>
         </div>
         <ul class="c-sidebar__menu--cont">
           <li class="c-sidebar__menu--item-active">

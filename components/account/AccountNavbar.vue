@@ -1,23 +1,42 @@
 <template>
   <div class="c-account__navbar">
     <ul class="c-account__navbar--menu">
-      <li class="c-account__navbar--item-active">
+      <li
+        v-bind:class="
+          ActiveTab == 'Account' ? 'c-account__navbar--item-active' : ''
+        "
+        class="c-account__navbar--item"
+      >
         <nuxt-link to="/account/profile" class="c-account__navbar--link">
           ACCOUNT
         </nuxt-link>
       </li>
-      <li class="c-account__navbar--item">
+      <li
+        v-bind:class="
+          ActiveTab == 'Calendar' ? 'c-account__navbar--item-active' : ''
+        "
+        class="c-account__navbar--item"
+      >
         <nuxt-link to="/account/profile" class="c-account__navbar--link">
           CALENDAR
         </nuxt-link>
       </li>
-      <li class="c-account__navbar--item">
+      <li
+        v-bind:class="
+          ActiveTab == 'Activity' ? 'c-account__navbar--item-active' : ''
+        "
+        class="c-account__navbar--item"
+      >
         <nuxt-link to="/account/profile" class="c-account__navbar--link">
           ACTIVITY
         </nuxt-link>
-        {{ ActiveTab }}
       </li>
-      <li class="c-account__navbar--item">
+      <li
+        v-bind:class="
+          ActiveTab == 'Settings' ? 'c-account__navbar--item-active' : ''
+        "
+        class="c-account__navbar--item"
+      >
         <nuxt-link to="/account/settings" class="c-account__navbar--link">
           SETTINGS
         </nuxt-link>
@@ -29,9 +48,11 @@
 <script>
 export default {
   name: 'AccountNavbar',
-  data: () => ({
-    ActiveTab: 'X'
-  })
+  props: {
+    activeTab: {
+      type: String
+    }
+  }
 }
 </script>
 
@@ -52,12 +73,10 @@ export default {
     }
     &--item {
       display: inline-block;
-      padding-right: 45px;
+      margin-right: 45px;
       &-active {
-        display: inline-block;
         color: #0087ff;
         border-bottom: 2px solid #0087ff;
-        margin-right: 45px;
         &:hover .c-account__navbar--link {
           color: #0087ff;
         }
