@@ -1,7 +1,8 @@
 <template>
   <div class="c-block">
     <div class="c-block__wrapper">
-      <div class="c-block__video">
+      <div v-if="viewportWidth > 768" class="c-block__video">
+        {{ viewportWidth }}
         <ContentSide />
       </div>
       <div class="c-block__login">
