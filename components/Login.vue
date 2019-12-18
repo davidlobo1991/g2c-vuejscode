@@ -71,22 +71,21 @@ export default {
     width: 32%;
   }
 }
-@media screen and (max-width: 899px) {
-  .u-custom-wrapper {
-    padding: 0;
-  }
+@media screen and (max-width: 768px) {
   .c-block {
-    height: 100%;
-    flex-flow: column-reverse;
-    padding-bottom: 0;
-    &__login {
-      height: 100%;
-      padding-bottom: 0;
+    &__wrapper {
+      flex-flow: column-reverse;
+      height: auto;
     }
     &__video {
-      border-right: none;
-      border-bottom: none;
-      padding-bottom: 0;
+      width: 100%;
+      box-shadow: unset;
+    }
+    &__login {
+      width: 100%;
+      -webkit-box-shadow: 0px 0px 14px 2px rgba(0, 0, 0, 0.19);
+      -moz-box-shadow: 0px 0px 14px 2px rgba(0, 0, 0, 0.19);
+      box-shadow: 0px 0px 14px 2px rgba(0, 0, 0, 0.19);
     }
   }
 }

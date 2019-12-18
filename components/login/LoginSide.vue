@@ -53,7 +53,10 @@
             </a>
           </p>
         </div>
-        <div v-show="!createAccountIsVisible && !loginIsVisible">
+        <div
+          v-show="!createAccountIsVisible && !loginIsVisible"
+          class="c-login__main-options"
+        >
           <div class="u-pdb-s">
             <v-btn
               @click="showCreateUser"
@@ -138,6 +141,86 @@ export default {
   .v-label--active {
   transform: translateY(-30px) scale(0.75) !important;
 }
+@media screen and (max-width: 1500px) {
+  .c-login__cont--input .v-input__control .v-input__slot {
+    font-size: 21px;
+    min-height: 70px;
+  }
+  .c-login__cont--input
+    .v-input__control
+    .v-input__slot
+    .v-text-field__slot
+    .v-label {
+    font-size: 21px;
+    top: 26px !important;
+  }
+  .c-login__cont--input
+    .v-input__control
+    .v-input__slot
+    .v-text-field__slot
+    .v-label--active {
+    transform: translateY(-30px) scale(0.75) !important;
+  }
+  .c-login__cont--textarea .v-input__control .v-input__slot {
+    font-size: 21px;
+    min-height: 70px;
+  }
+  .c-login__cont--textarea
+    .v-input__control
+    .v-input__slot
+    .v-text-field__slot
+    .v-label {
+    font-size: 21px;
+    top: 26px !important;
+  }
+  .c-login__cont--textarea
+    .v-input__control
+    .v-input__slot
+    .v-text-field__slot
+    .v-label--active {
+    transform: translateY(-30px) scale(0.75) !important;
+  }
+}
+@media screen and (max-width: 992px) {
+  .c-login__cont--input .v-input__control .v-input__slot {
+    font-size: 18px;
+    min-height: 55px;
+  }
+  .c-login__cont--input
+    .v-input__control
+    .v-input__slot
+    .v-text-field__slot
+    .v-label {
+    font-size: 18px;
+    top: 18px !important;
+  }
+  .c-login__cont--input
+    .v-input__control
+    .v-input__slot
+    .v-text-field__slot
+    .v-label--active {
+    transform: translateY(-25px) scale(0.75) !important;
+  }
+  .c-login__cont--textarea .v-input__control .v-input__slot {
+    font-size: 21px;
+    min-height: 70px;
+  }
+  .c-login__cont--textarea
+    .v-input__control
+    .v-input__slot
+    .v-text-field__slot
+    .v-label {
+    font-size: 21px;
+    top: 26px !important;
+  }
+  .c-login__cont--textarea
+    .v-input__control
+    .v-input__slot
+    .v-text-field__slot
+    .v-label--active {
+    transform: translateY(-30px) scale(0.75) !important;
+  }
+}
 </style>
 <style lang="scss" scoped>
 .v-btn {
@@ -155,7 +238,7 @@ export default {
   justify-content: center;
   height: 100%;
   &__wrapper {
-    padding-top: 100px;
+    padding-top: 80px;
     display: flex;
     flex-flow: column;
     align-items: center;
@@ -169,7 +252,7 @@ export default {
     }
   }
   &__login-cont {
-    margin-top: 70px;
+    margin-top: 91px;
   }
   &__subtitle {
     padding-top: 20px;
@@ -195,12 +278,15 @@ export default {
     display: flex;
     align-items: center;
     flex-flow: column;
+
     &--input {
       width: 350px;
     }
+
     &--textarea {
       width: 350px;
     }
+
     &--link {
       color: #1976d2;
       cursor: pointer;
@@ -208,44 +294,76 @@ export default {
     }
   }
 }
+@media screen and (max-width: 1500px) {
+  .v-btn {
+    min-width: 300px !important;
+  }
+  .c-login {
+    &__logo {
+      width: 190px;
+    }
+    &__login-cont {
+      margin-top: 80px;
+    }
+    &__subtitle {
+      padding-top: 5px;
+    }
+    &__cont {
+      &--input {
+        width: 300px;
+      }
+    }
+  }
+}
 @media screen and (max-width: 1200px) {
   .v-btn {
-    min-width: 180px !important;
+    min-width: 240px !important;
+  }
+  .c-login {
+    &__cont {
+      &--input {
+        width: 240px;
+      }
+    }
   }
 }
 
-@media screen and (max-width: 899px) {
+@media screen and (max-width: 992px) {
   .v-btn {
-    min-width: 262px !important;
-  }
-  .u-custom-wrapper {
-    padding: 0;
+    min-width: 200px !important;
+    height: 55px !important;
+    font-size: 18px;
   }
   .c-login {
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
-    // height: 100%;
-    &__logo img {
-      width: 110px;
+    &__logo {
+      width: 150px;
+    }
+    &__login-cont {
+      margin-top: 73px;
     }
     &__subtitle {
-      font-size: 14px;
-      padding-top: 12px;
-      padding-bottom: 17px;
-    }
-    &__details {
-      padding: 0;
-      position: absolute;
-      bottom: 0;
+      font-size: 18px;
     }
     &__cont {
-      display: flex;
-      align-items: center;
-      flex-flow: column;
       &--input {
-        // padding-top: 113px;
-        // width: 262px;
-        // height: 56px;
+        width: 200px;
       }
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .v-btn {
+    min-width: 100% !important;
+  }
+  .c-login {
+    &__wrapper {
+      position: initial;
+      padding-top: 30px;
+      width: 100%;
+    }
+    &__login-cont {
+      margin-top: 20px;
+      width: 90%;
     }
   }
 }

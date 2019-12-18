@@ -1,7 +1,7 @@
 <template>
   <v-layout>
     <!-- <login title="Refineria"></login> -->
-    <Login></Login>
+    <Login />
   </v-layout>
 </template>
 
