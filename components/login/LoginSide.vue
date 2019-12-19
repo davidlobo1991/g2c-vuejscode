@@ -86,6 +86,14 @@ export default {
       loginIsVisible: false
     }
   },
+  watch: {
+    createAccountIsVisible(value) {
+      this.$emit('setAccountIsVisible', value)
+    },
+    loginIsVisible(value) {
+      this.$emit('setLoginIsVisible', value)
+    }
+  },
   methods: {
     showMenu() {
       this.createAccountIsVisible = false

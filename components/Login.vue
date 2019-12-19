@@ -1,9 +1,15 @@
 <template>
   <div class="c-block">
     <div class="c-block__wrapper">
-      <div v-if="viewportWidth > 768" class="c-block__video">
+      <div
+        v-if="
+          viewportWidth > 768 ||
+            (viewportWidth <= 768 && !createAccountIsVisible && !loginIsVisible)
+        "
+        class="c-block__video"
+      >
         {{ viewportWidth }}
-        <ContentSide />
+        <ContentSide @change="setAccountIsVisible" />
       </div>
       <div class="c-block__login">
         <LoginSide />
@@ -24,7 +30,9 @@ export default {
   },
   data() {
     return {
-      viewportWidth: 0
+      viewportWidth: 0,
+      createAccountIsVisible: true,
+      loginIsVisible: true
     }
   },
   beforeMount() {
@@ -42,6 +50,12 @@ export default {
   methods: {
     onWindowSizeChange() {
       this.viewportWidth = this.getWidth()
+    },
+    selocaltLoginIsVisible(value) {
+      this.loginIsVisible = value
+    },
+    setAccountIsVisible(value) {
+      this.createAccountIsVisible = value
     },
     getWidth() {
       return Math.max(
