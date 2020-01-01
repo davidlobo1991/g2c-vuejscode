@@ -7,7 +7,7 @@
       Text explaining why do we need your email. We won't spam.
     </div>
     <div class="c-info__input-cont">
-      <v-text-field label="Email" outlined height="90px" class="c-info__input">
+      <v-text-field label="Email" outlined class="c-info__input">
       </v-text-field>
     </div>
   </div>
@@ -22,6 +22,7 @@ export default {
 <style>
 .c-info__input .v-input__control .v-input__slot {
   font-size: 30px;
+  height: 90px;
 }
 .c-info__input .v-input__control .v-input__slot .v-text-field__slot .v-label {
   font-size: 23px;
@@ -33,6 +34,23 @@ export default {
   .v-text-field__slot
   .v-label--active {
   transform: translateY(-38px) scale(0.75) !important;
+}
+@media screen and (max-width: 768px) {
+  .c-info__input .v-input__control .v-input__slot {
+    font-size: 20px;
+    height: 46px;
+  }
+  .c-info__input .v-input__control .v-input__slot .v-text-field__slot .v-label {
+    font-size: 20px;
+    top: 20px !important;
+  }
+  .c-info__input
+    .v-input__control
+    .v-input__slot
+    .v-text-field__slot
+    .v-label--active {
+    transform: translateY(-25px) scale(0.75) !important;
+  }
 }
 </style>
 <style lang="scss" scoped>
@@ -52,6 +70,7 @@ export default {
       font-size: 25px;
       font-weight: 500;
       padding-bottom: 10px;
+      color: #202739;
     }
   }
   &__input-cont {
@@ -66,15 +85,22 @@ export default {
     }
   }
 }
-@media screen and (max-width: 899px) {
+@media screen and (max-width: 768px) {
   .c-info {
-    padding-left: 17px;
-    padding-right: 17px;
-    padding-top: 0 !important;
+    /*padding-left: 17px;*/
+    /*padding-right: 17px;*/
+    /*padding-top: 0 !important;*/
     &__text {
       padding-top: 0 !important;
       font-size: 12px;
       line-height: 15px;
+      &--title {
+        font-size: 18px;
+      }
+    }
+    &__input-cont {
+      max-width: none;
+      width: 100%;
     }
   }
 }

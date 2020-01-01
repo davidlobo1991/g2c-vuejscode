@@ -7,19 +7,36 @@
       <div class="c-login__subtitle">
         Global Knowledge Network
       </div>
-      <div class="c-login__login-cont">
-        <div v-show="createAccountIsVisible" class="u-mrb-s c-login__cont">
-          <v-text-field
-            :hide-details="true"
-            label="Username (Handle)"
-            outlined
-            class="c-login__cont--input u-mrb-s"
-          >
-          </v-text-field>
-          <div class="u-mrb-s">
-            <v-btn depressed color="#0885F6" dark to="/step-2" nuxt>
-              Next
-            </v-btn>
+      <div
+        v-bind:class="[
+          viewportWidth <= 768 && (!createAccountIsVisible || !loginIsVisible)
+            ? 'space-top'
+            : ''
+        ]"
+        class="c-login__login-cont"
+      >
+        <div
+          v-show="createAccountIsVisible"
+          v-bind:class="[
+            viewportWidth <= 768 && (createAccountIsVisible || loginIsVisible)
+              ? 'u-mrb-s'
+              : ''
+          ]"
+          class="c-login__cont"
+        >
+          <div class="full-width">
+            <v-text-field
+              :hide-details="true"
+              label="Username (Handle)"
+              outlined
+              class="c-login__cont--input u-mrb-s"
+            >
+            </v-text-field>
+            <div class="u-mrb-s c-login__cont--btn">
+              <v-btn depressed color="#0885F6" dark to="/step-2" nuxt>
+                Next
+              </v-btn>
+            </div>
           </div>
           <p class="c-login__details">
             Already a member?
@@ -28,23 +45,34 @@
             </a>
           </p>
         </div>
-        <div v-show="loginIsVisible" class="u-mrb-s c-login__cont">
-          <v-text-field
-            :hide-details="true"
-            label="Username (Handle)"
-            outlined
-            class="c-login__cont--input u-mrb-s"
-          >
-          </v-text-field>
-          <v-textarea
-            outlined
-            class="c-login__cont--textarea"
-            label="Security Key"
-          ></v-textarea>
-          <div class="u-mrb-s">
-            <v-btn depressed dark color="#0885F6">
-              Login
-            </v-btn>
+        <div
+          v-show="loginIsVisible"
+          v-bind:class="[
+            viewportWidth <= 768 && (createAccountIsVisible || loginIsVisible)
+              ? 'u-mrb-s space-top'
+              : ''
+          ]"
+          class="c-login__cont"
+        >
+          <div class="full-width">
+            <v-text-field
+              :hide-details="true"
+              label="Username (Handle)"
+              outlined
+              class="c-login__cont--input u-mrb-s"
+            >
+            </v-text-field>
+            <v-textarea
+              :hide-details="true"
+              outlined
+              class="c-login__cont--textarea u-mrb-s"
+              label="Security Key"
+            ></v-textarea>
+            <div class="u-mrb-s c-login__cont--btn">
+              <v-btn depressed dark color="#0885F6">
+                Login
+              </v-btn>
+            </div>
           </div>
           <p class="c-login__details">
             Don’t have an account?
@@ -88,10 +116,10 @@ export default {
   },
   watch: {
     createAccountIsVisible(value) {
-      this.$emit('setAccountIsVisible', value)
+      this.$emit('createAccountIsVisible', value)
     },
     loginIsVisible(value) {
-      this.$emit('setLoginIsVisible', value)
+      this.$emit('loginIsVisible', value)
     }
   },
   methods: {
@@ -229,8 +257,54 @@ export default {
     transform: translateY(-30px) scale(0.75) !important;
   }
 }
+@media screen and (max-width: 768px) {
+  .c-login__cont--input .v-input__control .v-input__slot {
+    font-size: 14px;
+    min-height: 46px;
+  }
+  .c-login__cont--input
+    .v-input__control
+    .v-input__slot
+    .v-text-field__slot
+    .v-label {
+    font-size: 14px;
+    top: 14px !important;
+  }
+  .c-login__cont--input
+    .v-input__control
+    .v-input__slot
+    .v-text-field__slot
+    .v-label--active {
+    transform: translateY(-23px) scale(0.75) !important;
+  }
+  .c-login__cont--textarea .v-input__control .v-input__slot {
+    font-size: 14px;
+    /*min-height: 70px;*/
+  }
+  .c-login__cont--textarea
+    .v-input__control
+    .v-input__slot
+    .v-text-field__slot
+    .v-label {
+    font-size: 14px;
+    top: 14px !important;
+  }
+  .c-login__cont--textarea
+    .v-input__control
+    .v-input__slot
+    .v-text-field__slot
+    .v-label--active {
+    transform: translateY(-20px) scale(0.75) !important;
+  }
+}
 </style>
 <style lang="scss" scoped>
+.full-width {
+  width: 100%;
+}
+.space-top {
+  margin-top: 80px !important;
+}
 .v-btn {
   text-transform: capitalize;
   min-width: 350px !important;
@@ -364,14 +438,40 @@ export default {
     min-width: 100% !important;
   }
   .c-login {
+    &__logo {
+      width: 110px;
+    }
     &__wrapper {
       position: initial;
       padding-top: 30px;
       width: 100%;
     }
+    &__subtitle {
+      font-size: 14px;
+    }
     &__login-cont {
       margin-top: 20px;
       width: 90%;
+      height: 80%;
+    }
+    &__cont {
+      display: flex;
+      flex-flow: column;
+      justify-content: space-between;
+      height: 100%;
+      &--input {
+        width: 100%;
+      }
+      &--btn {
+        width: 100%;
+      }
+      &--textarea {
+        width: auto;
+      }
+    }
+    &__details {
+      padding: 0;
+      font-size: 12px;
     }
   }
 }

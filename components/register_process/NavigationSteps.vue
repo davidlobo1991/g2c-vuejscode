@@ -128,10 +128,10 @@ export default {
 @media screen and (max-width: 899px) {
   .c-step {
     &__logo {
-      padding-bottom: 0;
+      /*padding-bottom: 0;*/
     }
     &__steps {
-      display: none;
+      /*display: none;*/
     }
   }
 }

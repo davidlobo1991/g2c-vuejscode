@@ -4,6 +4,14 @@
       <navigation-steps ref="NavigationSteps" />
     </div>
     <div class="c-register__right-side">
+      <div class="c-register__logo">
+        <!-- <img src="@/assets/svg/networksv_logo.svg" /> -->
+        <nuxt-link
+          :src="require('@/assets/svg/networksv_logo.svg')"
+          tag="img"
+          to="/"
+        />
+      </div>
       <div v-show="1 === step">
         <RegisterEmail />
       </div>
@@ -77,15 +85,21 @@ export default {
 
       this.$emit('enviarAlPadre', value)
 
-      if (value === 2) {
+      if (this.viewportWidth > 768 && value === 2) {
         this.variableWidth = 12
+      } else if (this.viewportWidth <= 768) {
+        this.variableWidth = 0
       } else {
         this.variableWidth = 27
       }
     },
     viewportWidth(value) {
-      if (this.viewportWidth < 900) {
-        this.pinInputHeight = '42px'
+      if (this.viewportWidth <= 768) {
+        this.variableWidth = 0
+      } else if (this.viewportWidth > 768 && value === 2) {
+        this.variableWidth = 12
+      } else {
+        this.variableWidth = 27
       }
     }
   },
@@ -139,6 +153,9 @@ input[type='number']::-webkit-outer-spin-button {
     display: flex;
     width: 100%;
   }
+  &__logo {
+    display: none;
+  }
   &__left-side {
     width: 35%;
     background-color: #f5f8fd;
@@ -148,7 +165,6 @@ input[type='number']::-webkit-outer-spin-button {
     justify-content: center;
   }
   &__right-side {
-    width: 65%;
     padding-top: 5%;
     width: 60%;
     margin: 0 auto;
@@ -166,20 +182,45 @@ input[type='number']::-webkit-outer-spin-button {
   }
 }
 @media screen and (max-width: 899px) {
-  .u-pdt-custom {
-    padding-top: 0 !important;
-  }
   .c-info {
     &__wrapper {
-      padding: 28px 0 0 0 !important;
+      /*padding: 28px 0 0 0 !important;*/
     }
     &__button-cont {
-      padding-right: 0;
-      padding-top: 35px;
-      text-align: center !important;
+      /*padding-right: 0;*/
+      /*padding-top: 35px;*/
+      /*text-align: center !important;*/
       & button {
-        min-width: 92% !important;
+        /*min-width: 92% !important;*/
       }
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .c-info {
+    &__wrapper {
+      /*padding: 28px 0 0 0 !important;*/
+    }
+    &__button {
+      width: 100%;
+      height: 56px !important;
+      font-size: 18px;
+    }
+  }
+  .c-register {
+    &__logo {
+      display: block;
+      text-align: center;
+      padding-bottom: 30px;
+      & img {
+        width: 110px;
+      }
+    }
+    &__left-side {
+      display: none;
+    }
+    &__right-side {
+      width: 90%;
     }
   }
 }

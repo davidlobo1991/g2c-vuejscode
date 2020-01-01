@@ -1,6 +1,13 @@
 <template>
   <div class="c-block">
-    <div class="c-block__wrapper">
+    <div
+      v-bind:class="[
+        viewportWidth <= 768 && (createAccountIsVisible || loginIsVisible)
+          ? 'full-height'
+          : ''
+      ]"
+      class="c-block__wrapper"
+    >
       <div
         v-if="
           viewportWidth > 768 ||
@@ -8,11 +15,20 @@
         "
         class="c-block__video"
       >
-        {{ viewportWidth }}
-        <ContentSide @change="setAccountIsVisible" />
+        <ContentSide />
       </div>
-      <div class="c-block__login">
-        <LoginSide />
+      <div
+        v-bind:class="[
+          viewportWidth <= 768 && (createAccountIsVisible || loginIsVisible)
+            ? 'full-height'
+            : ''
+        ]"
+        class="c-block__login"
+      >
+        <LoginSide
+          v-on:createAccountIsVisible="setCreateAccountIsVisible"
+          v-on:loginIsVisible="setLoginIsVisible"
+        />
       </div>
     </div>
   </div>
@@ -31,8 +47,8 @@ export default {
   data() {
     return {
       viewportWidth: 0,
-      createAccountIsVisible: true,
-      loginIsVisible: true
+      createAccountIsVisible: false,
+      loginIsVisible: false
     }
   },
   beforeMount() {
@@ -51,11 +67,11 @@ export default {
     onWindowSizeChange() {
       this.viewportWidth = this.getWidth()
     },
-    selocaltLoginIsVisible(value) {
-      this.loginIsVisible = value
-    },
-    setAccountIsVisible(value) {
+    setCreateAccountIsVisible(value) {
       this.createAccountIsVisible = value
+    },
+    setLoginIsVisible(value) {
+      this.loginIsVisible = value
     },
     getWidth() {
       return Math.max(
@@ -85,6 +101,9 @@ export default {
   &__login {
     width: 32%;
   }
+}
+.full-height {
+  height: 100% !important;
 }
 @media screen and (max-width: 768px) {
   .c-block {
