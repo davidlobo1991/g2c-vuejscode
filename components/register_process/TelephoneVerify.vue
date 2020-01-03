@@ -11,14 +11,12 @@
         :items="prefixes"
         :rules="[rules.required, rules.counter]"
         outlined
-        height="90px"
         label="Country"
-        class="o-layout__item u-1/1 u-1/4@m u-pdr-s c-info__input--prefix c-test"
+        class="o-layout__item u-1/1 u-1/4@m c-info__input--prefix c-test"
       ></v-select>
       <v-text-field
         :rules="[rules.required, rules.counter]"
         outlined
-        height="90px"
         class="o-layout__item u-1/1 u-1/4@m c-info__input--phone c-test"
         label="Phone number"
         type="number"
@@ -70,6 +68,7 @@ export default {
 .c-info__input--prefix .v-input__control .v-input__slot {
   font-size: 20px;
   line-height: 23px !important;
+  height: 90px;
 }
 .c-info__input--prefix
   .v-input__control
@@ -96,6 +95,7 @@ export default {
 .c-info__input--phone .v-input__control .v-input__slot {
   font-size: 20px;
   line-height: 23px !important;
+  height: 90px;
 }
 .c-info__input--phone
   .v-input__control
@@ -111,6 +111,55 @@ export default {
   .v-text-field__slot
   .v-label--active {
   transform: translateY(-40px) scale(0.75) !important;
+}
+@media screen and (max-width: 768px) {
+  .c-info__input--prefix .v-input__control .v-input__slot {
+    font-size: 17px;
+    /*line-height: 17px !important;*/
+    height: 46px;
+  }
+  .c-info__input--prefix
+    .v-input__control
+    .v-input__slot
+    .v-select__slot
+    .v-select__selections {
+    /*line-height: 23px;*/
+  }
+  .c-info__input--prefix
+    .v-input__control
+    .v-input__slot
+    .v-select__slot
+    .v-label {
+    font-size: 17px;
+    top: 18px !important;
+  }
+  .c-info__input--prefix
+    .v-input__control
+    .v-input__slot
+    .v-select__slot
+    .v-label--active {
+    transform: translateY(-25px) scale(0.75) !important;
+  }
+  .c-info__input--phone .v-input__control .v-input__slot {
+    height: 46px;
+    font-size: 17px;
+    /*line-height: 23px !important;*/
+  }
+  .c-info__input--phone
+    .v-input__control
+    .v-input__slot
+    .v-text-field__slot
+    .v-label {
+    font-size: 17px;
+    top: 18px !important;
+  }
+  .c-info__input--phone
+    .v-input__control
+    .v-input__slot
+    .v-text-field__slot
+    .v-label--active {
+    /*transform: translateY(-40px) scale(0.75) !important;*/
+  }
 }
 </style>
 <style lang="scss" scoped>
@@ -152,6 +201,7 @@ export default {
   &__input {
     &--prefix {
       max-width: 230px;
+      padding-right: 16px;
     }
     &--phone {
       max-width: 325px;
@@ -165,22 +215,41 @@ export default {
     width: 20px;
   }
 }
-@media screen and (max-width: 899px) {
+@media screen and (max-width: 768px) {
   .c-info {
-    padding-left: 17px;
-    padding-right: 17px;
-    padding-top: 0 !important;
+    /*padding-left: 17px;*/
+    /*padding-right: 17px;*/
+    /*padding-top: 0 !important;*/
+    padding: 0;
+    width: 100%;
     &__text {
       padding-top: 0 !important;
       font-size: 12px;
       line-height: 15px;
+      &--title {
+        font-size: 16px;
+      }
     }
     &__phone-cont {
-      flex-flow: column;
-      padding-top: 68px !important;
+      /*flex-flow: column;*/
+      /*padding-top: 68px !important;*/
     }
-    &__input--prefix {
-      padding-right: 0 !important;
+    &__input {
+      &--prefix {
+        max-width: none;
+        padding: 0;
+      }
+      &--phone {
+        max-width: none;
+      }
+    }
+    &__responsability {
+      &--title {
+        font-size: 14px;
+      }
+      &--text {
+        font-size: 12px;
+      }
     }
   }
 }

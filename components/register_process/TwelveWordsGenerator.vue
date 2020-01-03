@@ -1,7 +1,7 @@
 <template>
   <div class="c-info">
     <div class="c-info__text">
-      <span class="c-info__text--title">Own Your Data and Money.</span>
+      <span class="c-info__text--title">Own your data and money.</span>
       These words are your Security Key. They will be required to access your
       account and wallet.<br />
       Without them all your data and funds will become inaccessible forever.
@@ -93,26 +93,41 @@ export default {
     }
   }
 }
-@media screen and (max-width: 899px) {
+@media screen and (max-width: 768px) {
   .c-info {
-    padding-left: 17px;
-    padding-right: 17px;
-    padding-top: 0 !important;
+    /*padding-left: 17px;*/
+    /*padding-right: 17px;*/
+    /*padding-top: 0 !important;*/
+    padding: 0;
+
     &__text {
       padding-top: 0 !important;
       font-size: 12px;
       line-height: 15px;
+
+      &--title {
+        font-size: 16px;
+        padding-bottom: 7px;
+      }
     }
+
     &__secretword {
       padding-top: 33px !important;
       padding-bottom: 33px !important;
       font-size: 21px;
       line-height: 26px;
     }
-    &__responsability--text {
-      font-size: 12px;
-      padding-right: 15px;
-      line-height: 15px;
+
+    &__responsability {
+      width: auto;
+      &--text {
+        font-size: 12px;
+        padding-right: 15px;
+        line-height: 15px;
+      }
+      &--title {
+        font-size: 15px;
+      }
     }
   }
 }

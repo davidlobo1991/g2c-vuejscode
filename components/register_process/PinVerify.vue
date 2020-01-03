@@ -179,7 +179,6 @@ export default {
 <style lang="scss" scoped>
 .c-info {
   color: #4d4d4d;
-  font-size: 22px;
   text-align: center;
   margin: 0 auto;
   font-size: 20px;
@@ -238,38 +237,37 @@ export default {
     font-weight: 500;
   }
 }
-@media screen and (max-width: 899px) {
+@media screen and (max-width: 768px) {
   .c-info {
-    padding-left: 17px;
-    padding-right: 17px;
-    padding-top: 0 !important;
+    padding: 0;
+    max-width: 100%;
     &__button--cont {
-      display: flex;
-      flex-flow: column-reverse;
+      /*display: flex;*/
+      /*flex-flow: column-reverse;*/
     }
     &__button {
-      padding-right: 0;
-      padding-top: 35px;
+      /*padding-right: 0;*/
+      /*padding-top: 35px;*/
       text-align: center !important;
       & button {
-        min-width: 92% !important;
+        /*min-width: 92% !important;*/
       }
     }
     &__responsability--text {
       &-v2 {
-        font-size: 10px;
-        padding-right: 15px;
-        line-height: 13px;
-        color: #8c8c8c;
+        /*font-size: 10px;*/
+        /*padding-right: 15px;*/
+        /*line-height: 13px;*/
+        /*color: #8c8c8c;*/
       }
     }
     &__pincode {
       &-cont {
-        padding-right: 0;
-        justify-content: center;
+        /*padding-right: 0;*/
+        /*justify-content: center;*/
       }
       &__number {
-        max-width: 56px;
+        /*max-width: 56px;*/
         & input {
         }
       }
