@@ -1,0 +1,460 @@
+<template>
+  <div class="c-home__cards">
+    <div class="c-home__cards__wrapper">
+      <div class="c-home__cards__card">
+        <div class="c-home__cards__card--img-cont">
+          <nuxt-link
+            :src="require('@/assets/images/persona1.png')"
+            tag="img"
+            to="/"
+            class="c-home__cards__card--img"
+          />
+          <div
+            class="c-home__cards__card--status u-status--available"
+          ></div>
+        </div>
+        <div class="c-home__cards__card--name">
+          Gabel Sheber
+        </div>
+        <div class="c-home__cards__card--username">
+          @gabelsh
+        </div>
+        <div class="c-home__cards__card--description">
+          Company’s Legal Advisor & Chess Amateur
+        </div>
+        <div class="c-home__cards__card--details-cont">
+          <div class="c-home__cards__card--details">
+            <span class="c-home__cards__card--details-num">210</span>
+            Connections
+          </div>
+          <div class="c-home__cards__card--details">
+            <span class="c-home__cards__card--details-num">176</span>
+            Recommends
+          </div>
+        </div>
+        <v-btn
+          @click="showContact"
+          text
+          class="c-home__cards__card--button"
+          color="#0087FF"
+          dark
+        >
+          View Profile
+        </v-btn>
+      </div>
+
+      <div class="c-home__cards__card">
+        <div class="c-home__cards__card--img-cont">
+          <nuxt-link
+            :src="require('@/assets/images/persona1.png')"
+            tag="img"
+            to="/"
+            class="c-home__cards__card--img"
+          />
+          <div
+            class="c-home__cards__card--status u-status--available"
+          ></div>
+        </div>
+        <div class="c-home__cards__card--name">
+          Gabel Sheber
+        </div>
+        <div class="c-home__cards__card--username">
+          @gabelsh
+        </div>
+        <div class="c-home__cards__card--description">
+          Company’s Legal Advisor & Chess Amateur
+        </div>
+        <div class="c-home__cards__card--details-cont">
+          <div class="c-home__cards__card--details">
+            <span class="c-home__cards__card--details-num">210</span>
+            Connections
+          </div>
+          <div class="c-home__cards__card--details">
+            <span class="c-home__cards__card--details-num">176</span>
+            Recommends
+          </div>
+        </div>
+        <v-btn
+          depressed
+          class="c-home__cards__card--button"
+          color="#0087FF"
+          dark
+        >
+          1$ - Connect
+        </v-btn>
+      </div>
+
+      <div class="c-home__cards__card">
+        <div class="c-home__cards__card--img-cont">
+          <nuxt-link
+            :src="require('@/assets/images/persona1.png')"
+            tag="img"
+            to="/"
+            class="c-home__cards__card--img"
+          />
+          <div
+            class="c-home__cards__card--status u-status--available"
+          ></div>
+        </div>
+        <div class="c-home__cards__card--name">
+          Gabel Sheber
+        </div>
+        <div class="c-home__cards__card--username">
+          @gabelsh
+        </div>
+        <div class="c-home__cards__card--description">
+          Company’s Legal Advisor & Chess Amateur
+        </div>
+        <div class="c-home__cards__card--details-cont">
+          <div class="c-home__cards__card--details">
+            <span class="c-home__cards__card--details-num">210</span>
+            Connections
+          </div>
+          <div class="c-home__cards__card--details">
+            <span class="c-home__cards__card--details-num">176</span>
+            Recommends
+          </div>
+        </div>
+        <v-btn
+          depressed
+          class="c-home__cards__card--button"
+          color="#0087FF"
+          dark
+        >
+          Connect
+        </v-btn>
+      </div>
+
+      <div class="c-home__cards__card">
+        <div class="c-home__cards__card--img-cont">
+          <nuxt-link
+            :src="require('@/assets/images/persona1.png')"
+            tag="img"
+            to="/"
+            class="c-home__cards__card--img"
+          />
+          <div
+            class="c-home__cards__card--status u-status--available"
+          ></div>
+        </div>
+        <div class="c-home__cards__card--name">
+          Gabel Sheber
+        </div>
+        <div class="c-home__cards__card--username">
+          @gabelsh
+        </div>
+        <div class="c-home__cards__card--description">
+          Company’s Legal Advisor & Chess Amateur
+        </div>
+        <div class="c-home__cards__card--details-cont">
+          <div class="c-home__cards__card--details">
+            <span class="c-home__cards__card--details-num">210</span>
+            Connections
+          </div>
+          <div class="c-home__cards__card--details">
+            <span class="c-home__cards__card--details-num">176</span>
+            Recommends
+          </div>
+        </div>
+        <v-btn depressed class="c-home__cards__card--button">
+          1$ - Pending
+        </v-btn>
+      </div>
+      <div class="c-home__cards__card">
+        <div class="c-home__cards__card--img-cont">
+          <nuxt-link
+            :src="require('@/assets/images/persona1.png')"
+            tag="img"
+            to="/"
+            class="c-home__cards__card--img"
+          />
+          <div
+            class="c-home__cards__card--status u-status--available"
+          ></div>
+        </div>
+        <div class="c-home__cards__card--name">
+          Gabel Sheber
+        </div>
+        <div class="c-home__cards__card--username">
+          @gabelsh
+        </div>
+        <div class="c-home__cards__card--description">
+          Company’s Legal Advisor & Chess Amateur
+        </div>
+        <div class="c-home__cards__card--details-cont">
+          <div class="c-home__cards__card--details">
+            <span class="c-home__cards__card--details-num">210</span>
+            Connections
+          </div>
+          <div class="c-home__cards__card--details">
+            <span class="c-home__cards__card--details-num">176</span>
+            Recommends
+          </div>
+        </div>
+        <v-btn
+          depressed
+          class="c-home__cards__card--button"
+          color="#0087FF"
+          dark
+        >
+          1$ - Connect
+        </v-btn>
+      </div>
+
+      <div class="c-home__cards__card">
+        <div class="c-home__cards__card--img-cont">
+          <nuxt-link
+            :src="require('@/assets/images/persona1.png')"
+            tag="img"
+            to="/"
+            class="c-home__cards__card--img"
+          />
+          <div
+            class="c-home__cards__card--status u-status--available"
+          ></div>
+        </div>
+        <div class="c-home__cards__card--name">
+          Gabel Sheber
+        </div>
+        <div class="c-home__cards__card--username">
+          @gabelsh
+        </div>
+        <div class="c-home__cards__card--description">
+          Company’s Legal Advisor & Chess Amateur
+        </div>
+        <div class="c-home__cards__card--details-cont">
+          <div class="c-home__cards__card--details">
+            <span class="c-home__cards__card--details-num">210</span>
+            Connections
+          </div>
+          <div class="c-home__cards__card--details">
+            <span class="c-home__cards__card--details-num">176</span>
+            Recommends
+          </div>
+        </div>
+        <v-btn
+          depressed
+          class="c-home__cards__card--button"
+          color="#0087FF"
+          dark
+        >
+          1$ - Connect
+        </v-btn>
+      </div>
+
+      <div class="c-home__cards__card">
+        <div class="c-home__cards__card--img-cont">
+          <nuxt-link
+            :src="require('@/assets/images/persona1.png')"
+            tag="img"
+            to="/"
+            class="c-home__cards__card--img"
+          />
+          <div
+            class="c-home__cards__card--status u-status--available"
+          ></div>
+        </div>
+        <div class="c-home__cards__card--name">
+          Gabel Sheber
+        </div>
+        <div class="c-home__cards__card--username">
+          @gabelsh
+        </div>
+        <div class="c-home__cards__card--description">
+          Company’s Legal Advisor & Chess Amateur
+        </div>
+        <div class="c-home__cards__card--details-cont">
+          <div class="c-home__cards__card--details">
+            <span class="c-home__cards__card--details-num">210</span>
+            Connections
+          </div>
+          <div class="c-home__cards__card--details">
+            <span class="c-home__cards__card--details-num">176</span>
+            Recommends
+          </div>
+        </div>
+        <v-btn
+          depressed
+          class="c-home__cards__card--button"
+          color="#0087FF"
+          dark
+        >
+          1$ - Connect
+        </v-btn>
+      </div>
+
+      <div class="c-home__cards__card">
+        <div class="c-home__cards__card--img-cont">
+          <nuxt-link
+            :src="require('@/assets/images/persona1.png')"
+            tag="img"
+            to="/"
+            class="c-home__cards__card--img"
+          />
+          <div
+            class="c-home__cards__card--status u-status--available"
+          ></div>
+        </div>
+        <div class="c-home__cards__card--name">
+          Gabel Sheber
+        </div>
+        <div class="c-home__cards__card--username">
+          @gabelsh
+        </div>
+        <div class="c-home__cards__card--description">
+          Company’s Legal Advisor & Chess Amateur
+        </div>
+        <div class="c-home__cards__card--details-cont">
+          <div class="c-home__cards__card--details">
+            <span class="c-home__cards__card--details-num">210</span>
+            Connections
+          </div>
+          <div class="c-home__cards__card--details">
+            <span class="c-home__cards__card--details-num">176</span>
+            Recommends
+          </div>
+        </div>
+        <v-btn
+          depressed
+          class="c-home__cards__card--button"
+          color="#0087FF"
+          dark
+        >
+          1$ - Connect
+        </v-btn>
+      </div>
+
+      <div class="c-home__cards__card">
+        <div class="c-home__cards__card--img-cont">
+          <nuxt-link
+            :src="require('@/assets/images/persona1.png')"
+            tag="img"
+            to="/account"
+            class="c-home__cards__card--img"
+          />
+          <div
+            class="c-home__cards__card--status u-status--available"
+          ></div>
+        </div>
+        <div class="c-home__cards__card--name">
+          Gabel Sheber
+        </div>
+        <div class="c-home__cards__card--username">
+          @gabelsh
+        </div>
+        <div class="c-home__cards__card--description">
+          Company’s Legal Advisor & Chess Amateur
+        </div>
+        <div class="c-home__cards__card--details-cont">
+          <div class="c-home__cards__card--details">
+            <span class="c-home__cards__card--details-num">210</span>
+            Connections
+          </div>
+          <div class="c-home__cards__card--details">
+            <span class="c-home__cards__card--details-num">176</span>
+            Recommends
+          </div>
+        </div>
+        <v-btn
+          depressed
+          class="c-home__cards__card--button"
+          color="#0087FF"
+          dark
+        >
+          1$ - Connect
+        </v-btn>
+      </div>
+
+      <div class="c-home__cards__card">
+        <div class="c-home__cards__card--img-cont">
+          <nuxt-link
+            :src="require('@/assets/images/persona1.png')"
+            tag="img"
+            to="/"
+            class="c-home__cards__card--img"
+          />
+          <div
+            class="c-home__cards__card--status u-status--available"
+          ></div>
+        </div>
+        <div class="c-home__cards__card--name">
+          Gabel Sheber
+        </div>
+        <div class="c-home__cards__card--username">
+          @gabelsh
+        </div>
+        <div class="c-home__cards__card--description">
+          Company’s Legal Advisor & Chess Amateur
+        </div>
+        <div class="c-home__cards__card--details-cont">
+          <div class="c-home__cards__card--details">
+            <span class="c-home__cards__card--details-num">210</span>
+            Connections
+          </div>
+          <div class="c-home__cards__card--details">
+            <span class="c-home__cards__card--details-num">176</span>
+            Recommends
+          </div>
+        </div>
+        <v-btn
+          depressed
+          class="c-home__cards__card--button"
+          color="#0087FF"
+          dark
+        >
+          1$ - Connect
+        </v-btn>
+      </div>
+
+      <div class="c-home__cards__card">
+        <div class="c-home__cards__card--img-cont">
+          <nuxt-link
+            :src="require('@/assets/images/persona1.png')"
+            tag="img"
+            to="/"
+            class="c-home__cards__card--img"
+          />
+          <div
+            class="c-home__cards__card--status u-status--available"
+          ></div>
+        </div>
+        <div class="c-home__cards__card--name">
+          Gabel Sheber
+        </div>
+        <div class="c-home__cards__card--username">
+          @gabelsh
+        </div>
+        <div class="c-home__cards__card--description">
+          Company’s Legal Advisor & Chess Amateur
+        </div>
+        <div class="c-home__cards__card--details-cont">
+          <div class="c-home__cards__card--details">
+            <span class="c-home__cards__card--details-num">210</span>
+            Connections
+          </div>
+          <div class="c-home__cards__card--details">
+            <span class="c-home__cards__card--details-num">176</span>
+            Recommends
+          </div>
+        </div>
+        <v-btn
+          depressed
+          class="c-home__cards__card--button"
+          color="#0087FF"
+          dark
+        >
+          1$ - Connect
+        </v-btn>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'Network',
+    components: {
+    }
+</script>
+
+<style></style>

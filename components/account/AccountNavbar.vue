@@ -3,7 +3,7 @@
     <ul class="c-account__navbar--menu">
       <li
         v-bind:class="
-          ActiveTab == 'Account' ? 'c-account__navbar--item-active' : ''
+          activeTab == 'Account' ? 'c-account__navbar--item-active' : ''
         "
         class="c-account__navbar--item"
       >
@@ -13,7 +13,7 @@
       </li>
       <li
         v-bind:class="
-          ActiveTab == 'Calendar' ? 'c-account__navbar--item-active' : ''
+          activeTab == 'Calendar' ? 'c-account__navbar--item-active' : ''
         "
         class="c-account__navbar--item"
       >
@@ -23,7 +23,7 @@
       </li>
       <li
         v-bind:class="
-          ActiveTab == 'Activity' ? 'c-account__navbar--item-active' : ''
+          activeTab == 'Activity' ? 'c-account__navbar--item-active' : ''
         "
         class="c-account__navbar--item"
       >
@@ -33,7 +33,7 @@
       </li>
       <li
         v-bind:class="
-          ActiveTab == 'Settings' ? 'c-account__navbar--item-active' : ''
+          activeTab == 'Settings' ? 'c-account__navbar--item-active' : ''
         "
         class="c-account__navbar--item"
       >
@@ -50,7 +50,8 @@ export default {
   name: 'AccountNavbar',
   props: {
     activeTab: {
-      type: String
+      type: String,
+      default: ''
     }
   }
 }

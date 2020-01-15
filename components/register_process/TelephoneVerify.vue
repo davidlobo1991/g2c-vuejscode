@@ -9,13 +9,11 @@
     <div class="o-layout c-info__phone-cont">
       <v-select
         :items="prefixes"
-        :rules="[rules.required, rules.counter]"
         outlined
         label="Country"
         class="o-layout__item u-1/1 u-1/4@m c-info__input--prefix c-test"
       ></v-select>
       <v-text-field
-        :rules="[rules.required, rules.counter]"
         outlined
         class="o-layout__item u-1/1 u-1/4@m c-info__input--phone c-test"
         label="Phone number"
@@ -54,11 +52,7 @@ export default {
   name: 'TelephoneVerify',
   data() {
     return {
-      prefixes: ['(+34) Spain', '(+44) United Kingdom', '(+33) France'],
-      rules: {
-        required: (value) => !!value || 'Required'
-        // counter: (value) => value.length <= 9 || 'Wrong phone number'
-      }
+      prefixes: ['(+34) Spain', '(+44) United Kingdom', '(+33) France']
     }
   }
 }
@@ -158,7 +152,7 @@ export default {
     .v-input__slot
     .v-text-field__slot
     .v-label--active {
-    /*transform: translateY(-40px) scale(0.75) !important;*/
+    transform: translateY(-26px) scale(0.75) !important;
   }
 }
 </style>

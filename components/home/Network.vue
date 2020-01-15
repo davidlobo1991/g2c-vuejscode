@@ -10,6 +10,7 @@
           append-icon="mdi-magnify"
           class="c-home__search--input"
           height="57px"
+          color="#0087FF"
         >
         </v-text-field>
       </div>
@@ -83,7 +84,13 @@
                 Recommends
               </div>
             </div>
-            <v-btn text class="c-home__cards__card--button" color="primary">
+            <v-btn
+              @click="showContact"
+              text
+              class="c-home__cards__card--button"
+              color="#0087FF"
+              dark
+            >
               View Profile
             </v-btn>
           </div>
@@ -122,7 +129,8 @@
             <v-btn
               depressed
               class="c-home__cards__card--button"
-              color="primary"
+              color="#0087FF"
+              dark
             >
               1$ - Connect
             </v-btn>
@@ -162,7 +170,8 @@
             <v-btn
               depressed
               class="c-home__cards__card--button"
-              color="primary"
+              color="#0087FF"
+              dark
             >
               Connect
             </v-btn>
@@ -237,7 +246,8 @@
             <v-btn
               depressed
               class="c-home__cards__card--button"
-              color="primary"
+              color="#0087FF"
+              dark
             >
               1$ - Connect
             </v-btn>
@@ -277,7 +287,8 @@
             <v-btn
               depressed
               class="c-home__cards__card--button"
-              color="primary"
+              color="#0087FF"
+              dark
             >
               1$ - Connect
             </v-btn>
@@ -317,7 +328,8 @@
             <v-btn
               depressed
               class="c-home__cards__card--button"
-              color="primary"
+              color="#0087FF"
+              dark
             >
               1$ - Connect
             </v-btn>
@@ -357,7 +369,8 @@
             <v-btn
               depressed
               class="c-home__cards__card--button"
-              color="primary"
+              color="#0087FF"
+              dark
             >
               1$ - Connect
             </v-btn>
@@ -397,7 +410,8 @@
             <v-btn
               depressed
               class="c-home__cards__card--button"
-              color="primary"
+              color="#0087FF"
+              dark
             >
               1$ - Connect
             </v-btn>
@@ -437,7 +451,8 @@
             <v-btn
               depressed
               class="c-home__cards__card--button"
-              color="primary"
+              color="#0087FF"
+              dark
             >
               1$ - Connect
             </v-btn>
@@ -477,7 +492,8 @@
             <v-btn
               depressed
               class="c-home__cards__card--button"
-              color="primary"
+              color="#0087FF"
+              dark
             >
               1$ - Connect
             </v-btn>
@@ -485,36 +501,114 @@
         </div>
       </div>
     </div>
-    <v-dialog v-model="dialog" width="500">
-      <template v-slot:activator="{ on }">
-        <v-btn v-on="on" color="red lighten-2" dark>
-          Click Me
-        </v-btn>
-      </template>
-
+    <v-dialog v-model="IsShowingContactInfo" width="50%" class="c-contact-card">
       <v-card>
-        <v-card-title class="headline grey lighten-2" primary-title>
-          Privacy Policy
-        </v-card-title>
-
         <v-card-text>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          <div class="c-contact-card__cross--cont">
+            <v-icon
+              @click="IsShowingContactInfo = false"
+              class="c-contact-card__cross"
+            >
+              mdi-close
+            </v-icon>
+          </div>
+          <div class="c-contact-card__profile">
+            <div class="c-contact-card__profile--img-cont">
+              <nuxt-link
+                :src="require('@/assets/images/persona1.png')"
+                tag="img"
+                to="/"
+                class="c-contact-card__profile--img"
+              />
+              <div
+                class="c-contact-card__profile--status u-status--available"
+              ></div>
+              <div class="c-contact-card__profile--details-cont">
+                <div class="c-contact-card__profile--details">
+                  <span class="c-contact-card__profile--details-num">210</span>
+                  Connections
+                </div>
+                <div class="c-contact-card__profile--details">
+                  <span class="c-contact-card__profile--details-num">176</span>
+                  Recommends
+                </div>
+              </div>
+              <v-btn
+                depressed
+                class="c-home__cards__card--button"
+                color="#0087FF"
+                dark
+              >
+                1$ - Connect
+              </v-btn>
+            </div>
+            <div class="c-contact-card__profile--text-cont">
+              <div class="c-contact-card__profile--name">Jessica O'Mallie</div>
+              <div class="c-contact-card__profile--username">@jessomallie</div>
+              <div class="c-contact-card__profile--description">
+                Bitcoin Estrategics, Formation in UX/UI & Animal Lover
+              </div>
+              <div class="c-contact-card__profile--title">Knowledge</div>
+              <div class="c-contact-card__profile--label-cont">
+                <v-chip
+                  class="c-contact-card__profile--label"
+                  color="#EFF1F2"
+                  label
+                >
+                  Design
+                </v-chip>
+                <v-chip
+                  class="c-contact-card__profile--label"
+                  color="#EFF1F2"
+                  label
+                >
+                  Bitcoin
+                </v-chip>
+                <v-chip
+                  class="c-contact-card__profile--label"
+                  color="#EFF1F2"
+                  label
+                >
+                  Startups
+                </v-chip>
+              </div>
+              <div class="c-contact-card__profile--title">Summary</div>
+              <div class="c-contact-card__profile--summary">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+                urna, et sodales arcu. Vestibulum at mauris ultrices, posuere,
+                egestas neque. Sed erat neque, euismod vitae faucibus sit amet,
+                pharetra dui. Duis vulputate eu est rutrum. Cras fermentum
+                finibus iaculis lacus vehicula egestas neque. Sed erat neque,
+                vita.
+              </div>
+              <div class="c-contact-card__profile--title">Languages</div>
+              <div class="c-contact-card__profile--label-cont">
+                <v-chip
+                  class="c-contact-card__profile--label"
+                  color="#EFF1F2"
+                  label
+                >
+                  English
+                </v-chip>
+                <v-chip
+                  class="c-contact-card__profile--label"
+                  color="#EFF1F2"
+                  label
+                >
+                  Spanish
+                </v-chip>
+              </div>
+              <div class="c-contact-card__profile--title">Social Media</div>
+              <div class="c-contact-card__profile--username">
+                <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>
+                <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>
+                <v-icon color="#8C8C8C">mdi-twitter</v-icon>
+                <v-icon color="#8C8C8C">mdi-facebook-box</v-icon>
+                <v-icon color="#8C8C8C">mdi-instagram</v-icon>
+              </div>
+            </div>
+          </div>
         </v-card-text>
-
-        <v-divider></v-divider>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn @click="dialog = false" color="primary" text>
-            I accept
-          </v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
   </section>
@@ -527,11 +621,124 @@ export default {
   name: 'Network',
   components: {
     WelcomeBanner
+  },
+  data() {
+    return {
+      IsShowingContactInfo: false
+    }
+  },
+  methods: {
+    showContact() {
+      // Llamada AJAX al endpoint
+      this.IsShowingContactInfo = true
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.c-contact-card {
+  width: 60% !important;
+  &__cross {
+    cursor: pointer;
+    &--cont {
+      width: 100%;
+      text-align: right;
+      padding-top: 20px;
+    }
+  }
+  &__profile {
+    display: flex;
+    position: relative;
+    padding: 0 20px 20px 20px;
+
+    &--img-cont {
+      position: relative;
+      width: 235px;
+      height: 235px;
+      border: 2px solid #fff;
+      border-radius: 50px;
+      flex-shrink: 0;
+    }
+
+    &--img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+
+    &--status {
+      position: absolute;
+      border-radius: 50px;
+      border: 2px solid #fff;
+      width: 21px;
+      height: 21px;
+      bottom: 10%;
+      right: 10%;
+    }
+
+    &--details-cont {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding-top: 25px;
+      padding-bottom: 30px;
+    }
+
+    &--details {
+      text-align: center;
+      // width: 45%;
+      font-size: 15px;
+      color: #8c8c8c;
+
+      &-num {
+        display: block;
+        color: #4d4d4d;
+        font-size: 19px;
+        font-weight: bold;
+      }
+    }
+
+    &--text-cont {
+      padding-left: 40px;
+    }
+
+    &--name {
+      color: #21273b;
+      padding-top: 15px;
+      font-size: 19px;
+      font-weight: 500;
+    }
+
+    &--username {
+      color: rgba(33, 39, 59, 0.5);
+      font-size: 17px;
+      font-weight: 500;
+    }
+
+    &--description {
+      opacity: 0.8;
+      color: #525252;
+      font-size: 18px;
+      width: 72%;
+      padding-top: 10px;
+    }
+
+    &--label {
+      margin-bottom: 5px;
+    }
+
+    &--title {
+      color: #21273b;
+      font-size: 17px;
+      font-weight: 500;
+      padding-top: 25px;
+      padding-bottom: 10px;
+    }
+  }
+}
+
 /* Clase repetida en componente Sidebar. Buescar manera de ponerla global */
 .u-status {
   &--available {
@@ -719,6 +926,35 @@ export default {
       }
       &--input {
         // max-width: 436px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .c-home {
+    &__cards {
+      &__wrapper {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .c-home {
+    &__cards {
+      &__wrapper {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  }
+}
+@media screen and (max-width: 600px) {
+  .c-home {
+    &__cards {
+      &__wrapper {
+        grid-template-columns: 1fr;
       }
     }
   }

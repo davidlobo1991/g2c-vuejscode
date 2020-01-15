@@ -1,13 +1,15 @@
 <template>
-  <div class="c-banner">
-    <div class="c-banner__text">
-      <span class="c-banner__text--pdr">Welcome @jessicaomallie!</span>
-      Fill your profile information to appear on the Network and start receving
-      and requesting connections.
+  <div class="c-banner__space">
+    <div class="c-banner">
+      <div class="c-banner__text">
+        <span class="c-banner__text--pdr">Welcome @jessicaomallie!</span>
+        Fill your profile information to appear on the Network and start
+        receving and requesting connections.
+      </div>
+      <v-btn depressed class="c-banner__button">
+        Edit Profile
+      </v-btn>
     </div>
-    <v-btn depressed class="c-banner__button">
-      Edit Profile
-    </v-btn>
   </div>
 </template>
 
@@ -15,6 +17,9 @@
 
 <style lang="scss" scoped>
 .c-banner {
+  position: fixed;
+  z-index: 9;
+  width: 100%;
   display: flex;
   align-items: center;
   height: 72px;
@@ -23,6 +28,10 @@
   font-size: 18px;
   padding: 0 32px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.11);
+  &__space {
+    display: block;
+    height: 72px;
+  }
   &__text--pdr {
     padding-right: 30px;
   }

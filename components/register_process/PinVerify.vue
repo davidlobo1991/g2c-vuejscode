@@ -241,33 +241,44 @@ export default {
   .c-info {
     padding: 0;
     max-width: 100%;
+    &__text {
+      font-size: 12px;
+      line-height: unset;
+      &--title {
+        font-size: 16px;
+        padding-bottom: 0;
+      }
+    }
     &__button--cont {
-      /*display: flex;*/
-      /*flex-flow: column-reverse;*/
+      display: flex;
+      flex-flow: column;
+    }
+    &__link {
+      font-size: 12px;
+      padding-bottom: 15px;
+      padding-left: 15px;
     }
     &__button {
-      /*padding-right: 0;*/
-      /*padding-top: 35px;*/
-      text-align: center !important;
+      flex-flow: column;
+      align-items: flex-start;
       & button {
-        /*min-width: 92% !important;*/
+        min-width: 100% !important;
       }
     }
     &__responsability--text {
       &-v2 {
-        /*font-size: 10px;*/
-        /*padding-right: 15px;*/
-        /*line-height: 13px;*/
-        /*color: #8c8c8c;*/
+        font-size: 10px;
+        text-align: center;
       }
     }
     &__pincode {
       &-cont {
-        /*padding-right: 0;*/
-        /*justify-content: center;*/
+        padding-bottom: 10px;
       }
       &__number {
-        /*max-width: 56px;*/
+        &:first-of-type {
+          margin-left: 0 !important;
+        }
         & input {
         }
       }

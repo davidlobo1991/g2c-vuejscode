@@ -394,6 +394,13 @@ export default {
       &--input {
         width: 300px;
       }
+      &--textarea {
+        width: 300px;
+      }
+    }
+    &__details {
+      font-size: 14px;
+      max-width: 300px;
     }
   }
 }
@@ -406,6 +413,12 @@ export default {
       &--input {
         width: 240px;
       }
+      &--textarea {
+        width: 240px;
+      }
+    }
+    &__details {
+      max-width: 240px;
     }
   }
 }
@@ -430,6 +443,12 @@ export default {
       &--input {
         width: 200px;
       }
+      &--textarea {
+        width: 200px;
+      }
+    }
+    &__details {
+      max-width: 200px;
     }
   }
 }

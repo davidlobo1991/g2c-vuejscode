@@ -215,4 +215,9 @@ export default {
     }
   }
 }
+@media screen and (max-width: 768px) {
+  .c-sidebar {
+    display: none;
+  }
+}
 </style>

@@ -12,7 +12,7 @@
         them in a safe place.
       </span>
     </div>
-    <div class="c-info__secretword u-align-center u-pdv-xxxh">
+    <div class="c-info__secretword u-align-center">
       sudden awkward slam gown vapor change meat cable hover section cart
     </div>
     <div class="c-info__responsability">
@@ -79,6 +79,7 @@ export default {
     line-height: 55px;
     text-align: center;
     max-width: 900px;
+    padding: 88px 0;
   }
   &__responsability {
     // color: #4d4d4d;
@@ -93,11 +94,28 @@ export default {
     }
   }
 }
+@media screen and (max-width: 1500px) {
+  .c-info {
+    font-size: 16px;
+    line-height: unset;
+    padding: 0 80px;
+    &__text {
+      line-height: unset;
+      &--title {
+        font-size: 18px;
+        padding-bottom: 10px;
+      }
+    }
+    &__secretword {
+      font-size: 30px;
+      line-height: unset;
+      padding: 44px 0;
+      max-width: 900px;
+    }
+  }
+}
 @media screen and (max-width: 768px) {
   .c-info {
-    /*padding-left: 17px;*/
-    /*padding-right: 17px;*/
-    /*padding-top: 0 !important;*/
     padding: 0;
 
     &__text {
