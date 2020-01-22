@@ -9,6 +9,7 @@
 import Home from '~/components/Home.vue'
 
 export default {
+  layout: 'default',
   components: {
     Home
   }

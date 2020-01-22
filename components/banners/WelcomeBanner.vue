@@ -47,4 +47,24 @@
     padding: 0 32px;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .c-banner {
+    font-size: 12px;
+    padding: 0 12px;
+    height: 110px;
+    position: static;
+    &__space {
+      height: 110px;
+    }
+    &__text--pdr {
+      font-weight: bold;
+    }
+    &__button {
+      max-width: 90px;
+      font-size: 13px;
+      letter-spacing: 0.1px;
+    }
+  }
+}
 </style>

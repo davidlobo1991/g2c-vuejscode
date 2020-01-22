@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-content>
+      aaaaaaaaa
       <nuxt />
     </v-content>
   </v-app>

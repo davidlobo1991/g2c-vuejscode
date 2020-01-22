@@ -1,5 +1,6 @@
 <template>
   <section class="c-home">
+    <TopMobile />
     <WelcomeBanner />
     <div class="c-home__wrapper">
       <div class="c-home__search--cont">
@@ -51,7 +52,8 @@
           </li>
         </ul>
       </div>
-      <div class="c-home__cards">
+      <ProfileCards />
+      <!-- <div class="c-home__cards">
         <div class="c-home__cards__wrapper">
           <div class="c-home__cards__card">
             <div class="c-home__cards__card--img-cont">
@@ -66,7 +68,7 @@
               ></div>
             </div>
             <div class="c-home__cards__card--name">
-              Gabel Sheber
+              Gabel Shebera
             </div>
             <div class="c-home__cards__card--username">
               @gabelsh
@@ -499,9 +501,9 @@
             </v-btn>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
-    <v-dialog v-model="IsShowingContactInfo" width="50%" class="c-contact-card">
+    <!-- <v-dialog v-model="IsShowingContactInfo" width="50%" class="c-contact-card">
       <v-card>
         <v-card-text>
           <div class="c-contact-card__cross--cont">
@@ -611,16 +613,24 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+    -->
+    <BottomMobile />
   </section>
 </template>
 
 <script>
 import WelcomeBanner from '~/components/banners/WelcomeBanner'
+import ProfileCards from '~/components/home/network/ProfileCards'
+import TopMobile from '~/components/site/TopMobile'
+import BottomMobile from '~/components/site/BottomMobile'
 
 export default {
   name: 'Network',
   components: {
-    WelcomeBanner
+    WelcomeBanner,
+    ProfileCards,
+    TopMobile,
+    BottomMobile
   },
   data() {
     return {
@@ -637,108 +647,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.c-contact-card {
-  width: 60% !important;
-  &__cross {
-    cursor: pointer;
-    &--cont {
-      width: 100%;
-      text-align: right;
-      padding-top: 20px;
-    }
-  }
-  &__profile {
-    display: flex;
-    position: relative;
-    padding: 0 20px 20px 20px;
-
-    &--img-cont {
-      position: relative;
-      width: 235px;
-      height: 235px;
-      border: 2px solid #fff;
-      border-radius: 50px;
-      flex-shrink: 0;
-    }
-
-    &--img {
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-    }
-
-    &--status {
-      position: absolute;
-      border-radius: 50px;
-      border: 2px solid #fff;
-      width: 21px;
-      height: 21px;
-      bottom: 10%;
-      right: 10%;
-    }
-
-    &--details-cont {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      padding-top: 25px;
-      padding-bottom: 30px;
-    }
-
-    &--details {
-      text-align: center;
-      // width: 45%;
-      font-size: 15px;
-      color: #8c8c8c;
-
-      &-num {
-        display: block;
-        color: #4d4d4d;
-        font-size: 19px;
-        font-weight: bold;
-      }
-    }
-
-    &--text-cont {
-      padding-left: 40px;
-    }
-
-    &--name {
-      color: #21273b;
-      padding-top: 15px;
-      font-size: 19px;
-      font-weight: 500;
-    }
-
-    &--username {
-      color: rgba(33, 39, 59, 0.5);
-      font-size: 17px;
-      font-weight: 500;
-    }
-
-    &--description {
-      opacity: 0.8;
-      color: #525252;
-      font-size: 18px;
-      width: 72%;
-      padding-top: 10px;
-    }
-
-    &--label {
-      margin-bottom: 5px;
-    }
-
-    &--title {
-      color: #21273b;
-      font-size: 17px;
-      font-weight: 500;
-      padding-top: 25px;
-      padding-bottom: 10px;
-    }
-  }
-}
-
 /* Clase repetida en componente Sidebar. Buescar manera de ponerla global */
 .u-status {
   &--available {
@@ -798,123 +706,8 @@ export default {
       }
     }
   }
-  &__cards {
-    width: 100%;
-    &__wrapper {
-      width: 100%;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      justify-items: center;
-    }
-    &__card {
-      margin-bottom: 20px;
-      font-size: 18px;
-      color: #29363d;
-      background-color: #fff;
-      padding: 15px;
-      width: 365px;
-      height: 500px;
-      display: flex;
-      flex-flow: column;
-      justify-content: space-between;
-      align-items: center;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-      &--img-cont {
-        position: relative;
-        width: 163px;
-        height: 163px;
-        margin-bottom: 13px;
-        margin-top: 7px;
-        border-radius: 50px;
-        flex-shrink: 0;
-      }
-      &--img {
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-      }
-      &--status {
-        position: absolute;
-        border-radius: 50px;
-        border: 2px solid #fff;
-        width: 15px;
-        height: 15px;
-        bottom: 10%;
-        right: 10%;
-      }
-      &--name {
-        font-weight: 500;
-      }
-      &--username {
-        font-size: 15px;
-        color: #8c8c8c;
-        padding-bottom: 15px;
-      }
-      &--description {
-        font-size: 17px;
-        color: #8c8c8c;
-        width: 90%;
-        text-align: center;
-        padding-bottom: 20px;
-        min-height: 65px;
-      }
-      &--details-cont {
-        display: flex;
-        justify-content: space-between;
-        padding: 0 24px;
-        width: 100%;
-        padding-bottom: 7px;
-      }
-      &--details {
-        text-align: center;
-        // width: 45%;
-        font-size: 15px;
-        color: #8c8c8c;
-        &-num {
-          display: block;
-          color: #4d4d4d;
-          font-size: 19px;
-          font-weight: bold;
-        }
-      }
-      &--button {
-        width: 100%;
-        height: 40px !important;
-      }
-    }
-  }
 }
-@media screen and (max-width: 1800px) {
-  .c-home {
-    &__cards {
-      &__card {
-        width: 280px;
-        height: 360px;
-        font-size: 15px;
-        &--img-cont {
-          width: 122px;
-          height: 122px;
-        }
-        &--username {
-          font-size: 12px;
-          padding-bottom: 10px;
-        }
-        &--description {
-          font-size: 13px;
-          min-height: 33px;
-        }
-        &--details {
-          font-size: 12px;
-          &-num {
-            font-size: 16px;
-          }
-        }
-      }
-    }
-  }
-}
+
 @media screen and (max-width: 1500px) {
   .c-home {
     &__navbar {
@@ -930,31 +723,17 @@ export default {
     }
   }
 }
-
-@media screen and (max-width: 992px) {
-  .c-home {
-    &__cards {
-      &__wrapper {
-        grid-template-columns: 1fr 1fr 1fr;
-      }
-    }
-  }
-}
-
 @media screen and (max-width: 768px) {
   .c-home {
-    &__cards {
-      &__wrapper {
-        grid-template-columns: 1fr 1fr;
-      }
+    &__wrapper {
+      padding: 22px 12px;
     }
-  }
-}
-@media screen and (max-width: 600px) {
-  .c-home {
-    &__cards {
-      &__wrapper {
-        grid-template-columns: 1fr;
+    &__navbar--list {
+      flex-wrap: wrap;
+    }
+    &__search {
+      &--cont {
+        min-width: 100%;
       }
     }
   }
