@@ -30,15 +30,7 @@
             Recommends
           </div>
         </div>
-        <v-btn
-          @click="showContact"
-          text
-          class="c-home__cards__card--button"
-          color="#0087FF"
-          dark
-        >
-          View Profile
-        </v-btn>
+        <ConnectButton status="view" />
       </div>
 
       <div class="c-home__cards__card">
@@ -70,14 +62,7 @@
             Recommends
           </div>
         </div>
-        <v-btn
-          depressed
-          class="c-home__cards__card--button"
-          color="#0087FF"
-          dark
-        >
-          1$ - Connect
-        </v-btn>
+        <ConnectButton status="connect" cost="35" />
       </div>
 
       <div class="c-home__cards__card">
@@ -109,14 +94,7 @@
             Recommends
           </div>
         </div>
-        <v-btn
-          depressed
-          class="c-home__cards__card--button"
-          color="#0087FF"
-          dark
-        >
-          Connect
-        </v-btn>
+        <ConnectButton status="connect" />
       </div>
 
       <div class="c-home__cards__card">
@@ -148,9 +126,7 @@
             Recommends
           </div>
         </div>
-        <v-btn depressed class="c-home__cards__card--button">
-          1$ - Pending
-        </v-btn>
+        <ConnectButton status="pending" cost="1" />
       </div>
       <div class="c-home__cards__card">
         <div class="c-home__cards__card--img-cont">
@@ -425,7 +401,7 @@
         </v-btn>
       </div>
     </div>
-    <v-dialog v-model="IsShowingContactInfo" width="50%" class="c-contact-card">
+    <v-dialog width="50%" v-model="IsShowingContactInfo" class="c-contact-card">
       <v-card>
         <v-card-text>
           <div class="c-contact-card__cross--cont">
@@ -457,14 +433,15 @@
                   Recommends
                 </div>
               </div>
-              <v-btn
-                depressed
-                class="c-home__cards__card--button"
-                color="#0087FF"
-                dark
-              >
-                1$ - Connect
-              </v-btn>
+              <ConnectButton status="connect" cost="1" />
+              <!--              <v-btn-->
+              <!--                depressed-->
+              <!--                class="c-home__cards__card&#45;&#45;button"-->
+              <!--                color="#0087FF"-->
+              <!--                dark-->
+              <!--              >-->
+              <!--                1$ - Connect-->
+              <!--              </v-btn>-->
             </div>
             <div class="c-contact-card__profile--text-cont">
               <div class="c-contact-card__profile--name">Jessica O'Mallie</div>
@@ -539,9 +516,13 @@
 </template>
 
 <script>
+import ConnectButton from '~/components/site/ConnectButton'
+
 export default {
   name: 'ProfileCards',
-  components: {},
+  components: {
+    ConnectButton
+  },
   data() {
     return {
       IsShowingContactInfo: false
@@ -556,6 +537,11 @@ export default {
 }
 </script>
 
+<style>
+.c-home__cards .v-dialog {
+  width: 50%;
+}
+</style>
 <style lang="scss" scoped>
 /* Clase repetida en componente Sidebar. Buescar manera de ponerla global */
 .u-status {
@@ -585,6 +571,7 @@ export default {
       justify-items: center;
     }
     &__card {
+      cursor: pointer;
       margin-bottom: 20px;
       font-size: 18px;
       color: #29363d;
@@ -795,6 +782,15 @@ export default {
     }
   }
 }
+@media screen and (max-width: 1500px) {
+  .c-home {
+    &__cards {
+      &__card {
+        width: 95%;
+      }
+    }
+  }
+}
 @media screen and (max-width: 992px) {
   .c-home {
     &__cards {
@@ -813,7 +809,7 @@ export default {
     }
   }
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 500px) {
   .c-home {
     &__cards {
       &__wrapper {

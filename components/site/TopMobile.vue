@@ -21,23 +21,28 @@ export default {
 
 <style lang="scss" scoped>
 .c-top-mobile {
-  position: fixed;
-  background-color: #21273b;
-  width: 100%;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9;
-  &__space {
-    display: block;
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .c-top-mobile {
+    display: flex;
+    position: fixed;
+    background-color: #21273b;
+    width: 100%;
     height: 40px;
-  }
-  &__img-cont {
-    height: 18px;
-  }
-  &__img {
-    height: 100%;
+    justify-content: center;
+    align-items: center;
+    z-index: 9;
+    &__space {
+      display: block;
+      height: 40px;
+    }
+    &__img-cont {
+      height: 18px;
+    }
+    &__img {
+      height: 100%;
+    }
   }
 }
 </style>

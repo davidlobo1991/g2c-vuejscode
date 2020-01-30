@@ -16,33 +16,34 @@
             Username
           </div>
           <div v-if="step >= 1" class="c-step__steps">
-            <v-icon v-if="step < 2">mdi-checkbox-blank-circle-outline</v-icon>
-            <v-icon v-if="step >= 2">mdi-check-circle-outline</v-icon>
+            <v-icon v-if="step < 3">mdi-checkbox-blank-circle-outline</v-icon>
+            <v-icon v-if="step >= 3">mdi-check-circle-outline</v-icon>
             <span
               v-bind:class="{
-                'c-step__steps--current': step == 1
+                'c-step__steps--current': step === 1,
+                'c-step__steps--current': step === 2
               }"
             >
               Email
             </span>
           </div>
-          <div v-if="step >= 2" class="c-step__steps">
-            <v-icon v-if="step < 3">mdi-checkbox-blank-circle-outline</v-icon>
-            <v-icon v-if="step >= 3">mdi-check-circle-outline</v-icon>
+          <div v-if="step >= 3" class="c-step__steps">
+            <v-icon v-if="step < 4">mdi-checkbox-blank-circle-outline</v-icon>
+            <v-icon v-if="step >= 4">mdi-check-circle-outline</v-icon>
             <span
               v-bind:class="{
-                'c-step__steps--current': step == 2
+                'c-step__steps--current': step === 3
               }"
             >
               Security Key
             </span>
           </div>
-          <div v-if="step >= 3" class="c-step__steps">
+          <div v-if="step >= 4" class="c-step__steps">
             <v-icon>mdi-checkbox-blank-circle-outline</v-icon>
             <!-- <v-icon v-if="step >= 3">mdi-check-circle-outline</v-icon> -->
             <span
               v-bind:class="{
-                'c-step__steps--current': step >= 3
+                'c-step__steps--current': step >= 5
               }"
             >
               Phone Verification

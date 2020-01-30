@@ -1,64 +1,75 @@
 <template>
   <div class="c-info">
     <span class="c-info__text--title">
-      Phone Validation Code
+      <span v-if="kind === 'email'">
+        Email Validation Code
+      </span>
+      <span v-if="kind === 'telephone'">
+        Phone Validation Code
+      </span>
     </span>
     <div class="c-info__text">
-      Please enter the code you’ve receive in the phone number +34xxxxxxxxx965
+      <span v-if="kind === 'email'">
+        We've send you an email with your validation code. Please, check your
+        inbox an write down the code you've received to verify your email
+        address.
+      </span>
+      <span v-if="kind === 'telephone'">
+        Please enter the code you’ve receive in the phone number +34xxxxxxxxx965
+      </span>
     </div>
     <div>
       <div class="c-info__pincode-cont">
         <v-text-field
           id="inputNumberBox1"
-          :height="pinInputHeight"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
           max="9"
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
-          onkeyup="inputNumberBox2.focus()"
+          onkeyup="document.getElementById('inputNumberBox2').focus()"
           type="number"
-        ></v-text-field>
+        >
+        </v-text-field>
         <v-text-field
           id="inputNumberBox2"
-          :height="pinInputHeight"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
           max="9"
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
-          onkeyup="inputNumberBox3.focus()"
+          onkeyup="document.getElementById('inputNumberBox3').focus()"
           type="number"
-        ></v-text-field>
+        >
+        </v-text-field>
         <v-text-field
           id="inputNumberBox3"
-          :height="pinInputHeight"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
           max="9"
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
-          onkeyup="inputNumberBox4.focus()"
+          onkeyup="document.getElementById('inputNumberBox4').focus()"
           type="number"
-        ></v-text-field>
+        >
+        </v-text-field>
         <v-text-field
           id="inputNumberBox4"
-          :height="pinInputHeight"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
           max="9"
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
-          onkeyup="inputNumberBox5.focus()"
+          onkeyup="document.getElementById('inputNumberBox5').focus()"
           type="number"
-        ></v-text-field>
+        >
+        </v-text-field>
         <v-text-field
           id="inputNumberBox5"
-          :height="pinInputHeight"
           class="c-info__pincode__number u-mrl-xs"
           outlined
           min="0"
@@ -66,19 +77,34 @@
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
           type="number"
-        ></v-text-field>
+        >
+        </v-text-field>
       </div>
       <div class="c-info__button--cont">
         <div class="c-info__button">
-          <span class="c-info__link">Resend Code</span>
-          <v-btn depressed x-large color="primary">
+          <span class="c-info__link">
+            <v-icon class="c-info__link--icon">mdi-replay</v-icon> Resend Code
+          </span>
+          <v-btn depressed x-large color="primary" v-if="kind === 'telephone'">
             Sign in
+          </v-btn>
+          <v-btn
+            v-if="kind === 'email'"
+            v-on:click="nextStep"
+            depressed
+            x-large
+            color="primary"
+          >
+            Next
           </v-btn>
         </div>
       </div>
     </div>
     <div class="c-info__responsability u-flex u-flex-between">
-      <div class="c-info__responsability--text-v2 u-pdt-xxxl">
+      <div
+        v-if="kind === 'telephone'"
+        class="c-info__responsability--text-v2 u-pdt-xxxl"
+      >
         Al hacer clic en Registrarte, aceptas nuestras Condiciones. Obtén más
         información sobre cómo recopilamos, usamos y compartimos tu información
         en la Política de datos, así como el uso que hacemos de las cookies en
@@ -87,99 +113,50 @@
     </div>
   </div>
 </template>
-
-<script>
-// const inputNumberBox1 = document.getElementById('inputNumberBox1')
-const inputNumberBox2 = document.getElementById('inputNumberBox2')
-const inputNumberBox3 = document.getElementById('inputNumberBox3')
-const inputNumberBox4 = document.getElementById('inputNumberBox4')
-const inputNumberBox5 = document.getElementById('inputNumberBox5')
-
-this.document.getElementById('inputNumberBox1').onkeyup = function(event) {
-  alert('eehhh')
-  if (this.value.length === 1 && checkIfKeyPressedIsValid(event.keyCode)) {
-    inputNumberBox2.focus()
-  }
-}
-
-inputNumberBox2.onkeyup = function(event) {
-  if (this.value.length === 1 && checkIfKeyPressedIsValid(event.keyCode)) {
-    inputNumberBox3.focus()
-  }
-}
-
-inputNumberBox3.onkeyup = function(event) {
-  if (this.value.length === 1 && checkIfKeyPressedIsValid(event.keyCode)) {
-    inputNumberBox4.focus()
-  }
-}
-
-inputNumberBox4.onkeyup = function(event) {
-  if (this.value.length === 1 && checkIfKeyPressedIsValid(event.keyCode)) {
-    inputNumberBox5.focus()
-  }
-}
-
-function checkIfKeyPressedIsValid(keyCode) {
-  const skipKeys = [
-    37, // left
-    38, // up
-    39, // right
-    40 // down
-  ]
-
-  // return skipKeys.includes(keyCode) > -1 ? false : true
-  return !(skipKeys.includes(keyCode) > -1)
-}
-</script>
 <script>
 export default {
   name: 'PinVerify',
-  data() {
-    return {
-      viewportWidth: 0,
-      pinInputHeight: '64px'
+  props: {
+    kind: {
+      type: String,
+      default: ''
     }
-  },
-  beforeMount() {
-    window.addEventListener('resize', this.onWindowSizeChange)
-  },
-  mounted() {
-    this.viewportWidth = this.getWidth()
-    if (this.viewportWidth < 900) {
-      this.pinInputHeight = '56px'
-    }
-  },
-  destroyed() {
-    window.removeEventListener('resize', this.onWindowSizeChange)
   },
   methods: {
-    onWindowSizeChange() {
-      this.viewportWidth = this.getWidth()
-    },
-    getWidth() {
-      return Math.max(
-        document.documentElement.clientWidth,
-        window.innerWidth || 0
-      )
+    nextStep() {
+      this.$emit('nextStep')
     }
   }
 }
 </script>
 
 <style>
-.c-info__pincode__number
-  .v-input__control
-  .v-input__slot
-  .v-text-field__slot
-  input {
+.c-info__pincode__number,
+.v-input__control,
+.v-input__slot,
+.v-text-field__slot,
+input {
   text-align: center;
+}
+
+.v-text-field--filled > .v-input__control > .v-input__slot,
+.v-text-field--full-width > .v-input__control > .v-input__slot,
+.v-text-field--outlined > .v-input__control > .v-input__slot {
+  height: 64px;
+}
+
+@media screen and (max-width: 768px) {
+  .v-text-field--filled > .v-input__control > .v-input__slot,
+  .v-text-field--full-width > .v-input__control > .v-input__slot,
+  .v-text-field--outlined > .v-input__control > .v-input__slot {
+    min-height: 46px;
+    height: 46px;
+  }
 }
 </style>
 <style lang="scss" scoped>
 .c-info {
   color: #4d4d4d;
-  text-align: center;
   margin: 0 auto;
   font-size: 20px;
   max-width: 54%;
@@ -189,7 +166,7 @@ export default {
   &__text {
     color: #4d4d4d;
     font-family: Roboto;
-    line-height: 40px;
+    /*line-height: 40px;*/
     text-align: center;
     &--title {
       display: block;
@@ -235,6 +212,42 @@ export default {
   &__link {
     color: #0087ff;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    &:hover .c-info__link--icon {
+      transform: rotate(-150deg);
+    }
+    &--icon {
+      color: #0087ff;
+      margin-right: 5px;
+    }
+  }
+}
+@media screen and (max-width: 1500px) {
+  .c-info {
+    font-size: 16px;
+    line-height: unset;
+    padding: 0 0;
+    width: 100%;
+    &__text {
+      line-height: unset;
+      &--title {
+        font-size: 18px;
+        padding-bottom: 10px;
+      }
+    }
+    &__secretword {
+      font-size: 30px;
+      line-height: unset;
+      padding: 44px 0;
+      max-width: 900px;
+    }
+  }
+}
+@media screen and (max-width: 992px) {
+  .c-info {
+    max-width: 70%;
   }
 }
 @media screen and (max-width: 768px) {
@@ -268,7 +281,7 @@ export default {
     &__responsability--text {
       &-v2 {
         font-size: 10px;
-        text-align: center;
+        /*text-align: center;*/
       }
     }
     &__pincode {
@@ -276,6 +289,8 @@ export default {
         padding-bottom: 10px;
       }
       &__number {
+        max-width: 46px;
+        height: 46px !important;
         &:first-of-type {
           margin-left: 0 !important;
         }

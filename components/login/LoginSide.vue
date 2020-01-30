@@ -67,7 +67,8 @@
               outlined
               class="c-login__cont--textarea u-mrb-s"
               label="Security Key"
-            ></v-textarea>
+            >
+            </v-textarea>
             <div class="u-mrb-s c-login__cont--btn">
               <v-btn depressed dark color="#0885F6">
                 Login

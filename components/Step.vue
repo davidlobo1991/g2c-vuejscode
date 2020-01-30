@@ -16,23 +16,26 @@
         <RegisterEmail />
       </div>
       <div v-show="2 === step">
+        <PinVerify v-on:nextStep="nextStep" kind="email" />
+      </div>
+      <div v-show="3 === step">
         <TwelveWordsGenerator
           ref="TwelveWordsGenerator"
           @CheckResponsability="getCheck"
         />
       </div>
-      <div v-show="3 === step">
+      <div v-show="4 === step">
         <TelephoneVerify />
       </div>
-      <div v-show="4 === step">
-        <PinVerify />
+      <div v-show="5 === step">
+        <PinVerify kind="telephone" />
       </div>
       <div :style="cssProps" class="c-info__button-cont u-align-right">
         <v-btn
           v-bind:disabled="
-            responsabilityCheck == false && step == 2 ? true : false
+            responsabilityCheck == false && step == 3 ? true : false
           "
-          v-if="step != 4"
+          v-if="step !== 5 && step !== 2"
           @click="navigationNext"
           depressed
           x-large
@@ -85,7 +88,7 @@ export default {
 
       this.$emit('enviarAlPadre', value)
 
-      if (this.viewportWidth > 768 && value === 2) {
+      if (this.viewportWidth > 768 && value === 3) {
         this.variableWidth = 12
       } else if (this.viewportWidth <= 768) {
         this.variableWidth = 0
@@ -96,7 +99,7 @@ export default {
     viewportWidth(value) {
       if (this.viewportWidth <= 768) {
         this.variableWidth = 0
-      } else if (this.viewportWidth > 768 && value === 2) {
+      } else if (this.viewportWidth > 768 && value === 3) {
         this.variableWidth = 12
       } else {
         this.variableWidth = 27
@@ -133,6 +136,9 @@ export default {
         document.documentElement.clientWidth,
         window.innerWidth || 0
       )
+    },
+    nextStep() {
+      this.navigationNext()
     }
   }
 }

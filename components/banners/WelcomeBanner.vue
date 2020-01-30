@@ -6,9 +6,12 @@
         Fill your profile information to appear on the Network and start
         receving and requesting connections.
       </div>
-      <v-btn depressed class="c-banner__button">
-        Edit Profile
-      </v-btn>
+      <div class="c-banner__close">
+        <v-icon dark class="c-banner__close--icon">mdi-close</v-icon>
+        <v-btn depressed class="c-banner__button">
+          Edit Profile
+        </v-btn>
+      </div>
     </div>
   </div>
 </template>
@@ -40,6 +43,11 @@
     margin-left: 25px;
     height: 40px !important;
   }
+  &__close {
+    &--icon {
+      display: none;
+    }
+  }
 }
 @media screen and (max-width: 1500px) {
   .c-banner {
@@ -51,7 +59,7 @@
 @media screen and (max-width: 768px) {
   .c-banner {
     font-size: 12px;
-    padding: 0 12px;
+    padding: 10px;
     height: 110px;
     position: static;
     &__space {
@@ -64,6 +72,17 @@
       max-width: 90px;
       font-size: 13px;
       letter-spacing: 0.1px;
+    }
+    &__close {
+      text-align: right;
+      height: 100%;
+      display: flex;
+      flex-flow: column;
+      justify-content: space-between;
+      align-items: flex-end;
+      &--icon {
+        display: block;
+      }
     }
   }
 }

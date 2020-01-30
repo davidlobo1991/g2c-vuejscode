@@ -12,13 +12,15 @@
         outlined
         label="Country"
         class="o-layout__item u-1/1 u-1/4@m c-info__input--prefix c-test"
-      ></v-select>
+      >
+      </v-select>
       <v-text-field
         outlined
         class="o-layout__item u-1/1 u-1/4@m c-info__input--phone c-test"
         label="Phone number"
         type="number"
-      ></v-text-field>
+      >
+      </v-text-field>
     </div>
     <div class="c-info__responsability">
       <div class="c-info__responsability--title">
@@ -40,7 +42,7 @@
           I'll let NetworkSV (a UK Company) charge me VAT.
         </div>
         <div class="c-info__responsability--toggle">
-          <v-checkbox color="#376EFA"></v-checkbox>
+          <v-checkbox color="#376EFA"> </v-checkbox>
         </div>
       </div>
     </div>
@@ -106,6 +108,55 @@ export default {
   .v-label--active {
   transform: translateY(-40px) scale(0.75) !important;
 }
+@media screen and (max-width: 1500px) {
+  .c-info__input--prefix .v-input__control .v-input__slot {
+    font-size: 16px;
+    line-height: 16px !important;
+    height: 64px;
+  }
+  .c-info__input--prefix
+    .v-input__control
+    .v-input__slot
+    .v-select__slot
+    .v-select__selections {
+    /*line-height: 23px;*/
+  }
+  .c-info__input--prefix
+    .v-input__control
+    .v-input__slot
+    .v-select__slot
+    .v-label {
+    font-size: 16px;
+    top: 22px !important;
+  }
+  .c-info__input--prefix
+    .v-input__control
+    .v-input__slot
+    .v-select__slot
+    .v-label--active {
+    transform: translateY(-28px) scale(0.75) !important;
+  }
+  .c-info__input--phone .v-input__control .v-input__slot {
+    height: 64px;
+    font-size: 16px;
+    /*line-height: 23px !important;*/
+  }
+  .c-info__input--phone
+    .v-input__control
+    .v-input__slot
+    .v-text-field__slot
+    .v-label {
+    font-size: 16px;
+    top: 22px !important;
+  }
+  .c-info__input--phone
+    .v-input__control
+    .v-input__slot
+    .v-text-field__slot
+    .v-label--active {
+    transform: translateY(-28px) scale(0.75) !important;
+  }
+}
 @media screen and (max-width: 768px) {
   .c-info__input--prefix .v-input__control .v-input__slot {
     font-size: 17px;
@@ -125,7 +176,7 @@ export default {
     .v-select__slot
     .v-label {
     font-size: 17px;
-    top: 18px !important;
+    top: 14px !important;
   }
   .c-info__input--prefix
     .v-input__control
@@ -145,7 +196,7 @@ export default {
     .v-text-field__slot
     .v-label {
     font-size: 17px;
-    top: 18px !important;
+    top: 14px !important;
   }
   .c-info__input--phone
     .v-input__control
@@ -207,6 +258,32 @@ export default {
     border-radius: 50px;
     height: 20px;
     width: 20px;
+  }
+}
+@media screen and (max-width: 1500px) {
+  .c-info {
+    font-size: 16px;
+    line-height: unset;
+    padding: 0 80px;
+    width: 67%;
+    &__text {
+      line-height: unset;
+      &--title {
+        font-size: 18px;
+        padding-bottom: 10px;
+      }
+    }
+    &__secretword {
+      font-size: 30px;
+      line-height: unset;
+      padding: 44px 0;
+      max-width: 900px;
+    }
+  }
+}
+@media screen and (max-width: 1200px) {
+  .c-info {
+    width: 100%;
   }
 }
 @media screen and (max-width: 768px) {

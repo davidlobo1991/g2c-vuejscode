@@ -3,7 +3,7 @@
     <ul class="c-account__navbar--menu">
       <li
         v-bind:class="
-          activeTab == 'Account' ? 'c-account__navbar--item-active' : ''
+          activeTab === 'Account' ? 'c-account__navbar--item-active' : ''
         "
         class="c-account__navbar--item"
       >
@@ -13,7 +13,7 @@
       </li>
       <li
         v-bind:class="
-          activeTab == 'Calendar' ? 'c-account__navbar--item-active' : ''
+          activeTab === 'Calendar' ? 'c-account__navbar--item-active' : ''
         "
         class="c-account__navbar--item"
       >
@@ -23,7 +23,7 @@
       </li>
       <li
         v-bind:class="
-          activeTab == 'Activity' ? 'c-account__navbar--item-active' : ''
+          activeTab === 'Activity' ? 'c-account__navbar--item-active' : ''
         "
         class="c-account__navbar--item"
       >
@@ -33,7 +33,7 @@
       </li>
       <li
         v-bind:class="
-          activeTab == 'Settings' ? 'c-account__navbar--item-active' : ''
+          activeTab === 'Settings' ? 'c-account__navbar--item-active' : ''
         "
         class="c-account__navbar--item"
       >
@@ -96,6 +96,27 @@ export default {
   .c-account {
     &__navbar {
       font-size: 15px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .c-account {
+    &__navbar {
+      background-color: #21273b;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 13px;
+      font-weight: normal;
+      height: 45px;
+      &--item {
+        &-active {
+          color: #fff;
+          border-bottom: #fff;
+          &:hover .c-account__navbar--link {
+            color: #fff;
+          }
+        }
+      }
     }
   }
 }

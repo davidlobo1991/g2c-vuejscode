@@ -91,9 +91,6 @@ export default {
   background-color: #1f2531;
   min-width: 14%;
   &__wrapper {
-    // display: flex;
-    // flex-flow: column;
-    // align-items: center;
     padding: 32px 15px;
   }
   &__fixed-cont {
@@ -191,6 +188,7 @@ export default {
 @media screen and (max-width: 1500px) {
   .c-sidebar {
     font-size: 15px;
+    min-width: 200px;
     &__logo {
       width: 100px;
     }

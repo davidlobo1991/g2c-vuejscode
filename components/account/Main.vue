@@ -1,5 +1,6 @@
 <template>
   <section class="c-account">
+    <TopMobile />
     <AccountNavbar active-tab="Account" />
     <div class="c-account__wrapper-section">
       <div class="c-account__left-cont">
@@ -11,6 +12,7 @@
         <AccountMeetings />
       </div>
     </div>
+    <BottomMobile />
   </section>
 </template>
 
@@ -20,6 +22,8 @@ import AccountProfile from '~/components/account/AccountProfile'
 import AccountStats from '~/components/account/AccountStats'
 import AccountPricing from '~/components/account/AccountPricing'
 import AccountMeetings from '~/components/account/AccountMeetings'
+import TopMobile from '~/components/site/TopMobile'
+import BottomMobile from '~/components/site/BottomMobile'
 
 export default {
   name: 'Network',
@@ -28,7 +32,9 @@ export default {
     AccountProfile,
     AccountStats,
     AccountPricing,
-    AccountMeetings
+    AccountMeetings,
+    TopMobile,
+    BottomMobile
   },
   data: () => ({}),
   methods: {}
@@ -52,6 +58,21 @@ export default {
   &__left-cont {
     width: 60%;
     margin-right: 12px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .c-account {
+    &__wrapper-section {
+      flex-flow: column;
+    }
+    &__right-cont {
+      width: 100%;
+      margin: 0;
+    }
+    &__left-cont {
+      width: 100%;
+      margin: 0 0 15px 0;
+    }
   }
 }
 </style>
