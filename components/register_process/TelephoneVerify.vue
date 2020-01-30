@@ -81,7 +81,7 @@ export default {
   .v-select__slot
   .v-label {
   font-size: 23px;
-  top: 34px !important;
+  top: 22px !important;
 }
 .c-info__input--prefix
   .v-input__control
@@ -101,7 +101,7 @@ export default {
   .v-text-field__slot
   .v-label {
   font-size: 23px;
-  top: 34px !important;
+  top: 22px !important;
 }
 .c-info__input--phone
   .v-input__control
