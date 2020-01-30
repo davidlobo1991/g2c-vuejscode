@@ -187,21 +187,6 @@ input[type='number']::-webkit-outer-spin-button {
     font-size: 21px;
   }
 }
-@media screen and (max-width: 899px) {
-  .c-info {
-    &__wrapper {
-      /*padding: 28px 0 0 0 !important;*/
-    }
-    &__button-cont {
-      /*padding-right: 0;*/
-      /*padding-top: 35px;*/
-      /*text-align: center !important;*/
-      & button {
-        /*min-width: 92% !important;*/
-      }
-    }
-  }
-}
 @media screen and (max-width: 768px) {
   .c-info {
     &__wrapper {
@@ -227,6 +212,7 @@ input[type='number']::-webkit-outer-spin-button {
     }
     &__right-side {
       width: 90%;
+      padding-top: 8%;
     }
   }
 }

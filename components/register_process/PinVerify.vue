@@ -85,7 +85,7 @@
           <span class="c-info__link">
             <v-icon class="c-info__link--icon">mdi-replay</v-icon> Resend Code
           </span>
-          <v-btn depressed x-large color="primary" v-if="kind === 'telephone'">
+          <v-btn v-if="kind === 'telephone'" depressed x-large color="primary">
             Sign in
           </v-btn>
           <v-btn

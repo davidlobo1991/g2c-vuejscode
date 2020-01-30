@@ -401,7 +401,7 @@
         </v-btn>
       </div>
     </div>
-    <v-dialog width="50%" v-model="IsShowingContactInfo" class="c-contact-card">
+    <v-dialog v-model="IsShowingContactInfo" width="50%" class="c-contact-card">
       <v-card>
         <v-card-text>
           <div class="c-contact-card__cross--cont">
