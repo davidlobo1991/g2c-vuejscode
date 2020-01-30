@@ -269,7 +269,7 @@ input {
     &__link {
       font-size: 12px;
       padding-bottom: 15px;
-      padding-left: 15px;
+      padding-left: 0;
     }
     &__button {
       flex-flow: column;

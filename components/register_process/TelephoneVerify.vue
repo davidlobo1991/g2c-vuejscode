@@ -12,6 +12,7 @@
         outlined
         label="Country"
         class="o-layout__item u-1/1 u-1/4@m c-info__input--prefix c-test"
+        hide-details="auto"
       >
       </v-select>
       <v-text-field
@@ -19,6 +20,7 @@
         class="o-layout__item u-1/1 u-1/4@m c-info__input--phone c-test"
         label="Phone number"
         type="number"
+        hide-details="auto"
       >
       </v-text-field>
     </div>
@@ -42,7 +44,7 @@
           I'll let NetworkSV (a UK Company) charge me VAT.
         </div>
         <div class="c-info__responsability--toggle">
-          <v-checkbox color="#376EFA"> </v-checkbox>
+          <v-checkbox hide-details="auto" color="#376EFA"> </v-checkbox>
         </div>
       </div>
     </div>
@@ -231,12 +233,16 @@ export default {
     }
   }
   &__responsability {
+    padding-bottom: 26px;
     &--title {
       font-weight: 500;
       padding-right: 15px;
     }
     &--toggle {
       transform: scale(1.2);
+      & .v-input--selection-controls {
+        margin-top: 0;
+      }
     }
   }
   &__phone-cont {
@@ -247,6 +253,7 @@ export default {
     &--prefix {
       max-width: 230px;
       padding-right: 16px;
+      padding-bottom: 12px;
     }
     &--phone {
       max-width: 325px;
@@ -308,7 +315,8 @@ export default {
     &__input {
       &--prefix {
         max-width: none;
-        padding: 0;
+        padding-left: 0;
+        padding-right: 0;
       }
       &--phone {
         max-width: none;
@@ -320,6 +328,9 @@ export default {
       }
       &--text {
         font-size: 12px;
+      }
+      &--toggle {
+        transform: none;
       }
     }
   }

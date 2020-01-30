@@ -7,7 +7,12 @@
       Text explaining why do we need your email. We won't spam.
     </div>
     <div class="c-info__input-cont">
-      <v-text-field label="Email" outlined class="c-info__input">
+      <v-text-field
+        label="Email"
+        outlined
+        class="c-info__input"
+        hide-details="auto"
+      >
       </v-text-field>
     </div>
   </div>
@@ -93,7 +98,7 @@ export default {
   &__input-cont {
     max-width: 46%;
     margin: 0 auto;
-    padding-top: 40px;
+    padding: 40px 0 12px 0;
   }
   &__input {
     text-align: center;
