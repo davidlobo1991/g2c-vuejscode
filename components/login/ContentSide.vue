@@ -10,6 +10,7 @@
         <div class="c-contentside__video--video">
           <video
             autoplay="true"
+            playsinline
             loop="true"
             src="@/assets/video/1024093451.mp4"
           ></video>
