@@ -39,7 +39,7 @@
           @click="navigationNext"
           depressed
           x-large
-          color="primary"
+          color="#0086ff"
           class="c-info__button"
         >
           Next
@@ -92,6 +92,8 @@ export default {
         this.variableWidth = 12
       } else if (this.viewportWidth <= 768) {
         this.variableWidth = 0
+      } else if (this.viewportWidth > 768 && value === 4) {
+        this.variableWidth = 27
       } else {
         this.variableWidth = 27
       }
@@ -101,6 +103,8 @@ export default {
         this.variableWidth = 0
       } else if (this.viewportWidth > 768 && value === 3) {
         this.variableWidth = 12
+      } else if (this.viewportWidth > 768 && value === 4) {
+        this.variableWidth = 27
       } else {
         this.variableWidth = 27
       }
@@ -171,7 +175,7 @@ input[type='number']::-webkit-outer-spin-button {
     justify-content: center;
   }
   &__right-side {
-    padding-top: 5%;
+    padding-top: 4.5%;
     width: 60%;
     margin: 0 auto;
   }
@@ -185,6 +189,19 @@ input[type='number']::-webkit-outer-spin-button {
     width: 180px;
     height: 80px !important;
     font-size: 21px;
+    color: #fff;
+    text-transform: none;
+  }
+}
+@media screen and (max-width: 768px) {
+  .c-info {
+    &__button {
+      width: 118px;
+      height: 54px !important;
+      font-size: 16px;
+      color: #fff;
+      text-transform: none;
+    }
   }
 }
 @media screen and (max-width: 768px) {

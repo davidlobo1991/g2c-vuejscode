@@ -81,7 +81,7 @@ export default {
 }
 .c-info {
   color: #4d4d4d;
-  font-size: 22px;
+  font-size: 20px;
   &__text {
     color: #4d4d4d;
     font-family: Roboto;
@@ -102,6 +102,7 @@ export default {
   }
   &__input {
     text-align: center;
+    padding-bottom: 20px;
     & input {
       font-size: 80px;
     }

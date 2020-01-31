@@ -25,7 +25,7 @@
           in a safe place.
         </div>
         <div class="c-info__responsability--toggle">
-          <v-switch v-on:change="acceptedCheck" color="#376EFA"></v-switch>
+          <v-switch v-on:change="acceptedCheck" color="#0086ff"></v-switch>
         </div>
       </div>
     </div>
@@ -54,11 +54,11 @@ export default {
   color: #4d4d4d;
   padding-left: 120px;
   padding-right: 120px;
-  font-size: 22px;
+  font-size: 20px;
   &__text {
     color: #4d4d4d;
     font-family: Roboto;
-    line-height: 40px;
+    line-height: 30px;
     text-align: center;
     &--title {
       display: block;
@@ -74,12 +74,12 @@ export default {
   }
   &__secretword {
     margin: 0 auto;
-    font-size: 42px;
+    font-size: 40px;
     font-weight: 500;
     line-height: 55px;
     text-align: center;
     max-width: 900px;
-    padding: 88px 0;
+    padding: 60px 0;
   }
   &__responsability {
     // color: #4d4d4d;
@@ -88,6 +88,9 @@ export default {
     margin: 00 auto;
     &--title {
       font-weight: 500;
+    }
+    &--text {
+      padding-right: 20px;
     }
     &--toggle {
       transform: scale(1.2);

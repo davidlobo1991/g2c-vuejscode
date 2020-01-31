@@ -449,7 +449,7 @@ export default {
       }
     }
     &__details {
-      max-width: 200px;
+      /*max-width: 200px;*/
     }
   }
 }

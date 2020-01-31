@@ -85,7 +85,14 @@
           <span class="c-info__link">
             <v-icon class="c-info__link--icon">mdi-replay</v-icon> Resend Code
           </span>
-          <v-btn v-if="kind === 'telephone'" depressed x-large color="primary">
+          <v-btn
+            v-if="kind === 'telephone'"
+            depressed
+            x-large
+            dark
+            color="#0086ff"
+            class="rw-normal-text"
+          >
             Sign in
           </v-btn>
           <v-btn
@@ -93,7 +100,9 @@
             v-on:click="nextStep"
             depressed
             x-large
-            color="primary"
+            color="#0086ff"
+            dark
+            class="rw-normal-text"
           >
             Next
           </v-btn>
@@ -131,6 +140,9 @@ export default {
 </script>
 
 <style>
+.rw-normal-text {
+  text-transform: none;
+}
 .c-info__pincode__number,
 .v-input__control,
 .v-input__slot,
@@ -139,14 +151,24 @@ input {
   text-align: center;
 }
 
-.v-text-field--filled > .v-input__control > .v-input__slot,
-.v-text-field--full-width > .v-input__control > .v-input__slot,
-.v-text-field--outlined > .v-input__control > .v-input__slot {
+.c-info__pincode__number
+  .v-text-field--filled
+  > .v-input__control
+  > .v-input__slot
+  .v-text-field--full-width
+  > .v-input__control
+  > .v-input__slot
+  .v-text-field--outlined
+  > .v-input__control
+  > .v-input__slot {
   height: 64px;
 }
 
 @media screen and (max-width: 768px) {
-  .v-text-field--filled > .v-input__control > .v-input__slot,
+  .c-info__pincode__number
+    .v-text-field--filled
+    > .v-input__control
+    > .v-input__slot,
   .v-text-field--full-width > .v-input__control > .v-input__slot,
   .v-text-field--outlined > .v-input__control > .v-input__slot {
     min-height: 46px;

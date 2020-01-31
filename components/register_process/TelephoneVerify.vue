@@ -63,6 +63,7 @@ export default {
 </script>
 
 <style lang="scss">
+/*PREFIX FIELD*/
 .c-info__input--prefix .v-input__control .v-input__slot {
   font-size: 20px;
   line-height: 23px !important;
@@ -81,7 +82,7 @@ export default {
   .v-select__slot
   .v-label {
   font-size: 23px;
-  top: 22px !important;
+  top: 36px !important;
 }
 .c-info__input--prefix
   .v-input__control
@@ -90,6 +91,7 @@ export default {
   .v-label--active {
   transform: translateY(-40px) scale(0.75) !important;
 }
+/*PHONE FIELD*/
 .c-info__input--phone .v-input__control .v-input__slot {
   font-size: 20px;
   line-height: 23px !important;
@@ -101,7 +103,7 @@ export default {
   .v-text-field__slot
   .v-label {
   font-size: 23px;
-  top: 22px !important;
+  top: 36px !important;
 }
 .c-info__input--phone
   .v-input__control
@@ -111,6 +113,7 @@ export default {
   transform: translateY(-40px) scale(0.75) !important;
 }
 @media screen and (max-width: 1500px) {
+  /*PREFIX FIELD*/
   .c-info__input--prefix .v-input__control .v-input__slot {
     font-size: 16px;
     line-height: 16px !important;
@@ -143,6 +146,7 @@ export default {
     font-size: 16px;
     /*line-height: 23px !important;*/
   }
+  /*PHONE FIELD*/
   .c-info__input--phone
     .v-input__control
     .v-input__slot
@@ -160,6 +164,7 @@ export default {
   }
 }
 @media screen and (max-width: 768px) {
+  /*PREFIX FIELD*/
   .c-info__input--prefix .v-input__control .v-input__slot {
     font-size: 17px;
     /*line-height: 17px !important;*/
@@ -187,6 +192,7 @@ export default {
     .v-label--active {
     transform: translateY(-25px) scale(0.75) !important;
   }
+  /*PHONE FIELD*/
   .c-info__input--phone .v-input__control .v-input__slot {
     height: 46px;
     font-size: 17px;
@@ -213,7 +219,8 @@ export default {
 .c-info {
   color: #4d4d4d;
   font-size: 22px;
-  width: 45%;
+  /*width: 45%;*/
+  max-width: 572px;
   margin: 0 auto;
   &__text {
     color: #4d4d4d;
@@ -271,8 +278,10 @@ export default {
   .c-info {
     font-size: 16px;
     line-height: unset;
-    padding: 0 80px;
-    width: 67%;
+    /*padding: 0 80px;*/
+    padding: 0;
+    /*width: 67%;*/
+    max-width: 418px;
     &__text {
       line-height: unset;
       &--title {
