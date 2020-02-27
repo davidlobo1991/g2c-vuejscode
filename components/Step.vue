@@ -1,108 +1,236 @@
 <template>
-  <div class="o-wrapper o-wrapper--xl">
-    <div class="o-layout o-layout--gutter-l">
-      <div class="o-layout__item  u-1/3 u-pdt-h">
-        <div class="c-step">
-          <div class="c-step__logo">
-            <img src="@/assets/svg/networksv_logo.svg" />
-          </div>
-          <div class="c-step__steps">
-            <div class="c-steps">
-              <v-icon>mdi-check-circle-outline</v-icon>
-              Username
-            </div>
-            <div class="c-steps">
-              <v-icon>mdi-checkbox-blank-circle-outline</v-icon>
-              Security Key
-            </div>
-          </div>
-        </div>
+  <div class="c-register__wrapper">
+    <div class="c-register__left-side">
+      <navigation-steps ref="NavigationSteps" />
+    </div>
+    <div class="c-register__right-side">
+      <div class="c-register__logo">
+        <!-- <img src="@/assets/svg/networksv_logo.svg" /> -->
+        <nuxt-link
+          :src="require('@/assets/svg/networksv_logo.svg')"
+          tag="img"
+          to="/"
+        />
       </div>
-      <div class="o-layout__item u-2/3 u-pdt-h u-align-left">
-        <div class="c-info u-pdh-8xh">
-          <div class="c-info__text">
-            These words are your Security Key.
-          </div>
-          <div class="c-info__secretword u-align-center u-pdv-xxxh">
-            sudden awkward slam gown vapor change meat cable hover section cart
-          </div>
-          <div class="c-info__responsability u-flex u-flex-between">
-            <div class="c-info__responsability--text">
-              <b>Responsability Disclaimer</b><br />
-              I have writen down these 12 words and I am resposable to keep them
-              in a safe place.
-            </div>
-            <div class="c-info__responsability--toggle">
-              <v-switch></v-switch>
-            </div>
-          </div>
-          <div class="c-info__button u-align-right">
-            <v-btn depressed disabled large>Next</v-btn>
-          </div>
-        </div>
+      <div v-show="1 === step">
+        <RegisterEmail />
+      </div>
+      <div v-show="2 === step">
+        <PinVerify v-on:nextStep="nextStep" kind="email" />
+      </div>
+      <div v-show="3 === step">
+        <TwelveWordsGenerator
+          ref="TwelveWordsGenerator"
+          @CheckResponsability="getCheck"
+        />
+      </div>
+      <div v-show="4 === step">
+        <TelephoneVerify />
+      </div>
+      <div v-show="5 === step">
+        <PinVerify kind="telephone" />
+      </div>
+      <div :style="cssProps" class="c-info__button-cont u-align-right">
+        <v-btn
+          v-bind:disabled="
+            responsabilityCheck == false && step == 3 ? true : false
+          "
+          v-if="step !== 5 && step !== 2"
+          @click="navigationNext"
+          depressed
+          x-large
+          color="#0086ff"
+          class="c-info__button"
+        >
+          Next
+        </v-btn>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import NavigationSteps from '~/components/register_process/NavigationSteps'
+import TwelveWordsGenerator from '~/components/register_process/TwelveWordsGenerator'
+import TelephoneVerify from '~/components/register_process/TelephoneVerify'
+import PinVerify from '~/components/register_process/PinVerify'
+import RegisterEmail from '~/components/register_process/RegisterEmail'
+
 export default {
   name: 'Login',
-  props: {}
+  components: {
+    NavigationSteps,
+    TwelveWordsGenerator,
+    TelephoneVerify,
+    PinVerify,
+    RegisterEmail
+  },
+  props: {},
+  data() {
+    return {
+      step: 1,
+      responsabilityCheck: false,
+      // pinInputHeight: '64px',
+      viewportWidth: 0,
+      variableWidth: 27
+    }
+  },
+  computed: {
+    cssProps() {
+      return {
+        '--variable-wrapper': this.variableWidth + '%'
+      }
+    }
+  },
+  watch: {
+    step(value) {
+      this.$refs.NavigationSteps.setStep(value)
+
+      this.$emit('enviarAlPadre', value)
+
+      if (this.viewportWidth > 768 && value === 3) {
+        this.variableWidth = 12
+      } else if (this.viewportWidth <= 768) {
+        this.variableWidth = 0
+      } else if (this.viewportWidth > 768 && value === 4) {
+        this.variableWidth = 27
+      } else {
+        this.variableWidth = 27
+      }
+    },
+    viewportWidth(value) {
+      if (this.viewportWidth <= 768) {
+        this.variableWidth = 0
+      } else if (this.viewportWidth > 768 && value === 3) {
+        this.variableWidth = 12
+      } else if (this.viewportWidth > 768 && value === 4) {
+        this.variableWidth = 27
+      } else {
+        this.variableWidth = 27
+      }
+    }
+  },
+  beforeMount() {
+    window.addEventListener('resize', this.onWindowSizeChange)
+  },
+  mounted() {
+    this.viewportWidth = this.getWidth()
+    // if (this.viewportWidth < 900) {
+    //   this.pinInputHeight = '56px'
+    // }
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.onWindowSizeChange)
+  },
+  methods: {
+    getCheck(value) {
+      this.responsabilityCheck = value
+    },
+    navigationNext() {
+      this.step = this.step + 1
+    },
+    navigationPrevious() {
+      this.step = this.step - 1
+    },
+    onWindowSizeChange() {
+      this.viewportWidth = this.getWidth()
+    },
+    getWidth() {
+      return Math.max(
+        document.documentElement.clientWidth,
+        window.innerWidth || 0
+      )
+    },
+    nextStep() {
+      this.navigationNext()
+    }
+  }
 }
 </script>
 
+<style>
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+</style>
 <style lang="scss" scoped>
-.v-btn {
-  text-transform: capitalize;
-  letter-spacing: 0px;
-  height: 54px;
-  width: 118px;
-}
-.v-icon {
-  font-size: 36px;
-}
-.mdi-check-circle-outline {
-  color: #18de82;
-}
-.c-step {
-  &__logo {
-    padding-bottom: 120px;
+.c-register {
+  &__wrapper {
+    display: flex;
+    width: 100%;
   }
-}
-.c-steps {
-  color: #8c8c8c;
-  font-family: Roboto;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 21px;
-  padding-bottom: 40px;
+  &__logo {
+    display: none;
+  }
+  &__left-side {
+    width: 35%;
+    background-color: #f5f8fd;
+    box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.1);
+    padding-top: 5%;
+    display: flex;
+    justify-content: center;
+  }
+  &__right-side {
+    padding-top: 4.5%;
+    width: 60%;
+    margin: 0 auto;
+  }
 }
 .c-info {
-  &__text {
-    padding-top: 30px;
-    color: #4d4d4d;
-    font-family: Roboto;
-    font-size: 16px;
-    line-height: 21px;
-  }
-  &__secretword {
-    color: #4d4d4d;
-    font-family: Roboto;
-    font-size: 28px;
-    font-weight: 500;
-    line-height: 38px;
-    text-align: center;
-    width: 554px;
-  }
-  &__responsability {
-    color: #4d4d4d;
-    font-family: Roboto;
-    font-size: 15px;
-    line-height: 19px;
+  &__button-cont {
+    // padding-right: 27%;
+    padding-right: var(--variable-wrapper);
   }
   &__button {
-    padding-top: 60px;
+    width: 180px;
+    height: 80px !important;
+    font-size: 21px;
+    color: #fff;
+    text-transform: none;
+  }
+}
+@media screen and (max-width: 768px) {
+  .c-info {
+    &__button {
+      width: 118px;
+      height: 54px !important;
+      font-size: 16px;
+      color: #fff;
+      text-transform: none;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .c-info {
+    &__wrapper {
+      /*padding: 28px 0 0 0 !important;*/
+    }
+    &__button {
+      width: 100%;
+      height: 56px !important;
+      font-size: 18px;
+    }
+  }
+  .c-register {
+    &__logo {
+      display: block;
+      text-align: center;
+      padding-bottom: 30px;
+      & img {
+        width: 110px;
+      }
+    }
+    &__left-side {
+      display: none;
+    }
+    &__right-side {
+      width: 90%;
+      padding-top: 8%;
+    }
   }
 }
 </style>

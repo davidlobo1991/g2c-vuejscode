@@ -1,98 +1,123 @@
 <template>
-  <div class="o-wrapper o-wrapper--xxl">
-    <div class="o-layout o-layout--gutter-l c-block">
-      <div class="o-layout__item c-block__video u-3/4 u-pdt-h ">
-        <div class="c-video">
-          <div class="c-video__title u-pdl-h">
-            Trade your knowledge anywhere and everywhere.
-          </div>
-          <div class="c-video__video">
-            <video
-              autoplay="true"
-              loop="true"
-              src="@/assets/video/1024093451.mp4"
-            ></video>
-          </div>
-        </div>
+  <div class="c-block">
+    <div
+      v-bind:class="[
+        viewportWidth <= 768 && (createAccountIsVisible || loginIsVisible)
+          ? 'full-height'
+          : ''
+      ]"
+      class="c-block__wrapper"
+    >
+      <div
+        v-if="
+          viewportWidth > 768 ||
+            (viewportWidth <= 768 && !createAccountIsVisible && !loginIsVisible)
+        "
+        class="c-block__video"
+      >
+        <ContentSide />
       </div>
-      <div class="o-layout__item u-1/4 u-pdt-h c-block__login u-align-center">
-        <div class="c-login">
-          <div class="c-login__logo">
-            <img src="@/assets/svg/networksv_logo.svg" />
-          </div>
-          <div class="c-login__subtitle">
-            Global Knowledge Network
-          </div>
-          <div class="c-login__login">
-            <div class="u-mrb-s">
-              <v-btn depressed color="primary"> Create Account</v-btn>
-            </div>
-            <div>
-              <v-btn outlined color="primary">Login</v-btn>
-            </div>
-          </div>
-        </div>
+      <div
+        v-bind:class="[
+          viewportWidth <= 768 && (createAccountIsVisible || loginIsVisible)
+            ? 'full-height'
+            : ''
+        ]"
+        class="c-block__login"
+      >
+        <LoginSide
+          v-on:createAccountIsVisible="setCreateAccountIsVisible"
+          v-on:loginIsVisible="setLoginIsVisible"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import ContentSide from '~/components/login/ContentSide'
+import LoginSide from '~/components/login/LoginSide'
+
 export default {
   name: 'Login',
-  props: {}
+  components: {
+    ContentSide,
+    LoginSide
+  },
+  data() {
+    return {
+      viewportWidth: 0,
+      createAccountIsVisible: false,
+      loginIsVisible: false
+    }
+  },
+  beforeMount() {
+    window.addEventListener('resize', this.onWindowSizeChange)
+  },
+  mounted() {
+    this.viewportWidth = this.getWidth()
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.onWindowSizeChange)
+  },
+  methods: {
+    onWindowSizeChange() {
+      this.viewportWidth = this.getWidth()
+    },
+    setCreateAccountIsVisible(value) {
+      this.createAccountIsVisible = value
+    },
+    setLoginIsVisible(value) {
+      this.loginIsVisible = value
+    },
+    getWidth() {
+      return Math.max(
+        document.documentElement.clientWidth,
+        window.innerWidth || 0
+      )
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-.v-btn {
-  text-transform: capitalize;
-  min-width: 262px !important;
-  height: 56px !important;
-  letter-spacing: 0;
-  font-weight: 500;
-  letter-spacing: 0;
-  font-family: Roboto;
-}
 .c-block {
-  min-height: 100%;
-  &__video {
-    border-right: 2px solid rgba(0, 0, 0, 0.2);
-  }
-}
-.c-video {
-  &__title {
-    height: 76px;
-    width: 560px;
-    color: #29363d;
-    font-family: Roboto;
-    font-size: 37px;
-    font-weight: bold;
-    letter-spacing: 0.35px;
-    line-height: 40px;
+  width: 100%;
+  background-color: #fff;
+  &__wrapper {
+    display: flex;
+    height: 100%;
   }
   &__video {
-    padding-top: 70px;
+    width: 68%;
+    background-color: #fbfcfe;
+    -webkit-box-shadow: 0px 0px 14px 2px rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0px 0px 14px 2px rgba(0, 0, 0, 0.19);
+    box-shadow: 0px 0px 14px 2px rgba(0, 0, 0, 0.19);
   }
-  &__video video {
-    width: 100%;
-  }
-}
-.c-login {
-  text-algin: center;
   &__login {
-    text-algin: center;
-    width: 100%;
+    width: 32%;
   }
-  &__subtitle {
-    padding-top: 20px;
-    padding-bottom: 160px;
-    color: #29363d;
-    font-family: Roboto;
-    font-size: 18px;
-    letter-spacing: 0.17px;
-    line-height: 23px;
-    text-align: center;
+}
+.full-height {
+  height: 100% !important;
+}
+@media screen and (max-width: 768px) {
+  .c-block {
+    &__wrapper {
+      flex-flow: column-reverse;
+      height: auto;
+    }
+    &__video {
+      width: 100%;
+      box-shadow: unset;
+    }
+    &__login {
+      width: 100%;
+      -webkit-box-shadow: 0px 0px 14px 2px rgba(0, 0, 0, 0.19);
+      -moz-box-shadow: 0px 0px 14px 2px rgba(0, 0, 0, 0.19);
+      box-shadow: 0px 0px 14px 2px rgba(0, 0, 0, 0.19);
+    }
   }
 }
 </style>

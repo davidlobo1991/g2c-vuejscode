@@ -1,8 +1,9 @@
 <template>
   <v-app>
-    <!-- <v-content> -->
-    <nuxt />
-    <!-- </v-content> -->
+    <v-content>
+      aaaaaaaaa
+      <nuxt />
+    </v-content>
   </v-app>
 </template>
 
