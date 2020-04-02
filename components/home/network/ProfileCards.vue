@@ -3,16 +3,15 @@
     <div class="c-home__cards__wrapper">
       <div v-on:click="showContact" class="c-home__cards__card">
         <div class="c-home__cards__card--img-cont">
-          <nuxt-link
-            :src="require('@/assets/images/persona1.png')"
-            tag="img"
-            to="/"
+          <img
+            src="~/assets/images/persona1.png"
+            alt="image"
             class="c-home__cards__card--img"
           />
           <div class="c-home__cards__card--status u-status--available"></div>
         </div>
         <div class="c-home__cards__card--name">
-          Gabel Shebera
+          Gabel Sheber
         </div>
         <div class="c-home__cards__card--username">
           @gabelsh
@@ -30,21 +29,20 @@
             Recommends
           </div>
         </div>
-        <ConnectButton status="view" />
+        <ConnectButton v-on:closeAllModals="closeAllModals" status="view" />
       </div>
 
-      <div class="c-home__cards__card">
+      <div v-on:click="showContact" class="c-home__cards__card">
         <div class="c-home__cards__card--img-cont">
-          <nuxt-link
-            :src="require('@/assets/images/persona1.png')"
-            tag="img"
-            to="/"
+          <img
+            src="~/assets/images/persona1.png"
+            alt="image"
             class="c-home__cards__card--img"
           />
           <div class="c-home__cards__card--status u-status--available"></div>
         </div>
         <div class="c-home__cards__card--name">
-          Gabel Shebera
+          Gabel Sheber
         </div>
         <div class="c-home__cards__card--username">
           @gabelsh
@@ -62,7 +60,11 @@
             Recommends
           </div>
         </div>
-        <ConnectButton status="connect" cost="35" />
+        <ConnectButton
+          v-on:closeAllModals="closeAllModals"
+          status="connect"
+          cost="35"
+        />
       </div>
 
       <div class="c-home__cards__card">
@@ -525,13 +527,26 @@ export default {
   },
   data() {
     return {
-      IsShowingContactInfo: false
+      IsShowingContactInfo: false,
+      IsShowingConnectModal: false
+    }
+  },
+  watch: {
+    IsShowingConnectModal(value) {
+      if (this.IsShowingConnectModal) {
+        this.IsShowingContactInfo = false
+      }
     }
   },
   methods: {
     showContact() {
       // Llamada AJAX al endpoint
       this.IsShowingContactInfo = true
+    },
+    closeAllModals(value) {
+      this.IsShowingContactInfo = false
+      console.log('evento recibido - ' + value)
+      this.IsShowingConnectModal = value
     }
   }
 }
@@ -540,6 +555,11 @@ export default {
 <style>
 .c-home__cards .v-dialog {
   width: 50%;
+}
+@media screen and (max-width: 1500px) {
+  ..c-home__cards .v-dialog {
+    width: 70%;
+  }
 }
 </style>
 <style lang="scss" scoped>
@@ -577,7 +597,8 @@ export default {
       color: #29363d;
       background-color: #fff;
       padding: 15px;
-      width: 365px;
+      /*width: 365px;*/
+      width: 92%;
       height: 500px;
       display: flex;
       flex-flow: column;
@@ -757,7 +778,8 @@ export default {
   .c-home {
     &__cards {
       &__card {
-        width: 280px;
+        /*width: 280px;*/
+        /*width: 92%;*/
         height: 360px;
         font-size: 15px;
         &--img-cont {
@@ -786,7 +808,18 @@ export default {
   .c-home {
     &__cards {
       &__card {
-        width: 95%;
+        /*width: 95%;*/
+      }
+    }
+  }
+}
+@media screen and (max-width: 1200px) {
+  .c-home {
+    &__cards {
+      &__card {
+        &--details-cont {
+          padding: 0 0 7px 0;
+        }
       }
     }
   }
@@ -796,6 +829,11 @@ export default {
     &__cards {
       &__wrapper {
         grid-template-columns: 1fr 1fr 1fr;
+      }
+      &__card {
+        &--details-cont {
+          padding: 0;
+        }
       }
     }
   }

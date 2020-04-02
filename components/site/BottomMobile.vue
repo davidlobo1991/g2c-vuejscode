@@ -52,7 +52,7 @@ export default {
     bottom: 0;
     background-color: #21273b;
     width: 100%;
-    height: 40px;
+    height: 80px;
 
     &__wrapper {
       height: 100%;
@@ -68,8 +68,8 @@ export default {
       height: 100%;
       border-radius: 50%;
       &-cont {
-        width: 22px;
-        height: 22px;
+        width: 44px;
+        height: 44px;
         position: relative;
         border-radius: 50px;
         flex-shrink: 0;
@@ -79,11 +79,29 @@ export default {
     &__icon {
       color: #fff;
       opacity: 50%;
-      font-size: 18px;
+      font-size: 30px;
 
       &-active {
         opacity: 100%;
         color: #fff;
+        font-size: 30px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 400px) {
+  .c-bottom-mobile {
+    height: 40px;
+    &__profile-img {
+      &-cont {
+        width: 22px;
+        height: 22px;
+      }
+    }
+    &__icon {
+      font-size: 18px;
+
+      &-active {
         font-size: 18px;
       }
     }

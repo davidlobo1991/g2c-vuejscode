@@ -67,6 +67,7 @@
     }
     &__text--pdr {
       font-weight: bold;
+      display: block;
     }
     &__button {
       max-width: 90px;

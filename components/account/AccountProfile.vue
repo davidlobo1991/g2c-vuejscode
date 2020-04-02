@@ -228,4 +228,52 @@ export default {
     }
   }
 }
+
+@media screen and (max-width: 1200px) {
+  .c-account {
+    &__profile {
+      &--img-cont {
+        width: 178px;
+        height: 178px;
+      }
+      &--edit {
+        font-size: 15px;
+      }
+      &--img-cont {
+        position: relative;
+        width: 178px;
+        height: 178px;
+        border: 2px solid #fff;
+        border-radius: 50px;
+        flex-shrink: 0;
+      }
+      &--status {
+        border: 1px solid #fff;
+        width: 16px;
+        height: 16px;
+      }
+      &--details {
+        font-size: 14px;
+        &-num {
+          font-size: 15px;
+        }
+      }
+      &--name {
+        font-size: 16px;
+      }
+      &--username {
+        font-size: 14px;
+      }
+      &--description {
+        font-size: 15px;
+      }
+      &--summary {
+        font-size: 15px;
+      }
+      &--title {
+        font-size: 14px;
+      }
+    }
+  }
+}
 </style>

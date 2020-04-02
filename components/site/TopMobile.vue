@@ -29,19 +29,30 @@ export default {
     position: fixed;
     background-color: #21273b;
     width: 100%;
-    height: 40px;
+    height: 80px;
     justify-content: center;
     align-items: center;
     z-index: 9;
     &__space {
       display: block;
+      height: 80px;
+    }
+    &__img-cont {
+      height: 36px;
+    }
+    &__img {
+      height: 100%;
+    }
+  }
+}
+@media screen and (max-width: 400px) {
+  .c-top-mobile {
+    height: 40px;
+    &__space {
       height: 40px;
     }
     &__img-cont {
       height: 18px;
-    }
-    &__img {
-      height: 100%;
     }
   }
 }

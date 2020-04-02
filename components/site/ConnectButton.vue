@@ -99,9 +99,8 @@ export default {
   },
   methods: {
     showConnectForm() {
-      if (this.IsShowingContactInfo) {
-        this.IsShowingContactInfo = false
-      }
+      console.log('Evento emitido')
+      this.$emit('closeAllModals', this.isShowingConnectModal)
       this.isShowingConnectModal = true
     }
   }
