@@ -34,9 +34,30 @@ export default {
     }
   },
   mounted() {
-    this.createPost()
+    // this.createPost()
+    this.disconnectUser()
   },
   methods: {
+    async disconnectUser() {
+      // Get user data
+      const uid = 'ubc9fiKjZacO1SbmFNmYzBylGIT2' // user id
+      const user = await firebase
+        .database()
+        .ref('users')
+        .child(uid)
+        .once('value')
+      const userData = user.val()
+      userData.disconnected = 1
+
+      // Change user data
+      await firebase
+        .database()
+        .ref('users')
+        .child(uid)
+        .update(userData)
+
+      return true
+    },
     async createPost() {
       const postData = {
         author: 'me',
