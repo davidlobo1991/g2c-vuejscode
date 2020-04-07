@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { firebase } from '~/plugins/firebase'
 import AccountNavbar from '~/components/account/AccountNavbar'
 import AccountProfile from '~/components/account/AccountProfile'
 import AccountStats from '~/components/account/AccountStats'
@@ -37,7 +38,57 @@ export default {
     BottomMobile
   },
   data: () => ({}),
-  methods: {}
+  mounted() {
+    const postData = {
+      author: 'me',
+      uid: 'uid1',
+      body: 'body1',
+      title: 'title1',
+      starCount: 0
+    }
+    const newPostKey = firebase
+      .database()
+      .ref()
+      .child('posts')
+      .push().key
+    const uid = 'ubc9fiKjZacO1SbmFNmYzBylGIT2' // user id
+    const updates = {}
+    updates['/posts/' + newPostKey] = postData
+    updates['/user-posts/' + uid + '/' + newPostKey] = postData
+    // Update database
+    // firebase
+    //   .database()
+    //   .ref()
+    //   .update(updates)
+  },
+  methods: {
+    /* async createUser() {
+      try {
+        await this.$fireAuth.createUserWithEmailAndPassword(
+          'foo@foo.foo',
+          'test'
+        )
+      } catch (e) {
+        console.log(e)
+      }
+      return false;
+      var postData = {
+        author: username,
+        uid: uid,
+        body: body,
+        title: title,
+        starCount: 0,
+        authorPic: picture
+      };
+      // Get a key for a new Post.
+      var newPostKey = this.$firebase.database().ref().child('posts').push().key;
+      // Write the new post's data simultaneously in the posts list and the user's post list.
+      var updates = {};
+      updates['/posts/' + newPostKey] = postData;
+      updates['/user-posts/' + uid + '/' + newPostKey] = postData;
+      await this.$firebase.database().ref().update(updates);
+    } */
+  }
 }
 </script>
 

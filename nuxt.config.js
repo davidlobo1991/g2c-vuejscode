@@ -48,7 +48,24 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          // apiKey: 'AIzaSyD_hg9JgEOeJfoDbgk-58DmJpOiaiNDj1U',
+          // authDomain: 'quickstart-721ec.firebaseapp.com',
+          // databaseURL: 'https://quickstart-721ec.firebaseio.com',
+          // projectId: 'quickstart-721ec',
+          // storageBucket: 'quickstart-721ec.appspot.com',
+          // messagingSenderId: '1000499655102',
+          // appId: '1:1000499655102:web:4719b60a1fd9d4d0e289ef'
+        },
+        services: {
+          // auth: true // Just as example. Can be any other service.
+        }
+      }
+    ]
   ],
   /*
    ** Axios module configuration
