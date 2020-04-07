@@ -35,11 +35,11 @@ export default {
   },
   mounted() {
     // this.createPost()
-    this.disconnectUser()
+    this.userConnected()
+    this.userAttachDisconnect()
   },
   methods: {
-    async disconnectUser() {
-      // Get user data
+    async userConnected() {
       const uid = 'ubc9fiKjZacO1SbmFNmYzBylGIT2' // user id
       const user = await firebase
         .database()
@@ -48,22 +48,37 @@ export default {
         .once('value')
       const userData = user.val()
       userData.connected = 1
-
+      // userData.test = 0
       // Change user data
       await firebase
         .database()
         .ref('users')
         .child(uid)
         .update(userData)
-
-      // on disconnect event
+    },
+    async userAttachDisconnect() {
+      const uid = 'ubc9fiKjZacO1SbmFNmYzBylGIT2' // user id
+      const user = await firebase
+        .database()
+        .ref('users')
+        .child(uid)
+        .once('value')
+      const userData = user.val()
       userData.connected = 0
-      firebase
+
+      // await firebase
+      //   .database()
+      //   .ref()
+      //   .onDisconnect()
+      //   .cancel()
+
+      await firebase
         .database()
         .ref('users')
         .child(uid)
         .onDisconnect()
         .update(userData)
+
       return true
     },
     async createPost() {
