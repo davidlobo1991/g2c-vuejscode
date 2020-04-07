@@ -41,12 +41,14 @@ export default {
   methods: {
     async userConnected() {
       const uid = 'ubc9fiKjZacO1SbmFNmYzBylGIT2' // user id
-      const user = await firebase
+      const userData = await firebase
         .database()
         .ref('users')
         .child(uid)
         .once('value')
-      const userData = user.val()
+        .then((snap) => snap.val())
+
+      // TODO: check user exists
       userData.connected = 1
       // userData.test = 0
       // Change user data
@@ -58,13 +60,7 @@ export default {
     },
     async userAttachDisconnect() {
       const uid = 'ubc9fiKjZacO1SbmFNmYzBylGIT2' // user id
-      const user = await firebase
-        .database()
-        .ref('users')
-        .child(uid)
-        .once('value')
-      const userData = user.val()
-      userData.connected = 0
+      // TODO: check if user exists
 
       // await firebase
       //   .database()
@@ -77,7 +73,9 @@ export default {
         .ref('users')
         .child(uid)
         .onDisconnect()
-        .update(userData)
+        .update({
+          connected: 0
+        })
 
       return true
     },
