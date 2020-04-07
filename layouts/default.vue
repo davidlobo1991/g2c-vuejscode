@@ -47,7 +47,7 @@ export default {
         .child(uid)
         .once('value')
       const userData = user.val()
-      userData.disconnected = 1
+      userData.connected = 1
 
       // Change user data
       await firebase
@@ -56,6 +56,14 @@ export default {
         .child(uid)
         .update(userData)
 
+      // on disconnect event
+      userData.connected = 0
+      firebase
+        .database()
+        .ref('users')
+        .child(uid)
+        .onDisconnect()
+        .update(userData)
       return true
     },
     async createPost() {
