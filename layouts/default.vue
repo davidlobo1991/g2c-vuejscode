@@ -47,6 +47,7 @@ export default {
         .child(uid)
         .once('value')
         .then((snap) => snap.val())
+        .catch((error) => console.log(error))
 
       // TODO: check user exists
       userData.connected = 1
