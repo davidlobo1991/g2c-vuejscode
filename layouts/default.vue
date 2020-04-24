@@ -8,6 +8,7 @@
 
 <script>
 import { firebase } from '~/plugins/firebase'
+import { g2clib } from '~/plugins/g2clib'
 
 export default {
   data() {

@@ -22,13 +22,17 @@
     "@nuxtjs/firebase": "^5.0.7",
     "@nuxtjs/pwa": "^3.0.0-0",
     "@nuxtjs/vuetify": "^1.0.0",
+    "bsv": "^1.5.2",
     "cross-env": "^5.2.1",
+    "crypto-js": "^4.0.0",
     "express": "^4.17.1",
     "firebase": "^7.13.2",
     "material-design-icons-iconfont": "^5.0.1",
+    "node-fetch": "^2.6.0",
     "nuxt": "^2.0.0",
     "prettier": "^1.16.4",
-    "sass-loader": "^8.0.0"
+    "sass-loader": "^8.0.0",
+    "secrets.js-grempe": "^2.0.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^1.0.1",
