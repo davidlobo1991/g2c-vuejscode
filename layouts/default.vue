@@ -8,9 +8,39 @@
 
 <script>
 import { firebase } from '~/plugins/firebase'
-import { g2clib } from '~/plugins/g2clib'
+// eslint-disable-next-line no-unused-vars
+// const g2clib = require('@/assets/js/g2clib.min')
+// import g2clib from '~/plugins/g2clib'
+
+const prueba = require('~/assets/js/prueba')
 
 export default {
+  head() {
+    return {
+      script: [
+        {
+          src: 'js/bsv/1.5.0/bsv.min.js',
+          defer: true
+        },
+        {
+          src: 'js/bsv/1.5.0/bsv-message.min.js',
+          defer: true
+        },
+        {
+          src: 'js/bsv/1.5.0/bsv-mnemonic.min.js',
+          defer: true
+        },
+        {
+          src: 'js/extern-libs.js',
+          defer: true
+        },
+        {
+          src: 'js/g2clib.min.js',
+          defer: true
+        }
+      ]
+    }
+  },
   data() {
     return {
       clipped: false,
@@ -35,12 +65,39 @@ export default {
     }
   },
   mounted() {
-    // this.createPost()
     this.userConnected()
     this.userAttachDisconnect()
+
+    // const randomWords = g2clib.g2c_getRandomWords()
+    // console.log(randomWords)
+
+    console.table({
+      // eslint-disable-next-line no-undef
+      words: g2c_getRandomWords(),
+      prueba_test1: prueba.test1(),
+      prueba_test2: prueba.test2()
+    })
+
+    // @TODO Remove after fix impor g2clib
+    // const scripts = [
+    //   'js/bsv/1.5.0/bsv.min.js',
+    //   'js/bsv/1.5.0/bsv-message.min.js',
+    //   'js/bsv/1.5.0/bsv-mnemonic.min.js',
+    //   'js/extern-libs.js',
+    //   'js/g2clib.min.js'
+    // ]
+    // scripts.forEach((script) => {
+    //   // eslint-disable-next-line nuxt/no-globals-in-created
+    //   const tag = document.createElement('script')
+    //   tag.setAttribute('src', script)
+    //   tag.setAttribute('type', 'application/javascript')
+    //   // eslint-disable-next-line nuxt/no-globals-in-created
+    //   document.head.appendChild(tag)
+    // })
   },
   methods: {
     async userConnected() {
+      // TODO: get user id dinamically
       const uid = 'ubc9fiKjZacO1SbmFNmYzBylGIT2' // user id
       const userData = await firebase
         .database()
@@ -61,14 +118,9 @@ export default {
         .update(userData)
     },
     async userAttachDisconnect() {
+      // TODO: get user id dinamically
       const uid = 'ubc9fiKjZacO1SbmFNmYzBylGIT2' // user id
       // TODO: check if user exists
-
-      // await firebase
-      //   .database()
-      //   .ref()
-      //   .onDisconnect()
-      //   .cancel()
 
       await firebase
         .database()
@@ -80,30 +132,6 @@ export default {
         })
 
       return true
-    },
-    async createPost() {
-      const postData = {
-        author: 'me',
-        uid: 'uid1',
-        body: 'body1',
-        title: 'title1',
-        starCount: 0
-      }
-      const newPostKey = firebase
-        .database()
-        .ref()
-        .child('posts')
-        .push().key
-      const uid = 'ubc9fiKjZacO1SbmFNmYzBylGIT2' // user id
-      const updates = {}
-      updates['/posts/' + newPostKey] = postData
-      updates['/user-posts/' + uid + '/' + newPostKey] = postData
-      // Update database
-      await true
-      // await firebase
-      //   .database()
-      //   .ref()
-      //   .update(updates)
     }
   }
 }

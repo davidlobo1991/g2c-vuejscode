@@ -8,7 +8,7 @@
         Global Knowledge Network
       </div>
       <div
-        v-bind:class="[
+        :class="[
           viewportWidth <= 768 && (!createAccountIsVisible || !loginIsVisible)
             ? 'space-top'
             : ''
@@ -17,7 +17,7 @@
       >
         <div
           v-show="createAccountIsVisible"
-          v-bind:class="[
+          :class="[
             viewportWidth <= 768 && (createAccountIsVisible || loginIsVisible)
               ? 'u-mrb-s'
               : ''
@@ -47,7 +47,7 @@
         </div>
         <div
           v-show="loginIsVisible"
-          v-bind:class="[
+          :class="[
             viewportWidth <= 768 && (createAccountIsVisible || loginIsVisible)
               ? 'u-mrb-s space-top'
               : ''
@@ -112,7 +112,8 @@ export default {
   data() {
     return {
       createAccountIsVisible: false,
-      loginIsVisible: false
+      loginIsVisible: false,
+      viewportWidth: null
     }
   },
   watch: {
