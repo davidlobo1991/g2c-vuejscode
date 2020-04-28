@@ -1,3 +1,4 @@
 #/assets/js/g2clib.min.js
 #/assets/js/g2clib-node.min.js
-
+#/plugins/g2clib/extern-libs.js
+#/plugins/g2clib/g2clib.min.js

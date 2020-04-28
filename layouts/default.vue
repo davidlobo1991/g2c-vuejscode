@@ -1,18 +1,11 @@
 <template>
   <v-app>
-    <!-- <v-content> -->
     <nuxt />
-    <!-- </v-content> -->
   </v-app>
 </template>
 
 <script>
 import { firebase } from '~/plugins/firebase'
-// eslint-disable-next-line no-unused-vars
-// const g2clib = require('@/assets/js/g2clib.min')
-// import g2clib from '~/plugins/g2clib'
-
-const prueba = require('~/assets/js/prueba')
 
 export default {
   head() {
@@ -31,11 +24,7 @@ export default {
           defer: true
         },
         {
-          src: 'js/extern-libs.js',
-          defer: true
-        },
-        {
-          src: 'js/g2clib.min.js',
+          src: 'https://gate2chain.ddns.net:5791/libs/g2clib.min.js',
           defer: true
         }
       ]
@@ -68,32 +57,11 @@ export default {
     this.userConnected()
     this.userAttachDisconnect()
 
-    // const randomWords = g2clib.g2c_getRandomWords()
-    // console.log(randomWords)
-
-    console.table({
+    // @TODO Remove after testing
+    console.log({
       // eslint-disable-next-line no-undef
-      words: g2c_getRandomWords(),
-      prueba_test1: prueba.test1(),
-      prueba_test2: prueba.test2()
+      words: g2c_getRandomWords()
     })
-
-    // @TODO Remove after fix impor g2clib
-    // const scripts = [
-    //   'js/bsv/1.5.0/bsv.min.js',
-    //   'js/bsv/1.5.0/bsv-message.min.js',
-    //   'js/bsv/1.5.0/bsv-mnemonic.min.js',
-    //   'js/extern-libs.js',
-    //   'js/g2clib.min.js'
-    // ]
-    // scripts.forEach((script) => {
-    //   // eslint-disable-next-line nuxt/no-globals-in-created
-    //   const tag = document.createElement('script')
-    //   tag.setAttribute('src', script)
-    //   tag.setAttribute('type', 'application/javascript')
-    //   // eslint-disable-next-line nuxt/no-globals-in-created
-    //   document.head.appendChild(tag)
-    // })
   },
   methods: {
     async userConnected() {

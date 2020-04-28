@@ -1,4 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
+// eslint-disable-next-line nuxt/no-cjs-in-config
+const webpack = require('webpack')
 
 export default {
   mode: 'universal',
@@ -33,7 +35,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: '~/plugins/g2clib', ssr: true }],
+  plugins: [],
   /*
    ** Nuxt.js dev-modules
    */
@@ -97,25 +99,30 @@ export default {
    ** Build configuration
    */
   build: {
+    /**
+     * add external plugins
+     */
+    vendor: [],
+    plugins: [new webpack.ProvidePlugin({})],
     /*
      ** You can extend webpack config here
      */
-    // extend(config, ctx) {
-    //   if (ctx.isClient) {
-    //     config.module.rules.push(
-    //       {
-    //         enforce: 'pre',
-    //         test: /\.(js|vue)$/,
-    //         loader: 'eslint-loader',
-    //         exclude: /(node_modules)|(assets\/js)/
-    //       },
-    //       {
-    //         test: /\.js$/,
-    //         loader: 'babel-loader',
-    //         exclude: /(node_modules)|(assets\/js)/
-    //       }
-    //     )
-    //   }
-    // }
+    extend(config, ctx) {
+      //   if (ctx.isClient) {
+      //     config.module.rules.push(
+      //       {
+      //         enforce: 'pre',
+      //         test: /\.(js|vue)$/,
+      //         loader: 'eslint-loader',
+      //         exclude: /(node_modules)|(assets\/js)/
+      //       },
+      //       {
+      //         test: /\.js$/,
+      //         loader: 'babel-loader',
+      //         exclude: /(node_modules)|(assets\/js)/
+      //       }
+      //     )
+      //   }
+    }
   }
 }
