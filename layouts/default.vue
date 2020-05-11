@@ -57,6 +57,9 @@ export default {
     this.userConnected()
     this.userAttachDisconnect()
 
+    this.userLogin()
+    this.getUser()
+
     // @TODO Remove after testing
     console.log({
       // eslint-disable-next-line no-undef
@@ -64,6 +67,44 @@ export default {
     })
   },
   methods: {
+    async registerUser() {
+      // eslint-disable-next-line no-undef
+      const words = g2c_getRandomWords()
+      const application = 'networksv.com'
+      const nick = 'test'
+
+      // eslint-disable-next-line no-undef
+      g2c_createUser(words, application, nick, function(result) {
+        if (result.error) {
+          console.log(JSON.stringify(result.error))
+        } else {
+          console.log(
+            'My interaction tokens are : ' + JSON.stringify(result.data)
+          )
+        }
+      })
+      await JSON.stringify('test')
+    },
+
+    async userLogin() {
+      // eslint-disable-next-line no-undef
+      const words = g2c_getRandomWords()
+      const application = '123'
+      const nick = 'test'
+
+      // eslint-disable-next-line no-undef
+      g2c_loginUser(words, application, nick, function(result) {
+        if (result.error) {
+          console.log(result)
+        } else {
+          console.log(
+            'My interaction tokens are : ' + JSON.stringify(result.data)
+          )
+        }
+      })
+      await JSON.stringify('test')
+    },
+
     async userConnected() {
       // TODO: get user id dinamically
       const uid = 'ubc9fiKjZacO1SbmFNmYzBylGIT2' // user id
