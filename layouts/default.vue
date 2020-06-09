@@ -56,46 +56,29 @@ export default {
   mounted() {
     this.userConnected()
     this.userAttachDisconnect()
+    // eslint-disable-next-line no-undef
+    const words = g2c_getRandomWords()
 
-    this.userLogin()
-    this.getUser()
+    console.log(words)
 
-    // @TODO Remove after testing
-    console.log({
-      // eslint-disable-next-line no-undef
-      words: g2c_getRandomWords()
-    })
+    this.callApi()
   },
   methods: {
+    callApi() {
+      return this.$axios.get('/users').then((response) => {
+        console.log(response.data)
+      })
+    },
     async registerUser() {
       // eslint-disable-next-line no-undef
       const words = g2c_getRandomWords()
       const application = 'networksv.com'
-      const nick = 'test'
+      const nick = 'test321321321'
 
       // eslint-disable-next-line no-undef
       g2c_createUser(words, application, nick, function(result) {
         if (result.error) {
           console.log(JSON.stringify(result.error))
-        } else {
-          console.log(
-            'My interaction tokens are : ' + JSON.stringify(result.data)
-          )
-        }
-      })
-      await JSON.stringify('test')
-    },
-
-    async userLogin() {
-      // eslint-disable-next-line no-undef
-      const words = g2c_getRandomWords()
-      const application = '123'
-      const nick = 'test'
-
-      // eslint-disable-next-line no-undef
-      g2c_loginUser(words, application, nick, function(result) {
-        if (result.error) {
-          console.log(result)
         } else {
           console.log(
             'My interaction tokens are : ' + JSON.stringify(result.data)

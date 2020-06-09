@@ -8,6 +8,7 @@
     </div>
     <div class="c-info__input-cont">
       <v-text-field
+        v-model="registerEmail"
         label="Email"
         outlined
         class="c-info__input"
@@ -20,7 +21,23 @@
 
 <script>
 export default {
-  name: 'RegisterEmail'
+  name: 'RegisterEmail',
+  data() {
+    return {
+      registerEmail: null
+    }
+  },
+  watch: {
+    /* registerEmail(value) {
+      sessionStorage.registerEmail = value
+
+      return this.$axios
+        .post('/users/email-validation/send', { email: this.registerEmail })
+        .then((response) => {
+          console.log(response.data)
+        })
+    } */
+  }
 }
 </script>
 

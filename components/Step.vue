@@ -115,9 +115,6 @@ export default {
   },
   mounted() {
     this.viewportWidth = this.getWidth()
-    // if (this.viewportWidth < 900) {
-    //   this.pinInputHeight = '56px'
-    // }
   },
   destroyed() {
     window.removeEventListener('resize', this.onWindowSizeChange)

@@ -12,7 +12,7 @@
         them in a safe place.
       </span>
     </div>
-    <div class="c-info__secretword u-align-center">
+    <div v-model="generatedWords" class="c-info__secretword u-align-center">
       sudden awkward slam gown vapor change meat cable hover section cart
     </div>
     <div class="c-info__responsability">

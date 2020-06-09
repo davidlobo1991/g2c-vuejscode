@@ -73,7 +73,10 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    common: 'x-authorization: BGFs9tEvskC61SdpIYZU8UG',
+    baseURL: 'https://networksv-backend.herokuapp.com/api/'
+  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module

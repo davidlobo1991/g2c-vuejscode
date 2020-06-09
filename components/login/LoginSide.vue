@@ -26,6 +26,7 @@
         >
           <div class="full-width">
             <v-text-field
+              v-model="registerNick"
               :hide-details="true"
               label="Username (Handle)"
               outlined
@@ -113,7 +114,8 @@ export default {
     return {
       createAccountIsVisible: false,
       loginIsVisible: false,
-      viewportWidth: null
+      viewportWidth: null,
+      registerNick: null
     }
   },
   watch: {
@@ -122,6 +124,9 @@ export default {
     },
     loginIsVisible(value) {
       this.$emit('loginIsVisible', value)
+    },
+    registerNick(value) {
+      sessionStorage.registerNick = value
     }
   },
   methods: {

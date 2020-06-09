@@ -131,9 +131,33 @@ export default {
       default: ''
     }
   },
+  data() {
+    return {
+      verificationCode: null
+    }
+  },
   methods: {
     nextStep() {
+      this.validationCode()
       this.$emit('nextStep')
+    },
+    validationCode(value) {
+      sessionStorage.registerEmail = value
+
+      const pinCodes = this.$el.querySelectorAll('c-info__pincode__number')
+
+      pinCodes.forEach(function(pinCode) {
+        console.log(pinCode)
+      })
+
+      return this.$axios
+        .post('/users/email-validation/validate', {
+          email: sessionStorage.registerEmail,
+          validation_code: this.validationCode
+        })
+        .then((response) => {
+          console.log(response.data)
+        })
     }
   }
 }
@@ -143,6 +167,7 @@ export default {
 .rw-normal-text {
   text-transform: none;
 }
+
 .c-info__pincode__number,
 .v-input__control,
 .v-input__slot,
@@ -185,11 +210,13 @@ input {
   display: flex;
   flex-flow: column;
   align-items: center;
+
   &__text {
     color: #4d4d4d;
     font-family: Roboto;
     /*line-height: 40px;*/
     text-align: center;
+
     &--title {
       display: block;
       font-size: 25px;
@@ -197,14 +224,17 @@ input {
       padding-bottom: 40px;
     }
   }
+
   &__button--cont {
     text-align: right;
   }
+
   &__button {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
+
   &__pincode {
     &-cont {
       padding-top: 56px;
@@ -212,15 +242,18 @@ input {
       display: flex;
       justify-content: flex-end;
     }
+
     &__number {
       max-width: 64px;
       height: 64px !important;
       font-weight: bold;
       color: #4d4d4d;
       font-size: 22px;
+
       & input[type='number'] {
         -moz-appearance: textfield;
       }
+
       & input::-webkit-outer-spin-button,
       & input::-webkit-inner-spin-button {
         -webkit-appearance: none;
@@ -231,34 +264,41 @@ input {
       }
     }
   }
+
   &__link {
     color: #0087ff;
     font-weight: 500;
     display: flex;
     align-items: center;
     cursor: pointer;
+
     &:hover .c-info__link--icon {
       transform: rotate(-150deg);
     }
+
     &--icon {
       color: #0087ff;
       margin-right: 5px;
     }
   }
 }
+
 @media screen and (max-width: 1500px) {
   .c-info {
     font-size: 16px;
     line-height: unset;
     padding: 0 0;
     width: 100%;
+
     &__text {
       line-height: unset;
+
       &--title {
         font-size: 18px;
         padding-bottom: 10px;
       }
     }
+
     &__secretword {
       font-size: 30px;
       line-height: unset;
@@ -267,55 +307,68 @@ input {
     }
   }
 }
+
 @media screen and (max-width: 992px) {
   .c-info {
     max-width: 70%;
   }
 }
+
 @media screen and (max-width: 768px) {
   .c-info {
     padding: 0;
     max-width: 100%;
+
     &__text {
       font-size: 12px;
       line-height: unset;
+
       &--title {
         font-size: 16px;
         padding-bottom: 0;
       }
     }
+
     &__button--cont {
       display: flex;
       flex-flow: column;
     }
+
     &__link {
       font-size: 12px;
       padding-bottom: 15px;
       padding-left: 0;
     }
+
     &__button {
       flex-flow: column;
       align-items: flex-start;
+
       & button {
         min-width: 100% !important;
       }
     }
+
     &__responsability--text {
       &-v2 {
         font-size: 10px;
         /*text-align: center;*/
       }
     }
+
     &__pincode {
       &-cont {
         padding-bottom: 10px;
       }
+
       &__number {
         max-width: 46px;
         height: 46px !important;
+
         &:first-of-type {
           margin-left: 0 !important;
         }
+
         & input {
         }
       }
