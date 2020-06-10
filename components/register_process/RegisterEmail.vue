@@ -28,15 +28,10 @@ export default {
     }
   },
   watch: {
-    /* registerEmail(value) {
-      sessionStorage.registerEmail = value
-
-      return this.$axios
-        .post('/users/email-validation/send', { email: this.registerEmail })
-        .then((response) => {
-          console.log(response.data)
-        })
-    } */
+    registerEmail(value) {
+      this.registerEmail = value
+      this.$emit('registerEmail', this.registerEmail)
+    }
   }
 }
 </script>

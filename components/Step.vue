@@ -13,7 +13,7 @@
         />
       </div>
       <div v-show="1 === step">
-        <RegisterEmail />
+        <RegisterEmail v-on:registerEmail="enviarAlPadre" />
       </div>
       <div v-show="2 === step">
         <PinVerify v-on:nextStep="nextStep" kind="email" />
@@ -120,10 +120,21 @@ export default {
     window.removeEventListener('resize', this.onWindowSizeChange)
   },
   methods: {
+    enviarAlPadre(value) {
+      console.log(value)
+    },
     getCheck(value) {
       this.responsabilityCheck = value
     },
     navigationNext() {
+      if (this.step === 1) {
+        /* return this.$axios
+          .post('/users/email-validation/send', { email: this.registerEmail })
+          .then((response) => {
+            console.log(response.data)
+          }) */
+      }
+
       this.step = this.step + 1
     },
     navigationPrevious() {
