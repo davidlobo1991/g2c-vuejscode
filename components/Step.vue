@@ -13,7 +13,7 @@
         />
       </div>
       <div v-show="1 === step">
-        <RegisterEmail v-on:registerEmail="enviarAlPadre" />
+        <RegisterEmail v-on:registerEmail="saveEmail" />
       </div>
       <div v-show="2 === step">
         <PinVerify v-on:nextStep="nextStep" kind="email" />
@@ -72,7 +72,8 @@ export default {
       responsabilityCheck: false,
       // pinInputHeight: '64px',
       viewportWidth: 0,
-      variableWidth: 27
+      variableWidth: 27,
+      registerEmail: null
     }
   },
   computed: {
@@ -120,22 +121,21 @@ export default {
     window.removeEventListener('resize', this.onWindowSizeChange)
   },
   methods: {
-    enviarAlPadre(value) {
-      console.log(value)
+    saveEmail(value) {
+      this.registerEmail = value
+      sessionStorage.registerEmail = this.registerEmail
     },
     getCheck(value) {
       this.responsabilityCheck = value
     },
     navigationNext() {
       if (this.step === 1) {
-        /* return this.$axios
+        return this.$axios
           .post('/users/email-validation/send', { email: this.registerEmail })
           .then((response) => {
-            console.log(response.data)
-          }) */
+            this.step = this.step + 1
+          })
       }
-
-      this.step = this.step + 1
     },
     navigationPrevious() {
       this.step = this.step - 1
