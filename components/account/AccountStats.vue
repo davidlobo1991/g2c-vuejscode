@@ -1,10 +1,12 @@
 <template>
   <div class="c-account__stats">
     <div v-show="AreStatsVisible" class="c-account__stats--content">
-      <div class="c-account__stats--total">
-        <sup class="c-account__stats--superindex">$</sup>0
+      <div>
+        <div class="c-account__stats--total">
+          <sup class="c-account__stats--superindex">$</sup>0
+        </div>
+        <div class="c-account__stats--sats">0 SATS</div>
       </div>
-      <div class="c-account__stats--sats">0 SATS</div>
       <!--      <div class="c-account__stats&#45;&#45;lastmonth-cont">-->
       <!--        <v-select-->
       <!--          :items="items"-->
@@ -73,10 +75,13 @@ export default {
     background: linear-gradient(227.33deg, #002e65 0%, #0087ff 100%);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
     color: #fff;
+    box-sizing: border-box;
     &--content {
+      position: absolute;
+      height: 91%;
       display: flex;
       flex-flow: column;
-      /*align-items: flex-end;*/
+      align-items: flex-end;
       /*align-items: space-between;*/
       justify-content: space-between;
     }

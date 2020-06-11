@@ -1,6 +1,6 @@
 <template>
   <div class="c-account__profile">
-    <div class="c-account__profile--edit">Edit</div>
+    <editAccountModal></editAccountModal>
     <div class="c-account__profile--image-info-cont">
       <div class="c-account__profile--img-cont">
         <nuxt-link
@@ -71,8 +71,18 @@
 </template>
 
 <script>
+import editAccountModal from '~/components/account/modals/editAccount'
+
 export default {
-  name: 'AccountProfile'
+  name: 'AccountProfile',
+  components: {
+    editAccountModal
+  },
+  data() {
+    return {
+      dialog: false
+    }
+  }
 }
 </script>
 
@@ -101,14 +111,6 @@ export default {
     border-radius: 4px;
     background-color: #ffffff;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-    &--edit {
-      position: absolute;
-      top: 23px;
-      right: 23px;
-      color: #0087ff;
-      font-size: 18px;
-      font-weight: 500;
-    }
     &--image-info-cont {
       display: flex;
       align-items: center;
