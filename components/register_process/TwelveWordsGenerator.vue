@@ -12,7 +12,7 @@
         them in a safe place.
       </span>
     </div>
-    <div v-model="generatedWords" class="c-info__secretword u-align-center">
+    <div v-html="generatedWords" class="c-info__secretword u-align-center">
       sudden awkward slam gown vapor change meat cable hover section cart
     </div>
     <div class="c-info__responsability">
@@ -37,6 +37,7 @@ export default {
   name: 'Login',
   data() {
     return {
+      generatedWords: null,
       responsabilityCheck: false
     }
   },
@@ -44,7 +45,12 @@ export default {
     acceptedCheck(value) {
       this.responsabilityCheck = !this.responsabilityCheck
       this.$emit('CheckResponsability', value)
+      sessionStorage.securityKey = this.generatedWords
     }
+  },
+  mounted() {
+    // eslint-disable-next-line no-undef
+    this.generatedWords = g2c_getRandomWords()
   }
 }
 </script>

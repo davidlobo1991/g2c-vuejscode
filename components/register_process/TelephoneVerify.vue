@@ -9,6 +9,7 @@
     <div class="o-layout c-info__phone-cont">
       <v-select
         :items="prefixes"
+        v-model="registerPrefix"
         outlined
         label="Country"
         class="o-layout__item u-1/1 u-1/4@m c-info__input--prefix c-test"
@@ -16,6 +17,7 @@
       >
       </v-select>
       <v-text-field
+        v-model="registerPhone"
         outlined
         class="o-layout__item u-1/1 u-1/4@m c-info__input--phone c-test"
         label="Phone number"
@@ -56,7 +58,16 @@ export default {
   name: 'TelephoneVerify',
   data() {
     return {
-      prefixes: ['(+34) Spain', '(+44) United Kingdom', '(+33) France']
+      prefixes: ['(+34) Spain', '(+44) United Kingdom', '(+33) France'],
+      registerPhone: null,
+      registerPrefix: null
+    }
+  },
+  watch: {
+    registerPhone(value) {
+      console.log(this.registerPrefix)
+      this.registerPhone = value
+      this.$emit('registerPhone', this.registerPhone)
     }
   }
 }

@@ -22,6 +22,7 @@
       <div class="c-info__pincode-cont">
         <v-text-field
           id="inputNumberBox1"
+          v-model="verificationCode[0]"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
@@ -34,6 +35,7 @@
         </v-text-field>
         <v-text-field
           id="inputNumberBox2"
+          v-model="verificationCode[1]"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
@@ -46,6 +48,7 @@
         </v-text-field>
         <v-text-field
           id="inputNumberBox3"
+          v-model="verificationCode[2]"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
@@ -58,6 +61,7 @@
         </v-text-field>
         <v-text-field
           id="inputNumberBox4"
+          v-model="verificationCode[3]"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
@@ -70,6 +74,7 @@
         </v-text-field>
         <v-text-field
           id="inputNumberBox5"
+          v-model="verificationCode[4]"
           class="c-info__pincode__number u-mrl-xs"
           outlined
           min="0"
@@ -80,9 +85,10 @@
         >
         </v-text-field>
       </div>
+
       <div class="c-info__button--cont">
         <div class="c-info__button">
-          <span class="c-info__link">
+          <span v-on:click="sendValidationCode" class="c-info__link">
             <v-icon class="c-info__link--icon">mdi-replay</v-icon> Resend Code
           </span>
           <v-btn
@@ -109,6 +115,9 @@
         </div>
       </div>
     </div>
+    <div v-show="errorValidation" class="error">Error code</div>
+    <div v-show="resendEmail" class="success">Email resend</div>
+
     <div class="c-info__responsability u-flex u-flex-between">
       <div
         v-if="kind === 'telephone'"
@@ -133,31 +142,47 @@ export default {
   },
   data() {
     return {
-      verificationCode: null
+      verificationCode: [],
+      errorValidation: false,
+      resendEmail: false
     }
   },
   methods: {
     nextStep() {
-      this.validationCode()
-      this.$emit('nextStep')
-    },
-    validationCode(value) {
-      sessionStorage.registerEmail = value
-
-      const pinCodes = this.$el.querySelectorAll('c-info__pincode__number')
-
-      pinCodes.forEach(function(pinCode) {
-        console.log(pinCode)
+      const validation = this.validationCode()
+      validation.then((result) => {
+        if (!result.error) {
+          this.errorValidation = false
+          this.$emit('nextStep')
+        } else {
+          this.errorValidation = true
+        }
       })
-
+    },
+    sendValidationCode() {
+      let sendValidation = null
+      if (this.kind === 'email') {
+        sendValidation = this.$parent.sendValidationCode()
+      } else {
+        sendValidation = this.$parent.sendMobileValidationCode()
+      }
+      sendValidation.then((result) => {
+        !result.error
+          ? (this.resendEmail = true)
+          : (this.errorValidation = true)
+      })
+    },
+    validationCode() {
+      let code = ''
+      this.verificationCode.forEach(function(pinCode) {
+        code += pinCode
+      })
       return this.$axios
         .post('/users/email-validation/validate', {
           email: sessionStorage.registerEmail,
-          validation_code: this.validationCode
+          validation_code: code
         })
-        .then((response) => {
-          console.log(response.data)
-        })
+        .then((response) => response.data)
     }
   }
 }

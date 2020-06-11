@@ -25,7 +25,7 @@
         />
       </div>
       <div v-show="4 === step">
-        <TelephoneVerify />
+        <TelephoneVerify v-on:registerPhone="savePhone" />
       </div>
       <div v-show="5 === step">
         <PinVerify kind="telephone" />
@@ -73,7 +73,8 @@ export default {
       // pinInputHeight: '64px',
       viewportWidth: 0,
       variableWidth: 27,
-      registerEmail: null
+      registerEmail: null,
+      errorValidation: false
     }
   },
   computed: {
@@ -121,21 +122,70 @@ export default {
     window.removeEventListener('resize', this.onWindowSizeChange)
   },
   methods: {
+    /**
+     * Method to save email in the session
+     * @param value
+     */
     saveEmail(value) {
       this.registerEmail = value
       sessionStorage.registerEmail = this.registerEmail
     },
+    /**
+     * Method to save email in the session
+     * @param value
+     */
+    savePhone(value) {
+      this.registerPhone = value
+      sessionStorage.registerPhone = this.registerPhone
+    },
+    /**
+     * Get if the user checked the responsibility check
+     * @param value
+     */
     getCheck(value) {
       this.responsabilityCheck = value
     },
+    /**
+     * If is the step 1 (introduce email) will verify the email and send the validation code
+     */
     navigationNext() {
       if (this.step === 1) {
-        return this.$axios
-          .post('/users/email-validation/send', { email: this.registerEmail })
-          .then((response) => {
-            this.step = this.step + 1
-          })
+        const sendValidation = this.sendValidationCode()
+        sendValidation.then((result) => {
+          !result.error
+            ? (this.step = this.step + 1)
+            : (this.errorValidation = true)
+        })
+      } else if (this.step === 4) {
+        const sendValidation = this.sendMobileValidationCode()
+        sendValidation.then((result) => {
+          !result.error
+            ? (this.step = this.step + 1)
+            : (this.errorValidation = true)
+        })
+      } else {
+        this.step = this.step + 1
       }
+    },
+    /**
+     * Call to email validation code and returns promise
+     * @returns {Promise<AxiosResponse<any>>}
+     */
+    sendValidationCode() {
+      return this.$axios
+        .post('/users/email-validation/send', { email: this.registerEmail })
+        .then((response) => response.data)
+    },
+    /**
+     * Call to mobile validation code and returns promise
+     * @returns {Promise<AxiosResponse<any>>}
+     */
+    sendMobileValidationCode() {
+      return this.$axios
+        .post('/twilio/services/verify/send-sms-verification', {
+          to: this.registerPhoneNumber
+        })
+        .then((response) => console.log(response))
     },
     navigationPrevious() {
       this.step = this.step - 1
