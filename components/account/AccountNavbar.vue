@@ -11,16 +11,16 @@
           ACCOUNT
         </nuxt-link>
       </li>
-      <li
-        v-bind:class="
-          activeTab === 'Calendar' ? 'c-account__navbar--item-active' : ''
-        "
-        class="c-account__navbar--item"
-      >
-        <nuxt-link to="/account/profile" class="c-account__navbar--link">
-          CALENDAR
-        </nuxt-link>
-      </li>
+      <!--      <li-->
+      <!--        v-bind:class="-->
+      <!--          activeTab === 'Calendar' ? 'c-account__navbar&#45;&#45;item-active' : ''-->
+      <!--        "-->
+      <!--        class="c-account__navbar&#45;&#45;item"-->
+      <!--      >-->
+      <!--        <nuxt-link to="/account/profile" class="c-account__navbar&#45;&#45;link">-->
+      <!--          CALENDAR-->
+      <!--        </nuxt-link>-->
+      <!--      </li>-->
       <li
         v-bind:class="
           activeTab === 'Activity' ? 'c-account__navbar--item-active' : ''

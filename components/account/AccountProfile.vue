@@ -1,14 +1,16 @@
 <template>
   <div class="c-account__profile">
     <div class="c-account__profile--edit">Edit</div>
-    <div class="c-account__profile--img-cont">
-      <nuxt-link
-        :src="require('@/assets/images/persona1.png')"
-        tag="img"
-        to="/"
-        class="c-account__profile--img"
-      />
-      <div class="c-account__profile--status u-status--available"></div>
+    <div class="c-account__profile--image-info-cont">
+      <div class="c-account__profile--img-cont">
+        <nuxt-link
+          :src="require('@/assets/images/persona1.png')"
+          tag="img"
+          to="/"
+          class="c-account__profile--img"
+        />
+        <div class="c-account__profile--status u-status--available"></div>
+      </div>
       <div class="c-account__profile--details-cont">
         <div class="c-account__profile--details">
           <span class="c-account__profile--details-num">210</span>
@@ -107,6 +109,14 @@ export default {
       font-size: 18px;
       font-weight: 500;
     }
+    &--image-info-cont {
+      display: flex;
+      align-items: center;
+      flex-flow: column;
+      height: auto;
+      width: 235px;
+      flex-shrink: 0;
+    }
     &--img-cont {
       position: relative;
       width: 235px;
@@ -138,7 +148,6 @@ export default {
     }
     &--details {
       text-align: center;
-      // width: 45%;
       font-size: 15px;
       color: #8c8c8c;
       &-num {
@@ -232,9 +241,9 @@ export default {
 @media screen and (max-width: 1200px) {
   .c-account {
     &__profile {
+      flex-flow: column;
       &--img-cont {
-        width: 178px;
-        height: 178px;
+        height: auto;
       }
       &--edit {
         font-size: 15px;
@@ -251,6 +260,7 @@ export default {
         border: 1px solid #fff;
         width: 16px;
         height: 16px;
+        bottom: 37%;
       }
       &--details {
         font-size: 14px;
@@ -273,6 +283,32 @@ export default {
       &--title {
         font-size: 14px;
       }
+      &--text-cont {
+        padding-left: 0;
+      }
+    }
+  }
+}
+@media screen and (max-width: 992px) {
+  .c-account {
+    &__profile {
+      flex-flow: column;
+      &--img-cont {
+        height: auto;
+      }
+      &--status {
+        bottom: 37%;
+      }
+      &--text-cont {
+        padding-left: 0;
+      }
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .c-account {
+    &__profile {
+      /*flex-flow: row;*/
     }
   }
 }

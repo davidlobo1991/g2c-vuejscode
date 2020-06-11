@@ -26,11 +26,11 @@
           mdi-bookmark-multiple
         </v-icon>
       </div>
-      <div>
-        <v-icon class="c-bottom-mobile__icon">
-          mdi-forum
-        </v-icon>
-      </div>
+      <!--      <div>-->
+      <!--        <v-icon class="c-bottom-mobile__icon">-->
+      <!--          mdi-forum-->
+      <!--        </v-icon>-->
+      <!--      </div>-->
     </div>
   </section>
 </template>
