@@ -4,7 +4,6 @@
     <Settings />
   </div>
 </template>
-
 <script>
 import Sidebar from '~/components/site/Sidebar'
 import Settings from '~/components/account/settings/Settings'

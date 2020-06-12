@@ -10,6 +10,8 @@
       <v-select
         :items="prefixes"
         v-model="registerPrefix"
+        item-text="text"
+        item-value="id"
         outlined
         label="Country"
         class="o-layout__item u-1/1 u-1/4@m c-info__input--prefix c-test"
@@ -58,16 +60,23 @@ export default {
   name: 'TelephoneVerify',
   data() {
     return {
-      prefixes: ['(+34) Spain', '(+44) United Kingdom', '(+33) France'],
+      prefixes: [
+        { id: '+34', text: '(+34) Spain' },
+        { id: '+44', text: '(+44) United Kingdom' },
+        { id: '+33', text: '(+33) France' }
+      ],
       registerPhone: null,
       registerPrefix: null
     }
   },
   watch: {
     registerPhone(value) {
-      console.log(this.registerPrefix)
       this.registerPhone = value
       this.$emit('registerPhone', this.registerPhone)
+    },
+    registerPrefix(value) {
+      this.registerPrefix = value
+      this.$emit('registerPrefix', this.registerPrefix)
     }
   }
 }

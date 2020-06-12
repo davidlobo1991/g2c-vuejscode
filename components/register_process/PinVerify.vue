@@ -143,13 +143,21 @@ export default {
   data() {
     return {
       verificationCode: [],
+      verifyServiceId: null,
       errorValidation: false,
       resendEmail: false
     }
   },
   methods: {
     nextStep() {
-      const validation = this.validationCode()
+      let validation = null
+
+      if (this.kind === 'email') {
+        validation = this.validationCode()
+      } else {
+        validation = this.validationPhoneCode()
+      }
+
       validation.then((result) => {
         if (!result.error) {
           this.errorValidation = false
@@ -162,9 +170,24 @@ export default {
     sendValidationCode() {
       let sendValidation = null
       if (this.kind === 'email') {
-        sendValidation = this.$parent.sendValidationCode()
+        sendValidation = this.$parent.sendValidationCode() /** Step.vue */
+
+        sendValidation.then((result) => {
+          !result.error
+            ? (this.resendEmail = true)
+            : (this.errorValidation = true)
+        })
       } else {
-        sendValidation = this.$parent.sendMobileValidationCode()
+        sendValidation = this.$parent.sendMobileValidationCode() /** Step.vue */
+
+        sendValidation.then((result) => {
+          if (!result.error) {
+            this.resendEmail = true
+            sessionStorage.verifyServiceId = result.verifyServiceId
+          } else {
+            this.errorValidation = true
+          }
+        })
       }
       sendValidation.then((result) => {
         !result.error
@@ -181,6 +204,19 @@ export default {
         .post('/users/email-validation/validate', {
           email: sessionStorage.registerEmail,
           validation_code: code
+        })
+        .then((response) => response.data)
+    },
+    validationPhoneCode() {
+      let codeString = ''
+      this.verificationCode.forEach(function(pinCode) {
+        codeString += pinCode
+      })
+      return this.$axios
+        .post('/twilio/services/verify/check-verification-token', {
+          verify_service_id: sessionStorage.verifyServiceId,
+          code: codeString,
+          to: sessionStorage.registerPhone
         })
         .then((response) => response.data)
     }

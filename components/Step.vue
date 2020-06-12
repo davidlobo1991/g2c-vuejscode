@@ -25,7 +25,10 @@
         />
       </div>
       <div v-show="4 === step">
-        <TelephoneVerify v-on:registerPhone="savePhone" />
+        <TelephoneVerify
+          v-on:registerPhone="savePhone"
+          v-on:registerPrefix="savePrefix"
+        />
       </div>
       <div v-show="5 === step">
         <PinVerify kind="telephone" />
@@ -74,6 +77,7 @@ export default {
       viewportWidth: 0,
       variableWidth: 27,
       registerEmail: null,
+      registerPhoneNumber: null,
       errorValidation: false
     }
   },
@@ -139,6 +143,14 @@ export default {
       sessionStorage.registerPhone = this.registerPhone
     },
     /**
+     * Method to save prefix in the session
+     * @param value
+     */
+    savePrefix(value) {
+      this.registerPrefix = value
+      sessionStorage.registerPrefix = this.registerPrefix
+    },
+    /**
      * Get if the user checked the responsibility check
      * @param value
      */
@@ -159,9 +171,13 @@ export default {
       } else if (this.step === 4) {
         const sendValidation = this.sendMobileValidationCode()
         sendValidation.then((result) => {
-          !result.error
-            ? (this.step = this.step + 1)
-            : (this.errorValidation = true)
+          if (!result.error) {
+            console.log(result)
+            sessionStorage.verifyServiceId = result.data.verifyServiceId
+            this.step = this.step + 1
+          } else {
+            this.errorValidation = true
+          }
         })
       } else {
         this.step = this.step + 1
@@ -181,11 +197,12 @@ export default {
      * @returns {Promise<AxiosResponse<any>>}
      */
     sendMobileValidationCode() {
+      const number = this.registerPrefix + this.registerPhone
       return this.$axios
         .post('/twilio/services/verify/send-sms-verification', {
-          to: this.registerPhoneNumber
+          to: number
         })
-        .then((response) => console.log(response))
+        .then((response) => response.data)
     },
     navigationPrevious() {
       this.step = this.step - 1
