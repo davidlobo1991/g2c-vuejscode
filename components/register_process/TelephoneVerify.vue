@@ -10,21 +10,21 @@
       <v-select
         :items="prefixes"
         v-model="registerPrefix"
+        :hide-details="true"
         item-text="text"
         item-value="id"
         outlined
         label="Country"
         class="o-layout__item u-1/1 u-1/4@m c-info__input--prefix c-test"
-        hide-details="auto"
       >
       </v-select>
       <v-text-field
         v-model="registerPhone"
+        :hide-details="true"
         outlined
         class="o-layout__item u-1/1 u-1/4@m c-info__input--phone c-test"
         label="Phone number"
         type="number"
-        hide-details="auto"
       >
       </v-text-field>
     </div>
@@ -48,7 +48,13 @@
           I'll let NetworkSV (a UK Company) charge me VAT.
         </div>
         <div class="c-info__responsability--toggle">
-          <v-checkbox hide-details="auto" color="#376EFA"> </v-checkbox>
+          <v-checkbox
+            :hide-details="true"
+            v-model="registerUkResident"
+            value="1"
+            color="#376EFA"
+          >
+          </v-checkbox>
         </div>
       </div>
     </div>
@@ -66,7 +72,8 @@ export default {
         { id: '+33', text: '(+33) France' }
       ],
       registerPhone: null,
-      registerPrefix: null
+      registerPrefix: null,
+      registerUkResident: 0
     }
   },
   watch: {
@@ -77,6 +84,10 @@ export default {
     registerPrefix(value) {
       this.registerPrefix = value
       this.$emit('registerPrefix', this.registerPrefix)
+    },
+    registerUkResident(value) {
+      this.registerUkResident = value
+      this.$emit('registerUkPrefix', this.registerUkResident)
     }
   }
 }

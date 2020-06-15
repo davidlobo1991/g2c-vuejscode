@@ -93,6 +93,7 @@
           </span>
           <v-btn
             v-if="kind === 'telephone'"
+            v-on:click="signIn"
             depressed
             x-large
             dark
@@ -149,23 +150,34 @@ export default {
     }
   },
   methods: {
-    nextStep() {
-      let validation = null
-
-      if (this.kind === 'email') {
-        validation = this.validationCode()
-      } else {
-        validation = this.validationPhoneCode()
-      }
+    signIn() {
+      const validation = this.validationPhoneCode()
 
       validation.then((result) => {
         if (!result.error) {
           this.errorValidation = false
-          this.$emit('nextStep')
+          this.$emit('signIn')
         } else {
+          console.log(result)
           this.errorValidation = true
         }
       })
+    },
+    nextStep() {
+      let validation = null
+      if (this.kind === 'email') {
+        validation = this.validationCode()
+
+        validation.then((result) => {
+          if (!result.error) {
+            console.log('bieeen')
+            this.errorValidation = false
+            this.$emit('nextStep')
+          } else {
+            this.errorValidation = true
+          }
+        })
+      }
     },
     sendValidationCode() {
       let sendValidation = null
@@ -173,17 +185,21 @@ export default {
         sendValidation = this.$parent.sendValidationCode() /** Step.vue */
 
         sendValidation.then((result) => {
-          !result.error
-            ? (this.resendEmail = true)
-            : (this.errorValidation = true)
+          if (!result.error) {
+            this.resendEmail = true
+            this.errorValidation = false
+          } else {
+            this.errorValidation = true
+          }
         })
       } else {
         sendValidation = this.$parent.sendMobileValidationCode() /** Step.vue */
 
         sendValidation.then((result) => {
           if (!result.error) {
+            console.log(result)
             this.resendEmail = true
-            sessionStorage.verifyServiceId = result.verifyServiceId
+            sessionStorage.verifyServiceId = result.data.verifyServiceId
           } else {
             this.errorValidation = true
           }
@@ -212,11 +228,16 @@ export default {
       this.verificationCode.forEach(function(pinCode) {
         codeString += pinCode
       })
+
+      console.log(codeString)
+      console.log(sessionStorage.verifyServiceId)
+      console.log(sessionStorage.registerPhone)
+
       return this.$axios
         .post('/twilio/services/verify/check-verification-token', {
           verify_service_id: sessionStorage.verifyServiceId,
           code: codeString,
-          to: sessionStorage.registerPhone
+          to: '+34' + sessionStorage.registerPhone
         })
         .then((response) => response.data)
     }

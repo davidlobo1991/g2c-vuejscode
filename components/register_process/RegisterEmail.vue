@@ -10,10 +10,10 @@
       <v-text-field
         v-model="registerEmail"
         :rules="[rules.required, rules.email]"
+        :hide-details="true"
         label="Email"
         outlined
         class="c-info__input"
-        hide-details="auto"
       >
       </v-text-field>
     </div>

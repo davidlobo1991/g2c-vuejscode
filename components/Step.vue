@@ -28,10 +28,15 @@
         <TelephoneVerify
           v-on:registerPhone="savePhone"
           v-on:registerPrefix="savePrefix"
+          v-on:registerUkPrefix="saveUkResident"
         />
       </div>
       <div v-show="5 === step">
-        <PinVerify kind="telephone" />
+        <PinVerify
+          kind="telephone"
+          @callEndPoint="callEndpoint"
+          @signIn="signIn"
+        />
       </div>
       <div :style="cssProps" class="c-info__button-cont u-align-right">
         <v-btn
@@ -68,7 +73,6 @@ export default {
     PinVerify,
     RegisterEmail
   },
-  props: {},
   data() {
     return {
       step: 1,
@@ -143,6 +147,15 @@ export default {
       sessionStorage.registerPhone = this.registerPhone
     },
     /**
+     * Method to save if the user is uk resident
+     * @param value
+     */
+    saveUkResident(value) {
+      this.registerUkResident = value
+      sessionStorage.registerUkResident = this.registerUkResident
+    },
+
+    /**
      * Method to save prefix in the session
      * @param value
      */
@@ -168,17 +181,6 @@ export default {
             ? (this.step = this.step + 1)
             : (this.errorValidation = true)
         })
-      } else if (this.step === 4) {
-        const sendValidation = this.sendMobileValidationCode()
-        sendValidation.then((result) => {
-          if (!result.error) {
-            console.log(result)
-            sessionStorage.verifyServiceId = result.data.verifyServiceId
-            this.step = this.step + 1
-          } else {
-            this.errorValidation = true
-          }
-        })
       } else {
         this.step = this.step + 1
       }
@@ -188,9 +190,10 @@ export default {
      * @returns {Promise<AxiosResponse<any>>}
      */
     sendValidationCode() {
-      return this.$axios
-        .post('/users/email-validation/send', { email: this.registerEmail })
-        .then((response) => response.data)
+      const data = {
+        email: this.registerEmail
+      }
+      return this.callEndpoint('/users/email-validation/send', data)
     },
     /**
      * Call to mobile validation code and returns promise
@@ -198,17 +201,13 @@ export default {
      */
     sendMobileValidationCode() {
       const number = this.registerPrefix + this.registerPhone
-      return this.$axios
-        .post('/twilio/services/verify/send-sms-verification', {
-          to: number
-        })
-        .then((response) => response.data)
-    },
-    navigationPrevious() {
-      this.step = this.step - 1
-    },
-    onWindowSizeChange() {
-      this.viewportWidth = this.getWidth()
+      const data = {
+        to: number
+      }
+      return this.callEndpoint(
+        '/twilio/services/verify/send-sms-verification',
+        data
+      )
     },
     getWidth() {
       return Math.max(
@@ -216,8 +215,32 @@ export default {
         window.innerWidth || 0
       )
     },
+    navigationPrevious() {
+      this.step = this.step - 1
+    },
+    onWindowSizeChange() {
+      this.viewportWidth = this.getWidth()
+    },
     nextStep() {
       this.navigationNext()
+    },
+    signIn() {
+      const data = {
+        'g2c_user["words"]': sessionStorage.securityKey,
+        'g2c_user["application"]': 'networksv.com',
+        'g2c_user["nick"]': sessionStorage.registerNick,
+        'user["email"]': sessionStorage.registerEmail,
+        'user["mobile_prefix"]': sessionStorage.registerPrefix,
+        'user["mobile_number"]': sessionStorage.registerPhone,
+        'user["ukresident"]': sessionStorage.registerUkResident
+      }
+
+      const response = this.callEndpoint('users/create', data)
+
+      console.log(response)
+    },
+    callEndpoint(url, data = null) {
+      return this.$axios.post(url, data).then((response) => response.data)
     }
   }
 }
