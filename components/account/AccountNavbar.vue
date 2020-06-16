@@ -1,5 +1,11 @@
 <template>
   <div class="c-account__navbar">
+    <div class="c-account__navbar--logout-cont">
+      <span class="c-account__navbar--logout-text">Logout</span>
+      <v-icon>
+        mdi-exit-to-app
+      </v-icon>
+    </div>
     <ul class="c-account__navbar--menu">
       <li
         v-bind:class="
@@ -11,16 +17,6 @@
           ACCOUNT
         </nuxt-link>
       </li>
-      <!--      <li-->
-      <!--        v-bind:class="-->
-      <!--          activeTab === 'Calendar' ? 'c-account__navbar&#45;&#45;item-active' : ''-->
-      <!--        "-->
-      <!--        class="c-account__navbar&#45;&#45;item"-->
-      <!--      >-->
-      <!--        <nuxt-link to="/account/profile" class="c-account__navbar&#45;&#45;link">-->
-      <!--          CALENDAR-->
-      <!--        </nuxt-link>-->
-      <!--      </li>-->
       <li
         v-bind:class="
           activeTab === 'Activity' ? 'c-account__navbar--item-active' : ''
@@ -69,6 +65,17 @@ export default {
     justify-content: center;
     align-items: flex-end;
     height: 76px;
+    position: relative;
+    &--logout-cont {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      display: flex;
+      align-items: center;
+    }
+    &--logout-text {
+      padding-right: 15px;
+    }
     &--menu {
       padding: 0;
     }
@@ -111,6 +118,9 @@ export default {
       font-size: 13px;
       font-weight: normal;
       height: 45px;
+      &--logout-cont {
+        display: none;
+      }
       &--item {
         &-active {
           color: #fff;

@@ -21,11 +21,11 @@
           mdi-message-text
         </v-icon>
       </div>
-      <div>
-        <v-icon class="c-bottom-mobile__icon">
-          mdi-bookmark-multiple
-        </v-icon>
-      </div>
+      <!--      <div>-->
+      <!--        <v-icon class="c-bottom-mobile__icon">-->
+      <!--          mdi-bookmark-multiple-->
+      <!--        </v-icon>-->
+      <!--      </div>-->
       <!--      <div>-->
       <!--        <v-icon class="c-bottom-mobile__icon">-->
       <!--          mdi-forum-->
@@ -57,7 +57,7 @@ export default {
     &__wrapper {
       height: 100%;
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       justify-items: center;
       align-items: center;
     }
