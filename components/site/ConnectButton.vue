@@ -99,7 +99,6 @@ export default {
   },
   methods: {
     showConnectForm() {
-      console.log('Evento emitido')
       this.$emit('closeAllModals', this.isShowingConnectModal)
       this.isShowingConnectModal = true
     }

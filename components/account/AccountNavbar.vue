@@ -75,6 +75,9 @@ export default {
     &--item {
       display: inline-block;
       margin-right: 45px;
+      &:last-of-type {
+        margin-right: 0;
+      }
       &-active {
         color: #0087ff;
         border-bottom: 2px solid #0087ff;

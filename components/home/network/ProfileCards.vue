@@ -545,7 +545,6 @@ export default {
     },
     closeAllModals(value) {
       this.IsShowingContactInfo = false
-      console.log('evento recibido - ' + value)
       this.IsShowingConnectModal = value
     }
   }
@@ -691,7 +690,6 @@ export default {
       position: relative;
       width: 235px;
       height: 235px;
-      border: 2px solid #fff;
       border-radius: 50px;
       flex-shrink: 0;
     }

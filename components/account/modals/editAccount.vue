@@ -8,43 +8,61 @@
     >
       Edit
     </v-btn>
-    <v-dialog v-model="dialog" max-width="65%">
+    <v-dialog v-model="dialog" content-class="c-edit-account__modal">
       <v-card>
+        <div class="c-edit-account__modal--cross">
+          <v-icon @click="dialog = false">
+            mdi-close
+          </v-icon>
+        </div>
         <v-card-title class="c-edit-account__modal--title">
           Edit Profile
         </v-card-title>
 
         <v-card-text>
           <div class="c-edit-account__modal--first-side">
-            <div class="c-edit-account__modal--img-cont">
-              <nuxt-link
-                :src="require('@/assets/images/persona1.png')"
-                tag="img"
-                to="/"
-                class="c-edit-account__modal--img"
-              />
-              <div class="c-account__profile--status u-status--available"></div>
+            <div class="c-edit-account__modal--avatar-cont">
+              <v-avatar size="215">
+                <img
+                  :src="require('@/assets/images/persona1.png')"
+                  alt="John"
+                />
+                <div class="c-edit-account__modal--avatar-edit">
+                  <v-icon class="c-bottom-mobile__icon">
+                    mdi-pencil
+                  </v-icon>
+                </div>
+              </v-avatar>
             </div>
+            <!--            <div class="c-edit-account__modal&#45;&#45;img-cont">-->
+            <!--              <nuxt-link-->
+            <!--                :src="require('@/assets/images/persona1.png')"-->
+            <!--                tag="img"-->
+            <!--                to="/"-->
+            <!--                class="c-edit-account__modal&#45;&#45;img"-->
+            <!--              />-->
+            <!--              <div class="c-account__profile&#45;&#45;status u-status&#45;&#45;available"></div>-->
+            <!--            </div>-->
             <div class="c-edit-account__modal--inputs-cont">
               <v-text-field
-                v-model="name"
                 color="#1976d2"
                 label="Name"
-                hide-details="true"
+                class="c-edit-account__modal--input"
+                hide-details="auto"
                 outlined
               ></v-text-field>
               <v-text-field
-                v-model="lastName"
                 color="#1976d2"
                 label="Last Name"
-                hide-details="true"
+                class="c-edit-account__modal--input"
+                hide-details="auto"
                 outlined
               ></v-text-field>
               <v-text-field
-                v-model="title"
                 color="#1976d2"
                 label="Title"
-                hide-details="true"
+                class="c-edit-account__modal--input"
+                hide-details="auto"
                 outlined
               ></v-text-field>
             </div>
@@ -52,6 +70,7 @@
           <v-textarea
             color="#1976d2"
             label="Summary"
+            class="c-edit-account__modal--textarea"
             hide-details="true"
             outlined
           >
@@ -59,6 +78,22 @@
               <!--              <div>Bio <small>(optional)</small></div>-->
             </template>
           </v-textarea>
+          <v-select
+            v-model="knowledgeValue"
+            :items="knowledgeItems"
+            chips
+            label="Knowledge"
+            multiple
+            outlined
+          ></v-select>
+          <v-select
+            v-model="langValue"
+            :items="langItems"
+            chips
+            label="Knowledge"
+            multiple
+            outlined
+          ></v-select>
         </v-card-text>
 
         <v-card-actions>
@@ -83,7 +118,11 @@ export default {
   components: {},
   data() {
     return {
-      dialog: false
+      dialog: false,
+      langItems: ['foo', 'bar', 'fizz', 'buzz'],
+      langValue: ['foo', 'bar', 'fizz', 'buzz'],
+      knowledgeItems: ['foo', 'bar', 'fizz', 'buzz'],
+      knowledgeValue: ['foo', 'bar', 'fizz', 'buzz']
     }
   },
   methods: {}
@@ -104,22 +143,44 @@ export default {
     padding: 0 !important;
   }
   &__modal {
+    max-width: 65%;
+    &--cross {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+    }
     &--title {
       display: flex !important;
       align-items: center;
       justify-content: center;
+      padding-bottom: 33px !important;
     }
     &--first-side {
       width: 100%;
       display: flex;
-      align-items: center;
+      /*align-items: center;*/
+      justify-content: space-between;
     }
     &--img-cont {
       width: 235px;
       height: 235px;
       border-radius: 50px;
       flex-shrink: 0;
-      padding-right: 20px;
+      margin-right: 20px;
+    }
+    &--avatar-cont {
+      /*background-color: #18de82;*/
+    }
+    &--avatar-edit {
+      width: 35px;
+      height: 35px;
+      position: absolute;
+      background-color: #fff;
+      bottom: 15px;
+      right: 15px;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.11);
+      border-radius: 25px;
+      cursor: pointer;
     }
     &--img {
       object-fit: cover;
@@ -129,6 +190,43 @@ export default {
     }
     &--inputs-cont {
       width: 100%;
+      display: flex;
+      flex-flow: column;
+      justify-content: space-between;
+      padding-left: 30px;
+    }
+    &--input {
+      margin-bottom: 22px !important;
+    }
+    &--textarea {
+      margin-bottom: 22px !important;
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .c-edit-account {
+    &__modal {
+      max-width: 90%;
+      &--first-side {
+        flex-flow: column;
+      }
+      &--avatar-cont {
+        display: flex;
+        justify-content: center;
+        padding-bottom: 30px;
+      }
+      &--inputs-cont {
+        padding-left: 0;
+      }
+    }
+  }
+}
+@media screen and (max-width: 400px) {
+  .c-edit-account {
+    &__modal {
+      max-width: 100%;
+      margin: 0;
     }
   }
 }
