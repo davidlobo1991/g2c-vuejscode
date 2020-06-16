@@ -28,6 +28,7 @@
         <LoginSide
           v-on:createAccountIsVisible="setCreateAccountIsVisible"
           v-on:loginIsVisible="setLoginIsVisible"
+          v-on:checkUser="checkUser"
         />
       </div>
     </div>
@@ -35,11 +36,13 @@
 </template>
 
 <script>
+import apiBackend from './mixins/callApi'
 import ContentSide from '~/components/login/ContentSide'
 import LoginSide from '~/components/login/LoginSide'
 
 export default {
   name: 'Login',
+  mixins: [apiBackend],
   components: {
     ContentSide,
     LoginSide
@@ -75,6 +78,16 @@ export default {
         document.documentElement.clientWidth,
         window.innerWidth || 0
       )
+    },
+    checkUser(nick) {
+      const validation = this.getCallApi('/users/check-nickname/', nick)
+      validation.then((result) => {
+        if (!result.error) {
+          this.errorValidation = false
+        } else {
+          this.errorValidation = true
+        }
+      })
     }
   }
 }

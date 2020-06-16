@@ -32,11 +32,7 @@
         />
       </div>
       <div v-show="5 === step">
-        <PinVerify
-          kind="telephone"
-          @callEndPoint="callEndpoint"
-          @signIn="signIn"
-        />
+        <PinVerify @signIn="signIn" kind="telephone" />
       </div>
       <div :style="cssProps" class="c-info__button-cont u-align-right">
         <v-btn
@@ -58,6 +54,7 @@
 </template>
 
 <script>
+import apiBackend from './mixins/callApi'
 import NavigationSteps from '~/components/register_process/NavigationSteps'
 import TwelveWordsGenerator from '~/components/register_process/TwelveWordsGenerator'
 import TelephoneVerify from '~/components/register_process/TelephoneVerify'
@@ -73,6 +70,7 @@ export default {
     PinVerify,
     RegisterEmail
   },
+  mixins: [apiBackend],
   data() {
     return {
       step: 1,
@@ -80,8 +78,9 @@ export default {
       // pinInputHeight: '64px',
       viewportWidth: 0,
       variableWidth: 27,
+      registerPhone: null,
+      registerPrefix: null,
       registerEmail: null,
-      registerPhoneNumber: null,
       errorValidation: false
     }
   },
@@ -175,15 +174,44 @@ export default {
      */
     navigationNext() {
       if (this.step === 1) {
-        const sendValidation = this.sendValidationCode()
-        sendValidation.then((result) => {
-          !result.error
-            ? (this.step = this.step + 1)
-            : (this.errorValidation = true)
+        const checkEmail = this.checkEmail()
+        checkEmail.then((result) => {
+          if (!result.error) {
+            const validation = this.sendValidationCode()
+            validation.then((result) => {
+              !result.error ? (this.step += 1) : (this.errorValidation = true)
+            })
+          } else {
+            this.resendEmail = false
+            this.errorValidation = true
+          }
+        })
+      } else if (this.step === 4) {
+        const checkPhone = this.checkPhone()
+        checkPhone.then((result) => {
+          if (!result.error) {
+            const validation = this.sendMobileValidationCode()
+            validation.then((result) => {
+              if (!result.error) {
+                sessionStorage.verifyServiceId = result.data.verifyServiceId
+                this.step += 1
+              } else {
+                this.errorValidation = true
+              }
+            })
+          } else {
+            this.errorValidation = true
+          }
         })
       } else {
-        this.step = this.step + 1
+        this.step += 1
       }
+    },
+    checkEmail() {
+      return this.getCallApi('/users/check-email/', this.registerEmail)
+    },
+    checkPhone() {
+      return this.getCallApi('/users/check-mobile/', this.registerEmail)
     },
     /**
      * Call to email validation code and returns promise
@@ -193,7 +221,7 @@ export default {
       const data = {
         email: this.registerEmail
       }
-      return this.callEndpoint('/users/email-validation/send', data)
+      return this.postCallApi('/users/email-validation/send', data)
     },
     /**
      * Call to mobile validation code and returns promise
@@ -204,7 +232,7 @@ export default {
       const data = {
         to: number
       }
-      return this.callEndpoint(
+      return this.postCallApi(
         '/twilio/services/verify/send-sms-verification',
         data
       )
@@ -226,21 +254,29 @@ export default {
     },
     signIn() {
       const data = {
-        'g2c_user["words"]': sessionStorage.securityKey,
-        'g2c_user["application"]': 'networksv.com',
-        'g2c_user["nick"]': sessionStorage.registerNick,
-        'user["email"]': sessionStorage.registerEmail,
-        'user["mobile_prefix"]': sessionStorage.registerPrefix,
-        'user["mobile_number"]': sessionStorage.registerPhone,
-        'user["ukresident"]': sessionStorage.registerUkResident
+        'g2c_user[words]': sessionStorage.securityKey,
+        'g2c_user[application]': 'networksv.com',
+        'g2c_user[nick]': sessionStorage.registerNick,
+        'user[email]': sessionStorage.registerEmail,
+        'user[mobile_prefix]': sessionStorage.registerPrefix,
+        'user[mobile_number]': sessionStorage.registerPhone,
+        'user[ukresident]': sessionStorage.registerUkResident
       }
 
-      const response = this.callEndpoint('users/create', data)
-
+      console.log(data)
+      // eslint-disable-next-line no-unused-vars
+      const response = this.postCallApi('users/create', data)
       console.log(response)
-    },
-    callEndpoint(url, data = null) {
-      return this.$axios.post(url, data).then((response) => response.data)
+
+      response.then((result) => {
+        if (!result.error) {
+          this.$router.push({
+            path: '/dashboard'
+          })
+        } else {
+          console.log(result)
+        }
+      })
     }
   }
 }

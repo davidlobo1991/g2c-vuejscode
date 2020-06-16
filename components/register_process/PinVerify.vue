@@ -133,8 +133,11 @@
   </div>
 </template>
 <script>
+import apiBackend from '../mixins/callApi'
+
 export default {
   name: 'PinVerify',
+  mixins: [apiBackend],
   props: {
     kind: {
       type: String,
@@ -158,7 +161,6 @@ export default {
           this.errorValidation = false
           this.$emit('signIn')
         } else {
-          console.log(result)
           this.errorValidation = true
         }
       })
@@ -170,7 +172,6 @@ export default {
 
         validation.then((result) => {
           if (!result.error) {
-            console.log('bieeen')
             this.errorValidation = false
             this.$emit('nextStep')
           } else {
@@ -182,8 +183,7 @@ export default {
     sendValidationCode() {
       let sendValidation = null
       if (this.kind === 'email') {
-        sendValidation = this.$parent.sendValidationCode() /** Step.vue */
-
+        sendValidation = this.$parent.sendValidationCode()
         sendValidation.then((result) => {
           if (!result.error) {
             this.resendEmail = true
@@ -193,11 +193,9 @@ export default {
           }
         })
       } else {
-        sendValidation = this.$parent.sendMobileValidationCode() /** Step.vue */
-
+        sendValidation = this.$parent.sendMobileValidationCode()
         sendValidation.then((result) => {
           if (!result.error) {
-            console.log(result)
             this.resendEmail = true
             sessionStorage.verifyServiceId = result.data.verifyServiceId
           } else {
@@ -216,12 +214,11 @@ export default {
       this.verificationCode.forEach(function(pinCode) {
         code += pinCode
       })
-      return this.$axios
-        .post('/users/email-validation/validate', {
-          email: sessionStorage.registerEmail,
-          validation_code: code
-        })
-        .then((response) => response.data)
+
+      return this.postCallApi('/users/email-validation/validate', {
+        email: sessionStorage.registerEmail,
+        validation_code: code
+      })
     },
     validationPhoneCode() {
       let codeString = ''
@@ -229,17 +226,14 @@ export default {
         codeString += pinCode
       })
 
-      console.log(codeString)
-      console.log(sessionStorage.verifyServiceId)
-      console.log(sessionStorage.registerPhone)
-
-      return this.$axios
-        .post('/twilio/services/verify/check-verification-token', {
+      return this.postCallApi(
+        '/twilio/services/verify/check-verification-token',
+        {
           verify_service_id: sessionStorage.verifyServiceId,
           code: codeString,
           to: '+34' + sessionStorage.registerPhone
-        })
-        .then((response) => response.data)
+        }
+      )
     }
   }
 }
