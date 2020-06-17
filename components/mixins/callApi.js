@@ -4,6 +4,15 @@ const apiBackend = {
     getCallApi(url, data = null) {
       return this.$axios.get(url + data).then((response) => response.data)
     },
+    testCall(url, data = null) {
+      return this.$axios
+        .post(url, data, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        })
+        .then((response) => response.data)
+    },
     postCallApi(url, data = null) {
       return this.$axios.post(url, data).then((response) => response.data)
     },

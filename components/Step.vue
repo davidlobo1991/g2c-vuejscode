@@ -257,6 +257,7 @@ export default {
         'g2c_user[words]': sessionStorage.securityKey,
         'g2c_user[application]': 'networksv.com',
         'g2c_user[nick]': sessionStorage.registerNick,
+        'user[nick]': sessionStorage.registerNick,
         'user[email]': sessionStorage.registerEmail,
         'user[mobile_prefix]': sessionStorage.registerPrefix,
         'user[mobile_number]': sessionStorage.registerPhone,
@@ -265,7 +266,7 @@ export default {
 
       console.log(data)
       // eslint-disable-next-line no-unused-vars
-      const response = this.postCallApi('users/create', data)
+      const response = this.testCall('users/create', data)
       console.log(response)
 
       response.then((result) => {
