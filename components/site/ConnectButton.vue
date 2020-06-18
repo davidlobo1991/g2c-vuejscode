@@ -30,6 +30,11 @@
         Pending
       </div>
     </v-btn>
+
+    <div v-if="status === 'accept'" depressed class="connectbutton__accept">
+      <span v-if="cost">{{ cost }}$ - </span>
+      Accept
+    </div>
     <v-dialog
       v-model="isShowingConnectModal"
       width="50%"
@@ -109,6 +114,22 @@ export default {
 <style lang="scss" scoped>
 .connectbutton {
   width: 100%;
+  &__accept {
+    width: 100%;
+    height: 40px;
+    border: 2px solid #4dd695;
+    background-image: linear-gradient(to left, #00db73, #08d5b9, #00db73);
+    background-size: 200%;
+    transition: 0.8s;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    &:hover {
+      background-position: right;
+    }
+  }
   &--button {
     width: 100%;
     height: 40px !important;

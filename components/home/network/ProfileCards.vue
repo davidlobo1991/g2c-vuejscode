@@ -96,7 +96,7 @@
             Recommends
           </div>
         </div>
-        <ConnectButton status="connect" />
+        <ConnectButton status="accept" cost="1" />
       </div>
 
       <div class="c-home__cards__card">
