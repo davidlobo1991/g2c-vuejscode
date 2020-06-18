@@ -256,11 +256,8 @@ export default {
         'user[mobile_number]': sessionStorage.registerPhone,
         'user[ukresident]': sessionStorage.registerUkResident
       }
-
-      console.log(data)
       // eslint-disable-next-line no-unused-vars
       const response = this.postCallApi('users/create', data)
-      console.log(response)
 
       response.then((result) => {
         if (!result.error) {
@@ -268,6 +265,7 @@ export default {
             path: '/home'
           })
         } else {
+          this.errorValidation = true
           console.log(result)
         }
       })
