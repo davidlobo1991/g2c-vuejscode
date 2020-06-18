@@ -158,9 +158,12 @@ export default {
 
       validation.then((result) => {
         if (!result.error) {
+          console.log(result)
           this.errorValidation = false
           this.$emit('signIn')
         } else {
+          console.log(result)
+
           this.errorValidation = true
         }
       })

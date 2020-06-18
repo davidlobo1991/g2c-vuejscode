@@ -59,6 +59,7 @@
 
           <div class="full-width">
             <v-text-field
+              v-model="loginNick"
               :hide-details="true"
               label="Username (Handle)"
               outlined
@@ -73,7 +74,7 @@
             >
             </v-textarea>
             <div class="u-mrb-s c-login__cont--btn">
-              <v-btn depressed dark color="#0885F6">
+              <v-btn depressed dark v-on:click="login" color="#0885F6">
                 Login
               </v-btn>
             </div>
@@ -122,6 +123,7 @@ export default {
       loginIsVisible: false,
       viewportWidth: null,
       registerNick: null,
+      loginNick: null,
       errorValidation: false
     }
   },
@@ -134,6 +136,9 @@ export default {
     },
     registerNick(value) {
       sessionStorage.registerNick = value
+    },
+    loginNick(value) {
+      sessionStorage.loginNick = value
     }
   },
   methods: {
@@ -165,6 +170,26 @@ export default {
           this.errorValidation = true
         }
       })
+    },
+    async login() {
+      try {
+        await this.$auth.loginWith('local', {
+          data: {
+            nick: 'test123',
+            password: 'password'
+          }
+        })
+        console.log('test')
+
+        // do something on success
+      } catch (e) {
+        console.log(e)
+        // do something on failure
+      }
+    },
+    async logout() {
+      await this.$auth.logout()
+      this.$router.push('/login')
     }
   }
 }

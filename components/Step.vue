@@ -153,21 +153,18 @@ export default {
       this.registerUkResident = value
       sessionStorage.registerUkResident = this.registerUkResident
     },
-
-    /**
-     * Method to save prefix in the session
-     * @param value
-     */
     savePrefix(value) {
       this.registerPrefix = value
       sessionStorage.registerPrefix = this.registerPrefix
     },
-    /**
-     * Get if the user checked the responsibility check
-     * @param value
-     */
     getCheck(value) {
       this.responsabilityCheck = value
+    },
+    checkEmail() {
+      return this.getCallApi('/users/check-email/', this.registerEmail)
+    },
+    checkPhone() {
+      return this.getCallApi('/users/check-mobile/', this.registerEmail)
     },
     /**
      * If is the step 1 (introduce email) will verify the email and send the validation code
@@ -180,6 +177,7 @@ export default {
             const validation = this.sendValidationCode()
             validation.then((result) => {
               !result.error ? (this.step += 1) : (this.errorValidation = true)
+              console.log(result)
             })
           } else {
             this.resendEmail = false
@@ -207,12 +205,7 @@ export default {
         this.step += 1
       }
     },
-    checkEmail() {
-      return this.getCallApi('/users/check-email/', this.registerEmail)
-    },
-    checkPhone() {
-      return this.getCallApi('/users/check-mobile/', this.registerEmail)
-    },
+
     /**
      * Call to email validation code and returns promise
      * @returns {Promise<AxiosResponse<any>>}
@@ -266,13 +259,13 @@ export default {
 
       console.log(data)
       // eslint-disable-next-line no-unused-vars
-      const response = this.testCall('users/create', data)
+      const response = this.postCallApi('users/create', data)
       console.log(response)
 
       response.then((result) => {
         if (!result.error) {
           this.$router.push({
-            path: '/dashboard'
+            path: '/home'
           })
         } else {
           console.log(result)

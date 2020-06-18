@@ -50,6 +50,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/auth',
     '@nuxtjs/pwa',
     [
       '@nuxtjs/firebase',
@@ -69,6 +70,31 @@ export default {
       }
     ]
   ],
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/users/login',
+            method: 'post',
+            propertyName: false
+          },
+          logout: {
+            url: '/g2c/users/logout',
+            method: 'post'
+          },
+          user: {
+            url: '/users/show',
+            method: 'get',
+            propertyName: false
+          }
+        },
+        tokenRequired: false,
+        tokenType: false
+      }
+    }
+  },
+
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
