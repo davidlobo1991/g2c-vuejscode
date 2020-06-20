@@ -1,0 +1,230 @@
+<template>
+  <v-dialog v-model="isShowingContactInfo" content-class="c-contact-card">
+    <v-card>
+      <v-card-text>
+        <div class="c-contact-card__cross--cont">
+          <v-icon class="c-contact-card__cross">
+            mdi-close
+          </v-icon>
+        </div>
+        <div class="c-contact-card__profile">
+          <div class="c-contact-card__profile--img-cont">
+            <nuxt-link
+              :src="require('@/assets/images/persona1.png')"
+              tag="img"
+              to="/"
+              class="c-contact-card__profile--img"
+            />
+            <div
+              class="c-contact-card__profile--status u-status--available"
+            ></div>
+            <div class="c-contact-card__profile--details-cont">
+              <div class="c-contact-card__profile--details">
+                <span class="c-contact-card__profile--details-num">210</span>
+                Connections
+              </div>
+              <div class="c-contact-card__profile--details">
+                <span class="c-contact-card__profile--details-num">176</span>
+                Recommends
+              </div>
+            </div>
+            <ConnectButton status="connect" cost="1" />
+            <!--              <v-btn-->
+            <!--                depressed-->
+            <!--                class="c-home__cards__card&#45;&#45;button"-->
+            <!--                color="#0087FF"-->
+            <!--                dark-->
+            <!--              >-->
+            <!--                1$ - Connect-->
+            <!--              </v-btn>-->
+          </div>
+          <div class="c-contact-card__profile--text-cont">
+            <div class="c-contact-card__profile--name">Jessica O'Mallie</div>
+            <div class="c-contact-card__profile--username">@jessomallie</div>
+            <div class="c-contact-card__profile--description">
+              Bitcoin Estrategics, Formation in UX/UI & Animal Lover
+            </div>
+            <div class="c-contact-card__profile--title">Knowledge</div>
+            <div class="c-contact-card__profile--label-cont">
+              <v-chip
+                class="c-contact-card__profile--label"
+                color="#EFF1F2"
+                label
+              >
+                Design
+              </v-chip>
+              <v-chip
+                class="c-contact-card__profile--label"
+                color="#EFF1F2"
+                label
+              >
+                Bitcoin
+              </v-chip>
+              <v-chip
+                class="c-contact-card__profile--label"
+                color="#EFF1F2"
+                label
+              >
+                Startups
+              </v-chip>
+            </div>
+            <div class="c-contact-card__profile--title">Summary</div>
+            <div class="c-contact-card__profile--summary">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+              urna, et sodales arcu. Vestibulum at mauris ultrices, posuere,
+              egestas neque. Sed erat neque, euismod vitae faucibus sit amet,
+              pharetra dui. Duis vulputate eu est rutrum. Cras fermentum finibus
+              iaculis lacus vehicula egestas neque. Sed erat neque, vita.
+            </div>
+            <div class="c-contact-card__profile--title">Languages</div>
+            <div class="c-contact-card__profile--label-cont">
+              <v-chip
+                class="c-contact-card__profile--label"
+                color="#EFF1F2"
+                label
+              >
+                English
+              </v-chip>
+              <v-chip
+                class="c-contact-card__profile--label"
+                color="#EFF1F2"
+                label
+              >
+                Spanish
+              </v-chip>
+            </div>
+            <div class="c-contact-card__profile--title">Social Media</div>
+            <div class="c-contact-card__profile--username">
+              <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>
+              <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>
+              <v-icon color="#8C8C8C">mdi-twitter</v-icon>
+              <v-icon color="#8C8C8C">mdi-facebook-box</v-icon>
+              <v-icon color="#8C8C8C">mdi-instagram</v-icon>
+            </div>
+          </div>
+        </div>
+      </v-card-text>
+    </v-card>
+  </v-dialog>
+</template>
+
+<script>
+import ConnectButton from '~/components/site/ConnectButton'
+
+export default {
+  name: 'ModalProfile',
+  components: {
+    ConnectButton
+  },
+  props: {
+    isShowingContactInfo: {
+      type: Boolean,
+      default: false
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.c-contact-card {
+  max-width: 50%;
+  background-color: red;
+  &__cross {
+    cursor: pointer;
+    &--cont {
+      width: 100%;
+      text-align: right;
+      padding-top: 20px;
+    }
+  }
+  &__profile {
+    display: flex;
+    position: relative;
+    padding: 0 20px 20px 20px;
+
+    &--img-cont {
+      position: relative;
+      width: 235px;
+      height: 235px;
+      border-radius: 50px;
+      flex-shrink: 0;
+    }
+
+    &--img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+
+    &--status {
+      position: absolute;
+      border-radius: 50px;
+      border: 2px solid #fff;
+      width: 21px;
+      height: 21px;
+      bottom: 10%;
+      right: 10%;
+    }
+
+    &--details-cont {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding-top: 25px;
+      padding-bottom: 30px;
+    }
+
+    &--details {
+      text-align: center;
+      // width: 45%;
+      font-size: 15px;
+      color: #8c8c8c;
+
+      &-num {
+        display: block;
+        color: #4d4d4d;
+        font-size: 19px;
+        font-weight: bold;
+      }
+    }
+
+    &--text-cont {
+      padding-left: 40px;
+    }
+
+    &--name {
+      color: #21273b;
+      padding-top: 15px;
+      font-size: 19px;
+      font-weight: 500;
+    }
+
+    &--username {
+      color: rgba(33, 39, 59, 0.5);
+      font-size: 17px;
+      font-weight: 500;
+    }
+
+    &--description {
+      opacity: 0.8;
+      color: #525252;
+      font-size: 18px;
+      width: 72%;
+      padding-top: 10px;
+    }
+
+    &--label {
+      margin-bottom: 5px;
+    }
+
+    &--title {
+      color: #21273b;
+      font-size: 17px;
+      font-weight: 500;
+      padding-top: 25px;
+      padding-bottom: 10px;
+    }
+  }
+}
+</style>

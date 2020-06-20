@@ -403,127 +403,19 @@
         </v-btn>
       </div>
     </div>
-    <v-dialog v-model="IsShowingContactInfo" width="50%" class="c-contact-card">
-      <v-card>
-        <v-card-text>
-          <div class="c-contact-card__cross--cont">
-            <v-icon
-              @click="IsShowingContactInfo = false"
-              class="c-contact-card__cross"
-            >
-              mdi-close
-            </v-icon>
-          </div>
-          <div class="c-contact-card__profile">
-            <div class="c-contact-card__profile--img-cont">
-              <nuxt-link
-                :src="require('@/assets/images/persona1.png')"
-                tag="img"
-                to="/"
-                class="c-contact-card__profile--img"
-              />
-              <div
-                class="c-contact-card__profile--status u-status--available"
-              ></div>
-              <div class="c-contact-card__profile--details-cont">
-                <div class="c-contact-card__profile--details">
-                  <span class="c-contact-card__profile--details-num">210</span>
-                  Connections
-                </div>
-                <div class="c-contact-card__profile--details">
-                  <span class="c-contact-card__profile--details-num">176</span>
-                  Recommends
-                </div>
-              </div>
-              <ConnectButton status="connect" cost="1" />
-              <!--              <v-btn-->
-              <!--                depressed-->
-              <!--                class="c-home__cards__card&#45;&#45;button"-->
-              <!--                color="#0087FF"-->
-              <!--                dark-->
-              <!--              >-->
-              <!--                1$ - Connect-->
-              <!--              </v-btn>-->
-            </div>
-            <div class="c-contact-card__profile--text-cont">
-              <div class="c-contact-card__profile--name">Jessica O'Mallie</div>
-              <div class="c-contact-card__profile--username">@jessomallie</div>
-              <div class="c-contact-card__profile--description">
-                Bitcoin Estrategics, Formation in UX/UI & Animal Lover
-              </div>
-              <div class="c-contact-card__profile--title">Knowledge</div>
-              <div class="c-contact-card__profile--label-cont">
-                <v-chip
-                  class="c-contact-card__profile--label"
-                  color="#EFF1F2"
-                  label
-                >
-                  Design
-                </v-chip>
-                <v-chip
-                  class="c-contact-card__profile--label"
-                  color="#EFF1F2"
-                  label
-                >
-                  Bitcoin
-                </v-chip>
-                <v-chip
-                  class="c-contact-card__profile--label"
-                  color="#EFF1F2"
-                  label
-                >
-                  Startups
-                </v-chip>
-              </div>
-              <div class="c-contact-card__profile--title">Summary</div>
-              <div class="c-contact-card__profile--summary">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                urna, et sodales arcu. Vestibulum at mauris ultrices, posuere,
-                egestas neque. Sed erat neque, euismod vitae faucibus sit amet,
-                pharetra dui. Duis vulputate eu est rutrum. Cras fermentum
-                finibus iaculis lacus vehicula egestas neque. Sed erat neque,
-                vita.
-              </div>
-              <div class="c-contact-card__profile--title">Languages</div>
-              <div class="c-contact-card__profile--label-cont">
-                <v-chip
-                  class="c-contact-card__profile--label"
-                  color="#EFF1F2"
-                  label
-                >
-                  English
-                </v-chip>
-                <v-chip
-                  class="c-contact-card__profile--label"
-                  color="#EFF1F2"
-                  label
-                >
-                  Spanish
-                </v-chip>
-              </div>
-              <div class="c-contact-card__profile--title">Social Media</div>
-              <div class="c-contact-card__profile--username">
-                <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>
-                <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>
-                <v-icon color="#8C8C8C">mdi-twitter</v-icon>
-                <v-icon color="#8C8C8C">mdi-facebook-box</v-icon>
-                <v-icon color="#8C8C8C">mdi-instagram</v-icon>
-              </div>
-            </div>
-          </div>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
+    <ModalProfile :isShowingContactInfo="IsShowingContactInfo"></ModalProfile>
   </div>
 </template>
 
 <script>
 import ConnectButton from '~/components/site/ConnectButton'
+import ModalProfile from '~/components/home/network/ModalProfile'
 
 export default {
   name: 'ProfileCards',
   components: {
-    ConnectButton
+    ConnectButton,
+    ModalProfile
   },
   data() {
     return {
@@ -550,17 +442,6 @@ export default {
   }
 }
 </script>
-
-<style>
-.c-home__cards .v-dialog {
-  width: 50%;
-}
-@media screen and (max-width: 1500px) {
-  ..c-home__cards .v-dialog {
-    width: 70%;
-  }
-}
-</style>
 <style lang="scss" scoped>
 /* Clase repetida en componente Sidebar. Buescar manera de ponerla global */
 .u-status {
@@ -672,7 +553,8 @@ export default {
   }
 }
 .c-contact-card {
-  width: 60% !important;
+  max-width: 50%;
+  background-color: red;
   &__cross {
     cursor: pointer;
     &--cont {
