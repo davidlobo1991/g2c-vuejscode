@@ -51,7 +51,8 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    '@nuxtjs/pwa',
+    '@nuxtjs/pwa'
+    /*
     [
       '@nuxtjs/firebase',
       {
@@ -69,6 +70,7 @@ export default {
         }
       }
     ]
+    */
   ],
   auth: {
     strategies: {

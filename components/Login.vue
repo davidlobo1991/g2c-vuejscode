@@ -104,9 +104,9 @@ export default {
   &__video {
     width: 68%;
     background-color: #fbfcfe;
-    -webkit-box-shadow: 0px 0px 14px 2px rgba(0, 0, 0, 0.19);
-    -moz-box-shadow: 0px 0px 14px 2px rgba(0, 0, 0, 0.19);
-    box-shadow: 0px 0px 14px 2px rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 0 14px 2px rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 0 14px 2px rgba(0, 0, 0, 0.19);
+    box-shadow: 0 0 14px 2px rgba(0, 0, 0, 0.19);
   }
   &__login {
     width: 32%;
@@ -127,9 +127,9 @@ export default {
     }
     &__login {
       width: 100%;
-      -webkit-box-shadow: 0px 0px 14px 2px rgba(0, 0, 0, 0.19);
-      -moz-box-shadow: 0px 0px 14px 2px rgba(0, 0, 0, 0.19);
-      box-shadow: 0px 0px 14px 2px rgba(0, 0, 0, 0.19);
+      -webkit-box-shadow: 0 0 14px 2px rgba(0, 0, 0, 0.19);
+      -moz-box-shadow: 0 0 14px 2px rgba(0, 0, 0, 0.19);
+      box-shadow: 0 0 14px 2px rgba(0, 0, 0, 0.19);
     }
   }
 }

@@ -1,6 +1,5 @@
 <template>
   <v-layout>
-    <!-- <login title="Refineria"></login> -->
     <Login />
   </v-layout>
 </template>

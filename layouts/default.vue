@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { firebase } from '~/plugins/firebase'
+// import { firebase } from '~/plugins/firebase'
 
 export default {
   head() {
@@ -35,30 +35,17 @@ export default {
       clipped: false,
       drawer: false,
       fixed: false,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
-        }
-      ],
       miniVariant: false,
       right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
+      rightDrawer: false
     }
   },
   mounted() {
-    this.userConnected()
-    this.userAttachDisconnect()
+    // this.userConnected()
+    // this.userAttachDisconnect()
     // eslint-disable-next-line no-undef
     const words = g2c_getRandomWords()
-
+    //
     // eslint-disable-next-line no-console
     console.log(words)
   },
@@ -82,8 +69,8 @@ export default {
         }
       })
       await JSON.stringify('test')
-    },
-
+    }
+    /*
     async userConnected() {
       // TODO: get user id dinamically
       const uid = 'ubc9fiKjZacO1SbmFNmYzBylGIT2' // user id
@@ -108,6 +95,8 @@ export default {
         .child(uid)
         .update(userData)
     },
+    */
+    /*
     async userAttachDisconnect() {
       // TODO: get user id dinamically
       const uid = 'ubc9fiKjZacO1SbmFNmYzBylGIT2' // user id
@@ -124,6 +113,7 @@ export default {
 
       return true
     }
+     */
   }
 }
 </script>
