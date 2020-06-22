@@ -545,6 +545,7 @@ export default {
     },
     closeAllModals(value) {
       this.IsShowingContactInfo = false
+      // eslint-disable-next-line no-console
       console.log('evento recibido - ' + value)
       this.IsShowingConnectModal = value
     }

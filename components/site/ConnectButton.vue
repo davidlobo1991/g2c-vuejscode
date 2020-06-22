@@ -99,6 +99,7 @@ export default {
   },
   methods: {
     showConnectForm() {
+      // eslint-disable-next-line no-console
       console.log('Evento emitido')
       this.$emit('closeAllModals', this.isShowingConnectModal)
       this.isShowingConnectModal = true

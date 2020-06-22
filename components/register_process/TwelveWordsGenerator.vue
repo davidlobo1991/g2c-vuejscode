@@ -41,16 +41,16 @@ export default {
       responsabilityCheck: false
     }
   },
+  mounted() {
+    // eslint-disable-next-line no-undef
+    this.generatedWords = g2c_getRandomWords()
+  },
   methods: {
     acceptedCheck(value) {
       this.responsabilityCheck = !this.responsabilityCheck
       this.$emit('CheckResponsability', value)
       sessionStorage.securityKey = this.generatedWords
     }
-  },
-  mounted() {
-    // eslint-disable-next-line no-undef
-    this.generatedWords = g2c_getRandomWords()
   }
 }
 </script>

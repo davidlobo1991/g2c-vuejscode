@@ -158,10 +158,12 @@ export default {
 
       validation.then((result) => {
         if (!result.error) {
+          // eslint-disable-next-line no-console
           console.log(result)
           this.errorValidation = false
           this.$emit('signIn')
         } else {
+          // eslint-disable-next-line no-console
           console.log(result)
 
           this.errorValidation = true

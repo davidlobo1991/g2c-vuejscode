@@ -177,6 +177,7 @@ export default {
             const validation = this.sendValidationCode()
             validation.then((result) => {
               !result.error ? (this.step += 1) : (this.errorValidation = true)
+              // eslint-disable-next-line no-console
               console.log(result)
             })
           } else {
@@ -266,6 +267,7 @@ export default {
           })
         } else {
           this.errorValidation = true
+          // eslint-disable-next-line no-console
           console.log(result)
         }
       })

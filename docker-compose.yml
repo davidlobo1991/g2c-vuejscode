@@ -2,8 +2,9 @@ version: "3.5"
 
 services:
   nuxt:
+    container_name: 'networksv-frontend'
     build: .
     volumes:
-      - ./:/src/
+      - ./:/src/:cached
     ports:
-      - 3000
+      - 5000:3000

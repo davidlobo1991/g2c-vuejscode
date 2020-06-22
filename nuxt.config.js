@@ -9,7 +9,7 @@ export default {
    */
   head: {
     titleTemplate: '%s - ' + process.env.npm_package_name,
-    title: process.env.npm_package_name || '',
+    title: 'NetworkSV',
     meta: [
       { charset: 'utf-8' },
       {
@@ -19,7 +19,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
+        content: 'NetworkSV'
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
@@ -136,22 +136,6 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {
-      //   if (ctx.isClient) {
-      //     config.module.rules.push(
-      //       {
-      //         enforce: 'pre',
-      //         test: /\.(js|vue)$/,
-      //         loader: 'eslint-loader',
-      //         exclude: /(node_modules)|(assets\/js)/
-      //       },
-      //       {
-      //         test: /\.js$/,
-      //         loader: 'babel-loader',
-      //         exclude: /(node_modules)|(assets\/js)/
-      //       }
-      //     )
-      //   }
-    }
+    extend(config, ctx) {}
   }
 }

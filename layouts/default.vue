@@ -59,16 +59,10 @@ export default {
     // eslint-disable-next-line no-undef
     const words = g2c_getRandomWords()
 
+    // eslint-disable-next-line no-console
     console.log(words)
-
-    this.callApi()
   },
   methods: {
-    callApi() {
-      return this.$axios.get('/users').then((response) => {
-        console.log(response.data)
-      })
-    },
     async registerUser() {
       // eslint-disable-next-line no-undef
       const words = g2c_getRandomWords()
@@ -78,8 +72,10 @@ export default {
       // eslint-disable-next-line no-undef
       g2c_createUser(words, application, nick, function(result) {
         if (result.error) {
+          // eslint-disable-next-line no-console
           console.log(JSON.stringify(result.error))
         } else {
+          // eslint-disable-next-line no-console
           console.log(
             'My interaction tokens are : ' + JSON.stringify(result.data)
           )
@@ -97,7 +93,10 @@ export default {
         .child(uid)
         .once('value')
         .then((snap) => snap.val())
-        .catch((error) => console.log(error))
+        .catch((error) => {
+          // eslint-disable-next-line no-console
+          console.log(error)
+        })
 
       // TODO: check user exists
       userData.connected = 1

@@ -42,11 +42,11 @@ import LoginSide from '~/components/login/LoginSide'
 
 export default {
   name: 'Login',
-  mixins: [apiBackend],
   components: {
     ContentSide,
     LoginSide
   },
+  mixins: [apiBackend],
   data() {
     return {
       viewportWidth: 0,

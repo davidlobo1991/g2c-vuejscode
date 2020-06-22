@@ -74,7 +74,7 @@
             >
             </v-textarea>
             <div class="u-mrb-s c-login__cont--btn">
-              <v-btn depressed dark v-on:click="login" color="#0885F6">
+              <v-btn v-on:click="login" depressed dark color="#0885F6">
                 Login
               </v-btn>
             </div>
@@ -179,10 +179,12 @@ export default {
             password: 'password'
           }
         })
+        // eslint-disable-next-line no-console
         console.log('test')
 
         // do something on success
       } catch (e) {
+        // eslint-disable-next-line no-console
         console.log(e)
         // do something on failure
       }
