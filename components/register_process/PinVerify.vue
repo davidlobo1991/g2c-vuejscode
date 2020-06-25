@@ -88,7 +88,7 @@
 
       <div class="c-info__button--cont">
         <div class="c-info__button">
-          <span v-on:click="sendValidationCode" class="c-info__link">
+          <span v-on:click="sendCode" class="c-info__link">
             <v-icon class="c-info__link--icon">mdi-replay</v-icon> Resend Code
           </span>
           <v-btn
@@ -182,7 +182,7 @@ export default {
         })
       }
     },
-    sendValidationCode() {
+    sendCode() {
       let sendValidation = null
       if (this.kind === 'email') {
         sendValidation = this.sendValidationCode()

@@ -115,6 +115,7 @@ import { apiNetworkSv } from '~/mixins/apiNetworkSV'
 
 export default {
   name: 'Login',
+  mixins: [apiNetworkSv],
   data() {
     return {
       createAccountIsVisible: false,
@@ -153,10 +154,9 @@ export default {
       this.createAccountIsVisible = false
     },
     checkUser() {
-      console.log('test')
+      const validation = apiNetworkSv.checkUserApi(this.registerNick)
 
-      const validation = apiNetworkSv.checkUser(this.registerNick)
-
+      // eslint-disable-next-line no-console
       console.log(validation)
     },
     async login() {

@@ -28,7 +28,6 @@
         <LoginSide
           v-on:createAccountIsVisible="setCreateAccountIsVisible"
           v-on:loginIsVisible="setLoginIsVisible"
-          v-on:checkUser="checkUser"
         />
       </div>
     </div>
@@ -36,7 +35,6 @@
 </template>
 
 <script>
-import { apiNetworkSv } from '~/mixins/apiNetworkSv'
 import ContentSide from '~/components/login/ContentSide'
 import LoginSide from '~/components/login/LoginSide'
 
@@ -71,11 +69,6 @@ export default {
     },
     setLoginIsVisible(value) {
       this.loginIsVisible = value
-    },
-    checkUser() {
-      const validation = apiNetworkSv.checkUser()
-
-      console.log(validation)
     },
     getWidth() {
       return Math.max(

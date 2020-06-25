@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import { apiNetworkSv } from '~/mixins/apiNetworkSV'
 import NavigationSteps from '~/components/register_process/NavigationSteps'
 import TwelveWordsGenerator from '~/components/register_process/TwelveWordsGenerator'
 import TelephoneVerify from '~/components/register_process/TelephoneVerify'
@@ -69,6 +70,7 @@ export default {
     PinVerify,
     RegisterEmail
   },
+  mixins: [apiNetworkSv],
   data() {
     return {
       step: 1,
@@ -127,26 +129,14 @@ export default {
     window.removeEventListener('resize', this.onWindowSizeChange)
   },
   methods: {
-    /**
-     * Method to save email in the session
-     * @param value
-     */
     saveEmail(value) {
       this.registerEmail = value
       sessionStorage.registerEmail = this.registerEmail
     },
-    /**
-     * Method to save email in the session
-     * @param value
-     */
     savePhone(value) {
       this.registerPhone = value
       sessionStorage.registerPhone = this.registerPhone
     },
-    /**
-     * Method to save if the user is uk resident
-     * @param value
-     */
     saveUkResident(value) {
       this.registerUkResident = value
       sessionStorage.registerUkResident = this.registerUkResident
@@ -162,41 +152,55 @@ export default {
      * If is the step 1 (introduce email) will verify the email and send the validation code
      */
     navigationNext() {
-      if (this.step === 1) {
-        const checkEmail = this.checkEmail()
-        checkEmail.then((result) => {
-          if (!result.error) {
-            const validation = this.sendValidationCode()
-            validation.then((result) => {
-              !result.error ? (this.step += 1) : (this.errorValidation = true)
-              // eslint-disable-next-line no-console
-              console.log(result)
-            })
-          } else {
-            this.resendEmail = false
-            this.errorValidation = true
-          }
+      if (this.step === 1 || this.step === 4) {
+        let code = null
+        this.verificationCode.forEach(function(pinCode) {
+          code += pinCode
         })
-      } else if (this.step === 4) {
-        const checkPhone = this.checkPhone()
-        checkPhone.then((result) => {
-          if (!result.error) {
-            const validation = this.sendMobileValidationCode()
-            validation.then((result) => {
-              if (!result.error) {
-                sessionStorage.verifyServiceId = result.data.verifyServiceId
-                this.step += 1
-              } else {
-                this.errorValidation = true
-              }
-            })
-          } else {
-            this.errorValidation = true
-          }
-        })
+
+        if (this.step === 1) {
+          const checkEmail = this.checkEmailApi()
+          checkEmail.then((result) => {
+            if (!result.error) {
+              const validation = this.sendValidationCode(code)
+              validation.then((result) => {
+                !result.error ? (this.step += 1) : (this.errorValidation = true)
+              })
+            } else {
+              this.resendEmail = false
+              this.errorValidation = true
+            }
+          })
+        } else if (this.step === 4) {
+          const checkPhone = this.checkPhoneApi()
+          checkPhone.then((result) => {
+            if (!result.error) {
+              const validation = this.sendMobileValidationCode(code)
+              validation.then((result) => {
+                if (!result.error) {
+                  sessionStorage.verifyServiceId = result.data.verifyServiceId
+                  this.step += 1
+                } else {
+                  this.errorValidation = true
+                }
+              })
+            } else {
+              this.errorValidation = true
+            }
+          })
+        }
       } else {
         this.step += 1
       }
+    },
+    signIn() {
+      const nick = this.registerNick
+      const email = this.registerEmail
+      const prefix = this.registerPrefix
+      const phone = this.registerPhone
+      const ukResident = this.registerUkResident
+
+      this.signInApi(nick, email, prefix, phone, ukResident)
     },
     getWidth() {
       return Math.max(
@@ -232,9 +236,11 @@ input[type='number']::-webkit-outer-spin-button {
     display: flex;
     width: 100%;
   }
+
   &__logo {
     display: none;
   }
+
   &__left-side {
     width: 35%;
     background-color: #f5f8fd;
@@ -243,17 +249,20 @@ input[type='number']::-webkit-outer-spin-button {
     display: flex;
     justify-content: center;
   }
+
   &__right-side {
     padding-top: 4.5%;
     width: 60%;
     margin: 0 auto;
   }
 }
+
 .c-info {
   &__button-cont {
     // padding-right: 27%;
     padding-right: var(--variable-wrapper);
   }
+
   &__button {
     width: 180px;
     height: 80px !important;
@@ -262,6 +271,7 @@ input[type='number']::-webkit-outer-spin-button {
     text-transform: none;
   }
 }
+
 @media screen and (max-width: 768px) {
   .c-info {
     &__button {
@@ -273,11 +283,13 @@ input[type='number']::-webkit-outer-spin-button {
     }
   }
 }
+
 @media screen and (max-width: 768px) {
   .c-info {
     &__wrapper {
       /*padding: 28px 0 0 0 !important;*/
     }
+
     &__button {
       width: 100%;
       height: 56px !important;
@@ -289,13 +301,16 @@ input[type='number']::-webkit-outer-spin-button {
       display: block;
       text-align: center;
       padding-bottom: 30px;
+
       & img {
         width: 110px;
       }
     }
+
     &__left-side {
       display: none;
     }
+
     &__right-side {
       width: 90%;
       padding-top: 8%;
