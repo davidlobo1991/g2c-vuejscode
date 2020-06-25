@@ -3,7 +3,10 @@
     <v-card>
       <v-card-text>
         <div class="c-contact-card__cross--cont">
-          <v-icon class="c-contact-card__cross">
+          <v-icon
+            @click="isShowingContactInfo = false"
+            class="c-contact-card__cross"
+          >
             mdi-close
           </v-icon>
         </div>
@@ -121,14 +124,33 @@ export default {
       type: Boolean,
       default: false
     }
+  },
+  watch: {
+    isShowingContactInfo(value) {
+      this.$emit('isShowingContactInfo', value)
+    }
   }
 }
 </script>
-
+<style>
+.c-contact-card {
+  max-width: 50%;
+}
+@media screen and (max-width: 992px) {
+  .c-contact-card {
+    max-width: 90%;
+    margin: 0;
+  }
+}
+@media screen and (max-width: 400px) {
+  .c-contact-card {
+    max-width: 100%;
+  }
+}
+</style>
 <style lang="scss" scoped>
 .c-contact-card {
   max-width: 50%;
-  background-color: red;
   &__cross {
     cursor: pointer;
     &--cont {
@@ -224,6 +246,22 @@ export default {
       font-weight: 500;
       padding-top: 25px;
       padding-bottom: 10px;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .c-contact-card {
+    &__profile {
+      flex-flow: column;
+      &--img-cont {
+        height: auto;
+      }
+      &--status {
+        bottom: 37%;
+      }
+      &--text-cont {
+        padding-left: 0;
+      }
     }
   }
 }

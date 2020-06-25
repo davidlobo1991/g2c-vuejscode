@@ -1,7 +1,7 @@
 <template>
   <div class="c-home__cards">
     <div class="c-home__cards__wrapper">
-      <div v-on:click="showContact" class="c-home__cards__card">
+      <div v-on:click.self="showContact" class="c-home__cards__card">
         <div class="c-home__cards__card--img-cont">
           <img
             src="~/assets/images/persona1.png"
@@ -29,10 +29,10 @@
             Recommends
           </div>
         </div>
-        <ConnectButton v-on:closeAllModals="closeAllModals" status="view" />
+        <ConnectButton status="view" />
       </div>
 
-      <div v-on:click="showContact" class="c-home__cards__card">
+      <div v-on:click.prevent.self="showContact" class="c-home__cards__card">
         <div class="c-home__cards__card--img-cont">
           <img
             src="~/assets/images/persona1.png"
@@ -62,6 +62,7 @@
         </div>
         <ConnectButton
           v-on:closeAllModals="closeAllModals"
+          @sendIsShowingConnectModal="setIsShowingConnectModal"
           status="connect"
           cost="35"
         />
@@ -403,7 +404,10 @@
         </v-btn>
       </div>
     </div>
-    <ModalProfile :isShowingContactInfo="IsShowingContactInfo"></ModalProfile>
+    <ModalProfile
+      :isShowingContactInfo="IsShowingContactInfo"
+      @isShowingContactInfo="isShowingContactInfoChild"
+    ></ModalProfile>
   </div>
 </template>
 
@@ -423,20 +427,15 @@ export default {
       IsShowingConnectModal: false
     }
   },
-  watch: {
-    IsShowingConnectModal(value) {
-      if (this.IsShowingConnectModal) {
-        this.IsShowingContactInfo = false
-      }
-    }
-  },
   methods: {
+    isShowingContactInfoChild(value) {
+      this.IsShowingContactInfo = value
+    },
     showContact() {
       // Llamada AJAX al endpoint
       this.IsShowingContactInfo = true
     },
-    closeAllModals(value) {
-      this.IsShowingContactInfo = false
+    setIsShowingConnectModal(value) {
       this.IsShowingConnectModal = value
     }
   }

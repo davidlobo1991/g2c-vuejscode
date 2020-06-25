@@ -102,9 +102,13 @@ export default {
       isShowingConnectModal: false
     }
   },
+  watch: {
+    isShowingConnectModal(value) {
+      this.$emit('sendIsShowingConnectModal', value)
+    }
+  },
   methods: {
     showConnectForm() {
-      this.$emit('closeAllModals', this.isShowingConnectModal)
       this.isShowingConnectModal = true
     }
   }
