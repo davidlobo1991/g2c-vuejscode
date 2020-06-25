@@ -77,23 +77,27 @@ export default {
       local: {
         endpoints: {
           login: {
-            url: '/users/login',
+            url: '/auth/login',
             method: 'post',
-            propertyName: false
+            propertyName: 'data.token'
           },
           logout: {
-            url: '/g2c/users/logout',
+            url: '/auth/logout',
             method: 'post'
           },
           user: {
-            url: '/users/show',
+            url: '/auth/me',
             method: 'get',
-            propertyName: false
+            propertyName: 'data'
           }
-        },
-        tokenRequired: false,
-        tokenType: false
+        }
       }
+    },
+    redirect: {
+      login: '/',
+      logout: '/',
+      home: '/dashboard'
+      // callback: '/'
     }
   },
 

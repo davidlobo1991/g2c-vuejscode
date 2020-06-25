@@ -59,9 +59,18 @@
 
           <div class="full-width">
             <v-text-field
-              v-model="loginNick"
+              v-model="form.nick"
               :hide-details="true"
               label="Username (Handle)"
+              outlined
+              class="c-login__cont--input u-mrb-s"
+            >
+            </v-text-field>
+            <v-text-field
+              v-model="form.password"
+              :hide-details="true"
+              type="password"
+              label="Password"
               outlined
               class="c-login__cont--input u-mrb-s"
             >
@@ -74,7 +83,7 @@
             >
             </v-textarea>
             <div class="u-mrb-s c-login__cont--btn">
-              <v-btn v-on:click="login" depressed dark color="#0885F6">
+              <v-btn @click.prevent="login" depressed dark color="#0885F6">
                 Login
               </v-btn>
             </div>
@@ -122,8 +131,12 @@ export default {
       loginIsVisible: false,
       viewportWidth: null,
       registerNick: null,
-      loginNick: null,
-      errorValidation: false
+      // loginNick: null,
+      errorValidation: false,
+      form: {
+        nick: null,
+        password: null
+      }
     }
   },
   watch: {
@@ -161,25 +174,24 @@ export default {
     },
     async login() {
       try {
-        await this.$auth.loginWith('local', {
-          data: {
-            nick: 'test123',
-            password: 'password'
-          }
+        // @TODO: First, login in G2C
+
+        // @TODO: Second, login in networksv backend
+        const response = await this.$auth.loginWith('local', {
+          data: this.form
         })
         // eslint-disable-next-line no-console
-        console.log('test')
-
-        // do something on success
-      } catch (e) {
+        console.log('response login!!!')
         // eslint-disable-next-line no-console
-        console.log(e)
-        // do something on failure
+        console.log(response)
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(error)
       }
     },
     async logout() {
       await this.$auth.logout()
-      this.$router.push('/login')
+      this.$router.push('/')
     }
   }
 }
