@@ -111,6 +111,8 @@
 </template>
 
 <script>
+import { apiNetworkSv } from '~/mixins/apiNetworkSV'
+
 export default {
   name: 'Login',
   data() {
@@ -149,6 +151,13 @@ export default {
     showLogin() {
       this.loginIsVisible = true
       this.createAccountIsVisible = false
+    },
+    checkUser() {
+      console.log('test')
+
+      const validation = apiNetworkSv.checkUser(this.registerNick)
+
+      console.log(validation)
     },
     async login() {
       try {

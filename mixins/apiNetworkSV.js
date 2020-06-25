@@ -3,81 +3,102 @@ export const apiNetworkSv = {
     return {}
   },
   methods: {
-    validationCode() {
+    /**
+     *
+     * @returns {Promise<void>}
+     */
+    async validationCode() {
       let code = null
       this.verificationCode.forEach(function(pinCode) {
         code += pinCode
       })
 
       try {
-        return new Promise((resolve, reject) => {
-          // eslint-disable-next-line no-undef
-          this.postCallApi('/users/email-validation/validate', {
-            email: sessionStorage.registerEmail,
-            validation_code: code
-          })
-        }).then((response) => {
-          return {
-            // nick: response.nick,
-            // application: response.application,
-            status_id: response.status
-          }
+        // eslint-disable-next-line no-undef
+        await this.postCallApi('/users/email-validation/validate', {
+          email: sessionStorage.registerEmail,
+          validation_code: code
         })
       } catch (err) {
         throw err
       }
     }
   },
-  validationPhoneCode() {
+  /**
+   *
+   * @returns {Promise<void>}
+   */
+  async validationPhoneCode() {
     let codeString = null
     this.verificationCode.forEach(function(pinCode) {
       codeString += pinCode
     })
 
     try {
-      return new Promise((resolve, reject) => {
-        this.postCallApi('/twilio/services/verify/check-verification-token', {
+      await this.postCallApi(
+        '/twilio/services/verify/check-verification-token',
+        {
           verify_service_id: sessionStorage.verifyServiceId,
           code: codeString,
           to: sessionStorage.registerPrefix + sessionStorage.registerPhone
-        })
-      }).then((response) => {
-        return {
-          // nick: response.nick,
-          // application: response.application,
-          status_id: response.status
         }
+      )
+    } catch (err) {
+      throw err
+    }
+  },
+  /**
+   *
+   * @returns {Promise<void>}
+   */
+  async sendValidationCode() {
+    const data = {
+      email: this.registerEmail
+    }
+
+    try {
+      await this.postCallApi('/users/email-validation/send', {
+        data
       })
     } catch (err) {
       throw err
     }
   },
-  sendValidationCode() {
-    const data = {
-      email: this.registerEmail
-    }
-    return this.postCallApi('/users/email-validation/send', data)
-  },
-  sendMobileValidationCode() {
+  /**
+   *
+   * @returns {Promise<void>}
+   */
+  async sendMobileValidationCode() {
     const number = this.registerPrefix + this.registerPhone
     const data = {
       to: number
     }
-    return this.postCallApi(
-      '/twilio/services/verify/send-sms-verification',
-      data
-    )
+    try {
+      await this.postCallApi(
+        '/twilio/services/verify/send-sms-verification',
+        data
+      )
+    } catch (err) {
+      throw err
+    }
   },
-  checkUser(nick) {
-    const validation = this.getCallApi('/users/check-nickname/', nick)
-    validation.then((result) => {
-      if (!result.error) {
-        this.errorValidation = false
-      } else {
-        this.errorValidation = true
-      }
-    })
+  /**
+   *
+   * @param nick
+   * @returns {Promise<void>}
+   */
+  async checkUser(nick) {
+    try {
+      await this.getCallApi('/users/check-nickname/', {
+        nick
+      })
+    } catch (err) {
+      throw err
+    }
   },
+  /**
+   *
+   */
   signIn() {
     const data = {
       'g2c_user[words]': sessionStorage.securityKey,
@@ -104,9 +125,21 @@ export const apiNetworkSv = {
       }
     })
   },
+  /**
+   * Get call
+   * @param url
+   * @param data
+   * @returns {Promise<AxiosResponse<any>>}
+   */
   getCallApi(url, data = null) {
     return this.$axios.get(url + data).then((response) => response.data)
   },
+  /**
+   * Post call
+   * @param url
+   * @param data
+   * @returns {Promise<AxiosResponse<any>>}
+   */
   postCallApi(url, data = null) {
     return this.$axios
       .post(url, data, {

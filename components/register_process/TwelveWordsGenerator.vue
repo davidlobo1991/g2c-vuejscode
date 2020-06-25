@@ -48,7 +48,6 @@ export default {
     acceptedCheck(value) {
       this.responsabilityCheck = !this.responsabilityCheck
       this.$emit('CheckResponsability', value)
-      sessionStorage.securityKey = this.generatedWords
     }
   }
 }
