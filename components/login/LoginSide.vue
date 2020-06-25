@@ -111,12 +111,8 @@
 </template>
 
 <script>
-import apiBackend from '../mixins/callApi'
-
 export default {
   name: 'Login',
-  // eslint-disable-next-line no-undef
-  mixins: [apiBackend],
   data() {
     return {
       createAccountIsVisible: false,
@@ -153,23 +149,6 @@ export default {
     showLogin() {
       this.loginIsVisible = true
       this.createAccountIsVisible = false
-    },
-    checkUser() {
-      const validation = this.getCallApi(
-        '/users/check-nickname/',
-        this.registerNick
-      )
-
-      validation.then((result) => {
-        if (!result.error) {
-          this.errorValidation = false
-          this.$router.push({
-            path: '/step-2'
-          })
-        } else {
-          this.errorValidation = true
-        }
-      })
     },
     async login() {
       try {

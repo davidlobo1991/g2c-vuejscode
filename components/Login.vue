@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import apiBackend from './mixins/callApi'
 import ContentSide from '~/components/login/ContentSide'
 import LoginSide from '~/components/login/LoginSide'
 
@@ -46,7 +45,6 @@ export default {
     ContentSide,
     LoginSide
   },
-  mixins: [apiBackend],
   data() {
     return {
       viewportWidth: 0,
@@ -78,16 +76,6 @@ export default {
         document.documentElement.clientWidth,
         window.innerWidth || 0
       )
-    },
-    checkUser(nick) {
-      const validation = this.getCallApi('/users/check-nickname/', nick)
-      validation.then((result) => {
-        if (!result.error) {
-          this.errorValidation = false
-        } else {
-          this.errorValidation = true
-        }
-      })
     }
   }
 }

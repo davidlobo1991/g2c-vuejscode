@@ -54,7 +54,6 @@
 </template>
 
 <script>
-import apiBackend from './mixins/callApi'
 import NavigationSteps from '~/components/register_process/NavigationSteps'
 import TwelveWordsGenerator from '~/components/register_process/TwelveWordsGenerator'
 import TelephoneVerify from '~/components/register_process/TelephoneVerify'
@@ -70,7 +69,6 @@ export default {
     PinVerify,
     RegisterEmail
   },
-  mixins: [apiBackend],
   data() {
     return {
       step: 1,
@@ -160,12 +158,6 @@ export default {
     getCheck(value) {
       this.responsabilityCheck = value
     },
-    checkEmail() {
-      return this.getCallApi('/users/check-email/', this.registerEmail)
-    },
-    checkPhone() {
-      return this.getCallApi('/users/check-mobile/', this.registerEmail)
-    },
     /**
      * If is the step 1 (introduce email) will verify the email and send the validation code
      */
@@ -206,31 +198,6 @@ export default {
         this.step += 1
       }
     },
-
-    /**
-     * Call to email validation code and returns promise
-     * @returns {Promise<AxiosResponse<any>>}
-     */
-    sendValidationCode() {
-      const data = {
-        email: this.registerEmail
-      }
-      return this.postCallApi('/users/email-validation/send', data)
-    },
-    /**
-     * Call to mobile validation code and returns promise
-     * @returns {Promise<AxiosResponse<any>>}
-     */
-    sendMobileValidationCode() {
-      const number = this.registerPrefix + this.registerPhone
-      const data = {
-        to: number
-      }
-      return this.postCallApi(
-        '/twilio/services/verify/send-sms-verification',
-        data
-      )
-    },
     getWidth() {
       return Math.max(
         document.documentElement.clientWidth,
@@ -245,32 +212,6 @@ export default {
     },
     nextStep() {
       this.navigationNext()
-    },
-    signIn() {
-      const data = {
-        'g2c_user[words]': sessionStorage.securityKey,
-        'g2c_user[application]': 'networksv.com',
-        'g2c_user[nick]': sessionStorage.registerNick,
-        'user[nick]': sessionStorage.registerNick,
-        'user[email]': sessionStorage.registerEmail,
-        'user[mobile_prefix]': sessionStorage.registerPrefix,
-        'user[mobile_number]': sessionStorage.registerPhone,
-        'user[ukresident]': sessionStorage.registerUkResident
-      }
-      // eslint-disable-next-line no-unused-vars
-      const response = this.postCallApi('users/create', data)
-
-      response.then((result) => {
-        if (!result.error) {
-          this.$router.push({
-            path: '/home'
-          })
-        } else {
-          this.errorValidation = true
-          // eslint-disable-next-line no-console
-          console.log(result)
-        }
-      })
     }
   }
 }
