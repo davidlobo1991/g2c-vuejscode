@@ -1,4 +1,7 @@
+import { cookies } from '~/mixins/cookies'
+
 export const apiG2c = {
+  mixins: [cookies],
   head() {
     return {
       script: [
@@ -46,6 +49,7 @@ export const apiG2c = {
 
       return randomWords
     },
+
     /**
      * Create User
      * @param {string} words - User's private 12 words.
@@ -78,6 +82,7 @@ export const apiG2c = {
         throw error
       }
     },
+
     /**
      * User Login
      * @param {string} words - User's private 12 words.
@@ -121,6 +126,7 @@ export const apiG2c = {
         throw error
       }
     },
+
     /**
      * Logout User
      * @param {string} tokenid
@@ -161,6 +167,7 @@ export const apiG2c = {
         throw error
       }
     },
+
     /**
      * Get User
      * @param {string} tokenid
@@ -215,6 +222,7 @@ export const apiG2c = {
         throw error
       }
     },
+
     /**
      * Error Handler
      * @param {Error} error
@@ -228,15 +236,6 @@ export const apiG2c = {
 
       // eslint-disable-next-line no-console
       console.error(error)
-    },
-    /**
-     * Delete Cookie
-     * @param {string} cookieName
-     * @return {void}
-     */
-    deleteCookie(cookieName) {
-      document.cookie =
-        cookieName + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
     }
   }
 }
