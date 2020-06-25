@@ -31,7 +31,11 @@
                 Recommends
               </div>
             </div>
-            <ConnectButton status="connect" cost="1" />
+            <ConnectButton
+              @sendIsShowingConnectModal="sendIsShowingConnectModal"
+              status="connect"
+              cost="1"
+            />
             <!--              <v-btn-->
             <!--                depressed-->
             <!--                class="c-home__cards__card&#45;&#45;button"-->
@@ -128,6 +132,11 @@ export default {
   watch: {
     isShowingContactInfo(value) {
       this.$emit('isShowingContactInfo', value)
+    }
+  },
+  methods: {
+    sendIsShowingConnectModal(value) {
+      this.$emit('sendIsShowingConnectModal', value)
     }
   }
 }

@@ -32,6 +32,13 @@
               class="c-login__cont--input u-mrb-s"
             >
             </v-text-field>
+            <v-text-field
+              :hide-details="true"
+              label="Password"
+              outlined
+              class="c-login__cont--input u-mrb-s"
+            >
+            </v-text-field>
             <div class="u-mrb-s c-login__cont--btn">
               <v-btn depressed color="#0885F6" dark to="/step-2" nuxt>
                 Next
@@ -58,6 +65,13 @@
             <v-text-field
               :hide-details="true"
               label="Username (Handle)"
+              outlined
+              class="c-login__cont--input u-mrb-s"
+            >
+            </v-text-field>
+            <v-text-field
+              :hide-details="true"
+              label="Password"
               outlined
               class="c-login__cont--input u-mrb-s"
             >

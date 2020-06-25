@@ -407,6 +407,7 @@
     <ModalProfile
       :isShowingContactInfo="IsShowingContactInfo"
       @isShowingContactInfo="isShowingContactInfoChild"
+      @sendIsShowingConnectModal="setIsShowingConnectModal"
     ></ModalProfile>
   </div>
 </template>
@@ -436,6 +437,9 @@ export default {
       this.IsShowingContactInfo = true
     },
     setIsShowingConnectModal(value) {
+      if (this.IsShowingContactInfo === true) {
+        this.IsShowingContactInfo = false
+      }
       this.IsShowingConnectModal = value
     }
   }

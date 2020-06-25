@@ -37,8 +37,7 @@
     </div>
     <v-dialog
       v-model="isShowingConnectModal"
-      width="50%"
-      class="c-contact-card"
+      content-class="connectbutton__modal"
     >
       <v-card>
         <v-card-text>
@@ -68,14 +67,39 @@
               </div>
               Gabel Sheber
             </div>
-            <div class="connectbutton__modal--textarea-cont">
+            <div
+              v-if="modalStep == 1"
+              class="connectbutton__modal--textarea-cont"
+            >
               <v-textarea
+                v-model="connectMessage"
                 outlined
                 counter="140"
-                width="40%"
                 no-resize
                 rows="10"
               ></v-textarea>
+            </div>
+            <div
+              v-if="modalStep === 1"
+              @click="nextModalStep()"
+              class="connectbutton__modal--connect-button"
+            >
+              <span v-if="cost">{{ cost }}$ - </span>
+              Connect
+            </div>
+            <div
+              v-if="modalStep === 2"
+              class="connectbutton__modal--textarea-cont"
+            >
+              {{ connectMessage }}
+            </div>
+            <div
+              v-if="modalStep === 2"
+              @click="confirmConnection()"
+              class="connectbutton__modal--confirm-button"
+            >
+              <span v-if="cost">{{ cost }}$ - </span>
+              Connect
             </div>
           </div>
         </v-card-text>
@@ -95,11 +119,16 @@ export default {
     cost: {
       type: String,
       default: ''
+    },
+    modalStep: {
+      type: Number,
+      default: 1
     }
   },
   data() {
     return {
-      isShowingConnectModal: false
+      isShowingConnectModal: false,
+      connectMessage: ''
     }
   },
   watch: {
@@ -110,11 +139,29 @@ export default {
   methods: {
     showConnectForm() {
       this.isShowingConnectModal = true
+    },
+    nextModalStep() {
+      this.modalStep = this.modalStep + 1
     }
   }
 }
 </script>
-
+<style>
+.connectbutton__modal {
+  max-width: 65%;
+}
+@media screen and (max-width: 992px) {
+  .connectbutton__modal {
+    max-width: 90%;
+    margin: 0;
+  }
+}
+@media screen and (max-width: 400px) {
+  .connectbutton__modal {
+    max-width: 100%;
+  }
+}
+</style>
 <style lang="scss" scoped>
 .connectbutton {
   width: 100%;
@@ -170,6 +217,64 @@ export default {
     &--textarea-cont {
       width: 70%;
       margin: 0 auto;
+    }
+    &--connect-button {
+      background-image: linear-gradient(to left, #0278fe, #bedffe, #0278fe);
+      background-position: left;
+      background-size: 200%;
+      border-radius: 50px;
+      width: 35%;
+      height: 50px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      cursor: pointer;
+      transition: 0.8s;
+      &:hover {
+        background-position: right;
+        transition: 0.8s;
+      }
+    }
+    &--connect-button {
+      background-color: ;
+      border-radius: 50px;
+      width: 35%;
+      height: 50px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      cursor: pointer;
+      transition: 0.8s;
+      &:hover {
+        background-position: right;
+        transition: 0.8s;
+      }
+    }
+  }
+}
+@media screen and (max-width: 992px) {
+  .connectbutton__modal {
+    &--textarea-cont {
+      width: 100%;
+      margin: 0 auto;
+    }
+    &--button {
+      width: 80%;
+    }
+  }
+}
+@media screen and (max-width: 400px) {
+  .connectbutton__modal {
+    &--textarea-cont {
+      width: 100%;
+      margin: 0 auto;
+    }
+    &--button {
+      width: 100%;
     }
   }
 }
