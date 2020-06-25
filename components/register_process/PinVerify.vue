@@ -133,11 +133,8 @@
   </div>
 </template>
 <script>
-import apiBackend from '../mixins/callApi'
-
 export default {
   name: 'PinVerify',
-  mixins: [apiBackend],
   props: {
     kind: {
       type: String,
@@ -188,7 +185,7 @@ export default {
     sendValidationCode() {
       let sendValidation = null
       if (this.kind === 'email') {
-        sendValidation = this.$parent.sendValidationCode()
+        sendValidation = this.sendValidationCode()
         sendValidation.then((result) => {
           if (!result.error) {
             this.resendEmail = true
@@ -198,7 +195,7 @@ export default {
           }
         })
       } else {
-        sendValidation = this.$parent.sendMobileValidationCode()
+        sendValidation = this.sendMobileValidationCode()
         sendValidation.then((result) => {
           if (!result.error) {
             this.resendEmail = true
@@ -213,32 +210,6 @@ export default {
           ? (this.resendEmail = true)
           : (this.errorValidation = true)
       })
-    },
-    validationCode() {
-      let code = ''
-      this.verificationCode.forEach(function(pinCode) {
-        code += pinCode
-      })
-
-      return this.postCallApi('/users/email-validation/validate', {
-        email: sessionStorage.registerEmail,
-        validation_code: code
-      })
-    },
-    validationPhoneCode() {
-      let codeString = ''
-      this.verificationCode.forEach(function(pinCode) {
-        codeString += pinCode
-      })
-
-      return this.postCallApi(
-        '/twilio/services/verify/check-verification-token',
-        {
-          verify_service_id: sessionStorage.verifyServiceId,
-          code: codeString,
-          to: '+34' + sessionStorage.registerPhone
-        }
-      )
     }
   }
 }

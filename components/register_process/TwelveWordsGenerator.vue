@@ -42,8 +42,7 @@ export default {
     }
   },
   mounted() {
-    // eslint-disable-next-line no-undef
-    this.generatedWords = g2c_getRandomWords()
+    this.generatedWords = this.getRandomWords()
   },
   methods: {
     acceptedCheck(value) {
