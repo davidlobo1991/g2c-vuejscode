@@ -16,6 +16,7 @@ export const apiG2cTest = {
           .substring(9)
       )
     },
+
     /**
      * Test Create User
      */
@@ -46,6 +47,7 @@ export const apiG2cTest = {
         console.error(error)
       }
     },
+
     /**
      * Test User Login
      */
@@ -68,6 +70,7 @@ export const apiG2cTest = {
         console.error(error)
       }
     },
+
     /**
      * Test Logout User
      */
@@ -96,6 +99,7 @@ export const apiG2cTest = {
         console.error(error)
       }
     },
+
     /**
      * Test Get User
      */
