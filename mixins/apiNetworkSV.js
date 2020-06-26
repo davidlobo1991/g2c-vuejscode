@@ -1,7 +1,4 @@
-import { store } from '~/store'
-
 export const apiNetworkSv = {
-  store,
   data() {
     return {}
   },
@@ -91,10 +88,15 @@ export const apiNetworkSv = {
      * @param nick
      * @returns {Promise<void>}
      */
-    checkUserApi(nick) {
+    async checkUserApi(nick) {
       try {
-        this.$store.dispatch('checkUserApi', nick)
+        const response = await this.$store.dispatch(
+          'register/checkUserApi',
+          nick
+        )
+        return response
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.log(error)
 
         throw error

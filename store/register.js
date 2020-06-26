@@ -72,7 +72,7 @@ const actions = {
    * @param data
    * @returns {Promise<void>}
    */
-  sendMobileValidationCode: ({ commit }, data) => {
+  sendMobileValidationCode({ commit }, data) {
     try {
       return this.$axios
         .post('/twilio/services/verify/send-sms-verification', data)
@@ -88,12 +88,14 @@ const actions = {
    * @param nick
    * @returns {Promise<AxiosResponse<any>>}
    */
-  checkUserApi: ({ commit }, nick) => {
+  async checkUserApi({ commit }, nick) {
     try {
-      this.$axios
+      const response = await this.$axios
         .get('/users/check-nickname/' + nick)
         .then((response) => response.data)
+      return response
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log(error)
       throw error
     }

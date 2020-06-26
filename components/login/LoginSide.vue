@@ -137,11 +137,9 @@
 import { required, requiredIf, minLength } from 'vuelidate/lib/validators'
 import { apiNetworkSv } from '~/mixins/apiNetworkSV'
 import { apiG2c } from '~/mixins/apiG2c'
-import { store } from '~/store'
 
 export default {
   name: 'LoginSide',
-  store,
   mixins: [apiNetworkSv, apiG2c],
   data() {
     return {
@@ -215,8 +213,8 @@ export default {
       this.loginIsVisible = true
       this.createAccountIsVisible = false
     },
-    checkUser() {
-      const validation = apiNetworkSv.checkUserApi(this.registerNick)
+    async checkUser() {
+      const validation = await this.checkUserApi(this.registerNick)
 
       // eslint-disable-next-line no-console
       console.log(validation)
