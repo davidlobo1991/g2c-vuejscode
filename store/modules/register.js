@@ -1,29 +1,28 @@
-import { store } from '~/store'
+import axios from 'axios'
 
-export const apiNetworkSv = {
-  store,
-  data() {
-    return {}
-  },
-  methods: {
-    /**
-     * Validate email code
-     * @param {string} codeString - Validation email introduced code.
-     * @returns {Promise<void>}
-     */
-    async validationCode(codeString) {
-      try {
-        // eslint-disable-next-line no-undef
-        await this.$axios.post('/users/email-validation/validate', {
-          email: sessionStorage.registerEmail,
-          validation_code: codeString
-        })
-      } catch (error) {
-        this.handleError(error, 'APINetworkUser@validationCode - Error')
-        throw error
-      }
+const state = () => ({
+  items: [],
+  checkoutStatus: null
+})
+
+const actions = {
+  /**
+   * Validate email code
+   * @param {string} codeString - Validation email introduced code.
+   * @returns {Promise<void>}
+   */
+  validationCode(codeString) {
+    try {
+      // eslint-disable-next-line no-undef
+      return axios.post('/users/email-validation/validate', {
+        email: sessionStorage.registerEmail,
+        validation_code: codeString
+      })
+    } catch (error) {
+      throw error
     }
   },
+
   /**
    * Validation phone code
    * @param verifyServiceId
@@ -32,14 +31,14 @@ export const apiNetworkSv = {
    * @param registerPhone
    * @returns {Promise<void>}
    */
-  async validationPhoneCode(
+  validationPhoneCode(
     verifyServiceId,
     codeString,
     registerPrefix,
     registerPhone
   ) {
     try {
-      await this.$axios.post(
+      return this.$axios.post(
         '/twilio/services/verify/check-verification-token',
         {
           verify_service_id: verifyServiceId,
@@ -48,7 +47,6 @@ export const apiNetworkSv = {
         }
       )
     } catch (error) {
-      this.handleError(error, 'APINetworkUser@validationPhoneCode - Error')
       throw error
     }
   },
@@ -57,15 +55,14 @@ export const apiNetworkSv = {
    * @param data
    * @returns {Promise<void>}
    */
-  async sendValidationCode(data) {
+  sendValidationCode(data) {
     try {
-      await this.$axios
+      return this.$axios
         .post('/users/email-validation/send', {
           data
         })
         .then((response) => response.data)
     } catch (error) {
-      this.handleError(error, 'APINetworkUser@sendValidationCode - Error')
       throw error
     }
   },
@@ -74,28 +71,30 @@ export const apiNetworkSv = {
    * @param data
    * @returns {Promise<void>}
    */
-  async sendMobileValidationCode(data) {
+  sendMobileValidationCode: ({ commit }, data) => {
     try {
-      await this.$axios
+      return this.$axios
         .post('/twilio/services/verify/send-sms-verification', data)
         .then((response) => response.data)
     } catch (error) {
-      this.handleError(error, 'APINetworkUser@sendMobileValidationCode - Error')
       throw error
     }
   },
+
   /**
+   *
+   * @param commit
    * @param nick
-   * @returns {Promise<void>}
+   * @returns {Promise<AxiosResponse<any>>}
    */
-  checkUserApi: (nick) => {
+  checkUserApi: ({ commit }, nick) => {
     try {
-      console.log(this.$axios)
-      this.$axios
-        .get('/users/check-user/' + nick)
-        .then((response) => console.log(response.data))
+      console.log(nick)
+      return this.$axios
+        .get('/users/check-nickname/' + nick)
+        .then((response) => response.data)
     } catch (error) {
-      this.handleError(error, 'APINetworkUser@checkUserApi - Error')
+      console.log(error)
       throw error
     }
   },
@@ -104,9 +103,9 @@ export const apiNetworkSv = {
    * @param email
    * @returns {Promise<void>}
    */
-  async checkEmailApi(email) {
+  checkEmailApi(email) {
     try {
-      await this.$axios
+      return this.$axios
         .get('/users/check-email/' + email)
         .then((response) => response.data)
     } catch (error) {
@@ -119,9 +118,9 @@ export const apiNetworkSv = {
    * @param phone
    * @returns {Promise<void>}
    */
-  async checkPhoneApi(phone) {
+  checkPhoneApi(phone) {
     try {
-      await this.$axios
+      return this.$axios
         .get('/users/check-mobile/' + phone)
         .then((response) => response.data)
     } catch (error) {
@@ -137,7 +136,7 @@ export const apiNetworkSv = {
    * @param phone
    * @param ukresident
    */
-  async signInApi(nick, email, prefix, phone, ukresident) {
+  signInApi(nick, email, prefix, phone, ukresident) {
     const data = {
       'user[nick]': nick,
       'user[email]': email,
@@ -147,27 +146,18 @@ export const apiNetworkSv = {
     }
 
     try {
-      await this.$axios
+      return this.$axios
         .post('users/create', data)
         .then((response) => response.data)
         .error()
     } catch (error) {
-      this.handleError(error, 'APINetworkUser@signIn - Error')
       throw error
     }
-  },
-  /**
-   * Error Handler
-   * @param {Error} error
-   * @param {string} title - Optional Title
-   */
-  handleError(error, title = '') {
-    if (title.length > 0) {
-      // eslint-disable-next-line no-console
-      console.error(title)
-    }
-
-    // eslint-disable-next-line no-console
-    console.error(error)
   }
+}
+
+export default {
+  namespaced: true,
+  state,
+  actions
 }

@@ -121,9 +121,11 @@
 
 <script>
 import { apiNetworkSv } from '~/mixins/apiNetworkSV'
+import { store } from '~/store'
 
 export default {
   name: 'Login',
+  store,
   mixins: [apiNetworkSv],
   data() {
     return {
@@ -167,10 +169,29 @@ export default {
       this.createAccountIsVisible = false
     },
     checkUser() {
+      // const data = {
+      //   axios: this.$axios,
+      //   nick: this.registerNick
+      // }
+      //
+      // const validation = this.$store.dispatch('checkUserApi', data)
+      //
+      // validation.then((result) => {
+      //   if (!result.error) {
+      //     // eslint-disable-next-line no-console
+      //     console.log(result)
+      //   } else {
+      //     // eslint-disable-next-line no-console
+      //     console.log(result)
+      //
+      //     this.errorValidation = true
+      //   })
       const validation = apiNetworkSv.checkUserApi(this.registerNick)
 
-      // eslint-disable-next-line no-console
       console.log(validation)
+
+      // eslint-disable-next-line no-console
+      // console.log(validation)
     },
     async login() {
       try {
