@@ -174,7 +174,7 @@ export default {
       //   nick: this.registerNick
       // }
       //
-      // const validation = this.$store.dispatch('checkUserApi', data)
+      // const validation = this.$store.dispatch('checkUserApi', this.registerNick)
       //
       // validation.then((result) => {
       //   if (!result.error) {
@@ -186,7 +186,7 @@ export default {
       //
       //     this.errorValidation = true
       //   })
-      const validation = apiNetworkSv.checkUserApi(this.registerNick)
+      const validation = this.checkUserApi(this.registerNick)
 
       console.log(validation)
 

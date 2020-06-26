@@ -1,9 +1,10 @@
-import axios from 'axios'
-
 const state = () => ({
   items: [],
   checkoutStatus: null
 })
+
+const getters = {}
+const mutations = {}
 
 const actions = {
   /**
@@ -89,8 +90,7 @@ const actions = {
    */
   checkUserApi: ({ commit }, nick) => {
     try {
-      console.log(nick)
-      return this.$axios
+      this.$axios
         .get('/users/check-nickname/' + nick)
         .then((response) => response.data)
     } catch (error) {
@@ -159,5 +159,7 @@ const actions = {
 export default {
   namespaced: true,
   state,
+  mutations,
+  getters,
   actions
 }
