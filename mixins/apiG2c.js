@@ -96,6 +96,7 @@ export const apiG2c = {
      * }
      */
     loginUser(words, application, nick) {
+      // eslint-disable-next-line no-unreachable
       try {
         return new Promise((resolve, reject) => {
           // eslint-disable-next-line no-undef
@@ -121,6 +122,7 @@ export const apiG2c = {
             this.handleError(error, 'G2CUser@loginUser - Error')
             throw error
           })
+        // eslint-disable-next-line no-unreachable
       } catch (error) {
         this.handleError(error, 'G2CUser@loginUser - Error')
         throw error

@@ -2,7 +2,11 @@
   <div class="c-login">
     <div class="c-login__wrapper">
       <div class="c-login__logo">
-        <img @click="showMenu" src="@/assets/svg/networksv_logo.svg" />
+        <img
+          @click="showMenu"
+          src="@/assets/svg/networksv_logo.svg"
+          alt="apiNetworkSV Logo"
+        />
       </div>
       <div class="c-login__subtitle">
         Global Knowledge Network
@@ -55,20 +59,23 @@
           ]"
           class="c-login__cont"
         >
-          <div v-show="errorValidation" class="error">Error code</div>
-
           <div class="full-width">
             <v-text-field
-              v-model="form.nick"
-              :hide-details="true"
+              v-model="formLogin.nick"
+              :hide-details="handleValidationNickErrors().length === 0"
+              :error-messages="handleValidationNickErrors() || []"
               label="Username (Handle)"
               outlined
               class="c-login__cont--input u-mrb-s"
+              required
             >
+              abcd1234
             </v-text-field>
             <v-text-field
-              v-model="form.password"
-              :hide-details="true"
+              v-model="formLogin.password"
+              :hide-details="handleValidationPasswordErrors().length === 0"
+              :error-messages="handleValidationPasswordErrors() || []"
+              :counter="6"
               type="password"
               label="Password"
               outlined
@@ -76,7 +83,9 @@
             >
             </v-text-field>
             <v-textarea
-              :hide-details="true"
+              v-model="formLogin.words"
+              :hide-details="handleValidationSecurityKeyErrors().length === 0"
+              :error-messages="handleValidationSecurityKeyErrors() || []"
               outlined
               class="c-login__cont--textarea u-mrb-s"
               label="Security Key"
@@ -87,6 +96,12 @@
                 Login
               </v-btn>
             </div>
+
+            <div v-show="errorValidation" class="error">
+              Error code
+            </div>
+
+            <!--            <span v-for="error in errors" class="error">{{ error }}</span>-->
           </div>
           <p class="c-login__details">
             Don’t have an account?
@@ -120,11 +135,13 @@
 </template>
 
 <script>
+import { required, requiredIf, minLength } from 'vuelidate/lib/validators'
 import { apiNetworkSv } from '~/mixins/apiNetworkSV'
+import { apiG2c } from '~/mixins/apiG2c'
 
 export default {
-  name: 'Login',
-  mixins: [apiNetworkSv],
+  name: 'LoginSide',
+  mixins: [apiNetworkSv, apiG2c],
   data() {
     return {
       createAccountIsVisible: false,
@@ -132,10 +149,43 @@ export default {
       viewportWidth: null,
       registerNick: null,
       // loginNick: null,
+      loginPassword: null,
+      loginWords: null,
       errorValidation: false,
-      form: {
-        nick: null,
-        password: null
+      formLogin: {
+        nick: '',
+        password: null,
+        words: null
+      }
+    }
+  },
+  validations: {
+    formLogin: {
+      nick: {
+        required
+      },
+      password: {
+        required,
+        minLength: minLength(6)
+        // strongPassword(password) {
+        //   return (
+        //     /[a-z]/.test(password) && // checks for a-z
+        //     /[0-9]/.test(password) && // checks for 0-9
+        //     /\W|_/.test(password) && // checks for special char
+        //     password.length >= 6
+        //   );
+        // }
+      },
+      words: {
+        required: requiredIf((form) => {
+          return form.words !== null && form.words.length > 0
+        }),
+        checkWords(words) {
+          if (words === null || words.length === 0) {
+            return true
+          }
+          return /^\W*(\w+\b\W*){12}$/.test(words)
+        }
       }
     }
   },
@@ -148,10 +198,10 @@ export default {
     },
     registerNick(value) {
       sessionStorage.registerNick = value
-    },
-    loginNick(value) {
-      sessionStorage.loginNick = value
     }
+    // loginNick(value) {
+    //   sessionStorage.loginNick = value
+    // }
   },
   methods: {
     showMenu() {
@@ -174,16 +224,58 @@ export default {
     },
     async login() {
       try {
-        // @TODO: First, login in G2C
+        // Form Validation
+        this.$v.$touch()
+
+        if (this.$v.$invalid) {
+          return
+        }
+
+        // eslint-disable-next-line no-unused-vars
+        let g2cLoginResponse = null
+
+        // @TODO: Check if words fields not empty
+        if (this.formLogin.words !== null && this.formLogin.words.length > 0) {
+          // @TODO: First, login in G2C
+          try {
+            g2cLoginResponse = await this.loginUser(
+              this.formLogin.words,
+              this.g2c_application,
+              this.formLogin.nick
+            )
+          } catch (error) {
+            // eslint-disable-next-line no-console
+            console.error('G2C Login error')
+            // eslint-disable-next-line no-console
+            console.error(error)
+          }
+        }
+
+        // @TODO: Set g2cLoginResponse in localStorage???
+        // eslint-disable-next-line no-console
+        // console.debug('g2cLoginResponse')
+        // eslint-disable-next-line no-console
+        // console.debug(g2cLoginResponse)
 
         // @TODO: Second, login in networksv backend
-        const response = await this.$auth.loginWith('local', {
-          data: this.form
-        })
-        // eslint-disable-next-line no-console
-        console.log('response login!!!')
-        // eslint-disable-next-line no-console
-        console.log(response)
+        // eslint-disable-next-line no-unreachable
+        try {
+          const response = await this.$auth.loginWith('local', {
+            data: {
+              nick: this.formLogin.nick,
+              password: this.formLogin.password
+            }
+          })
+          // eslint-disable-next-line no-console
+          console.log('response login!!!')
+          // eslint-disable-next-line no-console
+          console.log(response)
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error('NetworkSV Login error')
+          // eslint-disable-next-line no-console
+          console.error(error)
+        }
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error(error)
@@ -192,6 +284,50 @@ export default {
     async logout() {
       await this.$auth.logout()
       this.$router.push('/')
+    },
+    handleValidationNickErrors() {
+      const errors = []
+      if (!this.$v.formLogin.nick.$dirty) {
+        return errors
+      }
+
+      if (!this.$v.formLogin.nick.required) {
+        errors.push('Username field is required')
+      }
+
+      return errors
+    },
+    handleValidationPasswordErrors() {
+      const errors = []
+      if (!this.$v.formLogin.password.$dirty) {
+        return errors
+      }
+
+      if (!this.$v.formLogin.password.required) {
+        errors.push('Password field is required')
+      }
+
+      if (!this.$v.formLogin.password.minLength) {
+        errors.push('Password min lenght 6')
+      }
+
+      return errors
+    },
+    handleValidationSecurityKeyErrors() {
+      const errors = []
+      if (!this.$v.formLogin.password.$dirty) {
+        return errors
+      }
+
+      if (!this.$v.formLogin.words.required) {
+        errors.push('Password field is required')
+      }
+
+      if (!this.$v.formLogin.words.checkWords) {
+        errors.push('Security key 12 words')
+      }
+
+      return errors
     }
   }
 }

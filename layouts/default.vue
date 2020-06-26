@@ -7,11 +7,11 @@
 <script>
 // import { firebase } from '~/plugins/firebase'
 // import { apiG2c } from '~/mixins/apiG2c'
-import { apiG2cTest } from '~/mixins/apiG2cTest'
+// import { apiG2cTest } from '~/mixins/apiG2cTest'
 
 export default {
   name: 'DefaultLayout',
-  mixins: [apiG2cTest],
+  // mixins: [apiG2cTest],
   data() {
     return {
       clipped: false,
