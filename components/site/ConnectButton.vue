@@ -44,7 +44,7 @@
           <div class="connectbutton__modal--wrapper">
             <div class="connectbutton__modal--topbar">
               <v-icon
-                @click="isShowingConnectModal = false"
+                @click="returnToProfile()"
                 class="connectbutton__modal--icon"
               >
                 mdi-arrow-left
@@ -98,8 +98,7 @@
               @click="confirmConnection()"
               class="connectbutton__modal--confirm-button"
             >
-              <span v-if="cost">{{ cost }}$ - </span>
-              Connect
+              Okay
             </div>
           </div>
         </v-card-text>
@@ -138,10 +137,18 @@ export default {
   },
   methods: {
     showConnectForm() {
+      this.modalStep = 1
       this.isShowingConnectModal = true
     },
     nextModalStep() {
       this.modalStep = this.modalStep + 1
+    },
+    confirmConnection() {
+      this.isShowingConnectModal = false
+    },
+    returnToProfile() {
+      this.isShowingConnectModal = false
+      this.$emit('openInfoModal', true)
     }
   }
 }
@@ -237,8 +244,8 @@ export default {
         transition: 0.8s;
       }
     }
-    &--connect-button {
-      background-color: ;
+    &--confirm-button {
+      background-color: #0278fe;
       border-radius: 50px;
       width: 35%;
       height: 50px;

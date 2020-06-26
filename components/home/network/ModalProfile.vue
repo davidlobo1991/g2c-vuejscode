@@ -33,6 +33,7 @@
             </div>
             <ConnectButton
               @sendIsShowingConnectModal="sendIsShowingConnectModal"
+              @openInfoModal="isShowingContactInfo = value"
               status="connect"
               cost="1"
             />

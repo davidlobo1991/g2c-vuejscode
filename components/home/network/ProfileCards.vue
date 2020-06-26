@@ -61,8 +61,8 @@
           </div>
         </div>
         <ConnectButton
-          v-on:closeAllModals="closeAllModals"
           @sendIsShowingConnectModal="setIsShowingConnectModal"
+          @openInfoModal="showContact"
           status="connect"
           cost="35"
         />
