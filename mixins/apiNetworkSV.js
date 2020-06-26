@@ -1,4 +1,7 @@
+import { store } from '~/store'
+
 export const apiNetworkSv = {
+  store,
   data() {
     return {}
   },
@@ -49,7 +52,6 @@ export const apiNetworkSv = {
         throw error
       }
     },
-
     /**
      * Sending email verification
      * @param data
@@ -67,7 +69,6 @@ export const apiNetworkSv = {
         throw error
       }
     },
-
     /**
      * Sending phone code verification
      * @param data
@@ -86,26 +87,22 @@ export const apiNetworkSv = {
         throw error
       }
     },
-
     /**
-     * Check User
-     * @param {string} nick
+     * @param nick
      * @returns {Promise<void>}
      */
-    async checkUserApi(nick) {
+    checkUserApi(nick) {
       try {
-        await this.$axios
-          .get('/users/check-nickname/' + nick)
-          .then((response) => response.data)
+        this.$store.dispatch('checkUserApi', nick)
       } catch (error) {
-        this.handleError(error, 'APINetworkUser@checkUserApi - Error')
+        console.log(error)
+
         throw error
       }
     },
-
     /**
-     * Check Email
-     * @param {string} email
+     *
+     * @param email
      * @returns {Promise<void>}
      */
     async checkEmailApi(email) {
@@ -118,7 +115,6 @@ export const apiNetworkSv = {
         throw error
       }
     },
-
     /**
      *
      * @param phone
@@ -134,7 +130,6 @@ export const apiNetworkSv = {
         throw error
       }
     },
-
     /**
      * Sign in backend and firebase
      * @param nick
@@ -162,7 +157,6 @@ export const apiNetworkSv = {
         throw error
       }
     },
-
     /**
      * Error Handler
      * @param {Error} error

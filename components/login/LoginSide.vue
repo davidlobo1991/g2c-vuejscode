@@ -69,7 +69,6 @@
               class="c-login__cont--input u-mrb-s"
               required
             >
-              abcd1234
             </v-text-field>
             <v-text-field
               v-model="formLogin.password"
@@ -138,9 +137,11 @@
 import { required, requiredIf, minLength } from 'vuelidate/lib/validators'
 import { apiNetworkSv } from '~/mixins/apiNetworkSV'
 import { apiG2c } from '~/mixins/apiG2c'
+import { store } from '~/store'
 
 export default {
   name: 'LoginSide',
+  store,
   mixins: [apiNetworkSv, apiG2c],
   data() {
     return {
@@ -149,8 +150,6 @@ export default {
       viewportWidth: null,
       registerNick: null,
       // loginNick: null,
-      loginPassword: null,
-      loginWords: null,
       errorValidation: false,
       formLogin: {
         nick: '',
