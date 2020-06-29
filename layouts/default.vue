@@ -8,6 +8,8 @@
 // import { firebase } from '~/plugins/firebase'
 // import { apiG2c } from '~/mixins/apiG2c'
 // import { apiG2cTest } from '~/mixins/apiG2cTest'
+import { createNamespacedHelpers } from 'vuex'
+const { mapActions } = createNamespacedHelpers('users')
 
 export default {
   name: 'DefaultLayout',
@@ -55,6 +57,7 @@ export default {
     // }
   },
   methods: {
+    ...mapActions(['register/checkUserApi']),
     async registerUser() {
       // eslint-disable-next-line no-undef
       const words = g2c_getRandomWords()

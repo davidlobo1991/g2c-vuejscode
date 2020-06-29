@@ -90,11 +90,9 @@ export const apiNetworkSv = {
      */
     async checkUserApi(nick) {
       try {
-        const response = await this.$store.dispatch(
-          'register/checkUserApi',
-          nick
-        )
-        return response
+        await this.$store.dispatch('register/checkUserApi', nick)
+
+        console.log(this.$store)
       } catch (error) {
         // eslint-disable-next-line no-console
         console.log(error)
