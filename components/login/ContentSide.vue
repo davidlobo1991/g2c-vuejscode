@@ -10,6 +10,7 @@
         <div class="c-contentside__video--video">
           <video
             autoplay="true"
+            muted="muted"
             playsinline
             loop="true"
             src="@/assets/video/1024093451.mp4"
@@ -20,7 +21,11 @@
   </section>
 </template>
 
-<script></script>
+<script>
+export default {
+  name: 'ContentSide'
+}
+</script>
 
 <style lang="scss" scoped>
 .c-contentside {
