@@ -1,24 +1,26 @@
 <template>
   <div>
     <div class="full-width">
-      <v-text-field
-        :value="nick"
-        :hide-details="true"
-        @input="updateNick"
-        label="Username (Handle)"
-        outlined
-        class="c-login__cont--input u-mrb-s"
-      >
-      </v-text-field>
-      <div class="u-mrb-s c-login__cont--btn">
-        <v-btn @click="checkUser" depressed color="#0885F6" dark nuxt>
-          Next
-        </v-btn>
-      </div>
+      <form>
+        <v-text-field
+          :value="nick"
+          :hide-details="true"
+          @input="updateNick"
+          label="Username (Handle)"
+          outlined
+          class="c-login__cont--input u-mrb-s"
+        >
+        </v-text-field>
+        <div class="u-mrb-s c-login__cont--btn">
+          <v-btn @click="checkUser" depressed color="#0885F6" dark nuxt>
+            Next
+          </v-btn>
+        </div>
+      </form>
     </div>
     <p class="c-login__details">
       Already a member?
-      <a @click="showLogin" href="#">
+      <a @click="showLogin">
         Login
       </a>
     </p>

@@ -1,45 +1,48 @@
 <template>
   <div>
     <div class="full-width">
-      <v-text-field
-        v-model="formLogin.nick"
-        :hide-details="handleValidationNickErrors().length === 0"
-        :error-messages="handleValidationNickErrors() || []"
-        label="Username (Handle)"
-        outlined
-        class="c-login__cont--input u-mrb-s"
-        required
-      >
-      </v-text-field>
-      <v-text-field
-        v-model="formLogin.password"
-        :hide-details="handleValidationPasswordErrors().length === 0"
-        :error-messages="handleValidationPasswordErrors() || []"
-        :counter="6"
-        type="password"
-        label="Password"
-        outlined
-        class="c-login__cont--input u-mrb-s"
-      >
-      </v-text-field>
-      <v-textarea
-        v-model="formLogin.words"
-        :hide-details="handleValidationSecurityKeyErrors().length === 0"
-        :error-messages="handleValidationSecurityKeyErrors() || []"
-        outlined
-        class="c-login__cont--textarea u-mrb-s"
-        label="Security Key"
-      >
-      </v-textarea>
-      <div class="u-mrb-s c-login__cont--btn">
-        <v-btn @click.prevent="login" depressed dark color="#0885F6">
-          Login
-        </v-btn>
-      </div>
+      <form>
+        <v-text-field
+          v-model="formLogin.nick"
+          :hide-details="handleValidationNickErrors().length === 0"
+          :error-messages="handleValidationNickErrors() || []"
+          label="Username (Handle)"
+          outlined
+          class="c-login__cont--input u-mrb-s"
+          required
+        >
+        </v-text-field>
+        <v-text-field
+          v-model="formLogin.password"
+          :hide-details="handleValidationPasswordErrors().length === 0"
+          :error-messages="handleValidationPasswordErrors() || []"
+          :counter="6"
+          type="password"
+          label="Password"
+          outlined
+          class="c-login__cont--input u-mrb-s"
+          autocomplete="false"
+        >
+        </v-text-field>
+        <v-textarea
+          v-model="formLogin.words"
+          :hide-details="handleValidationSecurityKeyErrors().length === 0"
+          :error-messages="handleValidationSecurityKeyErrors() || []"
+          outlined
+          class="c-login__cont--textarea u-mrb-s"
+          label="Security Key"
+        >
+        </v-textarea>
+        <div class="u-mrb-s c-login__cont--btn">
+          <v-btn @click.prevent="login" depressed dark color="#0885F6">
+            Login
+          </v-btn>
+        </div>
+      </form>
     </div>
     <p class="c-login__details">
       Don’t have an account?
-      <a @click="showCreateUser" href="#">
+      <a @click="showCreateUser">
         Create Account
       </a>
     </p>
