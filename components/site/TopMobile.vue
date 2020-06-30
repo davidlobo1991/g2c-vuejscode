@@ -1,6 +1,11 @@
 <template>
   <div class="c-top-mobile__space">
     <section class="c-top-mobile">
+      <div class="c-top-mobile__logout-cont">
+        <v-icon color="rgba(255, 255, 255, 0.4)">
+          mdi-exit-to-app
+        </v-icon>
+      </div>
       <div class="c-top-mobile__img-cont">
         <nuxt-link
           :src="require('@/assets/svg/networksv_logo_white.svg')"
@@ -43,6 +48,11 @@ export default {
     &__img {
       height: 100%;
     }
+    &__logout-cont {
+      position: absolute;
+      top: 30px;
+      right: 25px;
+    }
   }
 }
 @media screen and (max-width: 400px) {
@@ -53,6 +63,10 @@ export default {
     }
     &__img-cont {
       height: 18px;
+    }
+    &__logout-cont {
+      top: 12px;
+      right: 12px;
     }
   }
 }

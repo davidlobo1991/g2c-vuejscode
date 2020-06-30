@@ -168,7 +168,7 @@ export default {
 @media screen and (max-width: 768px) {
   .c-home {
     &__wrapper {
-      padding: 22px 12px;
+      padding: 22px 12px 80px 12px;
     }
     &__navbar {
       font-size: 13px;
@@ -195,6 +195,14 @@ export default {
       &--cont {
         min-width: 100%;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .c-home {
+    &__wrapper {
+      padding: 22px 12px;
     }
   }
 }

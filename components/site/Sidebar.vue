@@ -36,7 +36,7 @@
               <v-icon class="c-sidebar__menu--icon">
                 mdi-message-text
               </v-icon>
-              Messages
+              Connections
             </a>
             <span class="c-sidebar__menu--notification">4</span>
           </li>
@@ -48,14 +48,14 @@
               eMeetings
             </a>
           </li>
-          <li class="c-sidebar__menu--item">
-            <a href="" class="c-sidebar__menu--link">
-              <v-icon class="c-sidebar__menu--icon">
-                mdi-forum
-              </v-icon>
-              Forum
-            </a>
-          </li>
+          <!--          <li class="c-sidebar__menu&#45;&#45;item">-->
+          <!--            <a href="" class="c-sidebar__menu&#45;&#45;link">-->
+          <!--              <v-icon class="c-sidebar__menu&#45;&#45;icon">-->
+          <!--                mdi-forum-->
+          <!--              </v-icon>-->
+          <!--              Forum-->
+          <!--            </a>-->
+          <!--          </li>-->
         </ul>
       </div>
     </div>
