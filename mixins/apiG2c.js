@@ -39,16 +39,15 @@ export const apiG2c = {
      * Must be used to generate a random valid collection of 12 words
      * @return {string} Returns a string containing 12 words.
      */
-    async getRandomWords() {
+    getRandomWords() {
       let randomWords = null
       try {
         // eslint-disable-next-line no-undef
-        randomWords = await g2c_getRandomWords()
+        randomWords = g2c_getRandomWords()
+        return randomWords
       } catch (error) {
         this.handleError(error, 'G2CService@getRandomWords - Error')
       }
-
-      return randomWords
     },
 
     /**

@@ -60,7 +60,6 @@ export default {
     ...mapActions(['register/checkUserApi']),
     async registerUser() {
       // eslint-disable-next-line no-undef
-      const words = g2c_getRandomWords()
       const application = 'networksv.com'
       const nick = 'test321321321'
 

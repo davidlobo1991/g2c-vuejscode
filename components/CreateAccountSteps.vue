@@ -133,23 +133,15 @@ export default {
   },
   methods: {
     saveEmail(value) {
-      // this.registerEmail = value
-      // sessionStorage.registerEmail = this.registerEmail
       this.$store.commit('register/SET_EMAIL', value)
     },
     savePhone(value) {
-      // this.registerPhone = value
-      // sessionStorage.registerPhone = this.registerPhone
       this.$store.commit('register/SET_MOBILE_NUMBER', value)
     },
     saveUkResident(value) {
-      // this.registerUkResident = value
-      // sessionStorage.registerUkResident = this.registerUkResident
       this.$store.commit('register/SET_UKRESIDENT', value)
     },
     savePrefix(value) {
-      // this.registerPrefix = value
-      // sessionStorage.registerPrefix = this.registerPrefix
       this.$store.commit('register/SET_MOBILE_PREFIX', value)
     },
     getCheck(value) {
@@ -159,57 +151,38 @@ export default {
      * If is the step 1 (introduce email) will verify the email and send the validation code
      */
     async navigationNext() {
-      if (this.step === 1 || this.step === 4) {
-        // @TODO: RaulSM - Lo dejo comentado, no se de donde sale 'verificationCode'
-        let code = null
-        // this.verificationCode.forEach(function(pinCode) {
-        //   code += pinCode
-        // })
+      if (this.step === 1) {
+        const checkEmail = await this.checkEmailApi()
 
-        code = 1234
+        if (!checkEmail.error) {
+          const validation = await this.sendValidationCode()
 
-        if (this.step === 1) {
-          const checkEmail = this.checkEmailApi()
-          checkEmail.then(async (result) => {
-            if (!result.error) {
-              const result = await this.sendValidationCode(this.email)
+          if (!validation.error) {
+            this.step += 1
+          } else {
+            this.errorValidation = true
+          }
+        } else {
+          this.resendEmail = false
+          this.errorValidation = true
+        }
+      } else if (this.step === 4) {
+        const checkPhone = await this.checkPhoneApi()
 
-              if (!result.error) {
-                this.step += 1
-              } else {
-                this.errorValidation = true
-              }
+        if (!checkPhone.error) {
+          const validation = await this.sendMobileValidationCode()
 
-              // @TODO: Con await ya ya no necesario 'then'
-              // validation.then((result) => {
-              //   !result.error ? (this.step += 1) : (this.errorValidation = true)
-              // })
-            } else {
-              this.resendEmail = false
-              this.errorValidation = true
-            }
-          })
-        } else if (this.step === 4) {
-          const checkPhone = await this.checkPhoneApi()
-
-          // @TODO: Con await ya ya no necesario 'then'
-          checkPhone.then(async (result) => {
-            if (!result.error) {
-              const validation = await this.sendMobileValidationCode(code)
-
-              // @TODO: Con await ya ya no necesario 'then'
-              validation.then((result) => {
-                if (!result.error) {
-                  sessionStorage.verifyServiceId = result.data.verifyServiceId
-                  this.step += 1
-                } else {
-                  this.errorValidation = true
-                }
-              })
-            } else {
-              this.errorValidation = true
-            }
-          })
+          if (!validation.error) {
+            sessionStorage.verifyServiceId = validation.data.verifyServiceId
+            this.step += 1
+          } else {
+            this.errorValidation = true
+          }
+        } else {
+          // eslint-disable-next-line no-console
+          console.log(checkPhone.message)
+          this.resendEmail = false
+          this.errorValidation = true
         }
       } else {
         this.step += 1

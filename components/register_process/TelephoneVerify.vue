@@ -78,15 +78,12 @@ export default {
   },
   watch: {
     registerPhone(value) {
-      this.registerPhone = value
       this.$emit('registerPhone', this.registerPhone)
     },
     registerPrefix(value) {
-      this.registerPrefix = value
       this.$emit('registerPrefix', this.registerPrefix)
     },
     registerUkResident(value) {
-      this.registerUkResident = value
       this.$emit('registerUkPrefix', this.registerUkResident)
     }
   }

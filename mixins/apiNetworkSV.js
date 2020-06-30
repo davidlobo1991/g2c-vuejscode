@@ -8,13 +8,14 @@ export const apiNetworkSv = {
      * @param {string} codeString - Validation email introduced code.
      * @returns {Promise<void>}
      */
-    async validationCode(codeString) {
+    async validationCode(code) {
       try {
-        // eslint-disable-next-line no-undef
-        await this.$axios.post('/users/email-validation/validate', {
-          email: sessionStorage.registerEmail,
-          validation_code: codeString
-        })
+        const response = await this.$store.dispatch(
+          'register/validationCode',
+          code
+        )
+
+        return response.data
       } catch (error) {
         this.handleError(error, 'APINetworkUser@validationCode - Error')
         throw error
@@ -24,26 +25,17 @@ export const apiNetworkSv = {
     /**
      * Validation phone code
      * @param verifyServiceId
-     * @param codeString
-     * @param registerPrefix
-     * @param registerPhone
+     * @param code
      * @returns {Promise<void>}
      */
-    async validationPhoneCode(
-      verifyServiceId,
-      codeString,
-      registerPrefix,
-      registerPhone
-    ) {
+    async validationPhoneCode(code) {
       try {
-        await this.$axios.post(
-          '/twilio/services/verify/check-verification-token',
-          {
-            verify_service_id: verifyServiceId,
-            code: codeString,
-            to: registerPrefix + registerPhone
-          }
+        const response = await this.$store.dispatch(
+          'register/validationPhoneCode',
+          sessionStorage.verifyServiceId,
+          code
         )
+        return response.data
       } catch (error) {
         this.handleError(error, 'APINetworkUser@validationPhoneCode - Error')
         throw error
@@ -54,15 +46,9 @@ export const apiNetworkSv = {
      * @param {string} email
      * @returns {Promise<void>}
      */
-    async sendValidationCode(email) {
+    async sendValidationCode() {
       try {
-        const response = await this.$axios
-          .post('/users/email-validation/send', {
-            email
-          })
-          .then((response) => response.data)
-
-        return response
+        return await this.$store.dispatch('register/sendValidationCode')
       } catch (error) {
         this.handleError(error, 'APINetworkUser@sendValidationCode - Error')
         throw error
@@ -73,11 +59,9 @@ export const apiNetworkSv = {
      * @param data
      * @returns {Promise<void>}
      */
-    async sendMobileValidationCode(data) {
+    async sendMobileValidationCode() {
       try {
-        await this.$axios
-          .post('/twilio/services/verify/send-sms-verification', data)
-          .then((response) => response.data)
+        return await this.$store.dispatch('register/sendMobileValidationCode')
       } catch (error) {
         this.handleError(
           error,
@@ -92,7 +76,6 @@ export const apiNetworkSv = {
     async checkUserApi() {
       try {
         const response = await this.$store.dispatch('register/checkUserApi')
-
         return response
       } catch (error) {
         throw error

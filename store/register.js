@@ -31,13 +31,18 @@ const actions = {
    * Validate email code
    * @param {string} codeString - Validation email introduced code.
    * @returns {Promise<void>}
+   * @param code
    */
-  async validationCode(codeString) {
+  async validationCode({ getters, commit }, code) {
     try {
-      return await this.$axios.post('/users/email-validation/validate', {
-        email: sessionStorage.registerEmail,
-        validation_code: codeString
+      const email = getters.getEmail
+
+      const data = await this.$axios.post('/users/email-validation/validate', {
+        email,
+        validation_code: code
       })
+
+      return data
     } catch (error) {
       throw error
     }
@@ -45,27 +50,27 @@ const actions = {
 
   /**
    * Validation phone code
+   * @param getters
+   * @param commit
    * @param verifyServiceId
    * @param codeString
-   * @param registerPrefix
-   * @param registerPhone
    * @returns {Promise<void>}
    */
-  async validationPhoneCode(
-    verifyServiceId,
-    codeString,
-    registerPrefix,
-    registerPhone
-  ) {
+  async validationPhoneCode({ getters, commit }, verifyServiceId, codeString) {
     try {
-      return await this.$axios.post(
+      const mobilePrefix = getters.getMobilePrefix
+      const mobileNumber = getters.getMobileNumber
+      const phone = `${mobilePrefix}${mobileNumber}`
+
+      const test = await this.$axios.post(
         '/twilio/services/verify/check-verification-token',
         {
           verify_service_id: verifyServiceId,
           code: codeString,
-          to: registerPrefix + registerPhone
+          to: phone
         }
       )
+      console.log(test)
     } catch (error) {
       throw error
     }
@@ -75,11 +80,13 @@ const actions = {
    * @param data
    * @returns {Promise<void>}
    */
-  async sendValidationCode(data) {
+  async sendValidationCode({ getters, commit }) {
     try {
+      const email = getters.getEmail
+
       return await this.$axios
         .post('/users/email-validation/send', {
-          data
+          email
         })
         .then((response) => response.data)
     } catch (error) {
@@ -91,10 +98,14 @@ const actions = {
    * @param data
    * @returns {Promise<void>}
    */
-  async sendMobileValidationCode({ commit }, data) {
+  async sendMobileValidationCode({ getters, commit }) {
     try {
+      const mobilePrefix = getters.getMobilePrefix
+      const mobileNumber = getters.getMobileNumber
+      const phone = `${mobilePrefix}${mobileNumber}`
+
       return await this.$axios
-        .post('/twilio/services/verify/send-sms-verification', data)
+        .post('/twilio/services/verify/send-sms-verification', { to: phone })
         .then((response) => response.data)
     } catch (error) {
       throw error
@@ -107,15 +118,7 @@ const actions = {
   async checkUserApi({ getters, commit }) {
     try {
       const nick = getters.getNick
-
       const { data } = await this.$axios.get(`/users/check-nickname/${nick}`)
-
-      // if (data.error) {
-      //   commit('SET_ERROR_VALIDATION', true)
-      // } else {
-      //   commit('SET_USER_CHECKED', true)
-      // }
-
       return data
     } catch (error) {
       // eslint-disable-next-line no-console

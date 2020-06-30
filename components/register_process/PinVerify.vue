@@ -88,12 +88,12 @@
 
       <div class="c-info__button--cont">
         <div class="c-info__button">
-          <span v-on:click="sendCode" class="c-info__link">
+          <span @click="resendCode" class="c-info__link">
             <v-icon class="c-info__link--icon">mdi-replay</v-icon> Resend Code
           </span>
           <v-btn
             v-if="kind === 'telephone'"
-            v-on:click="signIn"
+            @click="verificationPhone"
             depressed
             x-large
             dark
@@ -104,7 +104,7 @@
           </v-btn>
           <v-btn
             v-if="kind === 'email'"
-            v-on:click="nextStep"
+            @click="verificationEmail"
             depressed
             x-large
             color="#0086ff"
@@ -150,39 +150,48 @@ export default {
     }
   },
   methods: {
-    signIn() {
-      const validation = this.validationPhoneCode()
+    async verificationPhone() {
+      const code = this.getVerificationCode()
 
-      validation.then((result) => {
-        if (!result.error) {
-          // eslint-disable-next-line no-console
-          console.log(result)
-          this.errorValidation = false
-          this.$emit('signIn')
-        } else {
-          // eslint-disable-next-line no-console
-          console.log(result)
+      try {
+        const validation = await this.validationPhoneCode(code)
 
-          this.errorValidation = true
+        if (validation.error === true) {
+          throw validation.message
         }
-      })
-    },
-    nextStep() {
-      let validation = null
-      if (this.kind === 'email') {
-        validation = this.validationCode()
-
-        validation.then((result) => {
-          if (!result.error) {
-            this.errorValidation = false
-            this.$emit('nextStep')
-          } else {
-            this.errorValidation = true
-          }
-        })
+        this.errorValidation = false
+        this.$emit('signIn')
+      } catch (error) {
+        this.errorValidation = true
+        // eslint-disable-next-line no-console
+        console.error('PinVerify@signIn - Error')
+        // eslint-disable-next-line no-console
+        console.error(error)
       }
     },
-    sendCode() {
+    async verificationEmail() {
+      const code = this.getVerificationCode()
+
+      if (this.kind === 'email') {
+        try {
+          const validation = await this.validationCode(code)
+
+          if (validation.error === true) {
+            throw validation.message
+          }
+
+          this.errorValidation = false
+          this.$emit('nextStep')
+        } catch (error) {
+          this.errorValidation = true
+          // eslint-disable-next-line no-console
+          console.error('PinVerify@nextStep - Error')
+          // eslint-disable-next-line no-console
+          console.error(error)
+        }
+      }
+    },
+    resendCode() {
       let sendValidation = null
       if (this.kind === 'email') {
         sendValidation = this.sendValidationCode()
@@ -210,6 +219,14 @@ export default {
           ? (this.resendEmail = true)
           : (this.errorValidation = true)
       })
+    },
+    getVerificationCode() {
+      let code = ''
+      this.verificationCode.forEach(function(pinCode) {
+        code += pinCode
+      })
+
+      return code
     }
   }
 }
