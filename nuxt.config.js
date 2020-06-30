@@ -22,7 +22,25 @@ export default {
         content: 'NetworkSV'
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      {
+        src: 'js/bsv/1.5.0/bsv.min.js',
+        defer: true
+      },
+      {
+        src: 'js/bsv/1.5.0/bsv-message.min.js',
+        defer: true
+      },
+      {
+        src: 'js/bsv/1.5.0/bsv-mnemonic.min.js',
+        defer: true
+      },
+      {
+        src: 'https://gate2chain.ddns.net:5791/libs/g2clib.min.js',
+        defer: true
+      }
+    ]
   },
   /*
    ** Customize the progress-bar color
@@ -35,7 +53,11 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/vuelidate'],
+  plugins: [
+    '~/plugins/vuelidate',
+    '~/plugins/api-g2c',
+    '~/plugins/api-backend-network-sv'
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -51,7 +73,46 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    [
+      'nuxt-i18n',
+      {
+        // @TODO: Temp comment, only english
+        // detectBrowserLanguage: {
+        //   useCookie: true,
+        //   cookieKey: 'i18n_redirected'
+        // },
+        locales: [
+          {
+            code: 'en',
+            name: 'ENG',
+            iso: 'en-GB',
+            file: 'en-GB.js'
+          },
+          {
+            code: 'es',
+            name: 'ESP',
+            iso: 'es-ES',
+            file: 'es-ES.js'
+          }
+        ],
+        parsePages: false,
+        pages: {
+          index: {
+            en: '/'
+          },
+          'create-account': {
+            en: '/create-account',
+            es: '/crear-cuenta'
+          }
+        },
+        defaultLocale: 'en',
+        lazy: true,
+        seo: true,
+        vuex: false,
+        langDir: 'lang/'
+      }
+    ]
     /*
     [
       '@nuxtjs/firebase',

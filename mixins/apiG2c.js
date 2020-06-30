@@ -2,28 +2,29 @@ import { cookies } from '~/mixins/cookies'
 
 export const apiG2c = {
   mixins: [cookies],
-  head() {
-    return {
-      script: [
-        {
-          src: 'js/bsv/1.5.0/bsv.min.js',
-          defer: true
-        },
-        {
-          src: 'js/bsv/1.5.0/bsv-message.min.js',
-          defer: true
-        },
-        {
-          src: 'js/bsv/1.5.0/bsv-mnemonic.min.js',
-          defer: true
-        },
-        {
-          src: 'https://gate2chain.ddns.net:5791/libs/g2clib.min.js',
-          defer: true
-        }
-      ]
-    }
-  },
+  // // Code move to nuxt.config.js
+  // head() {
+  //   return {
+  //     script: [
+  //       {
+  //         src: 'js/bsv/1.5.0/bsv.min.js',
+  //         defer: true
+  //       },
+  //       {
+  //         src: 'js/bsv/1.5.0/bsv-message.min.js',
+  //         defer: true
+  //       },
+  //       {
+  //         src: 'js/bsv/1.5.0/bsv-mnemonic.min.js',
+  //         defer: true
+  //       },
+  //       {
+  //         src: 'https://gate2chain.ddns.net:5791/libs/g2clib.min.js',
+  //         defer: true
+  //       }
+  //     ]
+  //   }
+  // },
   data() {
     return {
       g2c_words: '',

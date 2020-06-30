@@ -1,7 +1,7 @@
 <template>
   <div class="c-block">
     <div
-      v-bind:class="[
+      :class="[
         viewportWidth <= 768 && (createAccountIsVisible || loginIsVisible)
           ? 'full-height'
           : ''
@@ -18,7 +18,7 @@
         <ContentSide />
       </div>
       <div
-        v-bind:class="[
+        :class="[
           viewportWidth <= 768 && (createAccountIsVisible || loginIsVisible)
             ? 'full-height'
             : ''
@@ -26,8 +26,9 @@
         class="c-block__login"
       >
         <LoginSide
-          v-on:createAccountIsVisible="setCreateAccountIsVisible"
-          v-on:loginIsVisible="setLoginIsVisible"
+          :viewportWidth="viewportWidth"
+          @createAccountIsVisible="setCreateAccountIsVisible"
+          @loginIsVisible="setLoginIsVisible"
         />
       </div>
     </div>

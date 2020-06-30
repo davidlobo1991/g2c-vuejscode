@@ -30,6 +30,7 @@
     "material-design-icons-iconfont": "^5.0.1",
     "node-fetch": "2.6.0",
     "nuxt": "^2.0.0",
+    "nuxt-i18n": "6.12.2",
     "prettier": "^1.16.4",
     "sass-loader": "^8.0.0",
     "vuelidate": "0.7.5"

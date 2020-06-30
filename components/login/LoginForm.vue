@@ -1,126 +1,202 @@
 <template>
-  <div class="c-login">
-    <div class="c-login__wrapper">
-      <div class="c-login__logo">
-        <img
-          @click="showMenu"
-          src="@/assets/svg/networksv_logo.svg"
-          alt="apiNetworkSV Logo"
-        />
-      </div>
-      <div class="c-login__subtitle">
-        Global Knowledge Network
-      </div>
-      <div
-        :class="[
-          viewportWidth <= 768 && (!createAccountIsVisible || !loginIsVisible)
-            ? 'space-top'
-            : ''
-        ]"
-        class="c-login__login-cont"
+  <div>
+    <div class="full-width">
+      <v-text-field
+        v-model="formLogin.nick"
+        :hide-details="handleValidationNickErrors().length === 0"
+        :error-messages="handleValidationNickErrors() || []"
+        label="Username (Handle)"
+        outlined
+        class="c-login__cont--input u-mrb-s"
+        required
       >
-        <PreCreateForm
-          v-show="createAccountIsVisible"
-          :class="[
-            viewportWidth <= 768 && (createAccountIsVisible || loginIsVisible)
-              ? 'u-mrb-s'
-              : ''
-          ]"
-          @showLogin="showLogin"
-          class="c-login__cont"
-        />
-        <LoginForm
-          v-show="loginIsVisible"
-          :class="[
-            viewportWidth <= 768 && (createAccountIsVisible || loginIsVisible)
-              ? 'u-mrb-s space-top'
-              : ''
-          ]"
-          @showCreateUser="showCreateUser"
-          class="c-login__cont"
-        />
-        <div
-          v-show="!createAccountIsVisible && !loginIsVisible"
-          class="c-login__main-options"
-        >
-          <div class="u-pdb-s">
-            <v-btn
-              @click="showCreateUser"
-              depressed
-              color="#0885F6"
-              dark
-              width="100%"
-            >
-              Create Account
-            </v-btn>
-          </div>
-          <div class="u-pdb-s">
-            <v-btn @click="showLogin" outlined color="#0885F6">Login</v-btn>
-          </div>
-        </div>
+      </v-text-field>
+      <v-text-field
+        v-model="formLogin.password"
+        :hide-details="handleValidationPasswordErrors().length === 0"
+        :error-messages="handleValidationPasswordErrors() || []"
+        :counter="6"
+        type="password"
+        label="Password"
+        outlined
+        class="c-login__cont--input u-mrb-s"
+      >
+      </v-text-field>
+      <v-textarea
+        v-model="formLogin.words"
+        :hide-details="handleValidationSecurityKeyErrors().length === 0"
+        :error-messages="handleValidationSecurityKeyErrors() || []"
+        outlined
+        class="c-login__cont--textarea u-mrb-s"
+        label="Security Key"
+      >
+      </v-textarea>
+      <div class="u-mrb-s c-login__cont--btn">
+        <v-btn @click.prevent="login" depressed dark color="#0885F6">
+          Login
+        </v-btn>
       </div>
     </div>
+    <p class="c-login__details">
+      Don’t have an account?
+      <a @click="showCreateUser" href="#">
+        Create Account
+      </a>
+    </p>
   </div>
 </template>
 
 <script>
-import { apiNetworkSv } from '~/mixins/apiNetworkSV'
-import { apiG2c } from '~/mixins/apiG2c'
-import LoginForm from '~/components/login/LoginForm'
-import PreCreateForm from '~/components/login/PreCreateForm'
+import { required, requiredIf, minLength } from 'vuelidate/lib/validators'
 
 export default {
-  name: 'LoginSide',
-  components: {
-    LoginForm,
-    PreCreateForm
-  },
-  mixins: [apiNetworkSv, apiG2c],
-  props: {
-    viewportWidth: {
-      type: Number,
-      default: null
-    }
-  },
+  name: 'LoginFrom',
   data() {
     return {
-      createAccountIsVisible: false,
-      loginIsVisible: false,
-      // viewportWidth: null,
-      // registerNick: null,
-      // loginNick: null,
-      errorValidation: false
-      // formLogin: {
-      //   nick: '',
-      //   password: null,
-      //   words: null
-      // }
+      formLogin: {
+        nick: '',
+        password: null,
+        words: null
+      }
     }
   },
-  watch: {
-    createAccountIsVisible(value) {
-      this.$emit('createAccountIsVisible', value)
-    },
-    loginIsVisible(value) {
-      this.$emit('loginIsVisible', value)
+
+  validations: {
+    formLogin: {
+      nick: {
+        required
+      },
+      password: {
+        required,
+        minLength: minLength(6)
+        // strongPassword(password) {
+        //   return (
+        //     /[a-z]/.test(password) && // checks for a-z
+        //     /[0-9]/.test(password) && // checks for 0-9
+        //     /\W|_/.test(password) && // checks for special char
+        //     password.length >= 6
+        //   );
+        // }
+      },
+      words: {
+        required: requiredIf((form) => {
+          return form.words !== null && form.words.length > 0
+        }),
+        checkWords(words) {
+          if (words === null || words.length === 0) {
+            return true
+          }
+          return /^\W*(\w+\b\W*){12}$/.test(words)
+        }
+      }
     }
   },
   methods: {
-    showMenu() {
-      this.createAccountIsVisible = false
-      this.loginIsVisible = false
-    },
     showCreateUser() {
-      this.createAccountIsVisible = true
-      this.loginIsVisible = false
+      this.$emit('showCreateUser')
     },
-    showLogin() {
-      this.loginIsVisible = true
-      this.createAccountIsVisible = false
+    async login() {
+      try {
+        // Form Validation
+        this.$v.$touch()
+
+        if (this.$v.$invalid) {
+          return
+        }
+
+        // eslint-disable-next-line no-unused-vars
+        let g2cLoginResponse = null
+
+        // @TODO: Check if words fields not empty
+        if (this.formLogin.words !== null && this.formLogin.words.length > 0) {
+          // @TODO: First, login in G2C
+          try {
+            g2cLoginResponse = await this.loginUser(
+              this.formLogin.words,
+              this.g2c_application,
+              this.formLogin.nick
+            )
+          } catch (error) {
+            // eslint-disable-next-line no-console
+            console.error('G2C Login error')
+            // eslint-disable-next-line no-console
+            console.error(error)
+          }
+        }
+
+        // @TODO: Set g2cLoginResponse in localStorage???
+        // eslint-disable-next-line no-console
+        // console.debug('g2cLoginResponse')
+        // eslint-disable-next-line no-console
+        // console.debug(g2cLoginResponse)
+
+        // @TODO: Second, login in networksv backend
+        // eslint-disable-next-line no-unreachable
+        try {
+          const response = await this.$auth.loginWith('local', {
+            data: {
+              nick: this.formLogin.nick,
+              password: this.formLogin.password
+            }
+          })
+          // eslint-disable-next-line no-console
+          console.log('response login!!!')
+          // eslint-disable-next-line no-console
+          console.log(response)
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error('NetworkSV Login error')
+          // eslint-disable-next-line no-console
+          console.error(error)
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(error)
+      }
     },
-    async logout() {
-      await this.$auth.logout()
-      this.$router.push('/')
+    handleValidationNickErrors() {
+      const errors = []
+      if (!this.$v.formLogin.nick.$dirty) {
+        return errors
+      }
+
+      if (!this.$v.formLogin.nick.required) {
+        errors.push('Username field is required')
+      }
+
+      return errors
+    },
+    handleValidationPasswordErrors() {
+      const errors = []
+      if (!this.$v.formLogin.password.$dirty) {
+        return errors
+      }
+
+      if (!this.$v.formLogin.password.required) {
+        errors.push('Password field is required')
+      }
+
+      if (!this.$v.formLogin.password.minLength) {
+        errors.push('Password min lenght 6')
+      }
+
+      return errors
+    },
+    handleValidationSecurityKeyErrors() {
+      const errors = []
+      if (!this.$v.formLogin.password.$dirty) {
+        return errors
+      }
+
+      if (!this.$v.formLogin.words.required) {
+        errors.push('Password field is required')
+      }
+
+      if (!this.$v.formLogin.words.checkWords) {
+        errors.push('Security key 12 words')
+      }
+
+      return errors
     }
   }
 }

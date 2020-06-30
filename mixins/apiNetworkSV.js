@@ -85,77 +85,91 @@ export const apiNetworkSv = {
       }
     },
     /**
-     * @param nick
      * @returns {Promise<void>}
      */
-    async checkUserApi(nick) {
+    async checkUserApi() {
       try {
-        await this.$store.dispatch('register/checkUserApi', nick)
+        const response = await this.$store.dispatch('register/checkUserApi')
 
-        console.log(this.$store)
+        return response
       } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error)
-
         throw error
       }
     },
+
     /**
-     *
-     * @param email
+     * Check Email
      * @returns {Promise<void>}
      */
-    async checkEmailApi(email) {
+    async checkEmailApi() {
       try {
-        await this.$axios
-          .get('/users/check-email/' + email)
-          .then((response) => response.data)
+        const response = await this.$store.dispatch('register/checkEmailApi')
+
+        return response
       } catch (error) {
-        this.handleError(error, 'APINetworkUser@checkUserApi - Error')
         throw error
       }
+
+      // try {
+      //   await this.$axios
+      //     .get('/users/check-email/' + email)
+      //     .then((response) => response.data)
+      // } catch (error) {
+      //   this.handleError(error, 'APINetworkUser@checkUserApi - Error')
+      //   throw error
+      // }
     },
+
     /**
-     *
-     * @param phone
+     * Check Phone
      * @returns {Promise<void>}
      */
-    async checkPhoneApi(phone) {
+    async checkPhoneApi() {
       try {
-        await this.$axios
-          .get('/users/check-mobile/' + phone)
-          .then((response) => response.data)
+        const response = await this.$store.dispatch('register/checkPhoneApi')
+
+        return response
       } catch (error) {
-        this.handleError(error, 'APINetworkUser@checkUserApi - Error')
         throw error
       }
+      // try {
+      //   await this.$axios
+      //     .get('/users/check-mobile/' + phone)
+      //     .then((response) => response.data)
+      // } catch (error) {
+      //   this.handleError(error, 'APINetworkUser@checkUserApi - Error')
+      //   throw error
+      // }
     },
     /**
      * Sign in backend and firebase
-     * @param nick
-     * @param email
-     * @param prefix
-     * @param phone
-     * @param ukresident
      */
-    async signInApi(nick, email, prefix, phone, ukresident) {
-      const data = {
-        'user[nick]': nick,
-        'user[email]': email,
-        'user[mobile_prefix]': prefix,
-        'user[mobile_number]': phone,
-        'user[ukresident]': ukresident
-      }
-
+    async signInApi() {
       try {
-        await this.$axios
-          .post('users/create', data)
-          .then((response) => response.data)
-          .error()
+        const response = await this.$store.dispatch('register/signInApi')
+
+        return response
       } catch (error) {
-        this.handleError(error, 'APINetworkUser@signIn - Error')
         throw error
       }
+
+      // const data = {
+      //   'user[nick]': nick,
+      //   'user[email]': email,
+      //   'user[mobile_prefix]': prefix,
+      //   'user[mobile_number]': phone,
+      //   'user[ukresident]': ukresident
+      // }
+      //
+      // try {
+      //   await this.$axios
+      //     .post('users/create', data)
+      //     .then((response) => response.data)
+      //     .error()
+      // } catch (error) {
+      //   this.handleError(error, 'APINetworkUser@signIn - Error')
+      //   throw error
+      // }
     },
     /**
      * Error Handler

@@ -1,126 +1,66 @@
 <template>
-  <div class="c-login">
-    <div class="c-login__wrapper">
-      <div class="c-login__logo">
-        <img
-          @click="showMenu"
-          src="@/assets/svg/networksv_logo.svg"
-          alt="apiNetworkSV Logo"
-        />
-      </div>
-      <div class="c-login__subtitle">
-        Global Knowledge Network
-      </div>
-      <div
-        :class="[
-          viewportWidth <= 768 && (!createAccountIsVisible || !loginIsVisible)
-            ? 'space-top'
-            : ''
-        ]"
-        class="c-login__login-cont"
+  <div>
+    <div class="full-width">
+      <v-text-field
+        :value="nick"
+        :hide-details="true"
+        @input="updateNick"
+        label="Username (Handle)"
+        outlined
+        class="c-login__cont--input u-mrb-s"
       >
-        <PreCreateForm
-          v-show="createAccountIsVisible"
-          :class="[
-            viewportWidth <= 768 && (createAccountIsVisible || loginIsVisible)
-              ? 'u-mrb-s'
-              : ''
-          ]"
-          @showLogin="showLogin"
-          class="c-login__cont"
-        />
-        <LoginForm
-          v-show="loginIsVisible"
-          :class="[
-            viewportWidth <= 768 && (createAccountIsVisible || loginIsVisible)
-              ? 'u-mrb-s space-top'
-              : ''
-          ]"
-          @showCreateUser="showCreateUser"
-          class="c-login__cont"
-        />
-        <div
-          v-show="!createAccountIsVisible && !loginIsVisible"
-          class="c-login__main-options"
-        >
-          <div class="u-pdb-s">
-            <v-btn
-              @click="showCreateUser"
-              depressed
-              color="#0885F6"
-              dark
-              width="100%"
-            >
-              Create Account
-            </v-btn>
-          </div>
-          <div class="u-pdb-s">
-            <v-btn @click="showLogin" outlined color="#0885F6">Login</v-btn>
-          </div>
-        </div>
+      </v-text-field>
+      <div class="u-mrb-s c-login__cont--btn">
+        <v-btn @click="checkUser" depressed color="#0885F6" dark nuxt>
+          Next
+        </v-btn>
       </div>
     </div>
+    <p class="c-login__details">
+      Already a member?
+      <a @click="showLogin" href="#">
+        Login
+      </a>
+    </p>
   </div>
 </template>
 
 <script>
-import { apiNetworkSv } from '~/mixins/apiNetworkSV'
-import { apiG2c } from '~/mixins/apiG2c'
-import LoginForm from '~/components/login/LoginForm'
-import PreCreateForm from '~/components/login/PreCreateForm'
+import { mapState } from 'vuex'
 
 export default {
-  name: 'LoginSide',
-  components: {
-    LoginForm,
-    PreCreateForm
-  },
-  mixins: [apiNetworkSv, apiG2c],
-  props: {
-    viewportWidth: {
-      type: Number,
-      default: null
-    }
-  },
-  data() {
-    return {
-      createAccountIsVisible: false,
-      loginIsVisible: false,
-      // viewportWidth: null,
-      // registerNick: null,
-      // loginNick: null,
-      errorValidation: false
-      // formLogin: {
-      //   nick: '',
-      //   password: null,
-      //   words: null
-      // }
-    }
-  },
-  watch: {
-    createAccountIsVisible(value) {
-      this.$emit('createAccountIsVisible', value)
-    },
-    loginIsVisible(value) {
-      this.$emit('loginIsVisible', value)
-    }
+  name: 'PreCreateForm',
+  computed: {
+    ...mapState({
+      nick: (state) => state.register.nick
+    })
   },
   methods: {
-    showMenu() {
-      this.createAccountIsVisible = false
-      this.loginIsVisible = false
+    async checkUser() {
+      try {
+        const validation = await this.checkUserApi()
+
+        if (validation.error === true) {
+          throw validation.message
+        }
+
+        // @TODO: Username is valid, save nick in session storage??
+        sessionStorage.registerNick = this.nick
+
+        // Load Create Account Workflow
+        await this.$router.push(this.localePath('create-account'))
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('PreCreateForm@checkUser - Error')
+        // eslint-disable-next-line no-console
+        console.error(error)
+      }
     },
-    showCreateUser() {
-      this.createAccountIsVisible = true
-      this.loginIsVisible = false
+    updateNick(value) {
+      this.$store.commit('register/SET_NICK', value)
     },
     showLogin() {
-      this.loginIsVisible = true
-      this.createAccountIsVisible = false
-    },
-    async logout() {
-      await this.$auth.logout()
-      this.$router.push('/')
+      this.$emit('showLogin')
     }
   }
 }

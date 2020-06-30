@@ -5,7 +5,6 @@
     </div>
     <div class="c-register__right-side">
       <div class="c-register__logo">
-        <!-- <img src="@/assets/svg/networksv_logo.svg" /> -->
         <nuxt-link
           :src="require('@/assets/svg/networksv_logo.svg')"
           tag="img"
@@ -13,10 +12,10 @@
         />
       </div>
       <div v-show="1 === step">
-        <RegisterEmail v-on:registerEmail="saveEmail" />
+        <RegisterEmail @registerEmail="saveEmail" />
       </div>
       <div v-show="2 === step">
-        <PinVerify v-on:nextStep="nextStep" kind="email" />
+        <PinVerify @nextStep="nextStep" kind="email" />
       </div>
       <div v-show="3 === step">
         <TwelveWordsGenerator
@@ -26,9 +25,9 @@
       </div>
       <div v-show="4 === step">
         <TelephoneVerify
-          v-on:registerPhone="savePhone"
-          v-on:registerPrefix="savePrefix"
-          v-on:registerUkPrefix="saveUkResident"
+          @registerPhone="savePhone"
+          @registerPrefix="savePrefix"
+          @registerUkPrefix="saveUkResident"
         />
       </div>
       <div v-show="5 === step">
@@ -36,9 +35,7 @@
       </div>
       <div :style="cssProps" class="c-info__button-cont u-align-right">
         <v-btn
-          v-bind:disabled="
-            responsabilityCheck == false && step == 3 ? true : false
-          "
+          :disabled="responsabilityCheck == false && step == 3 ? true : false"
           v-if="step !== 5 && step !== 2"
           @click="navigationNext"
           depressed
@@ -54,7 +51,7 @@
 </template>
 
 <script>
-import { apiNetworkSv } from '~/mixins/apiNetworkSV'
+import { mapState } from 'vuex'
 import NavigationSteps from '~/components/register_process/NavigationSteps'
 import TwelveWordsGenerator from '~/components/register_process/TwelveWordsGenerator'
 import TelephoneVerify from '~/components/register_process/TelephoneVerify'
@@ -62,7 +59,7 @@ import PinVerify from '~/components/register_process/PinVerify'
 import RegisterEmail from '~/components/register_process/RegisterEmail'
 
 export default {
-  name: 'Login',
+  name: 'CreateAccountSteps',
   components: {
     NavigationSteps,
     TwelveWordsGenerator,
@@ -70,7 +67,6 @@ export default {
     PinVerify,
     RegisterEmail
   },
-  mixins: [apiNetworkSv],
   data() {
     return {
       step: 1,
@@ -80,7 +76,7 @@ export default {
       variableWidth: 27,
       registerPhone: null,
       registerPrefix: null,
-      registerEmail: null,
+      // registerEmail: null,
       errorValidation: false
     }
   },
@@ -89,13 +85,20 @@ export default {
       return {
         '--variable-wrapper': this.variableWidth + '%'
       }
-    }
+    },
+    ...mapState({
+      nick: (state) => state.register.nick,
+      email: (state) => state.register.email,
+      mobilePrefix: (state) => state.register.mobile_prefix,
+      mobileNumber: (state) => state.register.mobile_number,
+      ukresident: (state) => state.register.ukresident
+    })
   },
   watch: {
     step(value) {
       this.$refs.NavigationSteps.setStep(value)
 
-      this.$emit('enviarAlPadre', value)
+      // this.$emit('enviarAlPadre', value)
 
       if (this.viewportWidth > 768 && value === 3) {
         this.variableWidth = 12
@@ -130,20 +133,24 @@ export default {
   },
   methods: {
     saveEmail(value) {
-      this.registerEmail = value
-      sessionStorage.registerEmail = this.registerEmail
+      // this.registerEmail = value
+      // sessionStorage.registerEmail = this.registerEmail
+      this.$store.commit('register/SET_EMAIL', value)
     },
     savePhone(value) {
-      this.registerPhone = value
-      sessionStorage.registerPhone = this.registerPhone
+      // this.registerPhone = value
+      // sessionStorage.registerPhone = this.registerPhone
+      this.$store.commit('register/SET_MOBILE_NUMBER', value)
     },
     saveUkResident(value) {
-      this.registerUkResident = value
-      sessionStorage.registerUkResident = this.registerUkResident
+      // this.registerUkResident = value
+      // sessionStorage.registerUkResident = this.registerUkResident
+      this.$store.commit('register/SET_UKRESIDENT', value)
     },
     savePrefix(value) {
-      this.registerPrefix = value
-      sessionStorage.registerPrefix = this.registerPrefix
+      // this.registerPrefix = value
+      // sessionStorage.registerPrefix = this.registerPrefix
+      this.$store.commit('register/SET_MOBILE_PREFIX', value)
     },
     getCheck(value) {
       this.responsabilityCheck = value
@@ -153,10 +160,13 @@ export default {
      */
     navigationNext() {
       if (this.step === 1 || this.step === 4) {
+        // @TODO: RaulSM - Lo dejo comentado, no se de donde sale 'verificationCode'
         let code = null
         this.verificationCode.forEach(function(pinCode) {
           code += pinCode
         })
+
+        code = 1234
 
         if (this.step === 1) {
           const checkEmail = this.checkEmailApi()
@@ -173,6 +183,7 @@ export default {
           })
         } else if (this.step === 4) {
           const checkPhone = this.checkPhoneApi()
+
           checkPhone.then((result) => {
             if (!result.error) {
               const validation = this.sendMobileValidationCode(code)
@@ -194,13 +205,7 @@ export default {
       }
     },
     signIn() {
-      const nick = this.registerNick
-      const email = this.registerEmail
-      const prefix = this.registerPrefix
-      const phone = this.registerPhone
-      const ukResident = this.registerUkResident
-
-      this.signInApi(nick, email, prefix, phone, ukResident)
+      this.signInApi()
     },
     getWidth() {
       return Math.max(
