@@ -50,7 +50,7 @@
 import { required, requiredIf, minLength } from 'vuelidate/lib/validators'
 
 export default {
-  name: 'LoginFrom',
+  name: 'LoginForm',
   data() {
     return {
       formLogin: {

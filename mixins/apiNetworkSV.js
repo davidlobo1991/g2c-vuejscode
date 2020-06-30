@@ -51,16 +51,18 @@ export const apiNetworkSv = {
     },
     /**
      * Sending email verification
-     * @param data
+     * @param {string} email
      * @returns {Promise<void>}
      */
-    async sendValidationCode(data) {
+    async sendValidationCode(email) {
       try {
-        await this.$axios
+        const response = await this.$axios
           .post('/users/email-validation/send', {
-            data
+            email
           })
           .then((response) => response.data)
+
+        return response
       } catch (error) {
         this.handleError(error, 'APINetworkUser@sendValidationCode - Error')
         throw error

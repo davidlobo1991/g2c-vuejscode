@@ -158,35 +158,46 @@ export default {
     /**
      * If is the step 1 (introduce email) will verify the email and send the validation code
      */
-    navigationNext() {
+    async navigationNext() {
       if (this.step === 1 || this.step === 4) {
         // @TODO: RaulSM - Lo dejo comentado, no se de donde sale 'verificationCode'
         let code = null
-        this.verificationCode.forEach(function(pinCode) {
-          code += pinCode
-        })
+        // this.verificationCode.forEach(function(pinCode) {
+        //   code += pinCode
+        // })
 
         code = 1234
 
         if (this.step === 1) {
           const checkEmail = this.checkEmailApi()
-          checkEmail.then((result) => {
+          checkEmail.then(async (result) => {
             if (!result.error) {
-              const validation = this.sendValidationCode(code)
-              validation.then((result) => {
-                !result.error ? (this.step += 1) : (this.errorValidation = true)
-              })
+              const result = await this.sendValidationCode(this.email)
+
+              if (!result.error) {
+                this.step += 1
+              } else {
+                this.errorValidation = true
+              }
+
+              // @TODO: Con await ya ya no necesario 'then'
+              // validation.then((result) => {
+              //   !result.error ? (this.step += 1) : (this.errorValidation = true)
+              // })
             } else {
               this.resendEmail = false
               this.errorValidation = true
             }
           })
         } else if (this.step === 4) {
-          const checkPhone = this.checkPhoneApi()
+          const checkPhone = await this.checkPhoneApi()
 
-          checkPhone.then((result) => {
+          // @TODO: Con await ya ya no necesario 'then'
+          checkPhone.then(async (result) => {
             if (!result.error) {
-              const validation = this.sendMobileValidationCode(code)
+              const validation = await this.sendMobileValidationCode(code)
+
+              // @TODO: Con await ya ya no necesario 'then'
               validation.then((result) => {
                 if (!result.error) {
                   sessionStorage.verifyServiceId = result.data.verifyServiceId
