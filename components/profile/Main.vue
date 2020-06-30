@@ -1,42 +1,27 @@
 <template>
   <section class="c-account">
     <TopMobile />
-    <AccountNavbar active-tab="Account" />
     <div class="c-account__wrapper-section">
-      <div class="c-account__left-cont">
-        <AccountProfile />
-      </div>
-      <div class="c-account__right-cont">
-        <AccountStats />
-        <AccountPricing />
-        <AccountMeetings />
-      </div>
+      <Profile />
     </div>
     <BottomMobile />
   </section>
 </template>
 
 <script>
-import AccountNavbar from '~/components/account/AccountNavbar'
-import AccountProfile from '~/components/account/AccountProfile'
-import AccountStats from '~/components/account/AccountStats'
-import AccountPricing from '~/components/account/AccountPricing'
-import AccountMeetings from '~/components/account/AccountMeetings'
+import Profile from '~/components/profile/Profile'
 import TopMobile from '~/components/site/TopMobile'
 import BottomMobile from '~/components/site/BottomMobile'
 
 export default {
   name: 'Network',
   components: {
-    AccountNavbar,
-    AccountProfile,
-    AccountStats,
-    AccountPricing,
-    AccountMeetings,
+    Profile,
     TopMobile,
     BottomMobile
   },
-  data: () => ({})
+  data: () => ({}),
+  methods: {}
 }
 </script>
 
