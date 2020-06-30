@@ -159,6 +159,11 @@ export default {
       logout: '/',
       home: '/dashboard'
       // callback: '/'
+    },
+    cookie: {
+      options: {
+        expires: 365
+      }
     }
   },
 
