@@ -2,21 +2,21 @@
   <section class="c-account">
     <TopMobile />
     <div class="c-account__wrapper-section">
-      <AccountProfile />
+      <Profile />
     </div>
     <BottomMobile />
   </section>
 </template>
 
 <script>
-import AccountProfile from '~/components/account/AccountProfile'
+import Profile from '~/components/profile/Profile'
 import TopMobile from '~/components/site/TopMobile'
 import BottomMobile from '~/components/site/BottomMobile'
 
 export default {
   name: 'Network',
   components: {
-    AccountProfile,
+    Profile,
     TopMobile,
     BottomMobile
   },
