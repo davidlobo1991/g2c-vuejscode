@@ -1,6 +1,5 @@
 <template>
   <v-layout>
-    <!-- <login title="Refineria"></login> -->
     <Login />
   </v-layout>
 </template>
@@ -9,6 +8,7 @@
 import Login from '~/components/Login.vue'
 
 export default {
+  name: 'Home',
   components: {
     Login
   }

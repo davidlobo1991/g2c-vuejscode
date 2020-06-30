@@ -9,18 +9,22 @@
     <div class="o-layout c-info__phone-cont">
       <v-select
         :items="prefixes"
+        v-model="registerPrefix"
+        :hide-details="true"
+        item-text="text"
+        item-value="id"
         outlined
         label="Country"
         class="o-layout__item u-1/1 u-1/4@m c-info__input--prefix c-test"
-        hide-details="auto"
       >
       </v-select>
       <v-text-field
+        v-model="registerPhone"
+        :hide-details="true"
         outlined
         class="o-layout__item u-1/1 u-1/4@m c-info__input--phone c-test"
         label="Phone number"
         type="number"
-        hide-details="auto"
       >
       </v-text-field>
     </div>
@@ -44,7 +48,13 @@
           I'll let NetworkSV (a UK Company) charge me VAT.
         </div>
         <div class="c-info__responsability--toggle">
-          <v-checkbox hide-details="auto" color="#376EFA"> </v-checkbox>
+          <v-checkbox
+            :hide-details="true"
+            v-model="registerUkResident"
+            value="1"
+            color="#376EFA"
+          >
+          </v-checkbox>
         </div>
       </div>
     </div>
@@ -56,7 +66,25 @@ export default {
   name: 'TelephoneVerify',
   data() {
     return {
-      prefixes: ['(+34) Spain', '(+44) United Kingdom', '(+33) France']
+      prefixes: [
+        { id: '+34', text: '(+34) Spain' },
+        { id: '+44', text: '(+44) United Kingdom' },
+        { id: '+33', text: '(+33) France' }
+      ],
+      registerPhone: null,
+      registerPrefix: null,
+      registerUkResident: 0
+    }
+  },
+  watch: {
+    registerPhone(value) {
+      this.$emit('registerPhone', this.registerPhone)
+    },
+    registerPrefix(value) {
+      this.$emit('registerPrefix', this.registerPrefix)
+    },
+    registerUkResident(value) {
+      this.$emit('registerUkPrefix', this.registerUkResident)
     }
   }
 }

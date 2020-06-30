@@ -5,7 +5,6 @@
     </div>
     <div class="c-register__right-side">
       <div class="c-register__logo">
-        <!-- <img src="@/assets/svg/networksv_logo.svg" /> -->
         <nuxt-link
           :src="require('@/assets/svg/networksv_logo.svg')"
           tag="img"
@@ -13,10 +12,10 @@
         />
       </div>
       <div v-show="1 === step">
-        <RegisterEmail />
+        <RegisterEmail @registerEmail="saveEmail" />
       </div>
       <div v-show="2 === step">
-        <PinVerify v-on:nextStep="nextStep" kind="email" />
+        <PinVerify @nextStep="nextStep" kind="email" />
       </div>
       <div v-show="3 === step">
         <TwelveWordsGenerator
@@ -25,16 +24,18 @@
         />
       </div>
       <div v-show="4 === step">
-        <TelephoneVerify />
+        <TelephoneVerify
+          @registerPhone="savePhone"
+          @registerPrefix="savePrefix"
+          @registerUkPrefix="saveUkResident"
+        />
       </div>
       <div v-show="5 === step">
-        <PinVerify kind="telephone" />
+        <PinVerify @signIn="signIn" kind="telephone" />
       </div>
       <div :style="cssProps" class="c-info__button-cont u-align-right">
         <v-btn
-          v-bind:disabled="
-            responsabilityCheck == false && step == 3 ? true : false
-          "
+          :disabled="responsabilityCheck == false && step == 3 ? true : false"
           v-if="step !== 5 && step !== 2"
           @click="navigationNext"
           depressed
@@ -50,6 +51,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import NavigationSteps from '~/components/register_process/NavigationSteps'
 import TwelveWordsGenerator from '~/components/register_process/TwelveWordsGenerator'
 import TelephoneVerify from '~/components/register_process/TelephoneVerify'
@@ -57,7 +59,7 @@ import PinVerify from '~/components/register_process/PinVerify'
 import RegisterEmail from '~/components/register_process/RegisterEmail'
 
 export default {
-  name: 'Login',
+  name: 'CreateAccountSteps',
   components: {
     NavigationSteps,
     TwelveWordsGenerator,
@@ -65,14 +67,17 @@ export default {
     PinVerify,
     RegisterEmail
   },
-  props: {},
   data() {
     return {
       step: 1,
       responsabilityCheck: false,
       // pinInputHeight: '64px',
       viewportWidth: 0,
-      variableWidth: 27
+      variableWidth: 27,
+      registerPhone: null,
+      registerPrefix: null,
+      // registerEmail: null,
+      errorValidation: false
     }
   },
   computed: {
@@ -80,13 +85,20 @@ export default {
       return {
         '--variable-wrapper': this.variableWidth + '%'
       }
-    }
+    },
+    ...mapState({
+      nick: (state) => state.register.nick,
+      email: (state) => state.register.email,
+      mobilePrefix: (state) => state.register.mobile_prefix,
+      mobileNumber: (state) => state.register.mobile_number,
+      ukresident: (state) => state.register.ukresident
+    })
   },
   watch: {
     step(value) {
       this.$refs.NavigationSteps.setStep(value)
 
-      this.$emit('enviarAlPadre', value)
+      // this.$emit('enviarAlPadre', value)
 
       if (this.viewportWidth > 768 && value === 3) {
         this.variableWidth = 12
@@ -115,31 +127,81 @@ export default {
   },
   mounted() {
     this.viewportWidth = this.getWidth()
-    // if (this.viewportWidth < 900) {
-    //   this.pinInputHeight = '56px'
-    // }
   },
   destroyed() {
     window.removeEventListener('resize', this.onWindowSizeChange)
   },
   methods: {
+    saveEmail(value) {
+      this.$store.commit('register/SET_EMAIL', value)
+    },
+    savePhone(value) {
+      this.$store.commit('register/SET_MOBILE_NUMBER', value)
+    },
+    saveUkResident(value) {
+      this.$store.commit('register/SET_UKRESIDENT', value)
+    },
+    savePrefix(value) {
+      this.$store.commit('register/SET_MOBILE_PREFIX', value)
+    },
     getCheck(value) {
       this.responsabilityCheck = value
     },
-    navigationNext() {
-      this.step = this.step + 1
+    /**
+     * If is the step 1 (introduce email) will verify the email and send the validation code
+     */
+    async navigationNext() {
+      if (this.step === 1) {
+        const checkEmail = await this.checkEmailApi()
+
+        if (!checkEmail.error) {
+          const validation = await this.sendValidationCode()
+
+          if (!validation.error) {
+            this.step += 1
+          } else {
+            this.errorValidation = true
+          }
+        } else {
+          this.resendEmail = false
+          this.errorValidation = true
+        }
+      } else if (this.step === 4) {
+        const checkPhone = await this.checkPhoneApi()
+
+        if (!checkPhone.error) {
+          const validation = await this.sendMobileValidationCode()
+
+          if (!validation.error) {
+            sessionStorage.verifyServiceId = validation.data.verifyServiceId
+            this.step += 1
+          } else {
+            this.errorValidation = true
+          }
+        } else {
+          // eslint-disable-next-line no-console
+          console.log(checkPhone.message)
+          this.resendEmail = false
+          this.errorValidation = true
+        }
+      } else {
+        this.step += 1
+      }
     },
-    navigationPrevious() {
-      this.step = this.step - 1
-    },
-    onWindowSizeChange() {
-      this.viewportWidth = this.getWidth()
+    signIn() {
+      this.signInApi()
     },
     getWidth() {
       return Math.max(
         document.documentElement.clientWidth,
         window.innerWidth || 0
       )
+    },
+    navigationPrevious() {
+      this.step = this.step - 1
+    },
+    onWindowSizeChange() {
+      this.viewportWidth = this.getWidth()
     },
     nextStep() {
       this.navigationNext()
@@ -163,9 +225,11 @@ input[type='number']::-webkit-outer-spin-button {
     display: flex;
     width: 100%;
   }
+
   &__logo {
     display: none;
   }
+
   &__left-side {
     width: 35%;
     background-color: #f5f8fd;
@@ -174,17 +238,20 @@ input[type='number']::-webkit-outer-spin-button {
     display: flex;
     justify-content: center;
   }
+
   &__right-side {
     padding-top: 4.5%;
     width: 60%;
     margin: 0 auto;
   }
 }
+
 .c-info {
   &__button-cont {
     // padding-right: 27%;
     padding-right: var(--variable-wrapper);
   }
+
   &__button {
     width: 180px;
     height: 80px !important;
@@ -193,6 +260,7 @@ input[type='number']::-webkit-outer-spin-button {
     text-transform: none;
   }
 }
+
 @media screen and (max-width: 768px) {
   .c-info {
     &__button {
@@ -204,11 +272,13 @@ input[type='number']::-webkit-outer-spin-button {
     }
   }
 }
+
 @media screen and (max-width: 768px) {
   .c-info {
     &__wrapper {
       /*padding: 28px 0 0 0 !important;*/
     }
+
     &__button {
       width: 100%;
       height: 56px !important;
@@ -220,13 +290,16 @@ input[type='number']::-webkit-outer-spin-button {
       display: block;
       text-align: center;
       padding-bottom: 30px;
+
       & img {
         width: 110px;
       }
     }
+
     &__left-side {
       display: none;
     }
+
     &__right-side {
       width: 90%;
       padding-top: 8%;

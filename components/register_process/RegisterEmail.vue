@@ -8,10 +8,12 @@
     </div>
     <div class="c-info__input-cont">
       <v-text-field
+        v-model="registerEmail"
+        :rules="[rules.required, rules.email]"
+        :hide-details="true"
         label="Email"
         outlined
         class="c-info__input"
-        hide-details="auto"
       >
       </v-text-field>
     </div>
@@ -20,7 +22,25 @@
 
 <script>
 export default {
-  name: 'RegisterEmail'
+  name: 'RegisterEmail',
+  data() {
+    return {
+      registerEmail: null,
+      rules: {
+        required: (value) => !!value || 'Required.',
+        email: (value) => {
+          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          return pattern.test(value) || 'Invalid e-mail.'
+        }
+      }
+    }
+  },
+  watch: {
+    registerEmail(value) {
+      this.registerEmail = value
+      this.$emit('registerEmail', this.registerEmail)
+    }
+  }
 }
 </script>
 

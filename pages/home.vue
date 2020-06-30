@@ -1,6 +1,5 @@
 <template>
   <v-layout>
-    <!-- <Home title="Refineria"></Home> -->
     <Home></Home>
   </v-layout>
 </template>

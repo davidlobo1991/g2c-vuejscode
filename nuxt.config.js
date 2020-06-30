@@ -1,4 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
+// eslint-disable-next-line nuxt/no-cjs-in-config
+const webpack = require('webpack')
 
 export default {
   mode: 'universal',
@@ -7,7 +9,7 @@ export default {
    */
   head: {
     titleTemplate: '%s - ' + process.env.npm_package_name,
-    title: process.env.npm_package_name || '',
+    title: 'NetworkSV',
     meta: [
       { charset: 'utf-8' },
       {
@@ -17,10 +19,28 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
+        content: 'NetworkSV'
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      {
+        src: 'js/bsv/1.5.0/bsv.min.js',
+        defer: true
+      },
+      {
+        src: 'js/bsv/1.5.0/bsv-message.min.js',
+        defer: true
+      },
+      {
+        src: 'js/bsv/1.5.0/bsv-mnemonic.min.js',
+        defer: true
+      },
+      {
+        src: 'https://gate2chain.ddns.net:5791/libs/g2clib.min.js',
+        defer: true
+      }
+    ]
   },
   /*
    ** Customize the progress-bar color
@@ -33,7 +53,11 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    '~/plugins/vuelidate',
+    '~/plugins/api-g2c',
+    '~/plugins/api-backend-network-sv'
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -48,13 +72,109 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/auth',
+    '@nuxtjs/pwa',
+    [
+      'nuxt-i18n',
+      {
+        // @TODO: Temp comment, only english
+        // detectBrowserLanguage: {
+        //   useCookie: true,
+        //   cookieKey: 'i18n_redirected'
+        // },
+        locales: [
+          {
+            code: 'en',
+            name: 'ENG',
+            iso: 'en-GB',
+            file: 'en-GB.js'
+          },
+          {
+            code: 'es',
+            name: 'ESP',
+            iso: 'es-ES',
+            file: 'es-ES.js'
+          }
+        ],
+        parsePages: false,
+        pages: {
+          index: {
+            en: '/'
+          },
+          'create-account': {
+            en: '/create-account',
+            es: '/crear-cuenta'
+          }
+        },
+        defaultLocale: 'en',
+        lazy: true,
+        seo: true,
+        vuex: false,
+        langDir: 'lang/'
+      }
+    ]
+    /*
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          // apiKey: 'AIzaSyD_hg9JgEOeJfoDbgk-58DmJpOiaiNDj1U',
+          // authDomain: 'quickstart-721ec.firebaseapp.com',
+          // databaseURL: 'https://quickstart-721ec.firebaseio.com',
+          // projectId: 'quickstart-721ec',
+          // storageBucket: 'quickstart-721ec.appspot.com',
+          // messagingSenderId: '1000499655102',
+          // appId: '1:1000499655102:web:4719b60a1fd9d4d0e289ef'
+        },
+        services: {
+          // auth: true // Just as example. Can be any other service.
+        }
+      }
+    ]
+    */
   ],
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/auth/login',
+            method: 'post',
+            propertyName: 'data.token'
+          },
+          logout: {
+            url: '/auth/logout',
+            method: 'post'
+          },
+          user: {
+            url: '/auth/me',
+            method: 'get',
+            propertyName: 'data'
+          }
+        }
+      }
+    },
+    redirect: {
+      login: '/',
+      logout: '/',
+      home: '/dashboard'
+      // callback: '/'
+    },
+    cookie: {
+      options: {
+        expires: 365
+      }
+    }
+  },
+
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    common: 'x-authorization: BGFs9tEvskC61SdpIYZU8UG',
+    baseURL: 'https://networksv-backend.herokuapp.com/api/'
+  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
@@ -80,6 +200,11 @@ export default {
    ** Build configuration
    */
   build: {
+    /**
+     * add external plugins
+     */
+    vendor: [],
+    plugins: [new webpack.ProvidePlugin({})],
     /*
      ** You can extend webpack config here
      */

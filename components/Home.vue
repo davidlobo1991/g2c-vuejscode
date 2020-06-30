@@ -11,6 +11,7 @@ import Network from '~/components/home/Network'
 
 export default {
   name: 'Home',
+  middleware: ['auth'],
   components: {
     Sidebar,
     Network

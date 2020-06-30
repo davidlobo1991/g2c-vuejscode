@@ -36,8 +36,7 @@ export default {
     TopMobile,
     BottomMobile
   },
-  data: () => ({}),
-  methods: {}
+  data: () => ({})
 }
 </script>
 
