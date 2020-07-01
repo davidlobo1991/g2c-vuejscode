@@ -40,6 +40,9 @@
         </div>
       </form>
     </div>
+    <div v-if="errorValidation !== null" class="error--text">
+      <p>{{ errorValidation }}</p>
+    </div>
     <p class="c-login__details">
       Don’t have an account?
       <a @click="showCreateUser">
@@ -56,6 +59,7 @@ export default {
   name: 'LoginForm',
   data() {
     return {
+      errorValidation: null,
       formLogin: {
         nick: '',
         password: null,
@@ -100,6 +104,8 @@ export default {
     },
     async login() {
       try {
+        this.errorValidation = null
+
         // Form Validation
         this.$v.$touch()
 
@@ -110,9 +116,9 @@ export default {
         // eslint-disable-next-line no-unused-vars
         let g2cLoginResponse = null
 
-        // @TODO: Check if words fields not empty
+        // Check if words fields not empty
         if (this.formLogin.words !== null && this.formLogin.words.length > 0) {
-          // @TODO: First, login in G2C
+          // First, login in G2C
           try {
             g2cLoginResponse = await this.loginUser(
               this.formLogin.words,
@@ -121,36 +127,27 @@ export default {
             )
           } catch (error) {
             // eslint-disable-next-line no-console
-            console.error('G2C Login error')
-            // eslint-disable-next-line no-console
-            console.error(error)
+            console.error('G2C Login error', error)
+            this.errorValidation = error.message
           }
         }
 
         // @TODO: Set g2cLoginResponse in localStorage???
         // eslint-disable-next-line no-console
-        // console.debug('g2cLoginResponse')
-        // eslint-disable-next-line no-console
-        // console.debug(g2cLoginResponse)
+        // console.debug('g2cLoginResponse', g2cLoginResponse)
 
-        // @TODO: Second, login in networksv backend
-        // eslint-disable-next-line no-unreachable
+        // Second, login in networksv backend
         try {
-          const response = await this.$auth.loginWith('local', {
+          await this.$auth.loginWith('local', {
             data: {
               nick: this.formLogin.nick,
               password: this.formLogin.password
             }
           })
-          // eslint-disable-next-line no-console
-          console.log('response login!!!')
-          // eslint-disable-next-line no-console
-          console.log(response)
         } catch (error) {
           // eslint-disable-next-line no-console
-          console.error('NetworkSV Login error')
-          // eslint-disable-next-line no-console
-          console.error(error)
+          console.error('NetworkSV Login error', error)
+          this.errorValidation = this.$i18n.t('login.error.message')
         }
       } catch (error) {
         // eslint-disable-next-line no-console

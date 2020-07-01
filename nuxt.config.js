@@ -104,6 +104,10 @@ export default {
           'create-account': {
             en: '/create-account',
             es: '/crear-cuenta'
+          },
+          home: {
+            en: '/home',
+            es: '/home'
           }
         },
         defaultLocale: 'en',
@@ -157,7 +161,7 @@ export default {
     redirect: {
       login: '/',
       logout: '/',
-      home: '/dashboard'
+      home: '/home'
       // callback: '/'
     },
     cookie: {
