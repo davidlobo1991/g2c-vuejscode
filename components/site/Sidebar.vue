@@ -192,7 +192,8 @@ export default {
       justify-content: center;
       align-items: center;
       height: 20px;
-      width: 20px;
+      min-width: 20px;
+      padding: 0 4px;
     }
     &--icon {
       padding-right: 15px;
