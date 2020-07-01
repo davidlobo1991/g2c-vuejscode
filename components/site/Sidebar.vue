@@ -3,23 +3,33 @@
     <div class="c-sidebar__wrapper">
       <div class="c-sidebar__fixed-cont">
         <nuxt-link
+          :to="localePath('home')"
           :src="require('@/assets/svg/networksv_logo_white.svg')"
           tag="img"
-          to="/home"
           class="c-sidebar__logo"
         />
-        <div class="c-sidebar__profile--cont">
+        <div v-if="$auth.loggedIn" class="c-sidebar__profile--cont">
           <div class="c-sidebar__profile--img-cont">
-            <nuxt-link
-              :src="require('@/assets/images/persona1.png')"
-              tag="img"
-              to="/account/profile"
-              class="c-sidebar__profile--img"
-            />
+            <template v-if="true">
+              <nuxt-link
+                :src="`${baseFilesURL}${$auth.user.profile_image.path}`"
+                tag="img"
+                to="/account/profile"
+                class="c-sidebar__profile--img"
+              />
+            </template>
+            <template v-else>
+              <nuxt-link
+                :src="require('@/assets/images/persona1.png')"
+                tag="img"
+                to="/account/profile"
+                class="c-sidebar__profile--img"
+              />
+            </template>
             <div class="c-sidebar__profile--status u-status--available"></div>
           </div>
           <div class="c-sidebar__profile--name">
-            Jessica O'Malllie
+            {{ $auth.user.name }} {{ $auth.user.surname }}
           </div>
         </div>
         <ul class="c-sidebar__menu--cont">
@@ -64,7 +74,12 @@
 
 <script>
 export default {
-  name: 'Sidebar'
+  name: 'Sidebar',
+  data() {
+    return {
+      baseFilesURL: process.env.baseFilesURL
+    }
+  }
 }
 </script>
 
