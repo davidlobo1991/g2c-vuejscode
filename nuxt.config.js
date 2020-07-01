@@ -112,6 +112,10 @@ export default {
           home: {
             en: '/home',
             es: '/home'
+          },
+          'account/profile': {
+            en: '/account/profile',
+            es: '/cuenta/perfil'
           }
         },
         defaultLocale: 'en',
