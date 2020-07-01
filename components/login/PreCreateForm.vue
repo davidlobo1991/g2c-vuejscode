@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-text-field="http://www.w3.org/1999/html">
   <div>
     <div class="full-width">
       <v-text-field
@@ -6,6 +6,16 @@
         :hide-details="true"
         @input="updateNick"
         label="Username (Handle)"
+        outlined
+        class="c-login__cont--input u-mrb-s"
+      >
+      </v-text-field>
+      <v-text-field
+        :hide-details="true"
+        @input="updatePassword"
+        :counter="6"
+        type="password"
+        label="Password"
         outlined
         class="c-login__cont--input u-mrb-s"
       >
@@ -58,6 +68,10 @@ export default {
     },
     updateNick(value) {
       this.$store.commit('register/SET_NICK', value)
+    },
+    updatePassword(value) {
+      console.log(value)
+      this.$store.commit('register/SET_PASSWORD', value)
     },
     showLogin() {
       this.$emit('showLogin')
