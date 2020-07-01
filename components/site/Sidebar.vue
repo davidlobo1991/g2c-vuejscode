@@ -7,23 +7,26 @@
           :src="require('@/assets/svg/networksv_logo_white.svg')"
           tag="img"
           class="c-sidebar__logo"
+          title="Home"
         />
         <div v-if="$auth.loggedIn" class="c-sidebar__profile--cont">
           <div class="c-sidebar__profile--img-cont">
             <template v-if="true">
               <nuxt-link
+                :to="localePath('account/profile')"
                 :src="`${baseFilesURL}${$auth.user.profile_image.path}`"
                 tag="img"
-                to="/account/profile"
                 class="c-sidebar__profile--img"
+                title="Account Profile"
               />
             </template>
             <template v-else>
               <nuxt-link
+                :to="localePath('account/profile')"
                 :src="require('@/assets/images/persona1.png')"
                 tag="img"
-                to="/account/profile"
                 class="c-sidebar__profile--img"
+                title="Account Profile"
               />
             </template>
             <div class="c-sidebar__profile--status u-status--available"></div>
@@ -33,31 +36,61 @@
           </div>
         </div>
         <ul class="c-sidebar__menu--cont">
-          <li class="c-sidebar__menu--item-active">
-            <a href="" class="c-sidebar__menu--link">
+          <li class="c-sidebar__menu--item c-sidebar__menu--item-active">
+            <nuxt-link
+              :to="localePath('home')"
+              class="c-sidebar__menu--link"
+              title="Network"
+            >
               <v-icon class="c-sidebar__menu--icon">
                 mdi-account-multiple
               </v-icon>
               Network
-            </a>
+            </nuxt-link>
+            <span
+              v-if="badgeNetworkTotal > 0"
+              class="c-sidebar__menu--notification"
+            >
+              {{ badgeNetworkTotal }}
+            </span>
           </li>
           <li class="c-sidebar__menu--item">
-            <a href="" class="c-sidebar__menu--link">
+            <nuxt-link
+              :to="localePath('home')"
+              class="c-sidebar__menu--link"
+              title="Connections"
+            >
               <v-icon class="c-sidebar__menu--icon">
                 mdi-message-text
               </v-icon>
               Connections
-            </a>
-            <span class="c-sidebar__menu--notification">4</span>
+            </nuxt-link>
+            <span
+              v-if="badgeConnectionsTotal > 0"
+              class="c-sidebar__menu--notification"
+            >
+              {{ badgeConnectionsTotal }}
+            </span>
           </li>
           <li class="c-sidebar__menu--item">
-            <a href="" class="c-sidebar__menu--link">
+            <nuxt-link
+              :to="localePath('home')"
+              class="c-sidebar__menu--link"
+              title="eMeetings"
+            >
               <v-icon class="c-sidebar__menu--icon">
                 mdi-bookmark-multiple
               </v-icon>
               eMeetings
-            </a>
+            </nuxt-link>
+            <span
+              v-if="badgeeMeetingsTotal > 0"
+              class="c-sidebar__menu--notification"
+            >
+              {{ badgeeMeetingsTotal }}
+            </span>
           </li>
+
           <!--          <li class="c-sidebar__menu&#45;&#45;item">-->
           <!--            <a href="" class="c-sidebar__menu&#45;&#45;link">-->
           <!--              <v-icon class="c-sidebar__menu&#45;&#45;icon">-->
@@ -77,7 +110,10 @@ export default {
   name: 'Sidebar',
   data() {
     return {
-      baseFilesURL: process.env.baseFilesURL
+      baseFilesURL: process.env.baseFilesURL,
+      badgeNetworkTotal: 0,
+      badgeConnectionsTotal: 4,
+      badgeeMeetingsTotal: 0
     }
   }
 }
@@ -115,6 +151,7 @@ export default {
   }
   &__logo {
     padding-bottom: 50px;
+    cursor: pointer;
   }
   &__profile {
     &--cont {
@@ -122,6 +159,7 @@ export default {
       flex-flow: column;
       align-items: center;
       padding-bottom: 70px;
+      cursor: pointer;
     }
     &--img-cont {
       position: relative;
