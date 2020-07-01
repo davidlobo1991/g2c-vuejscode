@@ -1,6 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 // eslint-disable-next-line nuxt/no-cjs-in-config
 const webpack = require('webpack')
+require('dotenv').config()
 
 export default {
   mode: 'universal',
@@ -74,6 +75,8 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/auth',
     '@nuxtjs/pwa',
+    '@nuxtjs/dotenv',
+    '@nuxtjs/robots',
     [
       'nuxt-i18n',
       {
@@ -99,7 +102,8 @@ export default {
         parsePages: false,
         pages: {
           index: {
-            en: '/'
+            en: '/',
+            es: '/'
           },
           'create-account': {
             en: '/create-account',
@@ -177,7 +181,8 @@ export default {
    */
   axios: {
     common: 'x-authorization: BGFs9tEvskC61SdpIYZU8UG',
-    baseURL: 'https://networksv-backend.herokuapp.com/api/'
+    baseURL:
+      process.env.API_BASE_URL || 'https://networksv-backend.herokuapp.com/api/'
   },
   /*
    ** vuetify module configuration
@@ -213,5 +218,20 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+  /**
+   * Environment variables
+   */
+  env: {
+    baseURL: process.env.BASE_URL || 'https://networksv-frontend.herokuapp.com',
+    apiURLBase:
+      process.env.API_URL_BASE || 'https://networksv-backend.herokuapp.com',
+    apiURL:
+      process.env.API_URL || 'https://networksv-backend.herokuapp.com/api/'
+  },
+  robots: {
+    /* module options */
+    UserAgent: '*',
+    Disallow: process.env.NODE_ENV !== 'production' ? '/' : ''
   }
 }
