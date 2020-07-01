@@ -2,21 +2,26 @@
   <div class="c-banner__space">
     <div class="c-banner">
       <div class="c-banner__text">
-        <span class="c-banner__text--pdr">Welcome @jessicaomallie!</span>
-        Fill your profile information to appear on the Network and start
-        receving and requesting connections.
+        <span v-if="$auth.loggedIn" class="c-banner__text--pdr">
+          {{ $t('welcome') }} @{{ $auth.user.nick }}!
+        </span>
+        {{ $t('welcome_banner_message') }}
       </div>
       <div class="c-banner__close">
         <v-icon dark class="c-banner__close--icon">mdi-close</v-icon>
         <v-btn depressed class="c-banner__button">
-          Edit Profile
+          {{ $t('edit_profile') }}
         </v-btn>
       </div>
     </div>
   </div>
 </template>
 
-<script></script>
+<script>
+export default {
+  name: 'WelcomeBanner'
+}
+</script>
 
 <style lang="scss" scoped>
 .c-banner {

@@ -227,7 +227,9 @@ export default {
     apiURLBase:
       process.env.API_URL_BASE || 'https://networksv-backend.herokuapp.com',
     apiURL:
-      process.env.API_URL || 'https://networksv-backend.herokuapp.com/api/'
+      process.env.API_URL || 'https://networksv-backend.herokuapp.com/api/',
+    baseFilesURL:
+      process.env.BASE_FILES_URL || 'https://networksv-backend.rwdesarrollos'
   },
   robots: {
     /* module options */
