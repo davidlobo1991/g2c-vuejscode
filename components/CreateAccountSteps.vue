@@ -52,6 +52,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { required, email } from 'vuelidate/lib/validators'
 import NavigationSteps from '~/components/register_process/NavigationSteps'
 import TwelveWordsGenerator from '~/components/register_process/TwelveWordsGenerator'
 import TelephoneVerify from '~/components/register_process/TelephoneVerify'
@@ -79,6 +80,9 @@ export default {
       // registerEmail: null,
       errorValidation: null
     }
+  },
+  validations: {
+    email: { required, email }
   },
   computed: {
     cssProps() {
@@ -152,6 +156,12 @@ export default {
      * If is the step 1 (introduce email) will verify the email and send the validation code
      */
     async navigationNext() {
+      this.$v.$touch()
+
+      if (this.$v.$invalid) {
+        return
+      }
+
       if (this.step === 1) {
         const checkEmail = await this.checkEmailApi()
 
@@ -191,13 +201,8 @@ export default {
     },
     async signIn() {
       try {
-        console.log(this.nick)
-        console.log(this.words)
-
         const tokenid = await this.createUser(this.nick, this.words)
         const register = await this.signInApi(tokenid)
-        console.log(register)
-
         if (!register.error) {
           console.log('Created user')
         }
@@ -222,6 +227,22 @@ export default {
     },
     nextStep() {
       this.navigationNext()
+    },
+    handleValidationEmailErrors() {
+      const errors = []
+      if (!this.$v.email.$dirty) {
+        return errors
+      }
+
+      if (!this.$v.email.required) {
+        errors.push(this.$i18n.t('register.error.password.required'))
+      }
+
+      if (!this.$v.email.email) {
+        errors.push(this.$i18n.t('register.error.password.length'))
+      }
+
+      return errors
     }
   }
 }

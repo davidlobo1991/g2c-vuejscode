@@ -13,6 +13,13 @@ export default {
         exists: 'Phone already exists',
         sending: 'Error sending the validation code',
         verification: 'Error verifying the code'
+      },
+      nick: {
+        required: 'The username is required'
+      },
+      password: {
+        required: 'The password is required',
+        length: 'Password min lenght 6'
       }
     }
   }

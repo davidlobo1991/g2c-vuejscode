@@ -41,6 +41,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { required, minLength } from 'vuelidate/lib/validators'
 
 export default {
   name: 'PreCreateForm',
@@ -52,6 +53,17 @@ export default {
       }
     }
   },
+  validations: {
+    formRegister: {
+      nick: {
+        required
+      },
+      password: {
+        required,
+        minLength: minLength(6)
+      }
+    }
+  },
   computed: {
     ...mapState({
       nick: (state) => state.register.nick
@@ -60,6 +72,12 @@ export default {
   methods: {
     async checkUser() {
       try {
+        this.$v.$touch()
+
+        if (this.$v.$invalid) {
+          return
+        }
+
         const validation = await this.checkUserApi()
 
         if (validation.error === true) {
@@ -91,7 +109,7 @@ export default {
       }
 
       if (!this.$v.formRegister.nick.required) {
-        errors.push('Username field is required')
+        errors.push(this.$i18n.t('register.error.nick.required'))
       }
 
       return errors
@@ -103,11 +121,11 @@ export default {
       }
 
       if (!this.$v.formRegister.password.required) {
-        errors.push('Password field is required')
+        errors.push(this.$i18n.t('register.error.password.required'))
       }
 
       if (!this.$v.formRegister.password.minLength) {
-        errors.push('Password min lenght 6')
+        errors.push(this.$i18n.t('register.error.password.length'))
       }
 
       return errors
