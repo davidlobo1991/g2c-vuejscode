@@ -77,7 +77,7 @@ export default {
       registerPhone: null,
       registerPrefix: null,
       // registerEmail: null,
-      errorValidation: false
+      errorValidation: null
     }
   },
   computed: {
@@ -161,11 +161,11 @@ export default {
           if (!validation.error) {
             this.step += 1
           } else {
-            this.errorValidation = true
+            this.errorValidation = this.$i18n.t('register.error.email.sending')
           }
         } else {
           this.resendEmail = false
-          this.errorValidation = true
+          this.errorValidation = this.$i18n.t('register.error.email.exists')
         }
       } else if (this.step === 4) {
         const checkPhone = await this.checkPhoneApi()
@@ -177,13 +177,13 @@ export default {
             sessionStorage.verifyServiceId = validation.data.verifyServiceId
             this.step += 1
           } else {
-            this.errorValidation = true
+            this.errorValidation = this.$i18n.t('register.error.phone.sending')
           }
         } else {
           // eslint-disable-next-line no-console
           console.log(checkPhone.message)
           this.resendEmail = false
-          this.errorValidation = true
+          this.errorValidation = this.$i18n.t('register.error.phone.exists')
         }
       } else {
         this.step += 1

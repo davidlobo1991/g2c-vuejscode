@@ -2,8 +2,10 @@
   <div>
     <div class="full-width">
       <v-text-field
+        v-model="formRegister.nick"
         :value="nick"
-        :hide-details="true"
+        :hide-details="handleValidationNickErrors().length === 0"
+        :error-messages="handleValidationNickErrors() || []"
         @input="updateNick"
         label="Username (Handle)"
         outlined
@@ -11,7 +13,9 @@
       >
       </v-text-field>
       <v-text-field
-        :hide-details="true"
+        v-model="formRegister.password"
+        :hide-details="handleValidationPasswordErrors().length === 0"
+        :error-messages="handleValidationPasswordErrors() || []"
         @input="updatePassword"
         :counter="6"
         type="password"
@@ -40,6 +44,14 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'PreCreateForm',
+  data() {
+    return {
+      formRegister: {
+        nick: '',
+        password: null
+      }
+    }
+  },
   computed: {
     ...mapState({
       nick: (state) => state.register.nick
@@ -70,8 +82,35 @@ export default {
       this.$store.commit('register/SET_NICK', value)
     },
     updatePassword(value) {
-      console.log(value)
       this.$store.commit('register/SET_PASSWORD', value)
+    },
+    handleValidationNickErrors() {
+      const errors = []
+      if (!this.$v.formRegister.nick.$dirty) {
+        return errors
+      }
+
+      if (!this.$v.formRegister.nick.required) {
+        errors.push('Username field is required')
+      }
+
+      return errors
+    },
+    handleValidationPasswordErrors() {
+      const errors = []
+      if (!this.$v.formRegister.password.$dirty) {
+        return errors
+      }
+
+      if (!this.$v.formRegister.password.required) {
+        errors.push('Password field is required')
+      }
+
+      if (!this.$v.formRegister.password.minLength) {
+        errors.push('Password min lenght 6')
+      }
+
+      return errors
     },
     showLogin() {
       this.$emit('showLogin')

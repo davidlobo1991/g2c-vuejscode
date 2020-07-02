@@ -116,7 +116,7 @@
         </div>
       </div>
     </div>
-    <div v-show="errorValidation" class="error">Error code</div>
+    <div v-show="errorValidation" class="error">{{ errorValidation }}</div>
     <div v-show="resendEmail" class="success">Email resend</div>
 
     <div class="c-info__responsability u-flex u-flex-between">
@@ -159,10 +159,10 @@ export default {
         if (validation.error === true) {
           throw validation.message
         }
-        this.errorValidation = false
+        this.errorValidation = null
         this.$emit('signIn')
       } catch (error) {
-        this.errorValidation = true
+        this.errorValidation = this.$i18n.t('register.error.phone.exists')
         // eslint-disable-next-line no-console
         console.error('PinVerify@signIn - Error')
         // eslint-disable-next-line no-console
@@ -180,10 +180,12 @@ export default {
             throw validation.message
           }
 
-          this.errorValidation = false
+          this.errorValidation = null
           this.$emit('nextStep')
         } catch (error) {
-          this.errorValidation = true
+          this.errorValidation = this.$i18n.t(
+            'register.error.email.verification'
+          )
           // eslint-disable-next-line no-console
           console.error('PinVerify@nextStep - Error')
           // eslint-disable-next-line no-console
@@ -198,26 +200,20 @@ export default {
 
         if (!sendValidation.error) {
           this.resendEmail = true
-          this.errorValidation = false
+          this.errorValidation = null
         } else {
-          this.errorValidation = true
+          this.errorValidation = this.$i18n.t('register.error.email.sending')
         }
       } else {
         sendValidation = await this.sendMobileValidationCode()
-        sendValidation.then((result) => {
-          if (!sendValidation.error) {
-            this.resendEmail = true
-            sessionStorage.verifyServiceId = result.data.verifyServiceId
-          } else {
-            this.errorValidation = true
-          }
-        })
+
+        if (!sendValidation.error) {
+          this.resendEmail = true
+          sessionStorage.verifyServiceId = sendValidation.data.verifyServiceId
+        } else {
+          this.errorValidation = this.$i18n.t('register.error.phone.sending')
+        }
       }
-      sendValidation.then((result) => {
-        !result.error
-          ? (this.resendEmail = true)
-          : (this.errorValidation = true)
-      })
     },
     getVerificationCode() {
       let code = ''
