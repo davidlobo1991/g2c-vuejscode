@@ -12,7 +12,7 @@
         />
       </div>
       <div v-show="1 === step">
-        <RegisterEmail @registerEmail="saveEmail" />
+        <RegisterEmail @registerEmail="saveEmail" @nextStep="nextStep" />
       </div>
       <div v-show="2 === step">
         <PinVerify @nextStep="nextStep" kind="email" />
@@ -21,6 +21,7 @@
         <TwelveWordsGenerator
           ref="TwelveWordsGenerator"
           @CheckResponsability="getCheck"
+          @nextStep="nextStep"
         />
       </div>
       <div v-show="4 === step">
@@ -28,23 +29,11 @@
           @registerPhone="savePhone"
           @registerPrefix="savePrefix"
           @registerUkPrefix="saveUkResident"
+          @nextStep="nextStep"
         />
       </div>
       <div v-show="5 === step">
         <PinVerify @signIn="signIn" kind="telephone" />
-      </div>
-      <div :style="cssProps" class="c-info__button-cont u-align-right">
-        <v-btn
-          :disabled="responsabilityCheck == false && step == 3 ? true : false"
-          v-if="step !== 5 && step !== 2"
-          @click="navigationNext"
-          depressed
-          x-large
-          color="#0086ff"
-          class="c-info__button"
-        >
-          Next
-        </v-btn>
       </div>
     </div>
   </div>
@@ -52,7 +41,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import { required, email } from 'vuelidate/lib/validators'
 import NavigationSteps from '~/components/register_process/NavigationSteps'
 import TwelveWordsGenerator from '~/components/register_process/TwelveWordsGenerator'
 import TelephoneVerify from '~/components/register_process/TelephoneVerify'
@@ -80,9 +68,6 @@ export default {
       // registerEmail: null,
       errorValidation: null
     }
-  },
-  validations: {
-    email: { required, email }
   },
   computed: {
     cssProps() {
@@ -155,49 +140,8 @@ export default {
     /**
      * If is the step 1 (introduce email) will verify the email and send the validation code
      */
-    async navigationNext() {
-      this.$v.$touch()
-
-      if (this.$v.$invalid) {
-        return
-      }
-
-      if (this.step === 1) {
-        const checkEmail = await this.checkEmailApi()
-
-        if (!checkEmail.error) {
-          const validation = await this.sendValidationCode()
-
-          if (!validation.error) {
-            this.step += 1
-          } else {
-            this.errorValidation = this.$i18n.t('register.error.email.sending')
-          }
-        } else {
-          this.resendEmail = false
-          this.errorValidation = this.$i18n.t('register.error.email.exists')
-        }
-      } else if (this.step === 4) {
-        const checkPhone = await this.checkPhoneApi()
-
-        if (!checkPhone.error) {
-          const validation = await this.sendMobileValidationCode()
-
-          if (!validation.error) {
-            sessionStorage.verifyServiceId = validation.data.verifyServiceId
-            this.step += 1
-          } else {
-            this.errorValidation = this.$i18n.t('register.error.phone.sending')
-          }
-        } else {
-          // eslint-disable-next-line no-console
-          console.log(checkPhone.message)
-          this.resendEmail = false
-          this.errorValidation = this.$i18n.t('register.error.phone.exists')
-        }
-      } else {
-        this.step += 1
-      }
+    navigationNext() {
+      this.step += 1
     },
     async signIn() {
       try {
@@ -227,22 +171,6 @@ export default {
     },
     nextStep() {
       this.navigationNext()
-    },
-    handleValidationEmailErrors() {
-      const errors = []
-      if (!this.$v.email.$dirty) {
-        return errors
-      }
-
-      if (!this.$v.email.required) {
-        errors.push(this.$i18n.t('register.error.password.required'))
-      }
-
-      if (!this.$v.email.email) {
-        errors.push(this.$i18n.t('register.error.password.length'))
-      }
-
-      return errors
     }
   }
 }

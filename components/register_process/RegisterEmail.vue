@@ -9,21 +9,47 @@
     <div class="c-info__input-cont">
       <v-text-field
         v-model="registerEmail"
+        :hide-details="handleValidationEmailErrors().length === 0"
+        :error-messages="handleValidationEmailErrors() || []"
         label="Email"
         outlined
         class="c-info__input"
       >
       </v-text-field>
     </div>
+    <div :style="cssProps" class="c-info__button-cont u-align-right">
+      <v-btn
+        @click="navigationNext"
+        depressed
+        x-large
+        color="#0086ff"
+        class="c-info__button"
+      >
+        Next
+      </v-btn>
+    </div>
   </div>
 </template>
 
 <script>
+import { required, email } from 'vuelidate/lib/validators'
+
 export default {
   name: 'RegisterEmail',
   data() {
     return {
-      registerEmail: null
+      registerEmail: null,
+      variableWidth: 27
+    }
+  },
+  validations: {
+    registerEmail: { required, email }
+  },
+  computed: {
+    cssProps() {
+      return {
+        '--variable-wrapper': this.variableWidth + '%'
+      }
     }
   },
   watch: {
@@ -33,14 +59,48 @@ export default {
     }
   },
   methods: {
+    async navigationNext() {
+      this.$v.$touch()
+
+      if (this.$v.$invalid) {
+        return
+      }
+      const checkEmail = await this.checkEmailApi()
+
+      if (!checkEmail.error) {
+        const validation = await this.sendValidationCode()
+
+        if (!validation.error) {
+          this.$emit('nextStep')
+        } else {
+          this.errorValidation = this.$i18n.t('register.error.email.sending')
+        }
+      } else {
+        this.resendEmail = false
+        this.errorValidation = this.$i18n.t('register.error.email.exists')
+      }
+    },
     handleValidationEmailErrors() {
-      this.$emit('handleValidationEmailErrors')
+      const errors = []
+      if (!this.$v.registerEmail.$dirty) {
+        return errors
+      }
+
+      if (!this.$v.registerEmail.required) {
+        errors.push(this.$i18n.t('register.error.email.required'))
+      }
+
+      if (!this.$v.registerEmail.email) {
+        errors.push(this.$i18n.t('register.error.email.format'))
+      }
+
+      return errors
     }
   }
 }
 </script>
 
-<style>
+<style lang="scss">
 .c-info__input .v-input__control .v-input__slot {
   font-size: 30px;
   height: 90px;
@@ -55,6 +115,19 @@ export default {
   .v-text-field__slot
   .v-label--active {
   transform: translateY(-38px) scale(0.75) !important;
+}
+.c-info {
+  &__button-cont {
+    padding-right: var(--variable-wrapper);
+  }
+
+  &__button {
+    width: 180px;
+    height: 80px !important;
+    font-size: 21px !important;
+    color: #fff !important;
+    text-transform: none;
+  }
 }
 @media screen and (max-width: 1500px) {
   .c-info__input .v-input__control .v-input__slot {
@@ -88,6 +161,15 @@ export default {
     .v-text-field__slot
     .v-label--active {
     transform: translateY(-25px) scale(0.75) !important;
+  }
+  .c-info {
+    &__button {
+      width: 118px;
+      height: 54px !important;
+      font-size: 16px;
+      color: #fff;
+      text-transform: none;
+    }
   }
 }
 </style>

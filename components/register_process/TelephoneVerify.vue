@@ -10,7 +10,8 @@
       <v-select
         :items="prefixes"
         v-model="registerPrefix"
-        :hide-details="true"
+        :hide-details="handleValidationPhoneErrors().length === 0"
+        :error-messages="handleValidationPhoneErrors() || []"
         item-text="text"
         item-value="id"
         outlined
@@ -57,11 +58,24 @@
           </v-checkbox>
         </div>
       </div>
+      <div :style="cssProps" class="c-info__button-cont u-align-right">
+        <v-btn
+          @click="navigationNext"
+          depressed
+          x-large
+          color="#0086ff"
+          class="c-info__button"
+        >
+          Next
+        </v-btn>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { required } from 'vuelidate/lib/validators'
+
 export default {
   name: 'TelephoneVerify',
   data() {
@@ -76,6 +90,16 @@ export default {
       registerUkResident: 0
     }
   },
+  computed: {
+    cssProps() {
+      return {
+        '--variable-wrapper': this.variableWidth + '%'
+      }
+    }
+  },
+  validations: {
+    registerPhone: { required }
+  },
   watch: {
     registerPhone(value) {
       this.$emit('registerPhone', this.registerPhone)
@@ -85,6 +109,44 @@ export default {
     },
     registerUkResident(value) {
       this.$emit('registerUkPrefix', this.registerUkResident)
+    }
+  },
+  methods: {
+    async navigationNext() {
+      this.$v.$touch()
+
+      if (this.$v.$invalid) {
+        return
+      }
+      const checkPhone = await this.checkPhoneApi()
+
+      if (!checkPhone.error) {
+        const validation = await this.sendMobileValidationCode()
+
+        if (!validation.error) {
+          sessionStorage.verifyServiceId = validation.data.verifyServiceId
+          this.$emit('nextStep')
+        } else {
+          this.errorValidation = this.$i18n.t('register.error.phone.sending')
+        }
+      } else {
+        // eslint-disable-next-line no-console
+        console.log(checkPhone.message)
+        this.resendEmail = false
+        this.errorValidation = this.$i18n.t('register.error.phone.exists')
+      }
+    },
+    handleValidationPhoneErrors() {
+      const errors = []
+      if (!this.$v.registerPhone.$dirty) {
+        return errors
+      }
+
+      if (!this.$v.registerPhone.required) {
+        errors.push(this.$i18n.t('register.error.phone.required'))
+      }
+
+      return errors
     }
   }
 }

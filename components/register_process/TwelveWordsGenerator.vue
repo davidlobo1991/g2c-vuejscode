@@ -29,6 +29,18 @@
         </div>
       </div>
     </div>
+    <div :style="cssProps" class="c-info__button-cont u-align-right">
+      <v-btn
+        :disabled="responsabilityCheck === false"
+        @click="navigationNext"
+        depressed
+        x-large
+        color="#0086ff"
+        class="c-info__button"
+      >
+        Next
+      </v-btn>
+    </div>
   </div>
 </template>
 
@@ -49,6 +61,9 @@ export default {
     acceptedCheck(value) {
       this.responsabilityCheck = !this.responsabilityCheck
       this.$emit('CheckResponsability', value)
+    },
+    navigationNext() {
+      this.$emit('nextStep')
     }
   }
 }
