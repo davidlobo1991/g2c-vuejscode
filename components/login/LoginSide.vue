@@ -86,15 +86,7 @@ export default {
     return {
       createAccountIsVisible: false,
       loginIsVisible: false,
-      // viewportWidth: null,
-      // registerNick: null,
-      // loginNick: null,
       errorValidation: false
-      // formLogin: {
-      //   nick: '',
-      //   password: null,
-      //   words: null
-      // }
     }
   },
   watch: {

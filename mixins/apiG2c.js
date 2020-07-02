@@ -52,13 +52,14 @@ export const apiG2c = {
 
     /**
      * Create User
-     * @param {string} words - User's private 12 words.
+     * @param {function(*): *} words - User's private 12 words.
      * @param {string} application - Application where the user resides. An user MUST be associated to an application.
-     * @param {string} nick - Alias that will be used by the user.
+     * @param {any} nick - Alias that will be used by the user.
      * @return {Promise<string | null>} tokenid - The user identificator. Will be stored as a encrypted cookie on the browser.
      */
-    createUser(words, application, nick) {
+    createUser(nick, words) {
       try {
+        const application = this.g2c_application
         return new Promise((resolve, reject) => {
           // eslint-disable-next-line no-undef
           g2c_createUser(words, application, nick, (response) => {

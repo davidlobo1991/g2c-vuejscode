@@ -1,47 +1,63 @@
 <template>
-  <div class="c-account__profile">
-    <editAccountModal></editAccountModal>
-    <div class="c-account__profile--image-info-cont">
-      <div class="c-account__profile--img-cont">
+  <div class="c-profile__profile-card">
+    <div class="c-profile__profile-card--image-info-cont">
+      <div class="c-profile__profile-card--img-cont">
         <nuxt-link
           :src="require('@/assets/images/persona1.png')"
           tag="img"
           to="/"
-          class="c-account__profile--img"
+          class="c-profile__profile-card--img"
         />
-        <div class="c-account__profile--status u-status--available"></div>
+        <div class="c-profile__profile-card--status u-status--available"></div>
       </div>
-      <div class="c-account__profile--details-cont">
-        <div class="c-account__profile--details">
-          <span class="c-account__profile--details-num">210</span>
+      <div class="c-profile__profile-card--details-cont">
+        <div class="c-profile__profile-card--details">
+          <span class="c-profile__profile-card--details-num">210</span>
           Connections
         </div>
-        <div class="c-account__profile--details">
-          <span class="c-account__profile--details-num">176</span>
+        <div class="c-profile__profile-card--details">
+          <span class="c-profile__profile-card--details-num">176</span>
           Recommends
         </div>
       </div>
+      <div class="c-profile__profile-card--button-cont">
+        <v-btn color="#0087FF" dark class="c-profile__profile-card--button">
+          <div>
+            Request eMeeting
+          </div>
+        </v-btn>
+        <v-btn color="#0087FF" dark class="c-profile__profile-card--button">
+          <div>
+            Send a Message
+          </div>
+        </v-btn>
+        <v-btn color="#0087FF" dark class="c-profile__profile-card--button">
+          <div>
+            Pending
+          </div>
+        </v-btn>
+      </div>
     </div>
-    <div class="c-account__profile--text-cont">
-      <div class="c-account__profile--name">Jessica O'Mallie</div>
-      <div class="c-account__profile--username">@jessomallie</div>
-      <div class="c-account__profile--description">
+    <div class="c-profile__profile-card--text-cont">
+      <div class="c-profile__profile-card--name">Jessica O'Mallie</div>
+      <div class="c-profile__profile-card--username">@jessomallie</div>
+      <div class="c-profile__profile-card--description">
         Bitcoin Estrategics, Formation in UX/UI & Animal Lover
       </div>
-      <div class="c-account__profile--title">Knowledge</div>
-      <div class="c-account__profile--label-cont">
-        <v-chip class="c-account__profile--label" color="#EFF1F2" label>
+      <div class="c-profile__profile-card--title">Knowledge</div>
+      <div class="c-profile__profile-card--label-cont">
+        <v-chip class="c-profile__profile-card--label" color="#EFF1F2" label>
           Design
         </v-chip>
-        <v-chip class="c-account__profile--label" color="#EFF1F2" label>
+        <v-chip class="c-profile__profile-card--label" color="#EFF1F2" label>
           Bitcoin
         </v-chip>
-        <v-chip class="c-account__profile--label" color="#EFF1F2" label>
+        <v-chip class="c-profile__profile-card--label" color="#EFF1F2" label>
           Startups
         </v-chip>
       </div>
-      <div class="c-account__profile--title">Summary</div>
-      <div class="c-account__profile--summary">
+      <div class="c-profile__profile-card--title">Summary</div>
+      <div class="c-profile__profile-card--summary">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla id rutrum
         urna, et sodales arcu. Vestibulum at mauris ultrices, posuere neque eu,
         egestas neque. Sed erat neque, euismod vitae faucibus sit amet, euismod
@@ -49,17 +65,17 @@
         finibus iaculis lacus vehicula egestas neque. Sed erat neque, euismod
         vita.
       </div>
-      <div class="c-account__profile--title">Languages</div>
-      <div class="c-account__profile--label-cont">
-        <v-chip class="c-account__profile--label" color="#EFF1F2" label>
+      <div class="c-profile__profile-card--title">Languages</div>
+      <div class="c-profile__profile-card--label-cont">
+        <v-chip class="c-profile__profile-card--label" color="#EFF1F2" label>
           English
         </v-chip>
-        <v-chip class="c-account__profile--label" color="#EFF1F2" label>
+        <v-chip class="c-profile__profile-card--label" color="#EFF1F2" label>
           Spanish
         </v-chip>
       </div>
-      <div class="c-account__profile--title">Social Media</div>
-      <div class="c-account__profile--username">
+      <div class="c-profile__profile-card--title">Social Media</div>
+      <div class="c-profile__profile-card--username">
         <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>
         <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>
         <v-icon color="#8C8C8C">mdi-twitter</v-icon>
@@ -71,13 +87,9 @@
 </template>
 
 <script>
-import editAccountModal from '~/components/account/modals/editAccount'
-
 export default {
-  name: 'AccountProfile',
-  components: {
-    editAccountModal
-  },
+  name: 'Profile',
+  components: {},
   data() {
     return {
       dialog: false
@@ -102,8 +114,8 @@ export default {
     background-color: #d6d6d6;
   }
 }
-.c-account {
-  &__profile {
+.c-profile {
+  &__profile-card {
     display: flex;
     position: relative;
     padding: 20px;
@@ -159,6 +171,15 @@ export default {
         font-weight: bold;
       }
     }
+    &--button-cont {
+      background-color: green;
+      display: flex;
+      flex-flow: column;
+      width: 100%;
+    }
+    &--button {
+      margin-top: 20px;
+    }
     &--text-cont {
       padding-left: 40px;
     }
@@ -193,8 +214,8 @@ export default {
   }
 }
 @media screen and (max-width: 1500px) {
-  .c-account {
-    &__profile {
+  .c-profile {
+    &__profile-card {
       &--img-cont {
         width: 178px;
         height: 178px;
@@ -241,8 +262,8 @@ export default {
 }
 
 @media screen and (max-width: 1200px) {
-  .c-account {
-    &__profile {
+  .c-profile {
+    &__profile-card {
       flex-flow: column;
       &--img-cont {
         height: auto;
@@ -292,8 +313,8 @@ export default {
   }
 }
 @media screen and (max-width: 992px) {
-  .c-account {
-    &__profile {
+  .c-profile {
+    &__profile-card {
       flex-flow: column;
       &--img-cont {
         height: auto;
@@ -308,8 +329,8 @@ export default {
   }
 }
 @media screen and (max-width: 768px) {
-  .c-account {
-    &__profile {
+  .c-profile {
+    &__profile-card {
       /*flex-flow: row;*/
     }
   }

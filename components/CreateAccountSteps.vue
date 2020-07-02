@@ -91,7 +91,8 @@ export default {
       email: (state) => state.register.email,
       mobilePrefix: (state) => state.register.mobile_prefix,
       mobileNumber: (state) => state.register.mobile_number,
-      ukresident: (state) => state.register.ukresident
+      ukresident: (state) => state.register.ukresident,
+      words: (state) => state.register.words
     })
   },
   watch: {
@@ -188,8 +189,24 @@ export default {
         this.step += 1
       }
     },
-    signIn() {
-      this.signInApi()
+    async signIn() {
+      try {
+        console.log(this.nick)
+        console.log(this.words)
+
+        const tokenid = await this.createUser(this.nick, this.words)
+        const register = await this.signInApi(tokenid)
+        console.log(register)
+
+        if (!register.error) {
+          console.log('Created user')
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('testCreateUser - Error')
+        // eslint-disable-next-line no-console
+        console.error(error)
+      }
     },
     getWidth() {
       return Math.max(

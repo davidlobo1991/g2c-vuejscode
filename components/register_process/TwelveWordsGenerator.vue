@@ -43,6 +43,7 @@ export default {
   },
   mounted() {
     this.generatedWords = this.getRandomWords()
+    this.$store.commit('register/SET_WORDS', this.generatedWords)
   },
   methods: {
     acceptedCheck(value) {
