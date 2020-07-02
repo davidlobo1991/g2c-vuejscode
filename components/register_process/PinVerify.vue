@@ -191,22 +191,21 @@ export default {
         }
       }
     },
-    resendCode() {
+    async resendCode() {
       let sendValidation = null
       if (this.kind === 'email') {
-        sendValidation = this.sendValidationCode()
-        sendValidation.then((result) => {
-          if (!result.error) {
-            this.resendEmail = true
-            this.errorValidation = false
-          } else {
-            this.errorValidation = true
-          }
-        })
+        sendValidation = await this.sendValidationCode()
+
+        if (!sendValidation.error) {
+          this.resendEmail = true
+          this.errorValidation = false
+        } else {
+          this.errorValidation = true
+        }
       } else {
-        sendValidation = this.sendMobileValidationCode()
+        sendValidation = await this.sendMobileValidationCode()
         sendValidation.then((result) => {
-          if (!result.error) {
+          if (!sendValidation.error) {
             this.resendEmail = true
             sessionStorage.verifyServiceId = result.data.verifyServiceId
           } else {
