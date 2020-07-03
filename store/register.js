@@ -164,8 +164,8 @@ const actions = {
    */
   async signInApi({ getters }, token) {
     const user = {
-      nick: getters.getNick,
-      password: getters.getPassword,
+      nick: sessionStorage.registerNick,
+      password: sessionStorage.registerPassword,
       email: getters.getEmail,
       mobile_prefix: getters.getMobilePrefix,
       mobile_number: getters.getMobileNumber,

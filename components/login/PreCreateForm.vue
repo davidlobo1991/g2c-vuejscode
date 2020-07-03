@@ -67,7 +67,8 @@ export default {
   },
   computed: {
     ...mapState({
-      nick: (state) => state.register.nick
+      nick: (state) => state.register.nick,
+      password: (state) => state.register.password
     })
   },
   methods: {
@@ -85,8 +86,9 @@ export default {
           throw validation.message
         }
 
-        // @TODO: Username is valid, save nick in session storage??
+        // Save nick and password in session because if the user update the site they will be lost
         sessionStorage.registerNick = this.nick
+        sessionStorage.registerPassword = this.password
 
         // Load Create Account Workflow
         await this.$router.push(this.localePath('create-account'))
