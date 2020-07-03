@@ -2,29 +2,6 @@ import { cookies } from '~/mixins/cookies'
 
 export const apiG2c = {
   mixins: [cookies],
-  // // Code move to nuxt.config.js
-  // head() {
-  //   return {
-  //     script: [
-  //       {
-  //         src: 'js/bsv/1.5.0/bsv.min.js',
-  //         defer: true
-  //       },
-  //       {
-  //         src: 'js/bsv/1.5.0/bsv-message.min.js',
-  //         defer: true
-  //       },
-  //       {
-  //         src: 'js/bsv/1.5.0/bsv-mnemonic.min.js',
-  //         defer: true
-  //       },
-  //       {
-  //         src: 'https://gate2chain.ddns.net:5791/libs/g2clib.min.js',
-  //         defer: true
-  //       }
-  //     ]
-  //   }
-  // },
   data() {
     return {
       g2c_words: '',
@@ -52,17 +29,16 @@ export const apiG2c = {
 
     /**
      * Create User
-     * @param {function(*): *} words - User's private 12 words.
-     * @param {string} application - Application where the user resides. An user MUST be associated to an application.
      * @param {any} nick - Alias that will be used by the user.
+     * @param userwords
      * @return {Promise<string | null>} tokenid - The user identificator. Will be stored as a encrypted cookie on the browser.
      */
-    createUser(nick, words) {
+    createUser(nick, userwords) {
       try {
         const application = this.g2c_application
         return new Promise((resolve, reject) => {
           // eslint-disable-next-line no-undef
-          g2c_createUser(words, application, nick, (response) => {
+          g2cclient_createUser({ userwords, application, nick }, (response) => {
             if (response === undefined) {
               reject(Error('Undefined response'))
             }
@@ -86,7 +62,7 @@ export const apiG2c = {
 
     /**
      * User Login
-     * @param {string} words - User's private 12 words.
+     * @param userwords
      * @param {string} application - Application where the user resides. An user MUST be associated to an application.
      * @param {string} nick - Alias that will be used by the user.
      * @return {object} Schema:
@@ -96,12 +72,12 @@ export const apiG2c = {
      *   tokenc1: Token required for API operations. Stored as cookie.
      * }
      */
-    loginUser(words, application, nick) {
+    loginUser(userwords, application, nick) {
       // eslint-disable-next-line no-unreachable
       try {
         return new Promise((resolve, reject) => {
           // eslint-disable-next-line no-undef
-          g2c_loginUser(words, application, nick, (response) => {
+          g2cclient_loginUser({ userwords, application, nick }, (response) => {
             if (response === undefined) {
               reject(Error('Undefined response'))
             }
@@ -149,16 +125,19 @@ export const apiG2c = {
           this.deleteCookie('nick')
 
           // eslint-disable-next-line no-undef
-          g2c_logoutUser(tokenid, tokens1, application, nick, (response) => {
-            if (response === undefined) {
-              reject(Error('Undefined response'))
+          g2cclient_logoutUser(
+            { tokenid, tokens1, application, nick },
+            (response) => {
+              if (response === undefined) {
+                reject(Error('Undefined response'))
+              }
+              if (response.hasOwnProperty('error')) {
+                reject(new Error(response.error))
+              } else {
+                resolve(response.data)
+              }
             }
-            if (response.hasOwnProperty('error')) {
-              reject(new Error(response.error))
-            } else {
-              resolve(response.data)
-            }
-          })
+          )
         })
           .then((response) => response)
           .catch((error) => {
