@@ -28,7 +28,6 @@
         Next
       </v-btn>
     </div>
-    <div v-show="errorValidation" class="error">{{ errorValidation }}</div>
   </div>
 </template>
 
@@ -76,10 +75,12 @@ export default {
           this.$emit('nextStep')
         } else {
           this.errorValidation = this.$i18n.t('register.error.email.sending')
+          this.$v.$touch()
         }
       } else {
         this.resendEmail = false
         this.errorValidation = this.$i18n.t('register.error.email.exists')
+        this.$v.$touch()
       }
     },
     handleValidationEmailErrors() {
@@ -94,6 +95,10 @@ export default {
 
       if (!this.$v.registerEmail.email) {
         errors.push(this.$i18n.t('register.error.email.format'))
+      }
+
+      if (this.errorValidation) {
+        errors.push(this.errorValidation)
       }
 
       return errors

@@ -70,7 +70,6 @@
         Next
       </v-btn>
     </div>
-    <div v-show="errorValidation" class="error">{{ errorValidation }}</div>
   </div>
 </template>
 
@@ -130,12 +129,14 @@ export default {
           this.$emit('nextStep')
         } else {
           this.errorValidation = this.$i18n.t('register.error.phone.sending')
+          this.$v.$touch()
         }
       } else {
         // eslint-disable-next-line no-console
         console.log(checkPhone.message)
         this.resendEmail = false
         this.errorValidation = this.$i18n.t('register.error.phone.exists')
+        this.$v.$touch()
       }
     },
     handleValidationPhoneErrors() {
@@ -146,6 +147,10 @@ export default {
 
       if (!this.$v.registerPhone.required) {
         errors.push(this.$i18n.t('register.error.phone.required'))
+      }
+
+      if (this.errorValidation) {
+        errors.push(this.errorValidation)
       }
 
       return errors

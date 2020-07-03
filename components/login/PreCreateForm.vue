@@ -30,8 +30,6 @@
         </v-btn>
       </div>
     </div>
-    <div v-show="errorValidation" class="error">{{ errorValidation }}</div>
-
     <p class="c-login__details">
       Already a member?
       <a @click="showLogin" href="#">
@@ -94,6 +92,7 @@ export default {
         await this.$router.push(this.localePath('create-account'))
       } catch (error) {
         this.errorValidation = this.$i18n.t('register.error.nick.exists')
+        this.$v.$touch()
         // eslint-disable-next-line no-console
         console.error('PreCreateForm@checkUser - Error')
         // eslint-disable-next-line no-console
@@ -114,6 +113,10 @@ export default {
 
       if (!this.$v.formRegister.nick.required) {
         errors.push(this.$i18n.t('register.error.nick.required'))
+      }
+
+      if (this.errorValidation) {
+        errors.push(this.errorValidation)
       }
 
       return errors
