@@ -10,8 +10,7 @@
       <v-select
         :items="prefixes"
         v-model="registerPrefix"
-        :hide-details="handleValidationPhoneErrors().length === 0"
-        :error-messages="handleValidationPhoneErrors() || []"
+        :hide-details="true"
         item-text="text"
         item-value="id"
         outlined
@@ -21,7 +20,8 @@
       </v-select>
       <v-text-field
         v-model="registerPhone"
-        :hide-details="true"
+        :hide-details="handleValidationPhoneErrors().length === 0"
+        :error-messages="handleValidationPhoneErrors() || []"
         outlined
         class="o-layout__item u-1/1 u-1/4@m c-info__input--phone c-test"
         label="Phone number"
