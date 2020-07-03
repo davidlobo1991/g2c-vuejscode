@@ -2,6 +2,7 @@ export default {
   aceptar: 'Accept',
   cancelar: 'Cancel',
   cerrar: 'Close',
+  edit_profile: 'Edit Profile',
   register: {
     error: {
       email: {
@@ -26,9 +27,7 @@ export default {
         length: 'Password min lenght 6'
       }
     }
-  }
-  cerrar: 'Close',
-  edit_profile: 'Edit Profile',
+  },
   login: {
     error: {
       message: 'Username and/or password invalid'

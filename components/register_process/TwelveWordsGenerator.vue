@@ -29,7 +29,7 @@
         </div>
       </div>
     </div>
-    <div :style="cssProps" class="c-info__button-cont u-align-right">
+    <div class="c-info__button-cont u-align-right">
       <v-btn
         :disabled="responsabilityCheck === false"
         @click="navigationNext"
