@@ -77,6 +77,7 @@ export default {
     },
     ...mapState({
       nick: (state) => state.register.nick,
+      password: (state) => state.register.password,
       email: (state) => state.register.email,
       mobilePrefix: (state) => state.register.mobile_prefix,
       mobileNumber: (state) => state.register.mobile_number,
@@ -147,8 +148,10 @@ export default {
       try {
         const tokenid = await this.createUser(this.nick, this.words)
         const register = await this.signInApi(tokenid)
+
         if (!register.error) {
           console.log('Created user')
+          this.login(this.nick, this.words)
         }
       } catch (error) {
         // eslint-disable-next-line no-console
@@ -165,6 +168,39 @@ export default {
     },
     navigationPrevious() {
       this.step = this.step - 1
+    },
+    async login() {
+      try {
+        // eslint-disable-next-line no-unused-vars
+        let g2cLoginResponse = null
+
+        g2cLoginResponse = await this.loginUser(
+          this.words,
+          this.g2c_application,
+          this.nick
+        )
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('G2C Login error')
+        // eslint-disable-next-line no-console
+        console.error(error)
+      }
+
+      try {
+        const response = await this.$auth.loginWith('local', {
+          data: {
+            nick: this.nick,
+            password: this.password
+          }
+        })
+        // eslint-disable-next-line no-console
+        console.log(response)
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('NetworkSV Login error')
+        // eslint-disable-next-line no-console
+        console.error(error)
+      }
     },
     onWindowSizeChange() {
       this.viewportWidth = this.getWidth()

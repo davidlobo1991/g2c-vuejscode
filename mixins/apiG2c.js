@@ -64,7 +64,7 @@ export const apiG2c = {
      * User Login
      * @param userwords
      * @param {string} application - Application where the user resides. An user MUST be associated to an application.
-     * @param {string} nick - Alias that will be used by the user.
+     * @param {any} nick - Alias that will be used by the user.
      * @return {object} Schema:
      * {
      *   tokenid: The user identificator. Will be stored as a encrypted cookie on the browser.
