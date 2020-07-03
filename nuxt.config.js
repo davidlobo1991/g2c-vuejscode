@@ -185,7 +185,7 @@ export default {
    */
   axios: {
     headers: {
-      common: { 'x-authorization': process.env.API_KEY }
+      common: { 'x-authorization': 'BGFs9tEvskC61SdpIYZU8UG' }
     },
     baseURL:
       process.env.API_BASE_URL || 'https://networksv-backend.herokuapp.com/api/'
