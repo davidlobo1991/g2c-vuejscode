@@ -146,7 +146,12 @@ export default {
     },
     async signIn() {
       try {
-        const tokenid = await this.createUser(this.nick, this.words)
+        /** Send registerNick from Storage because if we get the nick of
+        the store and the user update the site, the nickname will be lost */
+        const tokenid = await this.createUser(
+          sessionStorage.registerNick,
+          this.words
+        )
         const register = await this.signInApi(tokenid)
 
         if (!register.error) {
@@ -177,7 +182,7 @@ export default {
         g2cLoginResponse = await this.loginUser(
           this.words,
           this.g2c_application,
-          this.nick
+          sessionStorage.registerNick
         )
       } catch (error) {
         // eslint-disable-next-line no-console
