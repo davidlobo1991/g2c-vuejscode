@@ -45,7 +45,7 @@ export const apiG2c = {
             if (response.hasOwnProperty('error')) {
               reject(new Error(response.error))
             } else {
-              resolve(response.data.tokenid)
+              resolve(response.data.userauth)
             }
           })
         })
