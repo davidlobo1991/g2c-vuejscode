@@ -18,7 +18,8 @@ export default {
         required: 'Phone required'
       },
       nick: {
-        required: 'The username is required'
+        required: 'The username is required',
+        exists: 'The username is already taken'
       },
       password: {
         required: 'The password is required',

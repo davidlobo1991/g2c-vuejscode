@@ -28,6 +28,7 @@
         Next
       </v-btn>
     </div>
+    <div v-show="errorValidation" class="error">{{ errorValidation }}</div>
   </div>
 </template>
 
@@ -39,7 +40,8 @@ export default {
   data() {
     return {
       registerEmail: null,
-      variableWidth: 27
+      variableWidth: 27,
+      errorValidation: null
     }
   },
   validations: {

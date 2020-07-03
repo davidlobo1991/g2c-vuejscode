@@ -30,6 +30,8 @@
         </v-btn>
       </div>
     </div>
+    <div v-show="errorValidation" class="error">{{ errorValidation }}</div>
+
     <p class="c-login__details">
       Already a member?
       <a @click="showLogin" href="#">
@@ -50,7 +52,8 @@ export default {
       formRegister: {
         nick: '',
         password: null
-      }
+      },
+      errorValidation: null
     }
   },
   validations: {
@@ -90,6 +93,7 @@ export default {
         // Load Create Account Workflow
         await this.$router.push(this.localePath('create-account'))
       } catch (error) {
+        this.errorValidation = this.$i18n.t('register.error.nick.exists')
         // eslint-disable-next-line no-console
         console.error('PreCreateForm@checkUser - Error')
         // eslint-disable-next-line no-console

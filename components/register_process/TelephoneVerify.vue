@@ -70,6 +70,7 @@
         Next
       </v-btn>
     </div>
+    <div v-show="errorValidation" class="error">{{ errorValidation }}</div>
   </div>
 </template>
 
@@ -87,7 +88,8 @@ export default {
       ],
       registerPhone: null,
       registerPrefix: null,
-      registerUkResident: 0
+      registerUkResident: 0,
+      errorValidation: null
     }
   },
   computed: {

@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+require('dotenv').config()
 // eslint-disable-next-line nuxt/no-cjs-in-config
 const webpack = require('webpack')
 
@@ -64,7 +65,8 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
+    '@nuxtjs/dotenv'
   ],
   /*
    ** Nuxt.js modules
@@ -172,8 +174,11 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    common: 'x-authorization: BGFs9tEvskC61SdpIYZU8UG',
-    baseURL: 'https://networksv-backend.herokuapp.com/api/'
+    headers: {
+      common: { 'x-authorization': process.env.API_KEY }
+    },
+    baseURL:
+      process.env.API_BASE_URL || 'https://networksv-backend.herokuapp.com/api/'
   },
   /*
    ** vuetify module configuration
