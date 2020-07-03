@@ -5,8 +5,8 @@ export const apiNetworkSv = {
   methods: {
     /**
      * Validate email code
-     * @param {string} codeString - Validation email introduced code.
      * @returns {Promise<void>}
+     * @param code
      */
     async validationCode(code) {
       try {
@@ -24,7 +24,6 @@ export const apiNetworkSv = {
 
     /**
      * Validation phone code
-     * @param verifyServiceId
      * @param code
      * @returns {Promise<void>}
      */
@@ -32,8 +31,10 @@ export const apiNetworkSv = {
       try {
         const response = await this.$store.dispatch(
           'register/validationPhoneCode',
-          sessionStorage.verifyServiceId,
-          code
+          {
+            verifyServiceId: sessionStorage.verifyServiceId,
+            codeString: code
+          }
         )
         return response.data
       } catch (error) {
@@ -75,8 +76,7 @@ export const apiNetworkSv = {
      */
     async checkUserApi() {
       try {
-        const response = await this.$store.dispatch('register/checkUserApi')
-        return response
+        return await this.$store.dispatch('register/checkUserApi')
       } catch (error) {
         throw error
       }
@@ -88,9 +88,7 @@ export const apiNetworkSv = {
      */
     async checkEmailApi() {
       try {
-        const response = await this.$store.dispatch('register/checkEmailApi')
-
-        return response
+        return await this.$store.dispatch('register/checkEmailApi')
       } catch (error) {
         throw error
       }
@@ -111,9 +109,7 @@ export const apiNetworkSv = {
      */
     async checkPhoneApi() {
       try {
-        const response = await this.$store.dispatch('register/checkPhoneApi')
-
-        return response
+        return await this.$store.dispatch('register/checkPhoneApi')
       } catch (error) {
         throw error
       }
@@ -129,11 +125,9 @@ export const apiNetworkSv = {
     /**
      * Sign in backend and firebase
      */
-    async signInApi() {
+    async signInApi(tokenid) {
       try {
-        const response = await this.$store.dispatch('register/signInApi')
-
-        return response
+        return await this.$store.dispatch('register/signInApi', tokenid)
       } catch (error) {
         throw error
       }

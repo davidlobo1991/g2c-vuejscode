@@ -20,7 +20,8 @@
       </v-select>
       <v-text-field
         v-model="registerPhone"
-        :hide-details="true"
+        :hide-details="handleValidationPhoneErrors().length === 0"
+        :error-messages="handleValidationPhoneErrors() || []"
         outlined
         class="o-layout__item u-1/1 u-1/4@m c-info__input--phone c-test"
         label="Phone number"
@@ -58,10 +59,23 @@
         </div>
       </div>
     </div>
+    <div class="c-info__button-cont u-align-right">
+      <v-btn
+        @click="navigationNext"
+        depressed
+        x-large
+        color="#0086ff"
+        class="c-info__button"
+      >
+        Next
+      </v-btn>
+    </div>
   </div>
 </template>
 
 <script>
+import { required } from 'vuelidate/lib/validators'
+
 export default {
   name: 'TelephoneVerify',
   data() {
@@ -73,8 +87,19 @@ export default {
       ],
       registerPhone: null,
       registerPrefix: null,
-      registerUkResident: 0
+      registerUkResident: 0,
+      errorValidation: null
     }
+  },
+  computed: {
+    cssProps() {
+      return {
+        // '--variable-wrapper': this.variableWidth + '%'
+      }
+    }
+  },
+  validations: {
+    registerPhone: { required }
   },
   watch: {
     registerPhone(value) {
@@ -85,6 +110,50 @@ export default {
     },
     registerUkResident(value) {
       this.$emit('registerUkPrefix', this.registerUkResident)
+    }
+  },
+  methods: {
+    async navigationNext() {
+      this.$v.$touch()
+
+      if (this.$v.$invalid) {
+        return
+      }
+      const checkPhone = await this.checkPhoneApi()
+
+      if (!checkPhone.error) {
+        const validation = await this.sendMobileValidationCode()
+
+        if (!validation.error) {
+          sessionStorage.verifyServiceId = validation.data.verifyServiceId
+          this.$emit('nextStep')
+        } else {
+          this.errorValidation = this.$i18n.t('register.error.phone.sending')
+          this.$v.$touch()
+        }
+      } else {
+        // eslint-disable-next-line no-console
+        console.log(checkPhone.message)
+        this.resendEmail = false
+        this.errorValidation = this.$i18n.t('register.error.phone.exists')
+        this.$v.$touch()
+      }
+    },
+    handleValidationPhoneErrors() {
+      const errors = []
+      if (!this.$v.registerPhone.$dirty) {
+        return errors
+      }
+
+      if (!this.$v.registerPhone.required) {
+        errors.push(this.$i18n.t('register.error.phone.required'))
+      }
+
+      if (this.errorValidation) {
+        errors.push(this.errorValidation)
+      }
+
+      return errors
     }
   }
 }

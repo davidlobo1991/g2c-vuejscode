@@ -6,24 +6,22 @@ const state = () => ({
   // phoneChecked: false,
   // checkoutStatus: null,
   nick: null,
+  password: null,
   email: null,
   mobile_prefix: null,
   mobile_number: null,
-  ukresident: null
+  ukresident: null,
+  words: null
 })
 
 const getters = {
-  // getItems: (state) => state.items,
-  // getErrorValidation: (state) => state.errorValidation,
-  // getUserChecked: (state) => state.userChecked,
-  // getEmailChecked: (state) => state.emailChecked,
-  // getPhoneChecked: (state) => state.phoneChecked,
-  // getCheckoutStatus: (state) => state.checkoutStatus,
   getNick: (state) => state.nick,
+  getPassword: (state) => state.password,
   getEmail: (state) => state.email,
   getMobilePrefix: (state) => state.mobile_prefix,
   getMobileNumber: (state) => state.mobile_number,
-  getUkresident: (state) => state.ukresident
+  getUkresident: (state) => state.ukresident,
+  getWords: (state) => state.words
 }
 
 const actions = {
@@ -52,25 +50,26 @@ const actions = {
    * Validation phone code
    * @param getters
    * @param commit
-   * @param verifyServiceId
-   * @param codeString
+   * @param data
    * @returns {Promise<void>}
    */
-  async validationPhoneCode({ getters, commit }, verifyServiceId, codeString) {
+  async validationPhoneCode({ getters, commit }, data) {
     try {
       const mobilePrefix = getters.getMobilePrefix
       const mobileNumber = getters.getMobileNumber
       const phone = `${mobilePrefix}${mobileNumber}`
 
-      const test = await this.$axios.post(
+      const response = await this.$axios.post(
         '/twilio/services/verify/check-verification-token',
         {
-          verify_service_id: verifyServiceId,
-          code: codeString,
+          verify_service_id: data.verifyServiceId,
+          code: data.codeString,
           to: phone
         }
       )
-      console.log(test)
+
+      console.log(response)
+      return response
     } catch (error) {
       throw error
     }
@@ -163,26 +162,27 @@ const actions = {
   /**
    * Sign in backend and firebase
    */
-  async signInApi({ getters }) {
+  async signInApi({ getters }, token) {
     const user = {
       nick: getters.getNick,
+      password: getters.getPassword,
       email: getters.getEmail,
       mobile_prefix: getters.getMobilePrefix,
       mobile_number: getters.getMobileNumber,
-      ukresident: getters.getUkresident
+      ukresident: getters.getUkresident,
+      tokenid: token
     }
 
     const data = {
       user
     }
 
+    console.log(data)
+
     try {
       return await this.$axios
         .post('users/create', data)
         .then((response) => response.data)
-        .error((error) => {
-          throw error
-        })
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error)
@@ -201,6 +201,9 @@ const mutations = {
   SET_NICK(state, nick) {
     state.nick = nick
   },
+  SET_PASSWORD(state, password) {
+    state.password = password
+  },
   SET_EMAIL(state, email) {
     state.email = email
   },
@@ -212,6 +215,9 @@ const mutations = {
   },
   SET_UKRESIDENT(state, ukresident) {
     state.ukresident = ukresident
+  },
+  SET_WORDS(state, words) {
+    state.words = words
   }
 }
 

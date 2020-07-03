@@ -12,7 +12,7 @@
         />
       </div>
       <div v-show="1 === step">
-        <RegisterEmail @registerEmail="saveEmail" />
+        <RegisterEmail @registerEmail="saveEmail" @nextStep="nextStep" />
       </div>
       <div v-show="2 === step">
         <PinVerify @nextStep="nextStep" kind="email" />
@@ -21,6 +21,7 @@
         <TwelveWordsGenerator
           ref="TwelveWordsGenerator"
           @CheckResponsability="getCheck"
+          @nextStep="nextStep"
         />
       </div>
       <div v-show="4 === step">
@@ -28,23 +29,11 @@
           @registerPhone="savePhone"
           @registerPrefix="savePrefix"
           @registerUkPrefix="saveUkResident"
+          @nextStep="nextStep"
         />
       </div>
       <div v-show="5 === step">
         <PinVerify @signIn="signIn" kind="telephone" />
-      </div>
-      <div :style="cssProps" class="c-info__button-cont u-align-right">
-        <v-btn
-          :disabled="responsabilityCheck == false && step == 3 ? true : false"
-          v-if="step !== 5 && step !== 2"
-          @click="navigationNext"
-          depressed
-          x-large
-          color="#0086ff"
-          class="c-info__button"
-        >
-          Next
-        </v-btn>
       </div>
     </div>
   </div>
@@ -77,7 +66,7 @@ export default {
       registerPhone: null,
       registerPrefix: null,
       // registerEmail: null,
-      errorValidation: false
+      errorValidation: null
     }
   },
   computed: {
@@ -88,10 +77,12 @@ export default {
     },
     ...mapState({
       nick: (state) => state.register.nick,
+      password: (state) => state.register.password,
       email: (state) => state.register.email,
       mobilePrefix: (state) => state.register.mobile_prefix,
       mobileNumber: (state) => state.register.mobile_number,
-      ukresident: (state) => state.register.ukresident
+      ukresident: (state) => state.register.ukresident,
+      words: (state) => state.register.words
     })
   },
   watch: {
@@ -150,46 +141,24 @@ export default {
     /**
      * If is the step 1 (introduce email) will verify the email and send the validation code
      */
-    async navigationNext() {
-      if (this.step === 1) {
-        const checkEmail = await this.checkEmailApi()
-
-        if (!checkEmail.error) {
-          const validation = await this.sendValidationCode()
-
-          if (!validation.error) {
-            this.step += 1
-          } else {
-            this.errorValidation = true
-          }
-        } else {
-          this.resendEmail = false
-          this.errorValidation = true
-        }
-      } else if (this.step === 4) {
-        const checkPhone = await this.checkPhoneApi()
-
-        if (!checkPhone.error) {
-          const validation = await this.sendMobileValidationCode()
-
-          if (!validation.error) {
-            sessionStorage.verifyServiceId = validation.data.verifyServiceId
-            this.step += 1
-          } else {
-            this.errorValidation = true
-          }
-        } else {
-          // eslint-disable-next-line no-console
-          console.log(checkPhone.message)
-          this.resendEmail = false
-          this.errorValidation = true
-        }
-      } else {
-        this.step += 1
-      }
+    navigationNext() {
+      this.step += 1
     },
-    signIn() {
-      this.signInApi()
+    async signIn() {
+      try {
+        const tokenid = await this.createUser(this.nick, this.words)
+        const register = await this.signInApi(tokenid)
+
+        if (!register.error) {
+          console.log('Created user')
+          this.login(this.nick, this.words)
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('testCreateUser - Error')
+        // eslint-disable-next-line no-console
+        console.error(error)
+      }
     },
     getWidth() {
       return Math.max(
@@ -199,6 +168,39 @@ export default {
     },
     navigationPrevious() {
       this.step = this.step - 1
+    },
+    async login() {
+      try {
+        // eslint-disable-next-line no-unused-vars
+        let g2cLoginResponse = null
+
+        g2cLoginResponse = await this.loginUser(
+          this.words,
+          this.g2c_application,
+          this.nick
+        )
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('G2C Login error')
+        // eslint-disable-next-line no-console
+        console.error(error)
+      }
+
+      try {
+        const response = await this.$auth.loginWith('local', {
+          data: {
+            nick: this.nick,
+            password: this.password
+          }
+        })
+        // eslint-disable-next-line no-console
+        console.log(response)
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('NetworkSV Login error')
+        // eslint-disable-next-line no-console
+        console.error(error)
+      }
     },
     onWindowSizeChange() {
       this.viewportWidth = this.getWidth()

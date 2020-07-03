@@ -22,6 +22,8 @@
       <div class="c-info__pincode-cont">
         <v-text-field
           id="inputNumberBox1"
+          :hide-details="true"
+          :error-messages="handleValidationCodeErrors() || []"
           v-model="verificationCode[0]"
           class="c-info__pincode__number u-mrh-xs"
           outlined
@@ -35,6 +37,8 @@
         </v-text-field>
         <v-text-field
           id="inputNumberBox2"
+          :hide-details="true"
+          :error-messages="handleValidationCodeErrors() || []"
           v-model="verificationCode[1]"
           class="c-info__pincode__number u-mrh-xs"
           outlined
@@ -48,6 +52,8 @@
         </v-text-field>
         <v-text-field
           id="inputNumberBox3"
+          :hide-details="true"
+          :error-messages="handleValidationCodeErrors() || []"
           v-model="verificationCode[2]"
           class="c-info__pincode__number u-mrh-xs"
           outlined
@@ -61,6 +67,8 @@
         </v-text-field>
         <v-text-field
           id="inputNumberBox4"
+          :hide-details="true"
+          :error-messages="handleValidationCodeErrors() || []"
           v-model="verificationCode[3]"
           class="c-info__pincode__number u-mrh-xs"
           outlined
@@ -74,6 +82,8 @@
         </v-text-field>
         <v-text-field
           id="inputNumberBox5"
+          :hide-details="true"
+          :error-messages="handleValidationCodeErrors() || []"
           v-model="verificationCode[4]"
           class="c-info__pincode__number u-mrl-xs"
           outlined
@@ -85,6 +95,7 @@
         >
         </v-text-field>
       </div>
+      <div v-show="errorValidation" class="c-error">{{ errorValidation }}</div>
 
       <div class="c-info__button--cont">
         <div class="c-info__button">
@@ -116,8 +127,7 @@
         </div>
       </div>
     </div>
-    <div v-show="errorValidation" class="error">Error code</div>
-    <div v-show="resendEmail" class="success">Email resend</div>
+    <div v-show="resendEmail" class="c-success">Email resend</div>
 
     <div class="c-info__responsability u-flex u-flex-between">
       <div
@@ -133,6 +143,8 @@
   </div>
 </template>
 <script>
+import { required } from 'vuelidate/lib/validators'
+
 export default {
   name: 'PinVerify',
   props: {
@@ -141,15 +153,22 @@ export default {
       default: ''
     }
   },
+  validations: {
+    verificationCode: { required }
+  },
   data() {
     return {
       verificationCode: [],
       verifyServiceId: null,
-      errorValidation: false,
+      errorValidation: null,
       resendEmail: false
     }
   },
   methods: {
+    /**
+     * Get verification code phone and validate
+     * @returns {Promise<void>}
+     */
     async verificationPhone() {
       const code = this.getVerificationCode()
 
@@ -159,16 +178,21 @@ export default {
         if (validation.error === true) {
           throw validation.message
         }
-        this.errorValidation = false
+        this.errorValidation = null
         this.$emit('signIn')
       } catch (error) {
-        this.errorValidation = true
+        this.errorValidation = this.$i18n.t('register.error.phone.exists')
+        this.$v.$touch()
         // eslint-disable-next-line no-console
         console.error('PinVerify@signIn - Error')
         // eslint-disable-next-line no-console
         console.error(error)
       }
     },
+    /**
+     * Get verification code email and validate
+     * @returns {Promise<void>}
+     */
     async verificationEmail() {
       const code = this.getVerificationCode()
 
@@ -180,10 +204,13 @@ export default {
             throw validation.message
           }
 
-          this.errorValidation = false
+          this.errorValidation = null
           this.$emit('nextStep')
         } catch (error) {
-          this.errorValidation = true
+          this.errorValidation = this.$i18n.t(
+            'register.error.email.verification'
+          )
+          this.$v.$touch()
           // eslint-disable-next-line no-console
           console.error('PinVerify@nextStep - Error')
           // eslint-disable-next-line no-console
@@ -191,35 +218,38 @@ export default {
         }
       }
     },
-    resendCode() {
+    /**
+     * Function to resend validation code (phone or email)
+     * @returns {Promise<void>}
+     */
+    async resendCode() {
       let sendValidation = null
       if (this.kind === 'email') {
-        sendValidation = this.sendValidationCode()
-        sendValidation.then((result) => {
-          if (!result.error) {
-            this.resendEmail = true
-            this.errorValidation = false
-          } else {
-            this.errorValidation = true
-          }
-        })
+        sendValidation = await this.sendValidationCode()
+
+        if (!sendValidation.error) {
+          this.resendEmail = true
+          this.errorValidation = null
+        } else {
+          this.errorValidation = this.$i18n.t('register.error.email.sending')
+          this.$v.$touch()
+        }
       } else {
-        sendValidation = this.sendMobileValidationCode()
-        sendValidation.then((result) => {
-          if (!result.error) {
-            this.resendEmail = true
-            sessionStorage.verifyServiceId = result.data.verifyServiceId
-          } else {
-            this.errorValidation = true
-          }
-        })
+        sendValidation = await this.sendMobileValidationCode()
+
+        if (!sendValidation.error) {
+          this.resendEmail = true
+          sessionStorage.verifyServiceId = sendValidation.data.verifyServiceId
+        } else {
+          this.errorValidation = this.$i18n.t('register.error.phone.sending')
+          this.$v.$touch()
+        }
       }
-      sendValidation.then((result) => {
-        !result.error
-          ? (this.resendEmail = true)
-          : (this.errorValidation = true)
-      })
     },
+    /**
+     * Put together inputs code
+     * @returns {string}
+     */
     getVerificationCode() {
       let code = ''
       this.verificationCode.forEach(function(pinCode) {
@@ -227,6 +257,19 @@ export default {
       })
 
       return code
+    },
+    /**
+     * Handle code error
+     * @returns {[]}
+     */
+    handleValidationCodeErrors() {
+      const errors = []
+
+      if (this.errorValidation) {
+        errors.push('')
+      }
+
+      return errors
     }
   }
 }
@@ -302,12 +345,13 @@ input {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
   }
 
   &__pincode {
     &-cont {
       padding-top: 56px;
-      padding-bottom: 32px;
+      padding-bottom: 25px;
       display: flex;
       justify-content: flex-end;
     }

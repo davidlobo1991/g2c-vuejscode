@@ -29,6 +29,18 @@
         </div>
       </div>
     </div>
+    <div :style="cssProps" class="c-info__button-cont u-align-right">
+      <v-btn
+        :disabled="responsabilityCheck === false"
+        @click="navigationNext"
+        depressed
+        x-large
+        color="#0086ff"
+        class="c-info__button"
+      >
+        Next
+      </v-btn>
+    </div>
   </div>
 </template>
 
@@ -43,11 +55,15 @@ export default {
   },
   mounted() {
     this.generatedWords = this.getRandomWords()
+    this.$store.commit('register/SET_WORDS', this.generatedWords)
   },
   methods: {
     acceptedCheck(value) {
       this.responsabilityCheck = !this.responsabilityCheck
       this.$emit('CheckResponsability', value)
+    },
+    navigationNext() {
+      this.$emit('nextStep')
     }
   }
 }
@@ -89,7 +105,8 @@ export default {
     // color: #4d4d4d;
     // font-family: Roboto;
     width: 95%;
-    margin: 00 auto;
+    margin: 0 auto;
+    padding-bottom: 30px;
     &--title {
       font-weight: 500;
     }

@@ -1,22 +1,34 @@
 <template>
   <div>
     <div class="full-width">
-      <form>
-        <v-text-field
-          :value="nick"
-          :hide-details="true"
-          @input="updateNick"
-          label="Username (Handle)"
-          outlined
-          class="c-login__cont--input u-mrb-s"
-        >
-        </v-text-field>
-        <div class="u-mrb-s c-login__cont--btn">
-          <v-btn @click="checkUser" depressed color="#0885F6" dark nuxt>
-            Next
-          </v-btn>
-        </div>
-      </form>
+      <v-text-field
+        v-model="formRegister.nick"
+        :value="nick"
+        :hide-details="handleValidationNickErrors().length === 0"
+        :error-messages="handleValidationNickErrors() || []"
+        @input="updateNick"
+        label="Username (Handle)"
+        outlined
+        class="c-login__cont--input u-mrb-s"
+      >
+      </v-text-field>
+      <v-text-field
+        v-model="formRegister.password"
+        :hide-details="handleValidationPasswordErrors().length === 0"
+        :error-messages="handleValidationPasswordErrors() || []"
+        @input="updatePassword"
+        :counter="6"
+        type="password"
+        label="Password"
+        outlined
+        class="c-login__cont--input u-mrb-s"
+      >
+      </v-text-field>
+      <div class="u-mrb-s c-login__cont--btn">
+        <v-btn @click="checkUser" depressed color="#0885F6" dark nuxt>
+          Next
+        </v-btn>
+      </div>
     </div>
     <p class="c-login__details">
       Already a member?
@@ -29,9 +41,30 @@
 
 <script>
 import { mapState } from 'vuex'
+import { required, minLength } from 'vuelidate/lib/validators'
 
 export default {
   name: 'PreCreateForm',
+  data() {
+    return {
+      formRegister: {
+        nick: '',
+        password: null
+      },
+      errorValidation: null
+    }
+  },
+  validations: {
+    formRegister: {
+      nick: {
+        required
+      },
+      password: {
+        required,
+        minLength: minLength(6)
+      }
+    }
+  },
   computed: {
     ...mapState({
       nick: (state) => state.register.nick
@@ -40,6 +73,12 @@ export default {
   methods: {
     async checkUser() {
       try {
+        this.$v.$touch()
+
+        if (this.$v.$invalid) {
+          return
+        }
+
         const validation = await this.checkUserApi()
 
         if (validation.error === true) {
@@ -52,6 +91,8 @@ export default {
         // Load Create Account Workflow
         await this.$router.push(this.localePath('create-account'))
       } catch (error) {
+        this.errorValidation = this.$i18n.t('register.error.nick.exists')
+        this.$v.$touch()
         // eslint-disable-next-line no-console
         console.error('PreCreateForm@checkUser - Error')
         // eslint-disable-next-line no-console
@@ -60,6 +101,41 @@ export default {
     },
     updateNick(value) {
       this.$store.commit('register/SET_NICK', value)
+    },
+    updatePassword(value) {
+      this.$store.commit('register/SET_PASSWORD', value)
+    },
+    handleValidationNickErrors() {
+      const errors = []
+      if (!this.$v.formRegister.nick.$dirty) {
+        return errors
+      }
+
+      if (!this.$v.formRegister.nick.required) {
+        errors.push(this.$i18n.t('register.error.nick.required'))
+      }
+
+      if (this.errorValidation) {
+        errors.push(this.errorValidation)
+      }
+
+      return errors
+    },
+    handleValidationPasswordErrors() {
+      const errors = []
+      if (!this.$v.formRegister.password.$dirty) {
+        return errors
+      }
+
+      if (!this.$v.formRegister.password.required) {
+        errors.push(this.$i18n.t('register.error.password.required'))
+      }
+
+      if (!this.$v.formRegister.password.minLength) {
+        errors.push(this.$i18n.t('register.error.password.length'))
+      }
+
+      return errors
     },
     showLogin() {
       this.$emit('showLogin')

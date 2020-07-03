@@ -38,7 +38,7 @@ export default {
         defer: true
       },
       {
-        src: 'https://gate2chain.ddns.net:5791/libs/g2clib.min.js',
+        src: 'https://gate2chain.ddns.net:2020/libs/g2clib.min.js',
         defer: true
       }
     ]
@@ -184,7 +184,9 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    common: 'x-authorization: BGFs9tEvskC61SdpIYZU8UG',
+    headers: {
+      common: { 'x-authorization': process.env.API_KEY }
+    },
     baseURL:
       process.env.API_BASE_URL || 'https://networksv-backend.herokuapp.com/api/'
   },
