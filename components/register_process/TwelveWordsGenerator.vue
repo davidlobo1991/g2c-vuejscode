@@ -105,7 +105,8 @@ export default {
     // color: #4d4d4d;
     // font-family: Roboto;
     width: 95%;
-    margin: 00 auto;
+    margin: 0 auto;
+    padding-bottom: 30px;
     &--title {
       font-weight: 500;
     }

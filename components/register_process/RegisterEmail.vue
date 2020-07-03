@@ -164,11 +164,15 @@ export default {
   }
   .c-info {
     &__button {
-      width: 118px;
+      width: 100%;
+      /*width: 118px;*/
       height: 54px !important;
       font-size: 16px;
       color: #fff;
       text-transform: none;
+      &-cont {
+        padding: 0;
+      }
     }
   }
 }

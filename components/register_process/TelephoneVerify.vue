@@ -58,17 +58,17 @@
           </v-checkbox>
         </div>
       </div>
-      <div :style="cssProps" class="c-info__button-cont u-align-right">
-        <v-btn
-          @click="navigationNext"
-          depressed
-          x-large
-          color="#0086ff"
-          class="c-info__button"
-        >
-          Next
-        </v-btn>
-      </div>
+    </div>
+    <div class="c-info__button-cont u-align-right">
+      <v-btn
+        @click="navigationNext"
+        depressed
+        x-large
+        color="#0086ff"
+        class="c-info__button"
+      >
+        Next
+      </v-btn>
     </div>
   </div>
 </template>
@@ -93,7 +93,7 @@ export default {
   computed: {
     cssProps() {
       return {
-        '--variable-wrapper': this.variableWidth + '%'
+        // '--variable-wrapper': this.variableWidth + '%'
       }
     }
   },
