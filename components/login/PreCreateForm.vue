@@ -1,34 +1,36 @@
 <template>
   <div>
     <div class="full-width">
-      <v-text-field
-        v-model="formRegister.nick"
-        :value="nick"
-        :hide-details="handleValidationNickErrors().length === 0"
-        :error-messages="handleValidationNickErrors() || []"
-        @input="updateNick"
-        label="Username (Handle)"
-        outlined
-        class="c-login__cont--input u-mrb-s"
-      >
-      </v-text-field>
-      <v-text-field
-        v-model="formRegister.password"
-        :hide-details="handleValidationPasswordErrors().length === 0"
-        :error-messages="handleValidationPasswordErrors() || []"
-        @input="updatePassword"
-        :counter="6"
-        type="password"
-        label="Password"
-        outlined
-        class="c-login__cont--input u-mrb-s"
-      >
-      </v-text-field>
-      <div class="u-mrb-s c-login__cont--btn">
-        <v-btn @click="checkUser" depressed color="#0885F6" dark nuxt>
-          Next
-        </v-btn>
-      </div>
+      <form>
+        <v-text-field
+          v-model="formRegister.nick"
+          :value="nick"
+          :hide-details="handleValidationNickErrors().length === 0"
+          :error-messages="handleValidationNickErrors() || []"
+          @input="updateNick"
+          label="Username (Handle)"
+          outlined
+          class="c-login__cont--input u-mrb-s"
+        >
+        </v-text-field>
+        <v-text-field
+          v-model="formRegister.password"
+          :hide-details="handleValidationPasswordErrors().length === 0"
+          :error-messages="handleValidationPasswordErrors() || []"
+          @input="updatePassword"
+          :counter="6"
+          type="password"
+          label="Password"
+          outlined
+          class="c-login__cont--input u-mrb-s"
+        >
+        </v-text-field>
+        <div class="u-mrb-s c-login__cont--btn">
+          <v-btn @click="checkUser" depressed color="#0885F6" dark nuxt>
+            Next
+          </v-btn>
+        </div>
+      </form>
     </div>
     <p class="c-login__details">
       Already a member?
