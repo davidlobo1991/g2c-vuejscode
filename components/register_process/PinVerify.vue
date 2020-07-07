@@ -15,7 +15,8 @@
         address.
       </span>
       <span v-if="kind === 'telephone'">
-        Please enter the code you’ve receive in the phone number +34xxxxxxxxx965
+        Please enter the code you’ve receive in the phone number
+        <span>{{ hideNumber }}</span>
       </span>
     </div>
     <div>
@@ -25,13 +26,13 @@
           :hide-details="true"
           :error-messages="handleValidationCodeErrors() || []"
           v-model="verificationCode[0]"
+          v-on:keyup="focusNextInput($event)"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
           max="9"
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
-          onkeyup="document.getElementById('inputNumberBox2').focus()"
           type="number"
         >
         </v-text-field>
@@ -40,6 +41,7 @@
           :hide-details="true"
           :error-messages="handleValidationCodeErrors() || []"
           v-model="verificationCode[1]"
+          v-on:keyup="focusNextInput($event)"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
@@ -55,6 +57,7 @@
           :hide-details="true"
           :error-messages="handleValidationCodeErrors() || []"
           v-model="verificationCode[2]"
+          v-on:keyup="focusNextInput($event)"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
@@ -70,13 +73,13 @@
           :hide-details="true"
           :error-messages="handleValidationCodeErrors() || []"
           v-model="verificationCode[3]"
+          v-on:keyup="focusNextInput($event)"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
           max="9"
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
-          onkeyup="document.getElementById('inputNumberBox5').focus()"
           type="number"
         >
         </v-text-field>
@@ -90,7 +93,6 @@
           min="0"
           max="9"
           step="1"
-          oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
           type="number"
         >
         </v-text-field>
@@ -151,6 +153,10 @@ export default {
     kind: {
       type: String,
       default: ''
+    },
+    hideNumber: {
+      type: String,
+      default: ''
     }
   },
   validations: {
@@ -181,10 +187,10 @@ export default {
         this.errorValidation = null
         this.$emit('signIn')
       } catch (error) {
-        this.errorValidation = this.$i18n.t('register.error.phone.exists')
+        this.errorValidation = this.$i18n.t('register.error.phone.verification')
         this.$v.$touch()
         // eslint-disable-next-line no-console
-        console.error('PinVerify@signIn - Error')
+        console.error('PinVerify@verificationPhone - Error')
         // eslint-disable-next-line no-console
         console.error(error)
       }
@@ -270,6 +276,15 @@ export default {
       }
 
       return errors
+    },
+    focusNextInput(event) {
+      const id = event.path[0].id
+      const idInput = id.substring(0, id.length - 1)
+      const focusInput = id + (parseInt(idInput.slice(-1)) + 1)
+
+      window.setTimeout(function() {
+        document.getElementById(focusInput).focus()
+      }, 0)
     }
   }
 }

@@ -125,9 +125,12 @@ export const apiNetworkSv = {
     /**
      * Sign in backend and firebase
      */
-    async signInApi(tokenid) {
+    async signInApi(userauth, application) {
       try {
-        return await this.$store.dispatch('register/signInApi', tokenid)
+        return await this.$store.dispatch('register/signInApi', {
+          userauth,
+          application
+        })
       } catch (error) {
         throw error
       }

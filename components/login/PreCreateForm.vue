@@ -25,7 +25,7 @@
       >
       </v-text-field>
       <div class="u-mrb-s c-login__cont--btn">
-        <v-btn @click="checkUser" depressed color="#0885F6" dark nuxt>
+        <v-btn @click="nextStep" depressed color="#0885F6" dark nuxt>
           Next
         </v-btn>
       </div>
@@ -81,6 +81,28 @@ export default {
         }
 
         const validation = await this.checkUserApi()
+
+        if (validation.error === true) {
+          throw validation.message
+        }
+      } catch (error) {
+        this.errorValidation = this.$i18n.t('register.error.nick.exists')
+        this.$v.$touch()
+        // eslint-disable-next-line no-console
+        console.error('PreCreateForm@checkUser - Error')
+        // eslint-disable-next-line no-console
+        console.error(error)
+      }
+    },
+    async nextStep() {
+      try {
+        this.$v.$touch()
+
+        if (this.$v.$invalid) {
+          return
+        }
+
+        const validation = this.checkUser()
 
         if (validation.error === true) {
           throw validation.message

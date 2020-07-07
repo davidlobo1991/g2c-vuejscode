@@ -162,19 +162,25 @@ const actions = {
   /**
    * Sign in backend and firebase
    */
-  async signInApi({ getters }, token) {
+  async signInApi({ getters }, dataObject) {
+    // eslint-disable-next-line camelcase
+    const g2c_user = {
+      userauth: dataObject.userauth,
+      nick: sessionStorage.registerNick,
+      application: dataObject.application
+    }
     const user = {
       nick: sessionStorage.registerNick,
       password: sessionStorage.registerPassword,
       email: getters.getEmail,
       mobile_prefix: getters.getMobilePrefix,
       mobile_number: getters.getMobileNumber,
-      ukresident: getters.getUkresident,
-      tokenid: token
+      ukresident: getters.getUkresident
     }
 
     const data = {
-      user
+      user,
+      g2c_user
     }
 
     console.log(data)

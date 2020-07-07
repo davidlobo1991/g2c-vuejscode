@@ -132,10 +132,6 @@ export default {
           }
         }
 
-        // @TODO: Set g2cLoginResponse in localStorage???
-        // eslint-disable-next-line no-console
-        // console.debug('g2cLoginResponse', g2cLoginResponse)
-
         // Second, login in networksv backend
         try {
           await this.$auth.loginWith('local', {

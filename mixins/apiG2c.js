@@ -36,6 +36,10 @@ export const apiG2c = {
     createUser(nick, userwords) {
       try {
         const application = this.g2c_application
+        console.log(nick)
+        console.log(userwords)
+        console.log(application)
+
         return new Promise((resolve, reject) => {
           // eslint-disable-next-line no-undef
           g2cclient_createUser({ userwords, application, nick }, (response) => {
@@ -45,7 +49,8 @@ export const apiG2c = {
             if (response.hasOwnProperty('error')) {
               reject(new Error(response.error))
             } else {
-              resolve(response.data.userauth)
+              console.log(response)
+              resolve(response.data)
             }
           })
         })

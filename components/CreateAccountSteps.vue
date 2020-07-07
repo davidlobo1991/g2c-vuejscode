@@ -33,7 +33,11 @@
         />
       </div>
       <div v-show="5 === step">
-        <PinVerify @signIn="signIn" kind="telephone" />
+        <PinVerify
+          @signIn="signIn"
+          :hide-number="this.mobilePrefix + ' ' + this.mobileNumber"
+          kind="telephone"
+        />
       </div>
     </div>
   </div>
@@ -148,15 +152,19 @@ export default {
       try {
         /** Send registerNick from Storage because if we get the nick of
         the store and the user update the site, the nickname will be lost */
-        const tokenid = await this.createUser(
+        const response = await this.createUser(
           sessionStorage.registerNick,
           this.words
         )
-        const register = await this.signInApi(tokenid)
+
+        const register = await this.signInApi(
+          response.userauth,
+          this.g2c_application
+        )
 
         if (!register.error) {
           console.log('Created user')
-          this.login(this.nick, this.words)
+          // this.login(this.nick, this.words)
         }
       } catch (error) {
         // eslint-disable-next-line no-console
