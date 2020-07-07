@@ -164,7 +164,7 @@ export default {
 
         if (!register.error) {
           console.log('Created user')
-          // this.login(this.nick, this.words)
+          this.login(this.nick, this.words)
         }
       } catch (error) {
         // eslint-disable-next-line no-console

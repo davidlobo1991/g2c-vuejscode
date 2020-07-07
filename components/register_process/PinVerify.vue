@@ -26,7 +26,7 @@
           :hide-details="true"
           :error-messages="handleValidationCodeErrors() || []"
           v-model="verificationCode[0]"
-          v-on:keyup="focusNextInput($event)"
+          @keyup="focusNextInput('inputNumberBox2')"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
@@ -41,7 +41,7 @@
           :hide-details="true"
           :error-messages="handleValidationCodeErrors() || []"
           v-model="verificationCode[1]"
-          v-on:keyup="focusNextInput($event)"
+          v-on:keyup="focusNextInput('inputNumberBox3')"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
@@ -57,7 +57,7 @@
           :hide-details="true"
           :error-messages="handleValidationCodeErrors() || []"
           v-model="verificationCode[2]"
-          v-on:keyup="focusNextInput($event)"
+          v-on:keyup="focusNextInput('inputNumberBox4')"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
@@ -73,7 +73,7 @@
           :hide-details="true"
           :error-messages="handleValidationCodeErrors() || []"
           v-model="verificationCode[3]"
-          v-on:keyup="focusNextInput($event)"
+          v-on:keyup="focusNextInput('inputNumberBox5')"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
@@ -277,11 +277,7 @@ export default {
 
       return errors
     },
-    focusNextInput(event) {
-      const id = event.path[0].id
-      const idInput = id.substring(0, id.length - 1)
-      const focusInput = id + (parseInt(idInput.slice(-1)) + 1)
-
+    focusNextInput(focusInput) {
       window.setTimeout(function() {
         document.getElementById(focusInput).focus()
       }, 0)
