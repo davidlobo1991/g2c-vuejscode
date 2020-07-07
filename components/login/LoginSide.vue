@@ -33,7 +33,7 @@
           v-show="loginIsVisible"
           :class="[
             viewportWidth <= 768 && (createAccountIsVisible || loginIsVisible)
-              ? 'u-mrb-s space-top'
+              ? 'u-mrb-s'
               : ''
           ]"
           @showCreateUser="showCreateUser"
@@ -43,7 +43,7 @@
           v-show="!createAccountIsVisible && !loginIsVisible"
           class="c-login__main-options"
         >
-          <div class="u-pdb-s">
+          <div class="u-pdb-s c-login__button">
             <v-btn
               @click="showCreateUser"
               depressed
@@ -54,7 +54,7 @@
               Create Account
             </v-btn>
           </div>
-          <div class="u-pdb-s">
+          <div class="u-pdb-s c-login__button">
             <v-btn @click="showLogin" outlined color="#0885F6">Login</v-btn>
           </div>
         </div>
@@ -118,182 +118,12 @@ export default {
 }
 </script>
 
-<style>
-.c-login__cont--input .v-input__control .v-input__slot {
-  font-size: 21px;
-  min-height: 70px;
-}
-.c-login__cont--input
-  .v-input__control
-  .v-input__slot
-  .v-text-field__slot
-  .v-label {
-  font-size: 21px;
-  top: 26px !important;
-}
-.c-login__cont--input
-  .v-input__control
-  .v-input__slot
-  .v-text-field__slot
-  .v-label--active {
-  transform: translateY(-30px) scale(0.75) !important;
-}
-.c-login__cont--textarea .v-input__control .v-input__slot {
-  font-size: 21px;
-  min-height: 70px;
-}
-.c-login__cont--textarea
-  .v-input__control
-  .v-input__slot
-  .v-text-field__slot
-  .v-label {
-  font-size: 21px;
-  top: 26px !important;
-}
-.c-login__cont--textarea
-  .v-input__control
-  .v-input__slot
-  .v-text-field__slot
-  .v-label--active {
-  transform: translateY(-30px) scale(0.75) !important;
-}
-@media screen and (max-width: 1500px) {
-  .c-login__cont--input .v-input__control .v-input__slot {
-    font-size: 21px;
-    min-height: 70px;
-  }
-  .c-login__cont--input
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label {
-    font-size: 21px;
-    top: 26px !important;
-  }
-  .c-login__cont--input
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label--active {
-    transform: translateY(-30px) scale(0.75) !important;
-  }
-  .c-login__cont--textarea .v-input__control .v-input__slot {
-    font-size: 21px;
-    min-height: 70px;
-  }
-  .c-login__cont--textarea
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label {
-    font-size: 21px;
-    top: 26px !important;
-  }
-  .c-login__cont--textarea
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label--active {
-    transform: translateY(-30px) scale(0.75) !important;
-  }
-}
-@media screen and (max-width: 992px) {
-  .c-login__cont--input .v-input__control .v-input__slot {
-    font-size: 18px;
-    min-height: 55px;
-  }
-  .c-login__cont--input
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label {
-    font-size: 18px;
-    top: 18px !important;
-  }
-  .c-login__cont--input
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label--active {
-    transform: translateY(-25px) scale(0.75) !important;
-  }
-  .c-login__cont--textarea .v-input__control .v-input__slot {
-    font-size: 21px;
-    min-height: 70px;
-  }
-  .c-login__cont--textarea
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label {
-    font-size: 21px;
-    top: 26px !important;
-  }
-  .c-login__cont--textarea
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label--active {
-    transform: translateY(-30px) scale(0.75) !important;
-  }
-}
-@media screen and (max-width: 768px) {
-  .c-login__cont--input .v-input__control .v-input__slot {
-    font-size: 14px;
-    min-height: 46px;
-  }
-  .c-login__cont--input
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label {
-    font-size: 14px;
-    top: 14px !important;
-  }
-  .c-login__cont--input
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label--active {
-    transform: translateY(-23px) scale(0.75) !important;
-  }
-  .c-login__cont--textarea .v-input__control .v-input__slot {
-    font-size: 14px;
-    /*min-height: 70px;*/
-  }
-  .c-login__cont--textarea
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label {
-    font-size: 14px;
-    top: 14px !important;
-  }
-  .c-login__cont--textarea
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label--active {
-    transform: translateY(-20px) scale(0.75) !important;
-  }
-}
-</style>
 <style lang="scss" scoped>
 .full-width {
   width: 100%;
 }
 .space-top {
   margin-top: 80px !important;
-}
-.v-btn {
-  text-transform: capitalize;
-  min-width: 350px !important;
-  height: 70px !important;
-  letter-spacing: 0;
-  // font-weight: 500;
-  letter-spacing: 0;
-  font-family: Roboto;
-  font-size: 21px;
 }
 .c-login {
   display: flex;
@@ -307,6 +137,14 @@ export default {
     // max-width: 50%;
     position: fixed;
   }
+  &__button >>> .v-btn {
+    font-size: 21px;
+    text-transform: capitalize;
+    min-width: 350px !important;
+    height: 70px !important;
+    letter-spacing: 0;
+    font-family: Roboto;
+  }
   &__logo {
     width: 210px;
     & img {
@@ -318,7 +156,6 @@ export default {
   }
   &__subtitle {
     padding-top: 20px;
-    // padding-bottom: 160px;
     color: #29363d;
     font-family: Roboto;
     font-size: 21px;
@@ -332,7 +169,6 @@ export default {
   &__details {
     padding-top: 80px;
     font-size: 21px;
-    // font-weight: 500;
     line-height: 19px;
     text-align: center;
   }
@@ -340,15 +176,6 @@ export default {
     display: flex;
     align-items: center;
     flex-flow: column;
-
-    &--input {
-      width: 350px;
-    }
-
-    &--textarea {
-      width: 350px;
-    }
-
     &--link {
       color: #1976d2;
       cursor: pointer;
@@ -357,9 +184,6 @@ export default {
   }
 }
 @media screen and (max-width: 1500px) {
-  .v-btn {
-    min-width: 300px !important;
-  }
   .c-login {
     &__logo {
       width: 190px;
@@ -370,45 +194,20 @@ export default {
     &__subtitle {
       padding-top: 5px;
     }
-    &__cont {
-      &--input {
-        width: 300px;
-      }
-      &--textarea {
-        width: 300px;
-      }
-    }
-    &__details {
-      font-size: 14px;
-      max-width: 300px;
+    &__button >>> .v-btn {
+      min-width: 300px !important;
     }
   }
 }
 @media screen and (max-width: 1200px) {
-  .v-btn {
-    min-width: 240px !important;
-  }
   .c-login {
-    &__cont {
-      &--input {
-        width: 240px;
-      }
-      &--textarea {
-        width: 240px;
-      }
-    }
-    &__details {
-      max-width: 240px;
+    &__button >>> .v-btn {
+      min-width: 240px !important;
     }
   }
 }
 
 @media screen and (max-width: 992px) {
-  .v-btn {
-    min-width: 200px !important;
-    height: 55px !important;
-    font-size: 18px;
-  }
   .c-login {
     &__logo {
       width: 150px;
@@ -419,23 +218,14 @@ export default {
     &__subtitle {
       font-size: 18px;
     }
-    &__cont {
-      &--input {
-        width: 200px;
-      }
-      &--textarea {
-        width: 200px;
-      }
-    }
-    &__details {
-      /*max-width: 200px;*/
+    &__button >>> .v-btn {
+      min-width: 200px !important;
+      height: 55px !important;
+      font-size: 18px;
     }
   }
 }
 @media screen and (max-width: 768px) {
-  .v-btn {
-    min-width: 100% !important;
-  }
   .c-login {
     &__logo {
       width: 110px;
@@ -448,6 +238,9 @@ export default {
     &__subtitle {
       font-size: 14px;
     }
+    &__button >>> .v-btn {
+      min-width: 100% !important;
+    }
     &__login-cont {
       margin-top: 20px;
       width: 90%;
@@ -458,19 +251,9 @@ export default {
       flex-flow: column;
       justify-content: space-between;
       height: 100%;
-      &--input {
-        width: 100%;
-      }
       &--btn {
         width: 100%;
       }
-      &--textarea {
-        width: auto;
-      }
-    }
-    &__details {
-      padding: 0;
-      font-size: 12px;
     }
   }
 }
