@@ -19,7 +19,7 @@
     </div>
     <div :style="cssProps" class="c-info__button-cont u-align-right">
       <v-btn
-        @click="navigationNext"
+        @click="navigationNext($event)"
         depressed
         x-large
         color="#0086ff"
@@ -60,7 +60,7 @@ export default {
     }
   },
   methods: {
-    async navigationNext() {
+    async navigationNext(event) {
       this.$v.$touch()
 
       if (this.$v.$invalid) {
@@ -73,6 +73,7 @@ export default {
 
         if (!validation.error) {
           this.$emit('nextStep')
+          console.log(event)
         } else {
           this.errorValidation = this.$i18n.t('register.error.email.sending')
           this.$v.$touch()
