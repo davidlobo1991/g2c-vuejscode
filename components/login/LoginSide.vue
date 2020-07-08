@@ -137,13 +137,17 @@ export default {
     // max-width: 50%;
     position: fixed;
   }
-  &__button >>> .v-btn {
-    font-size: 21px;
-    text-transform: capitalize;
-    min-width: 350px !important;
-    height: 70px !important;
-    letter-spacing: 0;
-    font-family: Roboto;
+  &__button {
+    ::v-deep {
+      .v-btn {
+        font-size: 21px;
+        text-transform: capitalize;
+        min-width: 350px !important;
+        height: 70px !important;
+        letter-spacing: 0;
+        font-family: Roboto;
+      }
+    }
   }
   &__logo {
     width: 210px;
@@ -194,15 +198,23 @@ export default {
     &__subtitle {
       padding-top: 5px;
     }
-    &__button >>> .v-btn {
-      min-width: 300px !important;
+    &__button {
+      ::v-deep {
+        .v-btn {
+          min-width: 300px !important;
+        }
+      }
     }
   }
 }
 @media screen and (max-width: 1200px) {
   .c-login {
-    &__button >>> .v-btn {
-      min-width: 240px !important;
+    &__button {
+      ::v-deep {
+        .v-btn {
+          min-width: 240px !important;
+        }
+      }
     }
   }
 }
@@ -218,10 +230,14 @@ export default {
     &__subtitle {
       font-size: 18px;
     }
-    &__button >>> .v-btn {
-      min-width: 200px !important;
-      height: 55px !important;
-      font-size: 18px;
+    &__button {
+      ::v-deep {
+        .v-btn {
+          min-width: 200px !important;
+          height: 55px !important;
+          font-size: 18px;
+        }
+      }
     }
   }
 }
@@ -238,8 +254,12 @@ export default {
     &__subtitle {
       font-size: 14px;
     }
-    &__button >>> .v-btn {
-      min-width: 100% !important;
+    &__button {
+      ::v-deep {
+        .v-btn {
+          min-width: 100% !important;
+        }
+      }
     }
     &__login-cont {
       margin-top: 20px;

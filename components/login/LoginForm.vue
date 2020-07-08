@@ -204,13 +204,17 @@ export default {
 }
 .c-login {
   &__cont {
-    &--btn >>> .v-btn {
-      font-size: 21px;
-      text-transform: capitalize;
-      min-width: 350px !important;
-      height: 70px !important;
-      letter-spacing: 0;
-      font-family: Roboto;
+    &--btn {
+      ::v-deep {
+        .v-btn {
+          font-size: 21px;
+          text-transform: capitalize;
+          min-width: 350px !important;
+          height: 70px !important;
+          letter-spacing: 0;
+          font-family: Roboto;
+        }
+      }
     }
     &--input {
       width: 350px;
@@ -218,9 +222,11 @@ export default {
         .v-input__control .v-input__slot {
           font-size: 21px;
           min-height: 70px;
-          & .v-text-field__slot .v-label {
-            font-size: 21px;
-            top: 26px !important;
+          & .v-text-field__slot {
+            .v-label {
+              font-size: 21px;
+              top: 26px !important;
+            }
             & .v-label--active {
               transform: translateY(-30px) scale(0.75) !important;
             }
@@ -233,8 +239,12 @@ export default {
 @media screen and (max-width: 1500px) {
   .c-login {
     &__cont {
-      &--btn >>> .v-btn {
-        min-width: 300px !important;
+      &--btn {
+        ::v-deep {
+          .v-btn {
+            min-width: 300px !important;
+          }
+        }
       }
       &--input {
         width: 300px;
@@ -249,8 +259,12 @@ export default {
 @media screen and (max-width: 1200px) {
   .c-login {
     &__cont {
-      &--btn >>> .v-btn {
-        min-width: 240px !important;
+      &--btn {
+        ::v-deep {
+          .v-btn {
+            min-width: 240px !important;
+          }
+        }
       }
       &--input {
         width: 240px;
@@ -265,10 +279,14 @@ export default {
 @media screen and (max-width: 992px) {
   .c-login {
     &__cont {
-      &--btn >>> .v-btn {
-        font-size: 18px;
-        min-width: 200px !important;
-        height: 55px !important;
+      &--btn {
+        ::v-deep {
+          .v-btn {
+            font-size: 18px;
+            min-width: 200px !important;
+            height: 55px !important;
+          }
+        }
       }
       &--input {
         width: 200px;
@@ -276,9 +294,11 @@ export default {
           .v-input__control .v-input__slot {
             font-size: 18px;
             min-height: 55px;
-            & .v-text-field__slot .v-label {
-              font-size: 18px;
-              top: 18px !important;
+            & .v-text-field__slot {
+              .v-label {
+                font-size: 18px;
+                top: 18px !important;
+              }
               & .v-label--active {
                 transform: translateY(-25px) scale(0.75) !important;
               }
@@ -292,10 +312,14 @@ export default {
 @media screen and (max-width: 768px) {
   .c-login {
     &__cont {
-      &--btn >>> .v-btn {
-        font-size: 14px;
-        min-width: 100% !important;
-        height: 46px !important;
+      &--btn {
+        ::v-deep {
+          .v-btn {
+            font-size: 14px;
+            min-width: 100% !important;
+            height: 46px !important;
+          }
+        }
       }
       &--input {
         width: 100%;
@@ -303,9 +327,11 @@ export default {
           .v-input__control .v-input__slot {
             font-size: 14px;
             min-height: 46px;
-            & .v-text-field__slot .v-label {
-              font-size: 14px;
-              top: 14px !important;
+            & .v-text-field__slot {
+              .v-label {
+                font-size: 14px;
+                top: 14px !important;
+              }
               & .v-label--active {
                 transform: translateY(-23px) scale(0.75) !important;
               }

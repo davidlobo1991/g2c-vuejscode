@@ -108,83 +108,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.c-info__input .v-input__control .v-input__slot {
-  font-size: 30px;
-  height: 90px;
-}
-.c-info__input .v-input__control .v-input__slot .v-text-field__slot .v-label {
-  font-size: 23px;
-  top: 34px !important;
-}
-.c-info__input
-  .v-input__control
-  .v-input__slot
-  .v-text-field__slot
-  .v-label--active {
-  transform: translateY(-38px) scale(0.75) !important;
-}
-.c-info {
-  &__button-cont {
-    padding-right: var(--variable-wrapper);
-  }
-
-  &__button {
-    width: 180px;
-    height: 80px !important;
-    font-size: 21px !important;
-    color: #fff !important;
-    text-transform: none;
-  }
-}
-@media screen and (max-width: 1500px) {
-  .c-info__input .v-input__control .v-input__slot {
-    font-size: 15px;
-    height: 64px;
-  }
-  .c-info__input .v-input__control .v-input__slot .v-text-field__slot .v-label {
-    font-size: 15px;
-    top: 22px !important;
-  }
-  .c-info__input
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label--active {
-    transform: translateY(-25px) scale(0.75) !important;
-  }
-}
-@media screen and (max-width: 768px) {
-  .c-info__input .v-input__control .v-input__slot {
-    /*font-size: 20px;*/
-    height: 46px;
-  }
-  .c-info__input .v-input__control .v-input__slot .v-text-field__slot .v-label {
-    /*font-size: 20px;*/
-    top: 14px !important;
-  }
-  .c-info__input
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label--active {
-    transform: translateY(-25px) scale(0.75) !important;
-  }
-  .c-info {
-    &__button {
-      width: 100%;
-      /*width: 118px;*/
-      height: 54px !important;
-      font-size: 16px;
-      color: #fff;
-      text-transform: none;
-      &-cont {
-        padding: 0;
-      }
-    }
-  }
-}
-</style>
 <style lang="scss" scoped>
 .v-text-field__slot {
   font-size: 80px !important;
@@ -213,9 +136,32 @@ export default {
   &__input {
     text-align: center;
     padding-bottom: 20px;
-    & input {
-      font-size: 80px;
+    ::v-deep {
+      .v-input__control .v-input__slot {
+        font-size: 30px;
+        min-height: 90px;
+        & .v-text-field__slot {
+          .v-label {
+            font-size: 23px;
+            top: 34px !important;
+          }
+          & .v-label--active {
+            transform: translateY(-40px) scale(0.75) !important;
+          }
+        }
+      }
     }
+  }
+  &__button-cont {
+    padding-right: var(--variable-wrapper);
+  }
+
+  &__button {
+    width: 180px;
+    height: 80px !important;
+    font-size: 21px !important;
+    color: #fff !important;
+    text-transform: none;
   }
 }
 @media screen and (max-width: 1500px) {
@@ -230,6 +176,23 @@ export default {
     &__input-cont {
       /*max-width: none;*/
       /*width: 100%;*/
+    }
+    &__input {
+      ::v-deep {
+        .v-input__control .v-input__slot {
+          font-size: 15px;
+          min-height: 64px;
+          & .v-text-field__slot {
+            .v-label {
+              font-size: 15px;
+              top: 22px !important;
+            }
+            & .v-label--active {
+              transform: translateY(-28px) scale(0.75) !important;
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -246,6 +209,32 @@ export default {
     &__input-cont {
       max-width: none;
       width: 100%;
+    }
+    &__input {
+      ::v-deep {
+        .v-input__control .v-input__slot {
+          min-height: 46px;
+          & .v-text-field__slot {
+            .v-label {
+              top: 14px !important;
+            }
+            & .v-label--active {
+              transform: translateY(-21px) scale(0.75) !important;
+            }
+          }
+        }
+      }
+    }
+    &__button {
+      width: 100%;
+      /*width: 118px;*/
+      height: 46px !important;
+      font-size: 16px;
+      color: #fff;
+      text-transform: none;
+      &-cont {
+        padding: 0;
+      }
     }
   }
 }

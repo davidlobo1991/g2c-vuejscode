@@ -288,45 +288,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .rw-normal-text {
   text-transform: none;
 }
-
-.c-info__pincode__number,
-.v-input__control,
-.v-input__slot,
-.v-text-field__slot,
-input {
-  text-align: center;
-}
-
-.c-info__pincode__number
-  .v-text-field--filled
-  > .v-input__control
-  > .v-input__slot
-  .v-text-field--full-width
-  > .v-input__control
-  > .v-input__slot
-  .v-text-field--outlined
-  > .v-input__control
-  > .v-input__slot {
-  height: 64px;
-}
-
-@media screen and (max-width: 768px) {
-  .c-info__pincode__number
-    .v-text-field--filled
-    > .v-input__control
-    > .v-input__slot,
-  .v-text-field--full-width > .v-input__control > .v-input__slot,
-  .v-text-field--outlined > .v-input__control > .v-input__slot {
-    min-height: 46px;
-    height: 46px;
-  }
-}
-</style>
-<style lang="scss" scoped>
 .c-info {
   color: #4d4d4d;
   margin: 0 auto;
@@ -387,6 +352,16 @@ input {
 
       & input {
         text-align: center;
+      }
+
+      ::v-deep {
+        .v-input__control .v-input__slot {
+          min-height: 64px !important;
+          & .v-text-field__slot,
+          input {
+            text-align: center;
+          }
+        }
       }
     }
   }
@@ -493,6 +468,11 @@ input {
 
         &:first-of-type {
           margin-left: 0 !important;
+        }
+        ::v-deep {
+          .v-input__control .v-input__slot {
+            min-height: 46px !important;
+          }
         }
 
         & input {
