@@ -26,7 +26,8 @@
           :hide-details="true"
           :error-messages="handleValidationCodeErrors() || []"
           v-model="verificationCode[0]"
-          @keyup="focusNextInput('inputNumberBox2')"
+          @keyup="focusNextInput($event, 'inputNumberBox2')"
+          @paste="copyNumber($event)"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
@@ -41,14 +42,13 @@
           :hide-details="true"
           :error-messages="handleValidationCodeErrors() || []"
           v-model="verificationCode[1]"
-          v-on:keyup="focusNextInput('inputNumberBox3')"
+          @keyup="focusNextInput($event, 'inputNumberBox3')"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
           max="9"
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
-          onkeyup="document.getElementById('inputNumberBox3').focus()"
           type="number"
         >
         </v-text-field>
@@ -57,15 +57,14 @@
           :hide-details="true"
           :error-messages="handleValidationCodeErrors() || []"
           v-model="verificationCode[2]"
-          v-on:keyup="focusNextInput('inputNumberBox4')"
+          @keyup="focusNextInput($event, 'inputNumberBox4')"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
           max="9"
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
-          onkeyup="document.getElementById('inputNumberBox4').focus()"
-          type="number"
+          type="text"
         >
         </v-text-field>
         <v-text-field
@@ -73,27 +72,13 @@
           :hide-details="true"
           :error-messages="handleValidationCodeErrors() || []"
           v-model="verificationCode[3]"
-          v-on:keyup="focusNextInput('inputNumberBox5')"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
           max="9"
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
-          type="number"
-        >
-        </v-text-field>
-        <v-text-field
-          id="inputNumberBox5"
-          :hide-details="true"
-          :error-messages="handleValidationCodeErrors() || []"
-          v-model="verificationCode[4]"
-          class="c-info__pincode__number u-mrl-xs"
-          outlined
-          min="0"
-          max="9"
-          step="1"
-          type="number"
+          type="text"
         >
         </v-text-field>
       </div>
@@ -277,10 +262,20 @@ export default {
 
       return errors
     },
-    focusNextInput(focusInput) {
-      window.setTimeout(function() {
+    focusNextInput(event, focusInput) {
+      console.log(event.key)
+      if (event.key >= '0' && event.key <= '9') {
         document.getElementById(focusInput).focus()
-      }, 0)
+      }
+    },
+    handleInput(event) {
+      console.log('test')
+      console.log(event)
+    },
+    copyNumber(event) {
+      const number = event.clipboardData.getData('text/plain')
+      this.verificationCode = ('' + number).split('')
+      this.focusNextInput('inputNumberBox4')
     }
   }
 }
