@@ -36,7 +36,7 @@
         depressed
         x-large
         color="#0086ff"
-        class="c-info__button"
+        class="c-info__button rw-normal-text white--text"
       >
         Next
       </v-btn>
@@ -70,6 +70,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.rw-normal-text {
+  text-transform: none;
+}
 .c-info {
   color: #4d4d4d;
   padding-left: 120px;

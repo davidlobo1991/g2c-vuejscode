@@ -15,7 +15,7 @@
         item-value="id"
         outlined
         label="Country"
-        class="o-layout__item u-1/1 u-1/4@m c-info__input--prefix c-test"
+        class="o-layout__item u-1/1 u-1/4@m c-info__input--prefix"
       >
       </v-select>
       <v-text-field
@@ -23,7 +23,7 @@
         :hide-details="handleValidationPhoneErrors().length === 0"
         :error-messages="handleValidationPhoneErrors() || []"
         outlined
-        class="o-layout__item u-1/1 u-1/4@m c-info__input--phone c-test"
+        class="o-layout__item u-1/1 u-1/4@m c-info__input--phone"
         label="Phone number"
         type="number"
       >
@@ -65,7 +65,7 @@
         depressed
         x-large
         color="#0086ff"
-        class="c-info__button"
+        class="c-info__button rw-normal-text white--text"
       >
         Next
       </v-btn>
@@ -159,164 +159,13 @@ export default {
 }
 </script>
 
-<style lang="scss">
-/*PREFIX FIELD*/
-.c-info__input--prefix .v-input__control .v-input__slot {
-  font-size: 20px;
-  line-height: 23px !important;
-  height: 90px;
-}
-.c-info__input--prefix
-  .v-input__control
-  .v-input__slot
-  .v-select__slot
-  .v-select__selections {
-  line-height: 23px;
-}
-.c-info__input--prefix
-  .v-input__control
-  .v-input__slot
-  .v-select__slot
-  .v-label {
-  font-size: 23px;
-  top: 36px !important;
-}
-.c-info__input--prefix
-  .v-input__control
-  .v-input__slot
-  .v-select__slot
-  .v-label--active {
-  transform: translateY(-40px) scale(0.75) !important;
-}
-/*PHONE FIELD*/
-.c-info__input--phone .v-input__control .v-input__slot {
-  font-size: 20px;
-  line-height: 23px !important;
-  height: 90px;
-}
-.c-info__input--phone
-  .v-input__control
-  .v-input__slot
-  .v-text-field__slot
-  .v-label {
-  font-size: 23px;
-  top: 36px !important;
-}
-.c-info__input--phone
-  .v-input__control
-  .v-input__slot
-  .v-text-field__slot
-  .v-label--active {
-  transform: translateY(-40px) scale(0.75) !important;
-}
-@media screen and (max-width: 1500px) {
-  /*PREFIX FIELD*/
-  .c-info__input--prefix .v-input__control .v-input__slot {
-    font-size: 16px;
-    line-height: 16px !important;
-    height: 64px;
-  }
-  .c-info__input--prefix
-    .v-input__control
-    .v-input__slot
-    .v-select__slot
-    .v-select__selections {
-    /*line-height: 23px;*/
-  }
-  .c-info__input--prefix
-    .v-input__control
-    .v-input__slot
-    .v-select__slot
-    .v-label {
-    font-size: 16px;
-    top: 22px !important;
-  }
-  .c-info__input--prefix
-    .v-input__control
-    .v-input__slot
-    .v-select__slot
-    .v-label--active {
-    transform: translateY(-28px) scale(0.75) !important;
-  }
-  .c-info__input--phone .v-input__control .v-input__slot {
-    height: 64px;
-    font-size: 16px;
-    /*line-height: 23px !important;*/
-  }
-  /*PHONE FIELD*/
-  .c-info__input--phone
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label {
-    font-size: 16px;
-    top: 22px !important;
-  }
-  .c-info__input--phone
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label--active {
-    transform: translateY(-28px) scale(0.75) !important;
-  }
-}
-@media screen and (max-width: 768px) {
-  /*PREFIX FIELD*/
-  .c-info__input--prefix .v-input__control .v-input__slot {
-    font-size: 17px;
-    /*line-height: 17px !important;*/
-    height: 46px;
-  }
-  .c-info__input--prefix
-    .v-input__control
-    .v-input__slot
-    .v-select__slot
-    .v-select__selections {
-    /*line-height: 23px;*/
-  }
-  .c-info__input--prefix
-    .v-input__control
-    .v-input__slot
-    .v-select__slot
-    .v-label {
-    font-size: 17px;
-    top: 14px !important;
-  }
-  .c-info__input--prefix
-    .v-input__control
-    .v-input__slot
-    .v-select__slot
-    .v-label--active {
-    transform: translateY(-25px) scale(0.75) !important;
-  }
-  /*PHONE FIELD*/
-  .c-info__input--phone .v-input__control .v-input__slot {
-    height: 46px;
-    font-size: 17px;
-    /*line-height: 23px !important;*/
-  }
-  .c-info__input--phone
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label {
-    font-size: 17px;
-    top: 14px !important;
-  }
-  .c-info__input--phone
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label--active {
-    transform: translateY(-26px) scale(0.75) !important;
-  }
-}
-</style>
 <style lang="scss" scoped>
+.rw-normal-text {
+  text-transform: none;
+}
 .c-info {
   color: #4d4d4d;
   font-size: 22px;
-  /*width: 45%;*/
   max-width: 572px;
   margin: 0 auto;
   &__text {
@@ -358,9 +207,46 @@ export default {
       max-width: 230px;
       padding-right: 16px;
       padding-bottom: 12px;
+
+      ::v-deep {
+        .v-input__control .v-input__slot {
+          font-size: 20px;
+          line-height: 23px !important;
+          height: 90px;
+          & .v-select__slot {
+            & .v-select__selections {
+              line-height: 23px;
+            }
+            & .v-label {
+              font-size: 23px;
+              top: 36px !important;
+            }
+            & .v-label--active {
+              transform: translateY(-40px) scale(0.75) !important;
+            }
+          }
+        }
+      }
     }
     &--phone {
       max-width: 325px;
+
+      ::v-deep {
+        .v-input__control .v-input__slot {
+          font-size: 20px;
+          line-height: 23px;
+          min-height: 90px;
+          & .v-text-field__slot {
+            .v-label {
+              font-size: 23px;
+              top: 36px !important;
+            }
+            & .v-label--active {
+              transform: translateY(-40px) scale(0.75) !important;
+            }
+          }
+        }
+      }
     }
   }
   &__more-info {
@@ -375,9 +261,7 @@ export default {
   .c-info {
     font-size: 16px;
     line-height: unset;
-    /*padding: 0 80px;*/
     padding: 0;
-    /*width: 67%;*/
     max-width: 418px;
     &__text {
       line-height: unset;
@@ -386,11 +270,42 @@ export default {
         padding-bottom: 10px;
       }
     }
-    &__secretword {
-      font-size: 30px;
-      line-height: unset;
-      padding: 44px 0;
-      max-width: 900px;
+    &__input {
+      &--prefix {
+        ::v-deep {
+          .v-input__control .v-input__slot {
+            font-size: 16px;
+            line-height: 16px !important;
+            height: 64px;
+            & .v-select__slot {
+              & .v-label {
+                font-size: 16px;
+                top: 22px !important;
+              }
+              & .v-label--active {
+                transform: translateY(-28px) scale(0.75) !important;
+              }
+            }
+          }
+        }
+      }
+      &--phone {
+        ::v-deep {
+          .v-input__control .v-input__slot {
+            font-size: 16px;
+            min-height: 64px;
+            & .v-text-field__slot {
+              .v-label {
+                font-size: 16px;
+                top: 22px !important;
+              }
+              & .v-label--active {
+                transform: translateY(-28px) scale(0.75) !important;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -401,9 +316,6 @@ export default {
 }
 @media screen and (max-width: 768px) {
   .c-info {
-    /*padding-left: 17px;*/
-    /*padding-right: 17px;*/
-    /*padding-top: 0 !important;*/
     padding: 0;
     width: 100%;
     &__text {
@@ -415,17 +327,47 @@ export default {
       }
     }
     &__phone-cont {
-      /*flex-flow: column;*/
-      /*padding-top: 68px !important;*/
     }
     &__input {
       &--prefix {
         max-width: none;
         padding-left: 0;
         padding-right: 0;
+
+        ::v-deep {
+          .v-input__control .v-input__slot {
+            font-size: 17px;
+            height: 46px !important;
+            min-height: 46px !important;
+            & .v-select__slot {
+              & .v-label {
+                font-size: 17px;
+                top: 14px !important;
+              }
+              & .v-label--active {
+                transform: translateY(-21px) scale(0.75) !important;
+              }
+            }
+          }
+        }
       }
       &--phone {
         max-width: none;
+        ::v-deep {
+          .v-input__control .v-input__slot {
+            font-size: 17px;
+            min-height: 46px !important;
+            & .v-text-field__slot {
+              .v-label {
+                font-size: 17px;
+                top: 14px !important;
+              }
+              & .v-label--active {
+                transform: translateY(-26px) scale(0.75) !important;
+              }
+            }
+          }
+        }
       }
     }
     &__responsability {
