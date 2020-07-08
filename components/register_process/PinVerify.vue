@@ -22,78 +22,75 @@
     <div>
       <div class="c-info__pincode-cont">
         <v-text-field
-          id="inputNumberBox1"
+          :id="kind === 'email' ? 'inputNumberBox1' : 'inputNumberBoxPhone1'"
           :hide-details="true"
           :error-messages="handleValidationCodeErrors() || []"
           v-model="verificationCode[0]"
-          @keyup="focusNextInput('inputNumberBox2')"
+          @keyup="
+            kind === 'email'
+              ? focusNextInput($event, 'inputNumberBox2')
+              : focusNextInput($event, 'inputNumberBoxPhone2')
+          "
+          @paste="copyNumber($event)"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
           max="9"
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
-          type="number"
+          type="text"
         >
         </v-text-field>
         <v-text-field
-          id="inputNumberBox2"
+          :id="kind === 'email' ? 'inputNumberBox2' : 'inputNumberBoxPhone2'"
           :hide-details="true"
           :error-messages="handleValidationCodeErrors() || []"
           v-model="verificationCode[1]"
-          v-on:keyup="focusNextInput('inputNumberBox3')"
+          @keyup="
+            kind === 'email'
+              ? focusNextInput($event, 'inputNumberBox3')
+              : focusNextInput($event, 'inputNumberBoxPhone3')
+          "
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
           max="9"
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
-          onkeyup="document.getElementById('inputNumberBox3').focus()"
           type="number"
         >
         </v-text-field>
         <v-text-field
-          id="inputNumberBox3"
+          :id="kind === 'email' ? 'inputNumberBox3' : 'inputNumberBoxPhone3'"
           :hide-details="true"
           :error-messages="handleValidationCodeErrors() || []"
           v-model="verificationCode[2]"
-          v-on:keyup="focusNextInput('inputNumberBox4')"
+          @keyup="
+            kind === 'email'
+              ? focusNextInput($event, 'inputNumberBox4')
+              : focusNextInput($event, 'inputNumberBoxPhone4')
+          "
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
           max="9"
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
-          onkeyup="document.getElementById('inputNumberBox4').focus()"
-          type="number"
+          type="text"
         >
         </v-text-field>
         <v-text-field
-          id="inputNumberBox4"
+          :id="kind === 'email' ? 'inputNumberBox4' : 'inputNumberBoxPhone4'"
           :hide-details="true"
           :error-messages="handleValidationCodeErrors() || []"
           v-model="verificationCode[3]"
-          v-on:keyup="focusNextInput('inputNumberBox5')"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
           max="9"
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
-          type="number"
-        >
-        </v-text-field>
-        <v-text-field
-          id="inputNumberBox5"
-          :hide-details="true"
-          :error-messages="handleValidationCodeErrors() || []"
-          v-model="verificationCode[4]"
-          class="c-info__pincode__number u-mrl-xs"
-          outlined
-          min="0"
-          max="9"
-          step="1"
-          type="number"
+          type="text"
         >
         </v-text-field>
       </div>
@@ -277,10 +274,15 @@ export default {
 
       return errors
     },
-    focusNextInput(focusInput) {
-      window.setTimeout(function() {
+    focusNextInput(event, focusInput) {
+      if (event.key >= '0' && event.key <= '9') {
         document.getElementById(focusInput).focus()
-      }, 0)
+      }
+    },
+    copyNumber(event) {
+      const number = event.clipboardData.getData('text/plain')
+      this.verificationCode = ('' + number).split('')
+      this.focusNextInput('inputNumberBox4')
     }
   }
 }
