@@ -20,6 +20,7 @@
     <div :style="cssProps" class="c-info__button-cont u-align-right">
       <v-btn
         @click="navigationNext($event)"
+        :loading="loading"
         depressed
         x-large
         color="#0086ff"
@@ -40,7 +41,8 @@ export default {
     return {
       registerEmail: null,
       variableWidth: 27,
-      errorValidation: null
+      errorValidation: null,
+      loading: false
     }
   },
   validations: {
@@ -61,6 +63,7 @@ export default {
   },
   methods: {
     async navigationNext(event) {
+      this.loading = true
       this.$v.$touch()
 
       if (this.$v.$invalid) {
@@ -73,12 +76,13 @@ export default {
 
         if (!validation.error) {
           this.$emit('nextStep')
-          console.log(event)
         } else {
+          this.loading = false
           this.errorValidation = this.$i18n.t('register.error.email.sending')
           this.$v.$touch()
         }
       } else {
+        this.loading = false
         this.resendEmail = false
         this.errorValidation = this.$i18n.t('register.error.email.exists')
         this.$v.$touch()

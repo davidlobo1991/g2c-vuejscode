@@ -164,7 +164,8 @@ export default {
       verificationCode: [],
       verifyServiceId: null,
       errorValidation: null,
-      resendEmail: false
+      resendEmail: false,
+      loading: false
     }
   },
   methods: {
@@ -173,6 +174,7 @@ export default {
      * @returns {Promise<void>}
      */
     async verificationPhone() {
+      this.loading = true
       const code = this.getVerificationCode()
 
       try {
@@ -184,6 +186,7 @@ export default {
         this.errorValidation = null
         this.$emit('signIn')
       } catch (error) {
+        this.loading = false
         this.errorValidation = this.$i18n.t('register.error.phone.verification')
         this.$v.$touch()
         // eslint-disable-next-line no-console
@@ -197,6 +200,7 @@ export default {
      * @returns {Promise<void>}
      */
     async verificationEmail() {
+      this.loading = true
       const code = this.getVerificationCode()
 
       if (this.kind === 'email') {
@@ -210,6 +214,7 @@ export default {
           this.errorValidation = null
           this.$emit('nextStep')
         } catch (error) {
+          this.loading = false
           this.errorValidation = this.$i18n.t(
             'register.error.email.verification'
           )
