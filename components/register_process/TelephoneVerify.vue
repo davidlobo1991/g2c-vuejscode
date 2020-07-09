@@ -62,6 +62,7 @@
     <div class="c-info__button-cont u-align-right">
       <v-btn
         @click="navigationNext"
+        :loading="loading"
         depressed
         x-large
         color="#0086ff"
@@ -88,7 +89,8 @@ export default {
       registerPhone: null,
       registerPrefix: null,
       registerUkResident: 0,
-      errorValidation: null
+      errorValidation: null,
+      loading: false
     }
   },
   computed: {
@@ -114,6 +116,7 @@ export default {
   },
   methods: {
     async navigationNext() {
+      this.loading = true
       this.$v.$touch()
 
       if (this.$v.$invalid) {
@@ -128,12 +131,13 @@ export default {
           sessionStorage.verifyServiceId = validation.data.verifyServiceId
           this.$emit('nextStep')
         } else {
+          this.loading = false
           this.errorValidation = this.$i18n.t('register.error.phone.sending')
           this.$v.$touch()
         }
       } else {
         // eslint-disable-next-line no-console
-        console.log(checkPhone.message)
+        this.loading = false
         this.resendEmail = false
         this.errorValidation = this.$i18n.t('register.error.phone.exists')
         this.$v.$touch()

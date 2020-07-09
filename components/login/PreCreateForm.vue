@@ -26,7 +26,14 @@
         >
         </v-text-field>
         <div class="u-mrb-s c-login__cont--btn">
-          <v-btn @click="nextStep" depressed color="#0885F6" dark nuxt>
+          <v-btn
+            @click="nextStep"
+            :loading="loading"
+            depressed
+            color="#0885F6"
+            dark
+            nuxt
+          >
             Next
           </v-btn>
         </div>
@@ -53,6 +60,7 @@ export default {
         nick: '',
         password: null
       },
+      loading: false,
       errorValidation: null
     }
   },
@@ -98,6 +106,9 @@ export default {
     },
     async nextStep() {
       try {
+        this.loading = true
+
+        // eslint-disable-next-line no-unreachable
         this.$v.$touch()
 
         if (this.$v.$invalid) {
@@ -119,6 +130,7 @@ export default {
       } catch (error) {
         this.errorValidation = this.$i18n.t('register.error.nick.exists')
         this.$v.$touch()
+        this.loading = false
         // eslint-disable-next-line no-console
         console.error('PreCreateForm@checkUser - Error')
         // eslint-disable-next-line no-console
