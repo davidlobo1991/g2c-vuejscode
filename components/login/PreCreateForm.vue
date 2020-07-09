@@ -62,7 +62,9 @@ export default {
         password: null
       },
       loading: false,
-      errorValidation: null
+      errorValidation: null,
+      nickTaken: null
+      // buttonDisabled: false
     }
   },
   validations: {
@@ -88,11 +90,12 @@ export default {
         const validation = await this.checkUserApi()
 
         if (validation.error === true) {
-          throw validation.message
+          this.nickTaken = this.$i18n.t('register.error.nick.exists')
+        } else {
+          this.nickTaken = null
         }
+        this.$v.$touch()
       } catch (error) {
-        this.errorValidation = this.$i18n.t('register.error.nick.exists')
-        this.$v.$touch('handleValidationNickErrors')
         // eslint-disable-next-line no-console
         console.error('PreCreateForm@checkUser - Error')
         // eslint-disable-next-line no-console
@@ -111,10 +114,12 @@ export default {
           return
         }
 
-        const validation = this.checkUser()
+        const validation = await this.checkUserApi()
 
         if (validation.error === true) {
-          throw validation.message
+          this.nickTaken = this.$i18n.t('register.error.nick.exists')
+          this.$v.$touch()
+        } else {
         }
 
         // Save nick and password in session because if the user update the site they will be lost
@@ -153,6 +158,10 @@ export default {
         errors.push(this.errorValidation)
       }
 
+      if (this.nickTaken) {
+        errors.push(this.nickTaken)
+      }
+
       return errors
     },
     handleValidationPasswordErrors() {
@@ -161,7 +170,7 @@ export default {
         return errors
       }
 
-      if (!this.$v.formRegister.password.required) {
+      if (!this.nickTaken && !this.$v.formRegister.password.required) {
         errors.push(this.$i18n.t('register.error.password.required'))
       }
 
@@ -182,6 +191,7 @@ export default {
 .full-width {
   width: 100%;
 }
+
 .c-login {
   &__cont {
     &--btn {

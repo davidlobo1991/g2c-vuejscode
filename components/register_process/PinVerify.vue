@@ -38,7 +38,7 @@
           max="9"
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
-          type="text"
+          type="number"
         >
         </v-text-field>
         <v-text-field
@@ -76,7 +76,7 @@
           max="9"
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
-          type="text"
+          type="number"
         >
         </v-text-field>
         <v-text-field
@@ -90,7 +90,7 @@
           max="9"
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
-          type="text"
+          type="number"
         >
         </v-text-field>
       </div>
@@ -292,7 +292,7 @@ export default {
     copyNumber(event) {
       const number = event.clipboardData.getData('text/plain')
       this.verificationCode = ('' + number).split('')
-      this.focusNextInput('inputNumberBox4')
+      this.verificationCode[0] = number.charAt(0)
     }
   }
 }
@@ -305,6 +305,11 @@ export default {
 .c-error {
   margin: 0 10px 20px;
 }
+
+.c-success {
+  margin: 10px 0;
+}
+
 .c-info {
   color: #4d4d4d;
   margin: 0 auto;
