@@ -23,13 +23,11 @@
       <div class="c-profile__profile-card--button-cont">
         <v-btn color="#0087FF" dark class="c-profile__profile-card--button">
           <div>
-            Request eMeeting
+            <v-icon left>mdi-bookmark-multiple</v-icon> Request eMeeting
           </div>
         </v-btn>
         <v-btn color="#0087FF" dark class="c-profile__profile-card--button">
-          <div>
-            Send a Message
-          </div>
+          <v-icon left>mdi-message-text</v-icon> Send a Message
         </v-btn>
         <v-btn color="#0087FF" dark class="c-profile__profile-card--button">
           <div>
@@ -118,8 +116,7 @@ export default {
   &__profile-card {
     display: flex;
     position: relative;
-    padding: 20px;
-    padding-bottom: 40px;
+    padding: 50px 20px 50px 20px;
     border-radius: 4px;
     background-color: #ffffff;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
@@ -172,10 +169,18 @@ export default {
       }
     }
     &--button-cont {
-      background-color: green;
       display: flex;
       flex-flow: column;
       width: 100%;
+      ::v-deep {
+        .v-btn {
+          text-transform: none;
+          font-size: 18px;
+          height: 50px !important;
+          letter-spacing: 0;
+          font-family: Roboto;
+        }
+      }
     }
     &--button {
       margin-top: 20px;
@@ -283,7 +288,7 @@ export default {
         border: 1px solid #fff;
         width: 16px;
         height: 16px;
-        bottom: 37%;
+        /*bottom: 37%;*/
       }
       &--details {
         font-size: 14px;
@@ -320,7 +325,7 @@ export default {
         height: auto;
       }
       &--status {
-        bottom: 37%;
+        /*bottom: 37%;*/
       }
       &--text-cont {
         padding-left: 0;

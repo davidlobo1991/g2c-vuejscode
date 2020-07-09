@@ -6,6 +6,7 @@
       class="connectbutton--button"
       color="#0087FF"
       dark
+      href="/profile"
     >
       View Profile
     </v-btn>
