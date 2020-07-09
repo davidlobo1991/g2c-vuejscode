@@ -67,6 +67,7 @@ export default {
       this.$v.$touch()
 
       if (this.$v.$invalid) {
+        this.loading = false
         return
       }
       const checkEmail = await this.checkEmailApi()
@@ -105,7 +106,6 @@ export default {
       if (this.errorValidation) {
         errors.push(this.errorValidation)
       }
-
       return errors
     }
   }

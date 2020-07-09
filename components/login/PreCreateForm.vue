@@ -8,6 +8,7 @@
           :hide-details="handleValidationNickErrors().length === 0"
           :error-messages="handleValidationNickErrors() || []"
           @input="updateNick"
+          @blur="checkUser"
           label="Username (Handle)"
           outlined
           class="c-login__cont--input u-mrb-s"
@@ -84,12 +85,6 @@ export default {
   methods: {
     async checkUser() {
       try {
-        this.$v.$touch()
-
-        if (this.$v.$invalid) {
-          return
-        }
-
         const validation = await this.checkUserApi()
 
         if (validation.error === true) {
@@ -97,7 +92,7 @@ export default {
         }
       } catch (error) {
         this.errorValidation = this.$i18n.t('register.error.nick.exists')
-        this.$v.$touch()
+        this.$v.$touch('handleValidationNickErrors')
         // eslint-disable-next-line no-console
         console.error('PreCreateForm@checkUser - Error')
         // eslint-disable-next-line no-console
@@ -112,6 +107,7 @@ export default {
         this.$v.$touch()
 
         if (this.$v.$invalid) {
+          this.loading = false
           return
         }
 

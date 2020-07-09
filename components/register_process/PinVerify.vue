@@ -94,7 +94,9 @@
         >
         </v-text-field>
       </div>
-      <div v-show="errorValidation" class="c-error">{{ errorValidation }}</div>
+      <div v-show="errorValidation" class="c-error">
+        {{ errorValidation }}
+      </div>
 
       <div class="c-info__button--cont">
         <div class="c-info__button">
@@ -126,7 +128,10 @@
         </div>
       </div>
     </div>
-    <div v-show="resendEmail" class="c-success">Email resend</div>
+    <div v-show="resendEmail" class="c-success">
+      <v-icon>mdi-check-circle-outline</v-icon>
+      Email resend
+    </div>
 
     <div class="c-info__responsability u-flex u-flex-between">
       <div
@@ -296,6 +301,9 @@ export default {
 <style lang="scss" scoped>
 .rw-normal-text {
   text-transform: none;
+}
+.c-error {
+  margin: 0 10px 20px;
 }
 .c-info {
   color: #4d4d4d;

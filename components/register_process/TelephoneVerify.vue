@@ -120,6 +120,7 @@ export default {
       this.$v.$touch()
 
       if (this.$v.$invalid) {
+        this.loading = false
         return
       }
       const checkPhone = await this.checkPhoneApi()
