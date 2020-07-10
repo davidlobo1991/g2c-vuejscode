@@ -158,6 +158,10 @@ export default {
     hideNumber: {
       type: String,
       default: ''
+    },
+    loadingFromParent: {
+      type: Boolean,
+      default: false
     }
   },
   validations: {
@@ -170,6 +174,11 @@ export default {
       errorValidation: null,
       resendEmail: false,
       loading: false
+    }
+  },
+  watch: {
+    loadingFromParent(data) {
+      this.loading = data
     }
   },
   methods: {
