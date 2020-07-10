@@ -119,7 +119,8 @@ export default {
         if (validation.error === true) {
           this.nickTaken = this.$i18n.t('register.error.nick.exists')
           this.$v.$touch()
-        } else {
+          this.loading = false
+          return
         }
 
         // Save nick and password in session because if the user update the site they will be lost

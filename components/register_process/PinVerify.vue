@@ -292,7 +292,6 @@ export default {
     copyNumber(event) {
       const number = event.clipboardData.getData('text/plain')
       this.verificationCode = ('' + number).split('')
-      this.verificationCode[0] = number.charAt(0)
     }
   }
 }
