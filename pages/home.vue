@@ -10,7 +10,7 @@ import Home from '~/components/Home.vue'
 export default {
   layout: 'default',
   name: 'HomeDashboard',
-  middleware: ['auth'],
+  // middleware: ['auth'],
   components: {
     Home
   }

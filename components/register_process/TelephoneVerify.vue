@@ -210,9 +210,8 @@ export default {
   &__input {
     &--prefix {
       max-width: 230px;
-      padding-right: 16px;
-      padding-bottom: 12px;
-
+      padding-right: 16px !important;
+      padding-bottom: 12px !important;
       ::v-deep {
         .v-input__control .v-input__slot {
           font-size: 20px;
@@ -255,11 +254,15 @@ export default {
     }
   }
   &__more-info {
-    color: #e2edfa;
+    color: #e2edfa !important;
     background-color: #0087ff;
     border-radius: 50px;
     height: 20px;
     width: 20px;
+  }
+  &__button {
+    min-height: 90px;
+    width: 180px;
   }
 }
 @media screen and (max-width: 1500px) {
@@ -384,6 +387,15 @@ export default {
       }
       &--toggle {
         transform: none;
+      }
+    }
+    &__button {
+      flex-flow: column;
+      align-items: flex-start;
+      width: 100%;
+      min-height: 46px;
+      & button {
+        min-width: 100% !important;
       }
     }
   }

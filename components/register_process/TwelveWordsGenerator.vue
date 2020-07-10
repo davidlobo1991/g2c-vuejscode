@@ -78,6 +78,10 @@ export default {
   padding-left: 120px;
   padding-right: 120px;
   font-size: 20px;
+  &__button {
+    min-height: 90px;
+    width: 180px;
+  }
   &__text {
     color: #4d4d4d;
     font-family: Roboto;
@@ -155,7 +159,15 @@ export default {
         padding-bottom: 7px;
       }
     }
-
+    &__button {
+      flex-flow: column;
+      align-items: flex-start;
+      width: 100%;
+      min-height: 46px;
+      & button {
+        min-width: 100% !important;
+      }
+    }
     &__secretword {
       padding-top: 33px !important;
       padding-bottom: 33px !important;

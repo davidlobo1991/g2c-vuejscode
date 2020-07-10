@@ -1,63 +1,67 @@
 <template>
   <div class="c-home__cards">
     <div class="c-home__cards__wrapper">
-      <div v-on:click.self="showContact" class="c-home__cards__card">
-        <div class="c-home__cards__card--img-cont">
-          <img
-            src="~/assets/images/persona1.png"
-            alt="image"
-            class="c-home__cards__card--img"
-          />
-          <div class="c-home__cards__card--status u-status--available"></div>
-        </div>
-        <div class="c-home__cards__card--name">
-          Gabel Sheber
-        </div>
-        <div class="c-home__cards__card--username">
-          @gabelsh
-        </div>
-        <div class="c-home__cards__card--description">
-          Company’s Legal Advisor & Chess Amateur
-        </div>
-        <div class="c-home__cards__card--details-cont">
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">210</span>
-            Connections
+      <div class="c-home__cards__card">
+        <div @click="showContact" class="c-home__cards__card--text-wrapper">
+          <div class="c-home__cards__card--img-cont">
+            <img
+              src="~/assets/images/persona1.png"
+              alt="image"
+              class="c-home__cards__card--img"
+            />
+            <div class="c-home__cards__card--status u-status--available"></div>
           </div>
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">176</span>
-            Recommends
+          <div class="c-home__cards__card--name">
+            Gabel Sheber
+          </div>
+          <div class="c-home__cards__card--username">
+            @gabelsh
+          </div>
+          <div class="c-home__cards__card--description">
+            Company’s Legal Advisor & Chess Amateur
+          </div>
+          <div class="c-home__cards__card--details-cont">
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">210</span>
+              Connections
+            </div>
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">176</span>
+              Recommends
+            </div>
           </div>
         </div>
         <ConnectButton status="view" />
       </div>
 
       <div v-on:click.prevent.self="showContact" class="c-home__cards__card">
-        <div class="c-home__cards__card--img-cont">
-          <img
-            src="~/assets/images/persona1.png"
-            alt="image"
-            class="c-home__cards__card--img"
-          />
-          <div class="c-home__cards__card--status u-status--available"></div>
-        </div>
-        <div class="c-home__cards__card--name">
-          Gabel Sheber
-        </div>
-        <div class="c-home__cards__card--username">
-          @gabelsh
-        </div>
-        <div class="c-home__cards__card--description">
-          Company’s Legal Advisor & Chess Amateur
-        </div>
-        <div class="c-home__cards__card--details-cont">
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">210</span>
-            Connections
+        <div @click="showContact" class="c-home__cards__card--text-wrapper">
+          <div class="c-home__cards__card--img-cont">
+            <img
+              src="~/assets/images/persona1.png"
+              alt="image"
+              class="c-home__cards__card--img"
+            />
+            <div class="c-home__cards__card--status u-status--available"></div>
           </div>
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">176</span>
-            Recommends
+          <div class="c-home__cards__card--name">
+            Gabel Sheber
+          </div>
+          <div class="c-home__cards__card--username">
+            @gabelsh
+          </div>
+          <div class="c-home__cards__card--description">
+            Company’s Legal Advisor & Chess Amateur
+          </div>
+          <div class="c-home__cards__card--details-cont">
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">210</span>
+              Connections
+            </div>
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">176</span>
+              Recommends
+            </div>
           </div>
         </div>
         <ConnectButton
@@ -69,134 +73,101 @@
       </div>
 
       <div class="c-home__cards__card">
-        <div class="c-home__cards__card--img-cont">
-          <nuxt-link
-            :src="require('@/assets/images/persona1.png')"
-            tag="img"
-            to="/"
-            class="c-home__cards__card--img"
-          />
-          <div class="c-home__cards__card--status u-status--available"></div>
-        </div>
-        <div class="c-home__cards__card--name">
-          Gabel Sheber
-        </div>
-        <div class="c-home__cards__card--username">
-          @gabelsh
-        </div>
-        <div class="c-home__cards__card--description">
-          Company’s Legal Advisor & Chess Amateur
-        </div>
-        <div class="c-home__cards__card--details-cont">
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">210</span>
-            Connections
+        <div @click="showContact" class="c-home__cards__card--text-wrapper">
+          <div class="c-home__cards__card--img-cont">
+            <nuxt-link
+              :src="require('@/assets/images/persona1.png')"
+              tag="img"
+              to="/"
+              class="c-home__cards__card--img"
+            />
+            <div class="c-home__cards__card--status u-status--available"></div>
           </div>
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">176</span>
-            Recommends
+          <div class="c-home__cards__card--name">
+            Gabel Sheber
+          </div>
+          <div class="c-home__cards__card--username">
+            @gabelsh
+          </div>
+          <div class="c-home__cards__card--description">
+            Company’s Legal Advisor & Chess Amateur
+          </div>
+          <div class="c-home__cards__card--details-cont">
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">210</span>
+              Connections
+            </div>
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">176</span>
+              Recommends
+            </div>
           </div>
         </div>
         <ConnectButton status="accept" cost="1" />
       </div>
 
       <div class="c-home__cards__card">
-        <div class="c-home__cards__card--img-cont">
-          <nuxt-link
-            :src="require('@/assets/images/persona1.png')"
-            tag="img"
-            to="/"
-            class="c-home__cards__card--img"
-          />
-          <div class="c-home__cards__card--status u-status--available"></div>
-        </div>
-        <div class="c-home__cards__card--name">
-          Gabel Sheber
-        </div>
-        <div class="c-home__cards__card--username">
-          @gabelsh
-        </div>
-        <div class="c-home__cards__card--description">
-          Company’s Legal Advisor & Chess Amateur
-        </div>
-        <div class="c-home__cards__card--details-cont">
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">210</span>
-            Connections
+        <div @click="showContact" class="c-home__cards__card--text-wrapper">
+          <div class="c-home__cards__card--img-cont">
+            <nuxt-link
+              :src="require('@/assets/images/persona1.png')"
+              tag="img"
+              to="/"
+              class="c-home__cards__card--img"
+            />
+            <div class="c-home__cards__card--status u-status--available"></div>
           </div>
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">176</span>
-            Recommends
+          <div class="c-home__cards__card--name">
+            Gabel Sheber
+          </div>
+          <div class="c-home__cards__card--username">
+            @gabelsh
+          </div>
+          <div class="c-home__cards__card--description">
+            Company’s Legal Advisor & Chess Amateur
+          </div>
+          <div class="c-home__cards__card--details-cont">
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">210</span>
+              Connections
+            </div>
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">176</span>
+              Recommends
+            </div>
           </div>
         </div>
         <ConnectButton status="pending" cost="1" />
       </div>
       <div class="c-home__cards__card">
-        <div class="c-home__cards__card--img-cont">
-          <nuxt-link
-            :src="require('@/assets/images/persona1.png')"
-            tag="img"
-            to="/"
-            class="c-home__cards__card--img"
-          />
-          <div class="c-home__cards__card--status u-status--available"></div>
-        </div>
-        <div class="c-home__cards__card--name">
-          Gabel Sheber
-        </div>
-        <div class="c-home__cards__card--username">
-          @gabelsh
-        </div>
-        <div class="c-home__cards__card--description">
-          Company’s Legal Advisor & Chess Amateur
-        </div>
-        <div class="c-home__cards__card--details-cont">
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">210</span>
-            Connections
+        <div @click="showContact" class="c-home__cards__card--text-wrapper">
+          <div class="c-home__cards__card--img-cont">
+            <nuxt-link
+              :src="require('@/assets/images/persona1.png')"
+              tag="img"
+              to="/"
+              class="c-home__cards__card--img"
+            />
+            <div class="c-home__cards__card--status u-status--available"></div>
           </div>
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">176</span>
-            Recommends
+          <div class="c-home__cards__card--name">
+            Gabel Sheber
           </div>
-        </div>
-        <v-btn
-          depressed
-          class="c-home__cards__card--button"
-          color="#0087FF"
-          dark
-        >
-          1$ - Connect
-        </v-btn>
-      </div>
-
-      <div class="c-home__cards__card">
-        <div class="c-home__cards__card--img-cont">
-          <nuxt-link
-            :src="require('@/assets/images/persona1.png')"
-            tag="img"
-            to="/"
-            class="c-home__cards__card--img"
-          />
-          <div class="c-home__cards__card--status u-status--available"></div>
-        </div>
-        <div class="c-home__cards__card--name">
-          Gabel Sheber
-        </div>
-        <div class="c-home__cards__card--username">
-          @gabelsh
-        </div>
-        <div class="c-home__cards__card--description">
-          Company’s Legal Advisor & Chess Amateur
-        </div>
-        <div class="c-home__cards__card--details-cont">
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">210</span>
-            Connections
+          <div class="c-home__cards__card--username">
+            @gabelsh
           </div>
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">176</span>
-            Recommends
+          <div class="c-home__cards__card--description">
+            Company’s Legal Advisor & Chess Amateur
+          </div>
+          <div class="c-home__cards__card--details-cont">
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">210</span>
+              Connections
+            </div>
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">176</span>
+              Recommends
+            </div>
           </div>
         </div>
         <v-btn
@@ -210,71 +181,34 @@
       </div>
 
       <div class="c-home__cards__card">
-        <div class="c-home__cards__card--img-cont">
-          <nuxt-link
-            :src="require('@/assets/images/persona1.png')"
-            tag="img"
-            to="/"
-            class="c-home__cards__card--img"
-          />
-          <div class="c-home__cards__card--status u-status--available"></div>
-        </div>
-        <div class="c-home__cards__card--name">
-          Gabel Sheber
-        </div>
-        <div class="c-home__cards__card--username">
-          @gabelsh
-        </div>
-        <div class="c-home__cards__card--description">
-          Company’s Legal Advisor & Chess Amateur
-        </div>
-        <div class="c-home__cards__card--details-cont">
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">210</span>
-            Connections
+        <div @click="showContact" class="c-home__cards__card--text-wrapper">
+          <div class="c-home__cards__card--img-cont">
+            <nuxt-link
+              :src="require('@/assets/images/persona1.png')"
+              tag="img"
+              to="/"
+              class="c-home__cards__card--img"
+            />
+            <div class="c-home__cards__card--status u-status--available"></div>
           </div>
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">176</span>
-            Recommends
+          <div class="c-home__cards__card--name">
+            Gabel Sheber
           </div>
-        </div>
-        <v-btn
-          depressed
-          class="c-home__cards__card--button"
-          color="#0087FF"
-          dark
-        >
-          1$ - Connect
-        </v-btn>
-      </div>
-
-      <div class="c-home__cards__card">
-        <div class="c-home__cards__card--img-cont">
-          <nuxt-link
-            :src="require('@/assets/images/persona1.png')"
-            tag="img"
-            to="/"
-            class="c-home__cards__card--img"
-          />
-          <div class="c-home__cards__card--status u-status--available"></div>
-        </div>
-        <div class="c-home__cards__card--name">
-          Gabel Sheber
-        </div>
-        <div class="c-home__cards__card--username">
-          @gabelsh
-        </div>
-        <div class="c-home__cards__card--description">
-          Company’s Legal Advisor & Chess Amateur
-        </div>
-        <div class="c-home__cards__card--details-cont">
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">210</span>
-            Connections
+          <div class="c-home__cards__card--username">
+            @gabelsh
           </div>
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">176</span>
-            Recommends
+          <div class="c-home__cards__card--description">
+            Company’s Legal Advisor & Chess Amateur
+          </div>
+          <div class="c-home__cards__card--details-cont">
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">210</span>
+              Connections
+            </div>
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">176</span>
+              Recommends
+            </div>
           </div>
         </div>
         <v-btn
@@ -288,71 +222,34 @@
       </div>
 
       <div class="c-home__cards__card">
-        <div class="c-home__cards__card--img-cont">
-          <nuxt-link
-            :src="require('@/assets/images/persona1.png')"
-            tag="img"
-            to="/account"
-            class="c-home__cards__card--img"
-          />
-          <div class="c-home__cards__card--status u-status--available"></div>
-        </div>
-        <div class="c-home__cards__card--name">
-          Gabel Sheber
-        </div>
-        <div class="c-home__cards__card--username">
-          @gabelsh
-        </div>
-        <div class="c-home__cards__card--description">
-          Company’s Legal Advisor & Chess Amateur
-        </div>
-        <div class="c-home__cards__card--details-cont">
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">210</span>
-            Connections
+        <div @click="showContact" class="c-home__cards__card--text-wrapper">
+          <div class="c-home__cards__card--img-cont">
+            <nuxt-link
+              :src="require('@/assets/images/persona1.png')"
+              tag="img"
+              to="/"
+              class="c-home__cards__card--img"
+            />
+            <div class="c-home__cards__card--status u-status--available"></div>
           </div>
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">176</span>
-            Recommends
+          <div class="c-home__cards__card--name">
+            Gabel Sheber
           </div>
-        </div>
-        <v-btn
-          depressed
-          class="c-home__cards__card--button"
-          color="#0087FF"
-          dark
-        >
-          1$ - Connect
-        </v-btn>
-      </div>
-
-      <div class="c-home__cards__card">
-        <div class="c-home__cards__card--img-cont">
-          <nuxt-link
-            :src="require('@/assets/images/persona1.png')"
-            tag="img"
-            to="/"
-            class="c-home__cards__card--img"
-          />
-          <div class="c-home__cards__card--status u-status--available"></div>
-        </div>
-        <div class="c-home__cards__card--name">
-          Gabel Sheber
-        </div>
-        <div class="c-home__cards__card--username">
-          @gabelsh
-        </div>
-        <div class="c-home__cards__card--description">
-          Company’s Legal Advisor & Chess Amateur
-        </div>
-        <div class="c-home__cards__card--details-cont">
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">210</span>
-            Connections
+          <div class="c-home__cards__card--username">
+            @gabelsh
           </div>
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">176</span>
-            Recommends
+          <div class="c-home__cards__card--description">
+            Company’s Legal Advisor & Chess Amateur
+          </div>
+          <div class="c-home__cards__card--details-cont">
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">210</span>
+              Connections
+            </div>
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">176</span>
+              Recommends
+            </div>
           </div>
         </div>
         <v-btn
@@ -366,32 +263,157 @@
       </div>
 
       <div class="c-home__cards__card">
-        <div class="c-home__cards__card--img-cont">
-          <nuxt-link
-            :src="require('@/assets/images/persona1.png')"
-            tag="img"
-            to="/"
-            class="c-home__cards__card--img"
-          />
-          <div class="c-home__cards__card--status u-status--available"></div>
-        </div>
-        <div class="c-home__cards__card--name">
-          Gabel Sheber
-        </div>
-        <div class="c-home__cards__card--username">
-          @gabelsh
-        </div>
-        <div class="c-home__cards__card--description">
-          Company’s Legal Advisor & Chess Amateur
-        </div>
-        <div class="c-home__cards__card--details-cont">
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">210</span>
-            Connections
+        <div @click="showContact" class="c-home__cards__card--text-wrapper">
+          <div class="c-home__cards__card--img-cont">
+            <nuxt-link
+              :src="require('@/assets/images/persona1.png')"
+              tag="img"
+              to="/"
+              class="c-home__cards__card--img"
+            />
+            <div class="c-home__cards__card--status u-status--available"></div>
           </div>
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">176</span>
-            Recommends
+          <div class="c-home__cards__card--name">
+            Gabel Sheber
+          </div>
+          <div class="c-home__cards__card--username">
+            @gabelsh
+          </div>
+          <div class="c-home__cards__card--description">
+            Company’s Legal Advisor & Chess Amateur
+          </div>
+          <div class="c-home__cards__card--details-cont">
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">210</span>
+              Connections
+            </div>
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">176</span>
+              Recommends
+            </div>
+          </div>
+        </div>
+        <v-btn
+          depressed
+          class="c-home__cards__card--button"
+          color="#0087FF"
+          dark
+        >
+          1$ - Connect
+        </v-btn>
+      </div>
+
+      <div class="c-home__cards__card">
+        <div @click="showContact" class="c-home__cards__card--text-wrapper">
+          <div class="c-home__cards__card--img-cont">
+            <nuxt-link
+              :src="require('@/assets/images/persona1.png')"
+              tag="img"
+              to="/account"
+              class="c-home__cards__card--img"
+            />
+            <div class="c-home__cards__card--status u-status--available"></div>
+          </div>
+          <div class="c-home__cards__card--name">
+            Gabel Sheber
+          </div>
+          <div class="c-home__cards__card--username">
+            @gabelsh
+          </div>
+          <div class="c-home__cards__card--description">
+            Company’s Legal Advisor & Chess Amateur
+          </div>
+          <div class="c-home__cards__card--details-cont">
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">210</span>
+              Connections
+            </div>
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">176</span>
+              Recommends
+            </div>
+          </div>
+        </div>
+        <v-btn
+          depressed
+          class="c-home__cards__card--button"
+          color="#0087FF"
+          dark
+        >
+          1$ - Connect
+        </v-btn>
+      </div>
+
+      <div class="c-home__cards__card">
+        <div @click="showContact" class="c-home__cards__card--text-wrapper">
+          <div class="c-home__cards__card--img-cont">
+            <nuxt-link
+              :src="require('@/assets/images/persona1.png')"
+              tag="img"
+              to="/"
+              class="c-home__cards__card--img"
+            />
+            <div class="c-home__cards__card--status u-status--available"></div>
+          </div>
+          <div class="c-home__cards__card--name">
+            Gabel Sheber
+          </div>
+          <div class="c-home__cards__card--username">
+            @gabelsh
+          </div>
+          <div class="c-home__cards__card--description">
+            Company’s Legal Advisor & Chess Amateur
+          </div>
+          <div class="c-home__cards__card--details-cont">
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">210</span>
+              Connections
+            </div>
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">176</span>
+              Recommends
+            </div>
+          </div>
+        </div>
+        <v-btn
+          depressed
+          class="c-home__cards__card--button"
+          color="#0087FF"
+          dark
+        >
+          1$ - Connect
+        </v-btn>
+      </div>
+
+      <div class="c-home__cards__card">
+        <div @click="showContact" class="c-home__cards__card--text-wrapper">
+          <div class="c-home__cards__card--img-cont">
+            <nuxt-link
+              :src="require('@/assets/images/persona1.png')"
+              tag="img"
+              to="/"
+              class="c-home__cards__card--img"
+            />
+            <div class="c-home__cards__card--status u-status--available"></div>
+          </div>
+          <div class="c-home__cards__card--name">
+            Gabel Sheber
+          </div>
+          <div class="c-home__cards__card--username">
+            @gabelsh
+          </div>
+          <div class="c-home__cards__card--description">
+            Company’s Legal Advisor & Chess Amateur
+          </div>
+          <div class="c-home__cards__card--details-cont">
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">210</span>
+              Connections
+            </div>
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">176</span>
+              Recommends
+            </div>
           </div>
         </div>
         <v-btn
@@ -486,9 +508,17 @@ export default {
       display: flex;
       flex-flow: column;
       justify-content: space-between;
-      align-items: center;
+      /*align-items: center;*/
       border-radius: 5px;
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+      &--text-wrapper {
+        display: flex;
+        flex-flow: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+      }
       &--img-cont {
         position: relative;
         width: 163px;

@@ -412,7 +412,7 @@ export default {
     }
 
     &--icon {
-      color: #0087ff;
+      color: #0087ff !important;
       margin-right: 5px;
     }
   }
