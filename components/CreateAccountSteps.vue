@@ -39,6 +39,10 @@
           kind="telephone"
         />
       </div>
+
+      <div v-show="errorCreateAccount" class="c-error">
+        {{ errorCreateAccount }}
+      </div>
     </div>
   </div>
 </template>
@@ -70,7 +74,8 @@ export default {
       registerPhone: null,
       registerPrefix: null,
       // registerEmail: null,
-      errorValidation: null
+      errorValidation: null,
+      errorCreateAccount: null
     }
   },
   computed: {
@@ -167,6 +172,10 @@ export default {
           this.login(this.nick, this.words)
         }
       } catch (error) {
+        this.errorCreateAccount = this.$i18n.t(
+          'register.error.creating.account'
+        )
+
         // eslint-disable-next-line no-console
         console.error('testCreateUser - Error')
         // eslint-disable-next-line no-console

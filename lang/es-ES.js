@@ -25,6 +25,9 @@ export default {
       password: {
         required: 'La contraseña es requerida',
         length: 'Longitud mínima de contraseña: 6 carácteres'
+      },
+      creating: {
+        account: 'Error creando la cuenta.'
       }
     }
   },

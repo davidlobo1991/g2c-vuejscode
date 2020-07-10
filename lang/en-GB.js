@@ -25,6 +25,9 @@ export default {
       password: {
         required: 'The password is required',
         length: 'Password min lenght 6'
+      },
+      creating: {
+        account: 'Error creating the account. Please contact with the admin'
       }
     }
   },

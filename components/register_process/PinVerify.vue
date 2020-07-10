@@ -106,6 +106,7 @@
           <v-btn
             v-if="kind === 'telephone'"
             @click="verificationPhone"
+            :loading="loading"
             depressed
             x-large
             dark
@@ -117,6 +118,7 @@
           <v-btn
             v-if="kind === 'email'"
             @click="verificationEmail"
+            :loading="loading"
             depressed
             x-large
             color="#0086ff"
@@ -130,7 +132,7 @@
     </div>
     <div v-show="resendEmail" class="c-success">
       <v-icon>mdi-check-circle-outline</v-icon>
-      Email resend
+      Validation code resend
     </div>
 
     <div class="c-info__responsability u-flex u-flex-between">
@@ -190,6 +192,7 @@ export default {
         }
         this.errorValidation = null
         this.$emit('signIn')
+        this.loading = false
       } catch (error) {
         this.loading = false
         this.errorValidation = this.$i18n.t('register.error.phone.verification')
@@ -306,7 +309,13 @@ export default {
 }
 
 .c-success {
-  margin: 10px 0;
+  margin: 30px 0;
+  color: #18de82;
+  font-weight: 500;
+
+  .v-icon {
+    color: #18de82;
+  }
 }
 
 .c-info {
