@@ -35,8 +35,6 @@
           @click="selectValue($event)"
           class="c-info__pincode__number u-mrh-xs"
           outlined
-          min="0"
-          max="9"
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'');"
           maxlength="1"
@@ -56,8 +54,6 @@
           @click="selectValue($event)"
           class="c-info__pincode__number u-mrh-xs"
           outlined
-          min="0"
-          max="9"
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
           type="text"
@@ -76,8 +72,6 @@
           @click="selectValue($event)"
           class="c-info__pincode__number u-mrh-xs"
           outlined
-          min="0"
-          max="9"
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
           type="text"
@@ -91,8 +85,6 @@
           @click="selectValue($event)"
           class="c-info__pincode__number u-mrh-xs"
           outlined
-          min="0"
-          max="9"
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
           type="text"
