@@ -27,7 +27,7 @@ export default {
         length: 'Password min lenght 6'
       },
       creating: {
-        account: 'Error creating the account. Please contact with the admin'
+        account: 'Error creating the account.'
       }
     }
   },

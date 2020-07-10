@@ -189,7 +189,6 @@ export default {
         }
         this.errorValidation = null
         this.$emit('signIn')
-        this.loading = false
       } catch (error) {
         this.loading = false
         this.errorValidation = this.$i18n.t('register.error.phone.verification')

@@ -270,6 +270,12 @@ input[type='number']::-webkit-outer-spin-button {
   }
 }
 
+.c-error {
+  margin: 30px auto;
+  text-align: center;
+  font-weight: 500;
+}
+
 .c-info {
   &__button-cont {
     // padding-right: 27%;
