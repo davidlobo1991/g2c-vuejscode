@@ -32,13 +32,15 @@
               : focusNextInput($event, 'inputNumberBoxPhone2')
           "
           @paste="copyNumber($event)"
+          @click="selectValue($event)"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
           max="9"
           step="1"
-          oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
-          type="number"
+          oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+          maxlength="1"
+          type="text"
         >
         </v-text-field>
         <v-text-field
@@ -51,13 +53,14 @@
               ? focusNextInput($event, 'inputNumberBox3')
               : focusNextInput($event, 'inputNumberBoxPhone3')
           "
+          @click="selectValue($event)"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
           max="9"
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
-          type="number"
+          type="text"
         >
         </v-text-field>
         <v-text-field
@@ -70,13 +73,14 @@
               ? focusNextInput($event, 'inputNumberBox4')
               : focusNextInput($event, 'inputNumberBoxPhone4')
           "
+          @click="selectValue($event)"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
           max="9"
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
-          type="number"
+          type="text"
         >
         </v-text-field>
         <v-text-field
@@ -84,13 +88,14 @@
           :hide-details="true"
           :error-messages="handleValidationCodeErrors() || []"
           v-model="verificationCode[3]"
+          @click="selectValue($event)"
           class="c-info__pincode__number u-mrh-xs"
           outlined
           min="0"
           max="9"
           step="1"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(-1);"
-          type="number"
+          type="text"
         >
         </v-text-field>
       </div>
@@ -295,6 +300,9 @@ export default {
     copyNumber(event) {
       const number = event.clipboardData.getData('text/plain')
       this.verificationCode = ('' + number).split('')
+    },
+    selectValue(event) {
+      event.target.select()
     }
   }
 }
@@ -386,6 +394,15 @@ export default {
           & .v-text-field__slot,
           input {
             text-align: center;
+            &::selection {
+              color: none;
+              background: none;
+            }
+            /* For Mozilla Firefox */
+            &::-moz-selection {
+              color: none;
+              background: none;
+            }
           }
         }
       }
