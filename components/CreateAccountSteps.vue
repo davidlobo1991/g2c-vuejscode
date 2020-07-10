@@ -35,7 +35,8 @@
       <div v-show="5 === step">
         <PinVerify
           @signIn="signIn"
-          :hide-number="this.mobilePrefix + ' ' + this.mobileNumber"
+          :hide-number="mobilePrefix + ' ' + mobileNumber"
+          :loadingFromParent="loading"
           kind="telephone"
         />
       </div>
@@ -75,7 +76,8 @@ export default {
       registerPrefix: null,
       // registerEmail: null,
       errorValidation: null,
-      errorCreateAccount: null
+      errorCreateAccount: null,
+      loading: true
     }
   },
   computed: {
@@ -176,6 +178,7 @@ export default {
           'register.error.creating.account'
         )
 
+        this.loading = false
         // eslint-disable-next-line no-console
         console.error('testCreateUser - Error')
         // eslint-disable-next-line no-console
