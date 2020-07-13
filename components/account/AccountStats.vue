@@ -29,7 +29,8 @@
       <!--        </div>-->
       <!--      </div>-->
       <div class="c-account__stats--buttons">
-        <div class="c-account__stats--link">ADD FUNDS</div>
+        <AddFunds />
+        <!--        <div class="c-account__stats&#45;&#45;link">ADD FUNDS</div>-->
         <div class="c-account__stats--link">SEND</div>
       </div>
     </div>
@@ -41,8 +42,13 @@
 </template>
 
 <script>
+import AddFunds from '~/components/account/AddFunds'
+
 export default {
   name: 'AccountStats',
+  components: {
+    AddFunds
+  },
   data: () => ({
     items: ['Today', 'Last week', 'Last month', 'Last year'],
     AreStatsVisible: true
@@ -135,15 +141,6 @@ export default {
       bottom: 20px;
       left: 20px;
       cursor: pointer;
-    }
-    &--link {
-      display: flex;
-      font-size: 18px;
-      font-weight: 500;
-      padding-right: 21px;
-      &:last-of-type {
-        padding-right: 0;
-      }
     }
   }
 }
