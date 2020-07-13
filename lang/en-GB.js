@@ -20,7 +20,10 @@ export default {
       },
       nick: {
         required: 'The username is required',
-        exists: 'The username is already taken'
+        exists: 'The username is already taken',
+        invalid:
+          'Nickname can only be mixed lowercase letters, numbers and slash',
+        length: 'Max length is 64 chars'
       },
       password: {
         required: 'The password is required',

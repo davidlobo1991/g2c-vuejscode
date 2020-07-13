@@ -51,7 +51,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 
 export default {
   name: 'PreCreateForm',
@@ -63,14 +63,16 @@ export default {
       },
       loading: false,
       errorValidation: null,
-      nickTaken: null
+      nickTaken: null,
+      nickInvalid: null
       // buttonDisabled: false
     }
   },
   validations: {
     formRegister: {
       nick: {
-        required
+        required,
+        maxLength: maxLength(64)
       },
       password: {
         required,
@@ -100,6 +102,21 @@ export default {
      */
     async checkUser() {
       try {
+        const checkLowercase = this.checkIfAlphanumericAndLowerCase(this.nick)
+
+        if (!checkLowercase) {
+          this.nickInvalid = this.$i18n.t('register.error.nick.invalid')
+        } else {
+          this.nickInvalid = null
+        }
+        // eslint-disable-next-line no-unreachable
+        this.$v.$touch()
+
+        if (this.$v.$invalid) {
+          this.loading = false
+          return
+        }
+
         const validation = await this.checkUserApi()
 
         if (validation.error === true) {
@@ -123,6 +140,11 @@ export default {
       try {
         this.loading = true
 
+        const checkLowercase = this.checkIfAlphanumericAndLowerCase(this.nick)
+
+        if (!checkLowercase) {
+          this.nickInvalid = this.$i18n.t('register.error.nick.invalid')
+        }
         // eslint-disable-next-line no-unreachable
         this.$v.$touch()
 
@@ -157,6 +179,14 @@ export default {
       }
     },
     /**
+     * @returns boolean
+     */
+    checkIfAlphanumericAndLowerCase(nick) {
+      const regex = /^[a-z0-9-]+$/
+
+      return regex.test(nick)
+    },
+    /**
      * Handle Vuelidate nick errors
      * @returns {[]}
      */
@@ -170,8 +200,16 @@ export default {
         errors.push(this.$i18n.t('register.error.nick.required'))
       }
 
+      if (!this.$v.formRegister.nick.maxLength) {
+        errors.push(this.$i18n.t('register.error.nick.length'))
+      }
+
       if (this.errorValidation) {
         errors.push(this.errorValidation)
+      }
+
+      if (this.nickInvalid) {
+        errors.push(this.nickInvalid)
       }
 
       if (this.nickTaken) {

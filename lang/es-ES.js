@@ -20,7 +20,10 @@ export default {
       },
       nick: {
         required: 'El nombre de usuario es requerido',
-        exists: 'El nombre de usuario ya existe'
+        exists: 'El nombre de usuario ya existe',
+        invalid:
+          'El nombre de usuario solo puede contener letras minúsculas, letras, números y guiones',
+        length: 'Max longitud: 64 carácteres'
       },
       password: {
         required: 'La contraseña es requerida',
