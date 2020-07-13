@@ -85,6 +85,19 @@ export default {
     })
   },
   methods: {
+    updateNick(value) {
+      this.$store.commit('register/SET_NICK', value)
+    },
+    updatePassword(value) {
+      this.$store.commit('register/SET_PASSWORD', value)
+    },
+    showLogin() {
+      this.$emit('showLogin')
+    },
+    /**
+     * Check if user is taken
+     * @returns {Promise<void>}
+     */
     async checkUser() {
       try {
         const validation = await this.checkUserApi()
@@ -102,6 +115,10 @@ export default {
         console.error(error)
       }
     },
+    /**
+     * Go to create account page. First check if the user is taken, save nick and password in store and go to next step
+     * @returns {Promise<void>}
+     */
     async nextStep() {
       try {
         this.loading = true
@@ -139,12 +156,10 @@ export default {
         console.error(error)
       }
     },
-    updateNick(value) {
-      this.$store.commit('register/SET_NICK', value)
-    },
-    updatePassword(value) {
-      this.$store.commit('register/SET_PASSWORD', value)
-    },
+    /**
+     * Handle Vuelidate nick errors
+     * @returns {[]}
+     */
     handleValidationNickErrors() {
       const errors = []
       if (!this.$v.formRegister.nick.$dirty) {
@@ -165,6 +180,10 @@ export default {
 
       return errors
     },
+    /**
+     * Handle Vuelidate password errors
+     * @returns {[]}
+     */
     handleValidationPasswordErrors() {
       const errors = []
       if (!this.$v.formRegister.password.$dirty) {
@@ -180,9 +199,6 @@ export default {
       }
 
       return errors
-    },
-    showLogin() {
-      this.$emit('showLogin')
     }
   }
 }

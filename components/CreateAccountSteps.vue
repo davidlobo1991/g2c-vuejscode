@@ -163,7 +163,6 @@ export default {
           sessionStorage.registerNick,
           this.words
         )
-
         const register = await this.signInApi(
           response.userauth,
           this.g2c_application
@@ -214,8 +213,8 @@ export default {
       try {
         const response = await this.$auth.loginWith('local', {
           data: {
-            nick: this.nick,
-            password: this.password
+            nick: sessionStorage.registerNick,
+            password: sessionStorage.registerPassword
           }
         })
         // eslint-disable-next-line no-console

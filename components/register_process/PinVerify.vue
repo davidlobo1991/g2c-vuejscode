@@ -171,6 +171,7 @@ export default {
     return {
       verificationCode: [],
       verifyServiceId: null,
+      phoneCodeVerified: false,
       errorValidation: null,
       resendEmail: false,
       loading: false
@@ -183,20 +184,47 @@ export default {
   },
   methods: {
     /**
+     * After input, do focus to next input
+     * @param event
+     * @param focusInput
+     */
+    focusNextInput(event, focusInput) {
+      if (event.key >= '0' && event.key <= '9') {
+        document.getElementById(focusInput).focus()
+      }
+    },
+    /**
+     * Handle copy number into the inputs
+     * @param event
+     */
+    copyNumber(event) {
+      const number = event.clipboardData.getData('text/plain')
+      this.verificationCode = ('' + number).split('')
+    },
+    /**
+     * Select input to delete the number on next input
+     * @param event
+     */
+    selectValue(event) {
+      event.target.select()
+    },
+    /**
      * Get verification code phone and validate
      * @returns {Promise<void>}
      */
     async verificationPhone() {
       this.loading = true
-      const code = this.getVerificationCode()
-
       try {
-        const validation = await this.validationPhoneCode(code)
+        if (!this.phoneCodeVerified) {
+          const code = this.getVerificationCode()
+          const validation = await this.validationPhoneCode(code)
 
-        if (validation.error === true) {
-          throw validation.message
+          if (validation.error === true) {
+            throw validation.message
+          }
+          this.errorValidation = null
+          this.phoneCodeVerified = true
         }
-        this.errorValidation = null
         this.$emit('signIn')
       } catch (error) {
         this.loading = false
@@ -214,10 +242,9 @@ export default {
      */
     async verificationEmail() {
       this.loading = true
-      const code = this.getVerificationCode()
-
       if (this.kind === 'email') {
         try {
+          const code = this.getVerificationCode()
           const validation = await this.validationCode(code)
 
           if (validation.error === true) {
@@ -244,7 +271,10 @@ export default {
      * @returns {Promise<void>}
      */
     async resendCode() {
+      this.loading = true
+      this.verificationCode = []
       let sendValidation = null
+
       if (this.kind === 'email') {
         sendValidation = await this.sendValidationCode()
 
@@ -266,6 +296,8 @@ export default {
           this.$v.$touch()
         }
       }
+
+      this.loading = false
     },
     /**
      * Put together inputs code
@@ -291,18 +323,6 @@ export default {
       }
 
       return errors
-    },
-    focusNextInput(event, focusInput) {
-      if (event.key >= '0' && event.key <= '9') {
-        document.getElementById(focusInput).focus()
-      }
-    },
-    copyNumber(event) {
-      const number = event.clipboardData.getData('text/plain')
-      this.verificationCode = ('' + number).split('')
-    },
-    selectValue(event) {
-      event.target.select()
     }
   }
 }
