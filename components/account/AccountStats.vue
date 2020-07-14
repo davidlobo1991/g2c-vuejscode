@@ -30,8 +30,9 @@
       <!--      </div>-->
       <div class="c-account__stats--buttons">
         <AddFunds />
+        <SendFunds />
         <!--        <div class="c-account__stats&#45;&#45;link">ADD FUNDS</div>-->
-        <div class="c-account__stats--link">SEND</div>
+        <!--        <div class="c-account__stats&#45;&#45;link">SEND</div>-->
       </div>
     </div>
     <div @click="toggleStats" class="c-account__stats--eye">
@@ -43,11 +44,13 @@
 
 <script>
 import AddFunds from '~/components/account/AddFunds'
+import SendFunds from '~/components/account/SendFunds'
 
 export default {
   name: 'AccountStats',
   components: {
-    AddFunds
+    AddFunds,
+    SendFunds
   },
   data: () => ({
     items: ['Today', 'Last week', 'Last month', 'Last year'],
