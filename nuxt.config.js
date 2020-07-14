@@ -147,9 +147,15 @@ export default {
   ],
   auth: {
     strategies: {
-      local: {
+      admin: {
+        _scheme: 'local',
         endpoints: {
           login: {
+            url: '/auth/login',
+            method: 'post',
+            propertyName: 'data.token'
+          },
+          login2: {
             url: '/auth/login',
             method: 'post',
             propertyName: 'data.token'
@@ -163,13 +169,41 @@ export default {
             method: 'get',
             propertyName: 'data'
           }
-        }
+        },
+        tokenRequired: true,
+        tokenType: 'Token',
+        tokenName: 'AuthorizationAdmin'
+      },
+      user: {
+        _scheme: 'local',
+        endpoints: {
+          login: {
+            url: '/auth/login',
+            method: 'post',
+            propertyName: 'data.token'
+            // redirect_url: '/test'
+          },
+          logout: {
+            url: '/auth/logout',
+            method: 'post'
+          },
+          user: {
+            url: '/auth/me',
+            method: 'get',
+            propertyName: 'data'
+          }
+        },
+        tokenRequired: true,
+        tokenType: 'Token',
+        tokenName: 'x-authorization'
       }
     },
     redirect: {
       login: '/',
       logout: '/',
-      home: '/home'
+      home: '/home',
+      login2: '/test'
+      // 'account/profile': ''
       // callback: '/'
     },
     cookie: {
@@ -177,6 +211,9 @@ export default {
         expires: 365
       }
     }
+  },
+  router: {
+    middleware: ['auth']
   },
 
   /*

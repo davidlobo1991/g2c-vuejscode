@@ -34,7 +34,13 @@
         >
         </v-textarea>
         <div class="u-mrb-s c-login__cont--btn">
-          <v-btn @click.prevent="login" depressed dark color="#0885F6">
+          <v-btn
+            @click.prevent="login"
+            :loading="loading"
+            depressed
+            dark
+            color="#0885F6"
+          >
             Login
           </v-btn>
         </div>
@@ -64,7 +70,8 @@ export default {
         nick: '',
         password: null,
         words: null
-      }
+      },
+      loading: false
     }
   },
 
@@ -103,6 +110,8 @@ export default {
       this.$emit('showCreateUser')
     },
     async login() {
+      this.loading = true
+
       try {
         this.errorValidation = null
 
@@ -125,29 +134,38 @@ export default {
               this.g2c_application,
               this.formLogin.nick
             )
+
+            await this.$auth.loginWith('admin', {
+              data: {
+                nick: this.formLogin.nick,
+                password: this.formLogin.password
+              }
+            })
           } catch (error) {
             // eslint-disable-next-line no-console
             console.error('G2C Login error', error)
             this.errorValidation = error.message
           }
-        }
-
-        // Second, login in networksv backend
-        try {
-          await this.$auth.loginWith('local', {
-            data: {
-              nick: this.formLogin.nick,
-              password: this.formLogin.password
-            }
-          })
-        } catch (error) {
-          // eslint-disable-next-line no-console
-          console.error('NetworkSV Login error', error)
-          this.errorValidation = this.$i18n.t('login.error.message')
+        } else {
+          // Second, login in networksv backend
+          try {
+            await this.$auth.loginWith('user', {
+              data: {
+                nick: this.formLogin.nick,
+                password: this.formLogin.password
+              }
+            })
+          } catch (error) {
+            // eslint-disable-next-line no-console
+            console.error('NetworkSV Login error', error)
+            this.errorValidation = this.$i18n.t('login.error.message')
+            this.loading = false
+          }
         }
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error(error)
+        this.loading = false
       }
     },
     handleValidationNickErrors() {

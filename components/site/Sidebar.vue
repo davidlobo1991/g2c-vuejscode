@@ -91,6 +91,19 @@
             </span>
           </li>
 
+          <li class="c-sidebar__menu--item">
+            <v-btn
+              @click="logout"
+              class="c-sidebar__menu--link"
+              title="eMeetings"
+            >
+              <v-icon class="c-sidebar__menu--icon">
+                mdi-login
+              </v-icon>
+              Logout
+            </v-btn>
+          </li>
+
           <!--          <li class="c-sidebar__menu&#45;&#45;item">-->
           <!--            <a href="" class="c-sidebar__menu&#45;&#45;link">-->
           <!--              <v-icon class="c-sidebar__menu&#45;&#45;icon">-->
@@ -114,6 +127,11 @@ export default {
       badgeNetworkTotal: 0,
       badgeConnectionsTotal: 4,
       badgeeMeetingsTotal: 0
+    }
+  },
+  methods: {
+    async logout() {
+      await this.$auth.logout()
     }
   }
 }

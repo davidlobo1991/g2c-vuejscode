@@ -66,6 +66,7 @@ import BottomMobile from '~/components/site/BottomMobile'
 
 export default {
   name: 'Network',
+  middleware: 'auth',
   components: {
     WelcomeBanner,
     ProfileCards,
