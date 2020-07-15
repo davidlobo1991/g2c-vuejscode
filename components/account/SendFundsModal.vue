@@ -1,33 +1,29 @@
 <template>
   <div>
-    <div @click.stop="addFundsModal = true" class="addFunds__link">
-      ADD FUNDS
+    <div @click.stop="sendFundsModal = true" class="sendFunds__link">
+      SEND
     </div>
-    <v-dialog v-model="addFundsModal" content-class="addFunds__modal">
+    <v-dialog v-model="sendFundsModal" content-class="sendFunds__modal">
       <v-card>
-        <v-card-title class="addFunds__modal--title-cont">
-          <div class="addFunds__modal--cross">
-            <v-icon @click="addFundsModal = false">
+        <v-card-title class="sendFunds__modal--title-cont">
+          <div class="sendFunds__modal--cross">
+            <v-icon @click="sendFundsModal = false">
               mdi-close
             </v-icon>
           </div>
-          <div class="addFunds__modal--title">Add Funds</div>
-          <div class="addFunds__modal--description">
-            Select how to add funds, by paymail or credit card.
+          <div class="sendFunds__modal--title">Send Funds</div>
+          <div class="sendFunds__modal--description">
+            Send funds to a handle / paymail or to a bank account
           </div>
         </v-card-title>
 
-        <v-card-text class="addFunds__modal--button-cont">
-          <div
-            @click="copyEmail()"
-            ref="copyButton"
-            class="addFunds__modal--button "
-          >
-            <div class="addFunds__modal--button-title">
-              Copy Paymail
+        <v-card-text class="sendFunds__modal--button-cont">
+          <div class="sendFunds__modal--button ">
+            <div class="sendFunds__modal--button-title">
+              Handle or Paymail
               <v-tooltip right color="#25273A" max-width="270px">
                 <template v-slot:activator="{ on }">
-                  <v-icon v-on="on" class="addFunds__modal--button-more-info">
+                  <v-icon v-on="on" class="sendFunds__modal--button-more-info">
                     mdi-help-circle
                   </v-icon>
                 </template>
@@ -36,20 +32,14 @@
                 </span>
               </v-tooltip>
             </div>
-            <div class="addFunds__modal--button-description">
-              jessomaile@networksv.com
-            </div>
-            <div class="addFunds__modal--button-copied">
-              Copied
-              <v-icon class="addFunds__modal--button-copied-icon">
-                mdi-check
-              </v-icon>
-            </div>
+            <v-icon class="sendFunds__modal--icon">
+              mdi-wallet
+            </v-icon>
           </div>
-          <div class="addFunds__modal--button">
-            <div class="addFunds__modal--button-title">Credit Card</div>
-            <v-icon class="addFunds__modal--icon">
-              mdi-credit-card-multiple-outline
+          <div class="sendFunds__modal--button">
+            <div class="sendFunds__modal--button-title">Bank Account</div>
+            <v-icon class="sendFunds__modal--icon">
+              mdi-bank
             </v-icon>
           </div>
         </v-card-text>
@@ -60,25 +50,16 @@
 
 <script>
 export default {
-  name: 'AddFunds',
+  name: 'SendFundModal',
   data() {
     return {
-      addFundsModal: false
-    }
-  },
-  methods: {
-    copyEmail() {
-      const copyButton = this.$refs.copyButton
-      copyButton.classList.add('addFunds__modal--button-active')
-      setTimeout(function() {
-        copyButton.classList.remove('addFunds__modal--button-active')
-      }, 2000)
+      sendFundsModal: false
     }
   }
 }
 </script>
 <style lang="scss">
-.addFunds__modal {
+.sendFunds__modal {
   max-width: 40%;
   @media screen and (max-width: 1800px) {
     max-width: 65%;
@@ -94,13 +75,13 @@ export default {
 }
 </style>
 <style lang="scss" scoped>
-.addFunds {
+.sendFunds {
   &__link {
     display: flex;
     font-size: 18px;
     font-weight: 500;
-    margin-right: 21px;
     padding: 0;
+    margin: 0;
     cursor: pointer;
   }
   &__modal {
@@ -157,16 +138,6 @@ export default {
       &:hover {
         background-color: #f7f7f7;
         transition: all 0.25s;
-      }
-      &-active {
-        border: 1px solid #0087ff;
-        .addFunds__modal--button-description {
-          color: #0087ff;
-          font-weight: 500;
-        }
-        .addFunds__modal--button-copied {
-          display: block;
-        }
       }
       &-title {
         font-size: 19px;

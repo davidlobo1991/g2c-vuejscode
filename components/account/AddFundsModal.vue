@@ -1,7 +1,7 @@
 <template>
   <div>
     <div @click.stop="addFundsModal = true" class="addFunds__link">
-      SEND
+      ADD FUNDS
     </div>
     <v-dialog v-model="addFundsModal" content-class="addFunds__modal">
       <v-card>
@@ -11,9 +11,9 @@
               mdi-close
             </v-icon>
           </div>
-          <div class="addFunds__modal--title">Send Funds</div>
+          <div class="addFunds__modal--title">Add Funds</div>
           <div class="addFunds__modal--description">
-            Send funds to a handle / paymail or to a bank account
+            Select how to add funds, by paymail or credit card.
           </div>
         </v-card-title>
 
@@ -24,7 +24,7 @@
             class="addFunds__modal--button "
           >
             <div class="addFunds__modal--button-title">
-              Handle or Paymail
+              Copy Paymail
               <v-tooltip right color="#25273A" max-width="270px">
                 <template v-slot:activator="{ on }">
                   <v-icon v-on="on" class="addFunds__modal--button-more-info">
@@ -36,14 +36,20 @@
                 </span>
               </v-tooltip>
             </div>
-            <v-icon class="addFunds__modal--icon">
-              mdi-wallet
-            </v-icon>
+            <div class="addFunds__modal--button-description">
+              jessomaile@networksv.com
+            </div>
+            <div class="addFunds__modal--button-copied">
+              Copied
+              <v-icon class="addFunds__modal--button-copied-icon">
+                mdi-check
+              </v-icon>
+            </div>
           </div>
           <div class="addFunds__modal--button">
-            <div class="addFunds__modal--button-title">Bank Account</div>
+            <div class="addFunds__modal--button-title">Credit Card</div>
             <v-icon class="addFunds__modal--icon">
-              mdi-bank
+              mdi-credit-card-multiple-outline
             </v-icon>
           </div>
         </v-card-text>
@@ -54,7 +60,7 @@
 
 <script>
 export default {
-  name: 'AddFunds',
+  name: 'AddFundsModal',
   data() {
     return {
       addFundsModal: false
@@ -93,8 +99,8 @@ export default {
     display: flex;
     font-size: 18px;
     font-weight: 500;
+    margin-right: 21px;
     padding: 0;
-    margin: 0;
     cursor: pointer;
   }
   &__modal {
