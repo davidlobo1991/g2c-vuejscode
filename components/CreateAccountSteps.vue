@@ -161,14 +161,26 @@ export default {
           sessionStorage.registerNick,
           this.words
         )
-        const register = await this.signInApi(
-          response.userauth,
-          this.g2c_application
-        )
 
-        if (!register.error) {
-          console.log('Created user')
-          this.login(this.nick, this.words)
+        if (!response.error) {
+          const register = await this.createUserServerApplication(
+            response.userauth,
+            this.g2c_application
+          )
+
+          if (!register.error) {
+            console.log('Created user server application')
+            // this.login(this.nick, this.words)
+
+            const checkStatus = setInterval(
+              await this.checkUserServerApplicationStatus(register.job_id),
+              5000
+            )
+
+            // TODO Clear interval and Create user (this.createUserApi() if finished_at !== null and error === false)
+
+            clearInterval(checkStatus)
+          }
         }
       } catch (error) {
         this.errorCreateAccount = this.$i18n.t(

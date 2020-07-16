@@ -162,13 +162,8 @@ const actions = {
   /**
    * Sign in backend and firebase
    */
-  async signInApi({ getters }, dataObject) {
+  async createUserApi({ getters }, dataObject) {
     // eslint-disable-next-line camelcase
-    const g2c_user = {
-      userauth: dataObject.userauth,
-      nick: sessionStorage.registerNick,
-      application: dataObject.application
-    }
     const user = {
       nick: sessionStorage.registerNick,
       password: sessionStorage.registerPassword,
@@ -178,9 +173,44 @@ const actions = {
       ukresident: getters.getUkresident
     }
 
+    try {
+      return await this.$axios
+        .post('users/create', user)
+        .then((response) => response.data)
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error)
+      throw error
+    }
+  },
+
+  /**
+   * Sign in backend and firebase
+   */
+  async createUserServerApplication({ getters }, dataObject) {
+    // eslint-disable-next-line camelcase
+    const g2c_user = {
+      userauth: dataObject.userauth,
+      nick: sessionStorage.registerNick,
+      application: dataObject.application
+    }
+
+    try {
+      return await this.$axios
+        .post('users/create', g2c_user)
+        .then((response) => response.data)
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error)
+      throw error
+    }
+  },
+  /**
+   * Sign in backend and firebase
+   */
+  async checkUserServerApplicationStatus({ getters }, jobId) {
     const data = {
-      user,
-      g2c_user
+      job_id: jobId
     }
 
     try {

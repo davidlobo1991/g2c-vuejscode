@@ -134,14 +134,44 @@ export const apiNetworkSv = {
       }
     },
     /**
+     *
+     * @returns {Promise<any>}
+     */
+    async createUserServerApplication(userauth, application) {
+      try {
+        return await this.$store.dispatch(
+          'register/createUserServerApplication',
+          {
+            userauth,
+            application
+          }
+        )
+      } catch (error) {
+        throw error
+      }
+    },
+    /**
+     *
+     * @returns {Promise<any>}
+     */
+    async checkUserServerApplicationStatus(jobId) {
+      try {
+        return await this.$store.dispatch(
+          'register/checkUserServerApplicationStatus',
+          {
+            jobId
+          }
+        )
+      } catch (error) {
+        throw error
+      }
+    },
+    /**
      * Sign in backend and firebase
      */
-    async signInApi(userauth, application) {
+    async signInApi() {
       try {
-        return await this.$store.dispatch('register/signInApi', {
-          userauth,
-          application
-        })
+        return await this.$store.dispatch('register/createUserApi')
       } catch (error) {
         throw error
       }
