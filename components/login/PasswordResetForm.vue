@@ -3,19 +3,7 @@
     <div class="full-width">
       <form>
         <v-text-field
-          v-model="formLogin.nick"
-          :hide-details="handleValidationNickErrors().length === 0"
-          :error-messages="handleValidationNickErrors() || []"
-          label="Username (Handle)"
-          outlined
-          class="c-login__cont--input u-mrb-s"
-          required
-        >
-        </v-text-field>
-        <v-text-field
-          v-model="formLogin.password"
-          :hide-details="handleValidationPasswordErrors().length === 0"
-          :error-messages="handleValidationPasswordErrors() || []"
+          v-model="form.password"
           :counter="6"
           type="password"
           label="Password"
@@ -24,24 +12,25 @@
           autocomplete="false"
         >
         </v-text-field>
-        <v-textarea
-          v-model="formLogin.words"
-          :hide-details="handleValidationSecurityKeyErrors().length === 0"
-          :error-messages="handleValidationSecurityKeyErrors() || []"
+        <v-text-field
+          v-model="form.repeatPassword"
+          :counter="6"
+          type="password"
+          label="Repeat Password"
           outlined
           class="c-login__cont--input u-mrb-s"
-          label="Security Key"
+          autocomplete="false"
         >
-        </v-textarea>
+        </v-text-field>
         <div class="u-mrb-s c-login__cont--btn">
           <v-btn
-            @click.prevent="login"
+            @click="resetPassword"
             :loading="loading"
             depressed
             dark
             color="#0885F6"
           >
-            Login
+            Change password
           </v-btn>
         </div>
       </form>
@@ -49,64 +38,47 @@
     <div v-if="errorValidation !== null" class="error--text">
       <p>{{ errorValidation }}</p>
     </div>
-    <p class="c-login__details">
-      <a @click="showRecoverPassword">
-        Forgot password?
-      </a>
-    </p>
-    <p class="c-login__details">
-      Don’t have an account?
-      <a @click="showCreateUser">
-        Create Account
-      </a>
-    </p>
+    <div v-show="passwordChanged" class="c-success">
+      <v-icon>mdi-check-circle-outline</v-icon>
+      Password changed correctly
+    </div>
   </div>
 </template>
 
 <script>
-import { required, requiredIf, minLength } from 'vuelidate/lib/validators'
+import { required, sameAs, minLength } from 'vuelidate/lib/validators'
 
 export default {
   name: 'LoginForm',
+  props: {
+    token: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
       errorValidation: null,
-      formLogin: {
-        nick: '',
-        password: null,
-        words: null
+      form: {
+        password: '',
+        repeatPassword: ''
       },
-      loading: false
+      loading: false,
+      passwordChanged: false
     }
   },
 
   validations: {
-    formLogin: {
-      nick: {
-        required
-      },
+    form: {
       password: {
         required,
         minLength: minLength(6)
-        // strongPassword(password) {
-        //   return (
-        //     /[a-z]/.test(password) && // checks for a-z
-        //     /[0-9]/.test(password) && // checks for 0-9
-        //     /\W|_/.test(password) && // checks for special char
-        //     password.length >= 6
-        //   );
-        // }
       },
-      words: {
-        required: requiredIf((form) => {
-          return form.words !== null && form.words.length > 0
-        }),
-        checkWords(words) {
-          if (words === null || words.length === 0) {
-            return true
-          }
-          return /^\W*(\w+\b\W*){12}$/.test(words)
-        }
+      repeatPassword: {
+        required,
+        sameAsPassword: sameAs(function() {
+          return this.form.password
+        })
       }
     }
   },
@@ -117,7 +89,7 @@ export default {
     showRecoverPassword() {
       this.$emit('showRecoverPassword')
     },
-    async login() {
+    async resetPassword() {
       this.loading = true
 
       try {
@@ -130,95 +102,23 @@ export default {
           return
         }
 
-        // eslint-disable-next-line no-unused-vars
-        let g2cLoginResponse = null
+        const resetPassword = await this.resetPasswordApi(
+          this.form.password,
+          this.token
+        )
 
-        // Check if words fields not empty
-        if (this.formLogin.words !== null && this.formLogin.words.length > 0) {
-          // First, login in G2C
-          try {
-            g2cLoginResponse = await this.loginUser(
-              this.formLogin.words,
-              this.g2c_application,
-              this.formLogin.nick
-            )
-
-            await this.$auth.loginWith('admin', {
-              data: {
-                nick: this.formLogin.nick,
-                password: this.formLogin.password
-              }
-            })
-          } catch (error) {
-            // eslint-disable-next-line no-console
-            console.error('G2C Login error', error)
-            this.errorValidation = error.message
-          }
+        if (!resetPassword.error) {
+          this.loading = false
+          this.passwordChanged = true
         } else {
-          // Second, login in networksv backend
-          try {
-            await this.$auth.loginWith('user', {
-              data: {
-                nick: this.formLogin.nick,
-                password: this.formLogin.password
-              }
-            })
-          } catch (error) {
-            // eslint-disable-next-line no-console
-            console.error('NetworkSV Login error', error)
-            this.errorValidation = this.$i18n.t('login.error.message')
-            this.loading = false
-          }
+          throw resetPassword.message
         }
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error(error)
         this.loading = false
+        this.errorValidation = this.$i18n.t('Token invalid')
       }
-    },
-    handleValidationNickErrors() {
-      const errors = []
-      if (!this.$v.formLogin.nick.$dirty) {
-        return errors
-      }
-
-      if (!this.$v.formLogin.nick.required) {
-        errors.push('Username field is required')
-      }
-
-      return errors
-    },
-    handleValidationPasswordErrors() {
-      const errors = []
-      if (!this.$v.formLogin.password.$dirty) {
-        return errors
-      }
-
-      if (!this.$v.formLogin.password.required) {
-        errors.push('Password field is required')
-      }
-
-      if (!this.$v.formLogin.password.minLength) {
-        errors.push('Password min lenght 6')
-      }
-
-      return errors
-    },
-    handleValidationSecurityKeyErrors() {
-      const errors = []
-      if (!this.$v.formLogin.password.$dirty) {
-        return errors
-      }
-
-      if (!this.$v.formLogin.words.required) {
-        errors.push('Password field is required')
-      }
-
-      if (!this.$v.formLogin.words.checkWords) {
-        errors.push('Security key 12 words')
-      }
-
-      return errors
     }
   }
 }
