@@ -147,8 +147,7 @@ export default {
   ],
   auth: {
     strategies: {
-      admin: {
-        _scheme: 'local',
+      local: {
         endpoints: {
           login: {
             url: '/auth/login',
@@ -169,40 +168,37 @@ export default {
             method: 'get',
             propertyName: 'data'
           }
-        },
-        tokenRequired: true,
-        tokenType: 'Token',
-        tokenName: 'AuthorizationAdmin'
-      },
-      user: {
-        _scheme: 'local',
-        endpoints: {
-          login: {
-            url: '/auth/login',
-            method: 'post',
-            propertyName: 'data.token'
-            // redirect_url: '/test'
-          },
-          logout: {
-            url: '/auth/logout',
-            method: 'post'
-          },
-          user: {
-            url: '/auth/me',
-            method: 'get',
-            propertyName: 'data'
-          }
-        },
-        tokenRequired: true,
-        tokenType: 'Token',
-        tokenName: 'x-authorization'
+        }
       }
+
+      // user: {
+      //   _scheme: 'local',
+      //   endpoints: {
+      //     login: {
+      //       url: '/auth/login',
+      //       method: 'post',
+      //       propertyName: 'data.token'
+      //       // redirect_url: '/test'
+      //     },
+      //     logout: {
+      //       url: '/auth/logout',
+      //       method: 'post'
+      //     },
+      //     user: {
+      //       url: '/auth/me',
+      //       method: 'get',
+      //       propertyName: 'data'
+      //     }
+      //   },
+      //   tokenRequired: true,
+      //   tokenType: 'Token',
+      //   tokenName: 'x-authorization'
+      // }
     },
     redirect: {
       login: '/',
       logout: '/',
-      home: '/home',
-      login2: '/test'
+      home: '/home'
       // 'account/profile': ''
       // callback: '/'
     },
@@ -212,9 +208,9 @@ export default {
       }
     }
   },
-  router: {
-    middleware: ['auth']
-  },
+  // router: {
+  //   middleware: ['auth']
+  // },
 
   /*
    ** Axios module configuration

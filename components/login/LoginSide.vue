@@ -37,10 +37,23 @@
               : ''
           ]"
           @showCreateUser="showCreateUser"
+          @showRecoverPassword="showRecoverPassword"
           class="c-login__cont"
         />
+        <SendEmailPasswordForm
+          v-show="recoverPasswordIsVisible"
+          :class="[
+            viewportWidth <= 768 && (createAccountIsVisible || loginIsVisible)
+              ? 'u-mrb-s'
+              : ''
+          ]"
+        />
         <div
-          v-show="!createAccountIsVisible && !loginIsVisible"
+          v-show="
+            !createAccountIsVisible &&
+              !loginIsVisible &&
+              !recoverPasswordIsVisible
+          "
           class="c-login__main-options"
         >
           <div class="u-pdb-l@m c-login__button">
@@ -68,12 +81,14 @@ import { apiNetworkSv } from '~/mixins/apiNetworkSV'
 import { apiG2c } from '~/mixins/apiG2c'
 import LoginForm from '~/components/login/LoginForm'
 import PreCreateForm from '~/components/login/PreCreateForm'
+import SendEmailPasswordForm from '~/components/login/SendEmailPasswordForm'
 
 export default {
   name: 'LoginSide',
   components: {
     LoginForm,
-    PreCreateForm
+    PreCreateForm,
+    SendEmailPasswordForm
   },
   mixins: [apiNetworkSv, apiG2c],
   props: {
@@ -86,7 +101,8 @@ export default {
     return {
       createAccountIsVisible: false,
       loginIsVisible: false,
-      errorValidation: false
+      errorValidation: false,
+      recoverPasswordIsVisible: false
     }
   },
   watch: {
@@ -101,13 +117,21 @@ export default {
     showMenu() {
       this.createAccountIsVisible = false
       this.loginIsVisible = false
+      this.recoverPasswordIsVisible = false
     },
     showCreateUser() {
       this.createAccountIsVisible = true
       this.loginIsVisible = false
+      this.recoverPasswordIsVisible = false
     },
     showLogin() {
       this.loginIsVisible = true
+      this.createAccountIsVisible = false
+      this.recoverPasswordIsVisible = false
+    },
+    showRecoverPassword() {
+      this.recoverPasswordIsVisible = true
+      this.loginIsVisible = false
       this.createAccountIsVisible = false
     },
     async logout() {

@@ -69,12 +69,10 @@ export default {
     return {
       step: 1,
       responsabilityCheck: false,
-      // pinInputHeight: '64px',
       viewportWidth: 0,
       variableWidth: 27,
       registerPhone: null,
       registerPrefix: null,
-      // registerEmail: null,
       errorValidation: null,
       errorCreateAccount: null,
       loading: true

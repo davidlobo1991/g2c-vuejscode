@@ -92,17 +92,36 @@ export const apiNetworkSv = {
       } catch (error) {
         throw error
       }
-
-      // try {
-      //   await this.$axios
-      //     .get('/users/check-email/' + email)
-      //     .then((response) => response.data)
-      // } catch (error) {
-      //   this.handleError(error, 'APINetworkUser@checkUserApi - Error')
-      //   throw error
-      // }
     },
 
+    /**
+     * Send recover password email
+     * @returns {Promise<any>}
+     */
+    async sendRecoverPasswordEmail(email) {
+      try {
+        return await this.$store.dispatch(
+          'register/sendRecoverPasswordEmail',
+          email
+        )
+      } catch (error) {
+        throw error
+      }
+    },
+    /**
+     * Send recover password email
+     * @returns {Promise<any>}
+     */
+    async resetPasswordApi(password, token) {
+      try {
+        return await this.$store.dispatch('register/resetPasswordApi', {
+          password,
+          token
+        })
+      } catch (error) {
+        throw error
+      }
+    },
     /**
      * Check Phone
      * @returns {Promise<void>}
@@ -113,14 +132,6 @@ export const apiNetworkSv = {
       } catch (error) {
         throw error
       }
-      // try {
-      //   await this.$axios
-      //     .get('/users/check-mobile/' + phone)
-      //     .then((response) => response.data)
-      // } catch (error) {
-      //   this.handleError(error, 'APINetworkUser@checkUserApi - Error')
-      //   throw error
-      // }
     },
     /**
      * Sign in backend and firebase
@@ -134,24 +145,6 @@ export const apiNetworkSv = {
       } catch (error) {
         throw error
       }
-
-      // const data = {
-      //   'user[nick]': nick,
-      //   'user[email]': email,
-      //   'user[mobile_prefix]': prefix,
-      //   'user[mobile_number]': phone,
-      //   'user[ukresident]': ukresident
-      // }
-      //
-      // try {
-      //   await this.$axios
-      //     .post('users/create', data)
-      //     .then((response) => response.data)
-      //     .error()
-      // } catch (error) {
-      //   this.handleError(error, 'APINetworkUser@signIn - Error')
-      //   throw error
-      // }
     },
     /**
      * Error Handler

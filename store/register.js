@@ -183,11 +183,40 @@ const actions = {
       g2c_user
     }
 
-    console.log(data)
-
     try {
       return await this.$axios
         .post('users/create', data)
+        .then((response) => response.data)
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error)
+      throw error
+    }
+  },
+  /**
+   * Send email with recover password link
+   * @returns {Promise<void>}
+   */
+  async resetPasswordApi({ getters }, data) {
+    try {
+      return await this.$axios
+        .post('password/reset', data)
+        .then((response) => response.data)
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error)
+      throw error
+    }
+  },
+
+  /**
+   * Send email with recover password link
+   * @returns {Promise<void>}
+   */
+  async sendRecoverPasswordEmail({ getters }, email) {
+    try {
+      return await this.$axios
+        .get(`password/email/${email}`)
         .then((response) => response.data)
     } catch (error) {
       // eslint-disable-next-line no-console
