@@ -137,10 +137,12 @@
         v-if="kind === 'telephone'"
         class="c-info__responsability--text-v2 u-pdt-xxxl"
       >
-        Al hacer clic en Registrarte, aceptas nuestras Condiciones. Obtén más
-        información sobre cómo recopilamos, usamos y compartimos tu información
-        en la Política de datos, así como el uso que hacemos de las cookies en
-        nuestra Política de cookies.
+        Al hacer clic en Registrarte, aceptas nuestras
+        <a href="#" target="_blank">Condiciones</a>. Obtén más información sobre
+        cómo recopilamos, usamos y compartimos tu información en la
+        <a href="#" target="_blank">Política de datos</a>, así como el uso que
+        hacemos de las cookies en nuestra
+        <a href="#" target="_blank">Política de cookies</a>.
       </div>
     </div>
   </div>

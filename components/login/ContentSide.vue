@@ -79,7 +79,7 @@ export default {
     }
     &__video {
       &--title {
-        padding-left: 30px;
+        padding: 0 30px;
       }
       &--video {
         padding-top: 25px;

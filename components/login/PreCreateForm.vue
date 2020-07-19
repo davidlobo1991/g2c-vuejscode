@@ -280,6 +280,9 @@ export default {
       }
     }
   }
+  &__details {
+    margin-top: 60px;
+  }
 }
 @media screen and (max-width: 1500px) {
   .c-login {
@@ -388,6 +391,7 @@ export default {
     &__details {
       padding: 0;
       font-size: 12px;
+      margin-top: 0;
     }
   }
 }

@@ -43,7 +43,7 @@
           v-show="!createAccountIsVisible && !loginIsVisible"
           class="c-login__main-options"
         >
-          <div class="u-pdb-s c-login__button">
+          <div class="u-pdb-l@m c-login__button">
             <v-btn
               @click="showCreateUser"
               depressed
@@ -54,7 +54,7 @@
               Create Account
             </v-btn>
           </div>
-          <div class="u-pdb-s c-login__button">
+          <div class="u-pdb-l c-login__button">
             <v-btn @click="showLogin" outlined color="#0885F6">Login</v-btn>
           </div>
         </div>
@@ -138,6 +138,7 @@ export default {
     position: fixed;
   }
   &__button {
+    padding-bottom: 32px;
     ::v-deep {
       .v-btn {
         font-size: 21px;
@@ -255,6 +256,7 @@ export default {
       font-size: 14px;
     }
     &__button {
+      padding-bottom: 12px;
       ::v-deep {
         .v-btn {
           min-width: 100% !important;

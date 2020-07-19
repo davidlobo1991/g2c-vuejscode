@@ -79,7 +79,7 @@ export default {
   padding-right: 120px;
   font-size: 20px;
   &__button {
-    min-height: 90px;
+    min-height: 80px;
     width: 180px;
   }
   &__text {
