@@ -203,15 +203,17 @@ export default {
             sessionStorage.registerNick
           )
 
-          const response = await this.$auth.loginWith('g2c_user', {
-            data: {
-              nick: sessionStorage.registerNick,
-              password: sessionStorage.registerPassword
-            }
-          })
-          console.log(response)
+          if (!g2cLoginResponse.error) {
+            const response = await this.$auth.loginWith('g2c_user', {
+              data: {
+                nick: sessionStorage.registerNick,
+                password: sessionStorage.registerPassword
+              }
+            })
+            console.log(response)
 
-          await this.$router.push('home')
+            await this.$router.push('home')
+          }
         } else {
           const response = await this.$auth.loginWith('user', {
             data: {
@@ -221,7 +223,7 @@ export default {
           })
           console.log(response)
 
-          await this.$router.push('user/profile')
+          await this.$router.push('user-profile')
         }
         // eslint-disable-next-line no-console
       } catch (error) {
