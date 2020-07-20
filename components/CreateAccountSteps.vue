@@ -172,14 +172,22 @@ export default {
             console.log('Created user server application')
             // this.login(this.nick, this.words)
 
-            const checkStatus = setInterval(
-              await this.checkUserServerApplicationStatus(register.job_id),
-              5000
-            )
+            const checkStatus = setInterval(function() {
+              const status = this.checkUserServerApplicationStatus(
+                register.job_id
+              )
 
-            // TODO Clear interval and Create user (this.createUserApi() if finished_at !== null and error === false)
+              console.log(checkStatus)
 
-            clearInterval(checkStatus)
+              if (status.finished_at !== null && !status.error) {
+                clearInterval(checkStatus)
+              }
+            }, 5000)
+
+            const userCreated = await this.createUserApi()
+
+            if (!userCreated.error) {
+            }
           }
         }
       } catch (error) {

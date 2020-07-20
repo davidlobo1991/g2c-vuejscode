@@ -169,7 +169,7 @@ export const apiNetworkSv = {
     /**
      * Sign in backend and firebase
      */
-    async signInApi() {
+    async createUserApi() {
       try {
         return await this.$store.dispatch('register/createUserApi')
       } catch (error) {

@@ -162,7 +162,7 @@ const actions = {
   /**
    * Sign in backend and firebase
    */
-  async createUserApi({ getters }, dataObject) {
+  async createUserApi({ getters }) {
     // eslint-disable-next-line camelcase
     const user = {
       nick: sessionStorage.registerNick,
