@@ -193,30 +193,37 @@ export default {
     },
     async login() {
       try {
-        // eslint-disable-next-line no-unused-vars
-        let g2cLoginResponse = null
+        if (this.words) {
+          // eslint-disable-next-line no-unused-vars
+          let g2cLoginResponse = null
 
-        g2cLoginResponse = await this.loginUser(
-          this.words,
-          this.g2c_application,
-          sessionStorage.registerNick
-        )
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error('G2C Login error')
-        // eslint-disable-next-line no-console
-        console.error(error)
-      }
+          g2cLoginResponse = await this.loginUser(
+            this.words,
+            this.g2c_application,
+            sessionStorage.registerNick
+          )
 
-      try {
-        const response = await this.$auth.loginWith('local', {
-          data: {
-            nick: sessionStorage.registerNick,
-            password: sessionStorage.registerPassword
-          }
-        })
+          const response = await this.$auth.loginWith('g2c_user', {
+            data: {
+              nick: sessionStorage.registerNick,
+              password: sessionStorage.registerPassword
+            }
+          })
+          console.log(response)
+
+          await this.$router.push('home')
+        } else {
+          const response = await this.$auth.loginWith('user', {
+            data: {
+              nick: sessionStorage.registerNick,
+              password: sessionStorage.registerPassword
+            }
+          })
+          console.log(response)
+
+          await this.$router.push('user/profile')
+        }
         // eslint-disable-next-line no-console
-        console.log(response)
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error('NetworkSV Login error')
