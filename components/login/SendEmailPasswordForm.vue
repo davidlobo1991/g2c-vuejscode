@@ -92,14 +92,16 @@ export default {
         if (!emailSend.error) {
           this.recoverEmailSend = true
         } else {
-          throw emailSend.message
+          this.errorValidation = this.$i18n.t('login.error.email.exists')
+          this.loading = false
+          return
         }
 
         this.loading = false
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error(error)
-        this.errorValidation = this.$i18n.t('login.error.email.exists')
+        this.errorValidation = this.$i18n.t('login.error.email.error')
         this.loading = false
       }
     },
