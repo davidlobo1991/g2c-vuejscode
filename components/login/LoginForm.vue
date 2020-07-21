@@ -65,9 +65,11 @@
 
 <script>
 import { required, requiredIf, minLength } from 'vuelidate/lib/validators'
+import { login } from '~/mixins/login'
 
 export default {
   name: 'LoginForm',
+  mixins: [login],
   data() {
     return {
       errorValidation: null,
@@ -79,7 +81,6 @@ export default {
       loading: false
     }
   },
-
   validations: {
     formLogin: {
       nick: {
@@ -117,43 +118,16 @@ export default {
     showRecoverPassword() {
       this.$emit('showRecoverPassword')
     },
-    async login() {
+    login() {
       this.loading = true
 
       try {
-        if (this.formLogin.words) {
-          // eslint-disable-next-line no-unused-vars
-          let g2cLoginResponse = null
-
-          g2cLoginResponse = await this.loginUser(
-            this.formLogin.words,
-            this.g2c_application,
-            this.formLogin.nick
-          )
-
-          if (!g2cLoginResponse.error) {
-            const response = await this.$auth.loginWith('g2c_user', {
-              data: {
-                nick: this.formLogin.nick,
-                password: this.formLogin.password
-              }
-            })
-            console.log(response)
-
-            await this.$router.push('home')
-          }
-        } else {
-          const response = await this.$auth.loginWith('user', {
-            data: {
-              nick: this.formLogin.nick,
-              password: this.formLogin.password
-            }
-          })
-          console.log(response)
-
-          await this.$router.push('user-profile')
-        }
-        // eslint-disable-next-line no-console
+        this.handleLogin(
+          this.formLogin.words,
+          this.formLogin.nick,
+          this.formLogin.password,
+          this.g2c_application
+        )
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error('NetworkSV Login error')

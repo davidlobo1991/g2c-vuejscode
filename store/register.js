@@ -1,10 +1,4 @@
 const state = () => ({
-  // items: [],
-  // errorValidation: false,
-  // userChecked: false,
-  // emailChecked: false,
-  // phoneChecked: false,
-  // checkoutStatus: null,
   nick: null,
   password: null,
   email: null,

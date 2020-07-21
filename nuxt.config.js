@@ -154,6 +154,7 @@ export default {
             url: '/auth/login',
             method: 'post',
             propertyName: 'data.token'
+            // redirect_uri: '/home'
           },
           logout: {
             url: '/auth/logout',
@@ -162,7 +163,7 @@ export default {
           user: {
             url: '/auth/me',
             method: 'get',
-            propertyName: 'data'
+            propertyName: false
           }
         }
       },
@@ -182,12 +183,9 @@ export default {
           user: {
             url: '/auth/me',
             method: 'get',
-            propertyName: 'data'
+            propertyName: false
           }
-        },
-        tokenRequired: true,
-        tokenType: 'Token',
-        tokenName: 'x-authorization'
+        }
       }
     },
     redirect: {
