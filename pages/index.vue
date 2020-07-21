@@ -9,6 +9,7 @@ import Login from '~/components/Login.vue'
 
 export default {
   name: 'Home',
+  middleware: ['home'],
   components: {
     Login
   }

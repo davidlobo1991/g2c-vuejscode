@@ -65,9 +65,11 @@
 
 <script>
 import { required, requiredIf, minLength } from 'vuelidate/lib/validators'
+import { login } from '~/mixins/login'
 
 export default {
   name: 'LoginForm',
+  mixins: [login],
   data() {
     return {
       errorValidation: null,
@@ -79,7 +81,6 @@ export default {
       loading: false
     }
   },
-
   validations: {
     formLogin: {
       nick: {
@@ -117,62 +118,22 @@ export default {
     showRecoverPassword() {
       this.$emit('showRecoverPassword')
     },
-    async login() {
+    login() {
       this.loading = true
 
       try {
-        this.errorValidation = null
-
-        // Form Validation
-        this.$v.$touch()
-
-        if (this.$v.$invalid) {
-          return
-        }
-
-        // eslint-disable-next-line no-unused-vars
-        let g2cLoginResponse = null
-
-        // Check if words fields not empty
-        if (this.formLogin.words !== null && this.formLogin.words.length > 0) {
-          // First, login in G2C
-          try {
-            g2cLoginResponse = await this.loginUser(
-              this.formLogin.words,
-              this.g2c_application,
-              this.formLogin.nick
-            )
-
-            await this.$auth.loginWith('admin', {
-              data: {
-                nick: this.formLogin.nick,
-                password: this.formLogin.password
-              }
-            })
-          } catch (error) {
-            // eslint-disable-next-line no-console
-            console.error('G2C Login error', error)
-            this.errorValidation = error.message
-          }
-        } else {
-          // Second, login in networksv backend
-          try {
-            await this.$auth.loginWith('user', {
-              data: {
-                nick: this.formLogin.nick,
-                password: this.formLogin.password
-              }
-            })
-          } catch (error) {
-            // eslint-disable-next-line no-console
-            console.error('NetworkSV Login error', error)
-            this.errorValidation = this.$i18n.t('login.error.message')
-            this.loading = false
-          }
-        }
+        this.handleLogin(
+          this.formLogin.words,
+          this.formLogin.nick,
+          this.formLogin.password,
+          this.g2c_application
+        )
       } catch (error) {
         // eslint-disable-next-line no-console
+        console.error('NetworkSV Login error')
+        // eslint-disable-next-line no-console
         console.error(error)
+        this.errorValidation = 'login fail'
         this.loading = false
       }
     },

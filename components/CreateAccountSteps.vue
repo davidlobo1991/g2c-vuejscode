@@ -55,6 +55,7 @@ import TwelveWordsGenerator from '~/components/register_process/TwelveWordsGener
 import TelephoneVerify from '~/components/register_process/TelephoneVerify'
 import PinVerify from '~/components/register_process/PinVerify'
 import RegisterEmail from '~/components/register_process/RegisterEmail'
+import { login } from '~/mixins/login'
 
 export default {
   name: 'CreateAccountSteps',
@@ -65,6 +66,7 @@ export default {
     PinVerify,
     RegisterEmail
   },
+  mixins: [login],
   data() {
     return {
       step: 1,
@@ -187,6 +189,7 @@ export default {
             const userCreated = await this.createUserApi()
 
             if (!userCreated.error) {
+              this.login()
             }
           }
         }
@@ -211,37 +214,22 @@ export default {
     navigationPrevious() {
       this.step = this.step - 1
     },
-    async login() {
-      try {
-        // eslint-disable-next-line no-unused-vars
-        let g2cLoginResponse = null
 
-        g2cLoginResponse = await this.loginUser(
+    login() {
+      try {
+        this.handleLogin(
           this.words,
-          this.g2c_application,
-          sessionStorage.registerNick
+          this.nick,
+          this.registerPassword,
+          this.g2c_application
         )
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error('G2C Login error')
-        // eslint-disable-next-line no-console
-        console.error(error)
-      }
-
-      try {
-        const response = await this.$auth.loginWith('local', {
-          data: {
-            nick: sessionStorage.registerNick,
-            password: sessionStorage.registerPassword
-          }
-        })
-        // eslint-disable-next-line no-console
-        console.log(response)
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error('NetworkSV Login error')
         // eslint-disable-next-line no-console
         console.error(error)
+        this.errorValidation = 'login fail'
+        this.loading = false
       }
     },
     onWindowSizeChange() {
