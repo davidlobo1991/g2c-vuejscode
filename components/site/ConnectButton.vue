@@ -80,6 +80,24 @@
                 rows="10"
               ></v-textarea>
             </div>
+            <div class="connectbutton__modal--setprice-cont">
+              <div class="connectbutton__modal--setprice">
+                <v-text-field
+                  class="connectbutton__modal--setprice-input"
+                  outlined
+                  hide-details="0"
+                ></v-text-field>
+                <v-btn
+                  class="connectbutton__modal--setprice-button"
+                  depressed
+                  color="#0885F6"
+                  dark
+                  width="100%"
+                >
+                  Set Price
+                </v-btn>
+              </div>
+            </div>
             <div
               v-if="modalStep === 1"
               @click="nextModalStep()"
@@ -226,6 +244,28 @@ export default {
       width: 70%;
       margin: 0 auto;
     }
+    &--setprice-cont {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 70px;
+    }
+    &--setprice {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      grid-column-gap: 15px;
+      &-input {
+        ::v-deep {
+          .v-input__control .v-input__slot {
+            /*font-size: 18px;*/
+            min-height: 56px;
+          }
+        }
+      }
+      &-button {
+        height: 56px !important;
+      }
+    }
     &--connect-button {
       background-image: linear-gradient(to left, #0278fe, #bedffe, #0278fe);
       background-position: left;
@@ -272,6 +312,21 @@ export default {
     }
     &--button {
       width: 80%;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .connectbutton__modal {
+    &--setprice {
+      grid-template-columns: 1fr;
+      grid-row-gap: 15px;
+      width: 100%;
+      &-cont {
+        margin-bottom: 30px;
+      }
+    }
+    &--connect-button {
+      width: 100%;
     }
   }
 }
