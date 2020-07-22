@@ -183,13 +183,11 @@ const actions = {
    */
   async createUserServerApplication({ getters }, dataObject) {
     // eslint-disable-next-line camelcase
-    const g2c_user = {
-      userauth: dataObject.userauth,
-      nick: sessionStorage.registerNick,
-      application: dataObject.application
-    }
+    const g2c_user = new URLSearchParams()
+    g2c_user.append('userauth', dataObject.userauth)
+    g2c_user.append('nick', sessionStorage.registerNick)
+    g2c_user.append('application', dataObject.application)
 
-    console.log(g2c_user)
     try {
       return await this.$axios
         .post('g2c/server/application/users/create', g2c_user)
