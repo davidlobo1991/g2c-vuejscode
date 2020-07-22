@@ -204,7 +204,7 @@ export default {
   .c-info {
     &__text {
       padding-top: 0 !important;
-      font-size: 12px;
+      font-size: 15px;
       line-height: 15px;
       &--title {
         font-size: 18px;

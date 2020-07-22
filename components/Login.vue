@@ -125,6 +125,8 @@ export default {
       -webkit-box-shadow: 0 0 14px 2px rgba(0, 0, 0, 0.19);
       -moz-box-shadow: 0 0 14px 2px rgba(0, 0, 0, 0.19);
       box-shadow: 0 0 14px 2px rgba(0, 0, 0, 0.19);
+      position: sticky;
+      top: 0;
     }
   }
 }

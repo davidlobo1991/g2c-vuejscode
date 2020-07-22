@@ -19,8 +19,8 @@
 
         <v-card-text class="addFunds__modal--button-cont">
           <div
-            @click="copyEmail()"
             ref="copyButton"
+            @click="copyEmail()"
             class="addFunds__modal--button "
           >
             <div class="addFunds__modal--button-title">

@@ -11,6 +11,8 @@
           @blur="checkUser"
           label="Username (Handle)"
           outlined
+          autocorrect="off"
+          autocapitalize="none"
           class="c-login__cont--input u-mrb-s"
         >
         </v-text-field>
