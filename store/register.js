@@ -189,9 +189,10 @@ const actions = {
       application: dataObject.application
     }
 
+    console.log(g2c_user)
     try {
       return await this.$axios
-        .post('users/create', g2c_user)
+        .post('g2c/server/application/users/create', g2c_user)
         .then((response) => response.data)
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -209,7 +210,7 @@ const actions = {
 
     try {
       return await this.$axios
-        .post('users/create', data)
+        .post('g2c/server/application/users/create/status', data)
         .then((response) => response.data)
     } catch (error) {
       // eslint-disable-next-line no-console

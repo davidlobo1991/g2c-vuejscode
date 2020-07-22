@@ -23,7 +23,7 @@ export const login = {
           )
 
           if (!g2cLoginResponse.error) {
-            await this.$auth
+            this.$auth
               .loginWith('g2c_user', {
                 data: {
                   nick: registerNick,

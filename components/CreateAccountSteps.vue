@@ -170,6 +170,8 @@ export default {
             this.g2c_application
           )
 
+          console.log(register)
+
           if (!register.error) {
             console.log('Created user server application')
             // this.login(this.nick, this.words)
