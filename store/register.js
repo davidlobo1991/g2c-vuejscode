@@ -183,15 +183,14 @@ const actions = {
    */
   async createUserServerApplication({ getters }, dataObject) {
     // eslint-disable-next-line camelcase
-    const g2c_user = {
-      userauth: dataObject.userauth,
-      nick: sessionStorage.registerNick,
-      application: dataObject.application
-    }
+    const g2c_user = new URLSearchParams()
+    g2c_user.append('userauth', dataObject.userauth)
+    g2c_user.append('nick', sessionStorage.registerNick)
+    g2c_user.append('application', dataObject.application)
 
     try {
       return await this.$axios
-        .post('users/create', g2c_user)
+        .post('g2c/server/application/users/create', g2c_user)
         .then((response) => response.data)
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -209,7 +208,7 @@ const actions = {
 
     try {
       return await this.$axios
-        .post('users/create', data)
+        .post('g2c/server/application/users/create/status', data)
         .then((response) => response.data)
     } catch (error) {
       // eslint-disable-next-line no-console

@@ -1,6 +1,6 @@
 <template>
   <div class="u-custom-wrapper">
-    <h1>Pagina protegida, solo accesible si logeado</h1>
+    <h1>Pagina protegida. Login perfil usuario. (No Blockchain)</h1>
     <div v-if="$auth.loggedIn">
       <v-btn @click="logout" text class="blue white&#45;&#45;text"
         >Logout</v-btn
