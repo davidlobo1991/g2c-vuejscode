@@ -10,12 +10,10 @@ export const apiNetworkSv = {
      */
     async validationCode(code) {
       try {
-        const response = await this.$store.dispatch(
-          'register/validationCode',
-          code
-        )
-
-        return response.data
+        const response = await this.$store
+          .dispatch('register/validationCode', code)
+          .then((response) => response.data)
+        return response
       } catch (error) {
         this.handleError(error, 'APINetworkUser@validationCode - Error')
         throw error
@@ -29,14 +27,14 @@ export const apiNetworkSv = {
      */
     async validationPhoneCode(code) {
       try {
-        const response = await this.$store.dispatch(
-          'register/validationPhoneCode',
-          {
+        const response = await this.$store
+          .dispatch('register/validationPhoneCode', {
             verifyServiceId: sessionStorage.verifyServiceId,
             codeString: code
-          }
-        )
-        return response.data
+          })
+          .then((response) => response.data)
+
+        return response
       } catch (error) {
         this.handleError(error, 'APINetworkUser@validationPhoneCode - Error')
         throw error
@@ -49,7 +47,11 @@ export const apiNetworkSv = {
      */
     async sendValidationCode() {
       try {
-        return await this.$store.dispatch('register/sendValidationCode')
+        const response = await this.$store
+          .dispatch('register/sendValidationCode')
+          .then((response) => response.data)
+
+        return response
       } catch (error) {
         this.handleError(error, 'APINetworkUser@sendValidationCode - Error')
         throw error
@@ -62,7 +64,11 @@ export const apiNetworkSv = {
      */
     async sendMobileValidationCode() {
       try {
-        return await this.$store.dispatch('register/sendMobileValidationCode')
+        const response = await this.$store
+          .dispatch('register/sendMobileValidationCode')
+          .then((response) => response.data)
+
+        return response
       } catch (error) {
         this.handleError(
           error,
@@ -76,7 +82,11 @@ export const apiNetworkSv = {
      */
     async checkUserApi() {
       try {
-        return await this.$store.dispatch('register/checkUserApi')
+        const response = await this.$store
+          .dispatch('register/checkUserApi')
+          .then((response) => response.data)
+
+        return response
       } catch (error) {
         throw error
       }
@@ -88,7 +98,10 @@ export const apiNetworkSv = {
      */
     async checkEmailApi() {
       try {
-        return await this.$store.dispatch('register/checkEmailApi')
+        const response = await this.$store
+          .dispatch('register/checkEmailApi')
+          .then((response) => response.data)
+        return response
       } catch (error) {
         throw error
       }
@@ -100,10 +113,10 @@ export const apiNetworkSv = {
      */
     async sendRecoverPasswordEmail(email) {
       try {
-        return await this.$store.dispatch(
-          'register/sendRecoverPasswordEmail',
-          email
-        )
+        const response = await this.$store
+          .dispatch('register/sendRecoverPasswordEmail', email)
+          .then((response) => response.data)
+        return response
       } catch (error) {
         throw error
       }
@@ -114,10 +127,13 @@ export const apiNetworkSv = {
      */
     async resetPasswordApi(password, token) {
       try {
-        return await this.$store.dispatch('register/resetPasswordApi', {
-          password,
-          token
-        })
+        const response = await this.$store
+          .dispatch('register/resetPasswordApi', {
+            password,
+            token
+          })
+          .then((response) => response.data)
+        return response
       } catch (error) {
         throw error
       }
@@ -128,7 +144,10 @@ export const apiNetworkSv = {
      */
     async checkPhoneApi() {
       try {
-        return await this.$store.dispatch('register/checkPhoneApi')
+        const response = await this.$store
+          .dispatch('register/checkPhoneApi')
+          .then((response) => response.data)
+        return response
       } catch (error) {
         throw error
       }
@@ -139,13 +158,13 @@ export const apiNetworkSv = {
      */
     async createUserServerApplication(userauth, application) {
       try {
-        return await this.$store.dispatch(
-          'register/createUserServerApplication',
-          {
+        const response = await this.$store
+          .dispatch('register/createUserServerApplication', {
             userauth,
             application
-          }
-        )
+          })
+          .then((response) => response.data)
+        return response
       } catch (error) {
         throw error
       }
@@ -156,12 +175,12 @@ export const apiNetworkSv = {
      */
     async checkUserServerApplicationStatus(jobId) {
       try {
-        return await this.$store.dispatch(
-          'register/checkUserServerApplicationStatus',
-          {
+        const response = await this.$store
+          .dispatch('register/checkUserServerApplicationStatus', {
             jobId
-          }
-        )
+          })
+          .then((response) => response.data)
+        return response
       } catch (error) {
         throw error
       }
@@ -171,7 +190,10 @@ export const apiNetworkSv = {
      */
     async createUserApi() {
       try {
-        return await this.$store.dispatch('register/createUserApi')
+        const response = await this.$store
+          .dispatch('register/createUserApi')
+          .then((response) => response.data)
+        return response
       } catch (error) {
         throw error
       }
