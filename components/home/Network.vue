@@ -135,6 +135,7 @@ export default {
     }
     &--elem {
       display: inline-block;
+      padding: 0 5px;
       &-active {
         & a {
           display: inline-block;

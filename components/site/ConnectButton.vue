@@ -80,6 +80,12 @@
                 rows="10"
               ></v-textarea>
             </div>
+            <div
+              v-if="modalStep === 2"
+              class="connectbutton__modal--textarea-cont"
+            >
+              {{ connectMessage }}
+            </div>
             <div class="connectbutton__modal--setprice-cont">
               <div class="connectbutton__modal--setprice">
                 <v-text-field
@@ -106,12 +112,7 @@
               <span v-if="cost">{{ cost }}$ - </span>
               Connect
             </div>
-            <div
-              v-if="modalStep === 2"
-              class="connectbutton__modal--textarea-cont"
-            >
-              {{ connectMessage }}
-            </div>
+
             <div
               v-if="modalStep === 2"
               @click="confirmConnection()"
@@ -152,6 +153,9 @@ export default {
   watch: {
     isShowingConnectModal(value) {
       this.$emit('sendIsShowingConnectModal', value)
+    },
+    connectMessage(value) {
+      console.log(value)
     }
   },
   methods: {
@@ -186,6 +190,28 @@ export default {
   .connectbutton__modal {
     max-width: 100%;
   }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: lightgrey;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #0278fe;
+  border-radius: 50px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #006ce0;
 }
 </style>
 <style lang="scss" scoped>
@@ -243,6 +269,10 @@ export default {
     &--textarea-cont {
       width: 70%;
       margin: 0 auto;
+      height: 325px;
+
+      white-space: pre-line;
+      overflow-y: auto;
     }
     &--setprice-cont {
       display: flex;
@@ -268,6 +298,7 @@ export default {
     }
     &--connect-button {
       background-image: linear-gradient(to left, #0278fe, #bedffe, #0278fe);
+      font-size: 17px;
       background-position: left;
       background-size: 200%;
       border-radius: 50px;

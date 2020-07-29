@@ -27,7 +27,8 @@ export default {
 .c-banner {
   position: fixed;
   z-index: 9;
-  width: 100%;
+  width: 86%;
+  justify-content: space-between;
   display: flex;
   align-items: center;
   height: 72px;
@@ -59,11 +60,13 @@ export default {
   .c-banner {
     font-size: 15px;
     padding: 0 32px;
+    width: calc(100% - 200px);
   }
 }
 
 @media screen and (max-width: 768px) {
   .c-banner {
+    width: 100%;
     font-size: 12px;
     padding: 10px;
     height: 110px;

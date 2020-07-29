@@ -504,7 +504,8 @@ export default {
       padding: 15px;
       /*width: 365px;*/
       width: 92%;
-      height: 500px;
+      /*height: 500px;*/
+      height: auto;
       display: flex;
       flex-flow: column;
       justify-content: space-between;
@@ -693,7 +694,8 @@ export default {
       &__card {
         /*width: 280px;*/
         /*width: 92%;*/
-        height: 360px;
+        /*height: 360px;*/
+        height: auto;
         font-size: 15px;
         &--img-cont {
           width: 122px;
@@ -729,6 +731,9 @@ export default {
 @media screen and (max-width: 1200px) {
   .c-home {
     &__cards {
+      &__wrapper {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
       &__card {
         &--details-cont {
           padding: 0 0 7px 0;
@@ -741,7 +746,7 @@ export default {
   .c-home {
     &__cards {
       &__wrapper {
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
       }
       &__card {
         &--details-cont {
@@ -755,7 +760,7 @@ export default {
   .c-home {
     &__cards {
       &__wrapper {
-        grid-template-columns: 1fr 1fr;
+        /*grid-template-columns: 1fr 1fr;*/
       }
     }
   }
