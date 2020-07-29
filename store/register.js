@@ -28,13 +28,15 @@ const actions = {
   async validationCode({ getters, commit }, code) {
     try {
       const email = getters.getEmail
+      const response = await this.$axios.post(
+        '/users/email-validation/validate',
+        {
+          email,
+          validation_code: code
+        }
+      )
 
-      const data = await this.$axios.post('/users/email-validation/validate', {
-        email,
-        validation_code: code
-      })
-
-      return data
+      return response
     } catch (error) {
       throw error
     }
@@ -62,7 +64,6 @@ const actions = {
         }
       )
 
-      console.log(response)
       return response
     } catch (error) {
       throw error
@@ -77,11 +78,13 @@ const actions = {
     try {
       const email = getters.getEmail
 
-      return await this.$axios
+      const response = await this.$axios
         .post('/users/email-validation/send', {
           email
         })
         .then((response) => response.data)
+
+      return response
     } catch (error) {
       throw error
     }
@@ -97,9 +100,11 @@ const actions = {
       const mobileNumber = getters.getMobileNumber
       const phone = `${mobilePrefix}${mobileNumber}`
 
-      return await this.$axios
+      const response = await this.$axios
         .post('/twilio/services/verify/send-sms-verification', { to: phone })
         .then((response) => response.data)
+
+      return response
     } catch (error) {
       throw error
     }
@@ -111,8 +116,11 @@ const actions = {
   async checkUserApi({ getters, commit }) {
     try {
       const nick = getters.getNick
-      const { data } = await this.$axios.get(`/users/check-nickname/${nick}`)
-      return data
+      const response = await this.$axios
+        .get(`/users/check-nickname/${nick}`)
+        .then((response) => response)
+
+      return response
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error)
@@ -127,9 +135,11 @@ const actions = {
     try {
       const email = getters.getEmail
 
-      return await this.$axios
+      const response = await this.$axios
         .get(`/users/check-email/${email}`)
         .then((response) => response.data)
+
+      return response
     } catch (error) {
       this.handleError(error, 'APINetworkUser@checkEmailApi - Error')
       throw error
@@ -145,9 +155,11 @@ const actions = {
       const mobileNumber = getters.getMobileNumber
       const phone = `${mobilePrefix}${mobileNumber}`
 
-      return await this.$axios
+      const response = await this.$axios
         .get(`/users/check-mobile/${phone}`)
         .then((response) => response.data)
+
+      return response
     } catch (error) {
       this.handleError(error, 'APINetworkUser@checkPhoneApi - Error')
       throw error
@@ -168,9 +180,11 @@ const actions = {
     }
 
     try {
-      return await this.$axios
+      const response = await this.$axios
         .post('users/create', user)
         .then((response) => response.data)
+
+      return response
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error)
@@ -182,16 +196,16 @@ const actions = {
    * Sign in backend and firebase
    */
   async createUserServerApplication({ getters }, dataObject) {
-    // eslint-disable-next-line camelcase
-    const g2c_user = new URLSearchParams()
-    g2c_user.append('userauth', dataObject.userauth)
-    g2c_user.append('nick', sessionStorage.registerNick)
-    g2c_user.append('application', dataObject.application)
-
     try {
-      return await this.$axios
-        .post('g2c/server/application/users/create', g2c_user)
+      const response = await this.$axios
+        .post('g2c/server/application/users/create', {
+          userauth: dataObject.userauth,
+          nick: sessionStorage.registerNick,
+          application: dataObject.application
+        })
         .then((response) => response.data)
+
+      return response
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error)
@@ -207,9 +221,11 @@ const actions = {
     }
 
     try {
-      return await this.$axios
+      const response = await this.$axios
         .post('g2c/server/application/users/create/status', data)
         .then((response) => response.data)
+
+      return response
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error)
@@ -222,9 +238,11 @@ const actions = {
    */
   async resetPasswordApi({ getters }, data) {
     try {
-      return await this.$axios
+      const response = await this.$axios
         .post('password/reset', data)
         .then((response) => response.data)
+
+      return response
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error)
@@ -238,9 +256,11 @@ const actions = {
    */
   async sendRecoverPasswordEmail({ getters }, email) {
     try {
-      return await this.$axios
+      const response = await this.$axios
         .get(`password/email/${email}`)
         .then((response) => response.data)
+
+      return response
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error)

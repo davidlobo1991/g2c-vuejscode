@@ -170,8 +170,6 @@ export default {
             this.g2c_application
           )
 
-          console.log(register)
-
           if (!register.error) {
             console.log('Created user server application')
             // this.login(this.nick, this.words)
@@ -180,8 +178,6 @@ export default {
               const status = this.checkUserServerApplicationStatus(
                 register.job_id
               )
-
-              console.log(checkStatus)
 
               if (status.finished_at !== null && !status.error) {
                 clearInterval(checkStatus)

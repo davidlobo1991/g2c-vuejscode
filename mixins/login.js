@@ -34,7 +34,7 @@ export const login = {
                 this.$router.push('/home')
               })
               .catch((error) => {
-                this.handleError(error, 'G2CUser@logoutUser - Error')
+                this.handleError(error, 'G2CUser@loginUser - Error')
                 throw error
               })
           }
