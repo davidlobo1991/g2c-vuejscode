@@ -171,8 +171,8 @@ const actions = {
   async createUserApi({ getters }) {
     // eslint-disable-next-line camelcase
     const user = {
-      nick: sessionStorage.registerNick,
-      password: sessionStorage.registerPassword,
+      nick: getters.getNick,
+      password: getters.getPassword,
       email: getters.getEmail,
       mobile_prefix: getters.getMobilePrefix,
       mobile_number: getters.getMobileNumber,
@@ -197,9 +197,6 @@ const actions = {
    */
   async createUserServerApplication({ getters }, dataObject) {
     try {
-      console.log(dataObject)
-      console.log(dataObject.application)
-
       const response = await this.$axios
         .post('g2c/server/application/users/create', {
           userauth: dataObject.userauth,

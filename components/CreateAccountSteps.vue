@@ -165,14 +165,13 @@ export default {
         )
 
         if (!response.error) {
-          console.log(this.g2c_application)
           const register = await this.createUserServerApplication(
             response.userauth,
             this.g2c_application
           )
           if (!register.error) {
             console.log('Created user server application')
-            // this.login(this.nick, this.words)
+            this.setLoginData()
 
             const checkStatus = setInterval(function() {
               const status = this.checkUserServerApplicationStatus(
@@ -199,15 +198,14 @@ export default {
         this.handleError(error)
       }
     },
-    handleError(error) {
-      this.errorCreateAccount = this.$i18n.t('register.error.creating.account')
-
-      this.loading = false
-      // eslint-disable-next-line no-console
-      console.error('createUser - Error')
-      // eslint-disable-next-line no-console
-      console.error(error)
+    setLoginData() {
+      this.$store.commit('register/SET_NICK', sessionStorage.registerNick)
+      this.$store.commit(
+        'register/SET_PASSWORD',
+        sessionStorage.registerPassword
+      )
     },
+
     getWidth() {
       return Math.max(
         document.documentElement.clientWidth,
@@ -240,6 +238,15 @@ export default {
     },
     nextStep() {
       this.navigationNext()
+    },
+    handleError(error) {
+      this.errorCreateAccount = this.$i18n.t('register.error.creating.account')
+
+      this.loading = false
+      // eslint-disable-next-line no-console
+      console.error('createUser - Error')
+      // eslint-disable-next-line no-console
+      console.error(error)
     }
   }
 }
