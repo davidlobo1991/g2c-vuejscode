@@ -101,6 +101,8 @@ export const apiNetworkSv = {
         const response = await this.$store
           .dispatch('register/checkEmailApi')
           .then((response) => response.data)
+
+        console.log(response)
         return response
       } catch (error) {
         throw error
@@ -164,6 +166,8 @@ export const apiNetworkSv = {
             application
           })
           .then((response) => response.data)
+
+        console.log(response)
         return response
       } catch (error) {
         throw error

@@ -165,11 +165,11 @@ export default {
         )
 
         if (!response.error) {
+          console.log(this.g2c_application)
           const register = await this.createUserServerApplication(
             response.userauth,
             this.g2c_application
           )
-
           if (!register.error) {
             console.log('Created user server application')
             // this.login(this.nick, this.words)
@@ -189,19 +189,24 @@ export default {
             if (!userCreated.error) {
               this.login()
             }
+          } else {
+            this.handleError(register)
           }
+        } else {
+          this.handleError(response)
         }
       } catch (error) {
-        this.errorCreateAccount = this.$i18n.t(
-          'register.error.creating.account'
-        )
-
-        this.loading = false
-        // eslint-disable-next-line no-console
-        console.error('testCreateUser - Error')
-        // eslint-disable-next-line no-console
-        console.error(error)
+        this.handleError(error)
       }
+    },
+    handleError(error) {
+      this.errorCreateAccount = this.$i18n.t('register.error.creating.account')
+
+      this.loading = false
+      // eslint-disable-next-line no-console
+      console.error('createUser - Error')
+      // eslint-disable-next-line no-console
+      console.error(error)
     },
     getWidth() {
       return Math.max(

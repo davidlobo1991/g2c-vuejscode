@@ -2,11 +2,7 @@
   <v-app dark>
     <div class="notfound">
       <div class="notfound__header">
-        <img
-          @click="showMenu"
-          src="@/assets/svg/networksv_logo.svg"
-          alt="Logo"
-        />
+        <img src="@/assets/svg/networksv_logo.svg" alt="Logo" />
       </div>
       <div class="notfound__wrapper">
         <div class="notfound__text-cont">

@@ -158,8 +158,6 @@ export default {
 
         const validation = await this.checkUserApi()
 
-        console.log(validation)
-
         if (validation.error === true) {
           this.nickTaken = this.$i18n.t('register.error.nick.exists')
           this.$v.$touch()

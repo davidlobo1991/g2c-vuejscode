@@ -82,7 +82,7 @@ const actions = {
         .post('/users/email-validation/send', {
           email
         })
-        .then((response) => response.data)
+        .then((response) => response)
 
       return response
     } catch (error) {
@@ -102,7 +102,7 @@ const actions = {
 
       const response = await this.$axios
         .post('/twilio/services/verify/send-sms-verification', { to: phone })
-        .then((response) => response.data)
+        .then((response) => response)
 
       return response
     } catch (error) {
@@ -137,7 +137,7 @@ const actions = {
 
       const response = await this.$axios
         .get(`/users/check-email/${email}`)
-        .then((response) => response.data)
+        .then((response) => response)
 
       return response
     } catch (error) {
@@ -157,7 +157,7 @@ const actions = {
 
       const response = await this.$axios
         .get(`/users/check-mobile/${phone}`)
-        .then((response) => response.data)
+        .then((response) => response)
 
       return response
     } catch (error) {
@@ -182,7 +182,7 @@ const actions = {
     try {
       const response = await this.$axios
         .post('users/create', user)
-        .then((response) => response.data)
+        .then((response) => response)
 
       return response
     } catch (error) {
@@ -197,13 +197,16 @@ const actions = {
    */
   async createUserServerApplication({ getters }, dataObject) {
     try {
+      console.log(dataObject)
+      console.log(dataObject.application)
+
       const response = await this.$axios
         .post('g2c/server/application/users/create', {
           userauth: dataObject.userauth,
           nick: sessionStorage.registerNick,
           application: dataObject.application
         })
-        .then((response) => response.data)
+        .then((response) => response)
 
       return response
     } catch (error) {
@@ -223,7 +226,7 @@ const actions = {
     try {
       const response = await this.$axios
         .post('g2c/server/application/users/create/status', data)
-        .then((response) => response.data)
+        .then((response) => response)
 
       return response
     } catch (error) {
@@ -240,7 +243,7 @@ const actions = {
     try {
       const response = await this.$axios
         .post('password/reset', data)
-        .then((response) => response.data)
+        .then((response) => response)
 
       return response
     } catch (error) {
@@ -258,7 +261,7 @@ const actions = {
     try {
       const response = await this.$axios
         .get(`password/email/${email}`)
-        .then((response) => response.data)
+        .then((response) => response)
 
       return response
     } catch (error) {
