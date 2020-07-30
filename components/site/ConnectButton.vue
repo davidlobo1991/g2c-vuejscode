@@ -128,8 +128,11 @@
 </template>
 
 <script>
+import { apiG2c } from '~/mixins/apiG2c'
+
 export default {
   name: 'ProfileCards',
+  mixins: { apiG2c },
   props: {
     status: {
       type: String,
@@ -164,6 +167,39 @@ export default {
       this.isShowingConnectModal = true
     },
     nextModalStep() {
+      this.loading = true
+
+      const propose = this.walletPropose(
+        'tokenid',
+        'tokens1',
+        'tokenc1',
+        this.g2c_application,
+        'sourcenick',
+        'destinationnick',
+        this.cost,
+        'lockuntil',
+        'description'
+      )
+
+      if (!propose.error) {
+        console.log(propose)
+
+        const object = this.shareUserObject(
+          'tokenid',
+          'tokens1',
+          'tokenc1',
+          this.g2c_application,
+          'sourcenick',
+          'path',
+          'name',
+          'destinationnick'
+        )
+
+        console.log(object)
+
+        // TODO Save shareauth in firebase
+      }
+
       this.modalStep = this.modalStep + 1
     },
     confirmConnection() {
