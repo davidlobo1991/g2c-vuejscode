@@ -37,6 +37,22 @@
               status="connect"
               cost="1"
             />
+            <div class="c-contact-card__profile--progress-cont">
+              <div class="c-contact-card__profile--progress-text">
+                Time left to accept the connection
+              </div>
+              <v-progress-linear
+                value="25"
+                rounded="true"
+                color="#0186FF"
+                background-color="#F5F8FF"
+                height="7"
+                class="c-contact-card__profile--progress"
+              ></v-progress-linear>
+              <div class="c-contact-card__profile--progress-time">
+                99h 58m 12s
+              </div>
+            </div>
             <!--              <v-btn-->
             <!--                depressed-->
             <!--                class="c-home__cards__card&#45;&#45;button"-->
@@ -146,7 +162,7 @@ export default {
 .c-contact-card {
   max-width: 50%;
 }
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 1500px) {
   .c-contact-card {
     max-width: 90%;
     margin: 0;
@@ -256,6 +272,28 @@ export default {
       font-weight: 500;
       padding-top: 25px;
       padding-bottom: 10px;
+    }
+    &--progress {
+      margin-bottom: 15px;
+      &-cont {
+        padding-top: 20px;
+      }
+      &-text {
+        text-align: center;
+        font-size: 15px;
+        color: #8c8c8c;
+        padding-bottom: 10px;
+      }
+      &-time {
+        color: #4d4d4d;
+        font-size: 17px;
+        text-align: center;
+      }
+      ::v-deep {
+        .v-progress-linear__background {
+          border: solid 1px #d1d1d2 !important;
+        }
+      }
     }
   }
 }
