@@ -165,7 +165,6 @@ export default {
         )
 
         if (!response.error) {
-          console.log(this.g2c_application)
           const register = await this.createUserServerApplication(
             response.userauth,
             this.g2c_application
@@ -199,6 +198,23 @@ export default {
         this.handleError(error)
       }
     },
+    login() {
+      try {
+        this.handleLogin(
+          this.words,
+          this.nick,
+          this.registerPassword,
+          this.g2c_application
+        )
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('NetworkSV Login error')
+        // eslint-disable-next-line no-console
+        console.error(error)
+        this.errorValidation = 'login fail'
+        this.loading = false
+      }
+    },
     handleError(error) {
       this.errorCreateAccount = this.$i18n.t('register.error.creating.account')
 
@@ -216,24 +232,6 @@ export default {
     },
     navigationPrevious() {
       this.step = this.step - 1
-    },
-
-    login() {
-      try {
-        this.handleLogin(
-          this.words,
-          this.nick,
-          this.registerPassword,
-          this.g2c_application
-        )
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error('NetworkSV Login error')
-        // eslint-disable-next-line no-console
-        console.error(error)
-        this.errorValidation = 'login fail'
-        this.loading = false
-      }
     },
     onWindowSizeChange() {
       this.viewportWidth = this.getWidth()

@@ -166,41 +166,44 @@ export default {
       this.modalStep = 1
       this.isShowingConnectModal = true
     },
-    nextModalStep() {
+    async nextModalStep() {
       this.loading = true
+      try {
+        this.cost = await this.exchangeRates(this.cost)
 
-      const propose = this.walletPropose(
-        'tokenid',
-        'tokens1',
-        'tokenc1',
-        this.g2c_application,
-        'sourcenick',
-        'destinationnick',
-        this.cost,
-        'lockuntil',
-        'description'
-      )
-
-      if (!propose.error) {
-        console.log(propose)
-
-        const object = this.shareUserObject(
+        const propose = this.walletPropose(
           'tokenid',
           'tokens1',
           'tokenc1',
           this.g2c_application,
           'sourcenick',
-          'path',
-          'name',
-          'destinationnick'
+          'destinationnick',
+          this.cost,
+          'lockuntil',
+          'description'
         )
 
-        console.log(object)
+        if (!propose.error) {
+          console.log(propose)
 
-        // TODO Save shareauth in firebase
-      }
+          const object = this.shareUserObject(
+            'tokenid',
+            'tokens1',
+            'tokenc1',
+            this.g2c_application,
+            'sourcenick',
+            'path',
+            'name',
+            'destinationnick'
+          )
 
-      this.modalStep = this.modalStep + 1
+          console.log(object)
+
+          // TODO Save shareauth in firebase
+
+          this.modalStep = this.modalStep + 1
+        }
+      } catch (error) {}
     },
     confirmConnection() {
       this.isShowingConnectModal = false

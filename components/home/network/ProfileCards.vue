@@ -447,7 +447,30 @@ export default {
   data() {
     return {
       IsShowingContactInfo: false,
-      IsShowingConnectModal: false
+      IsShowingConnectModal: false,
+      connections: [
+        {
+          name: 'Gabel Sheber',
+          nick: '@gabelsh',
+          description: 'Company´s Legal Advisor & Chess Amateur',
+          connections: '210',
+          recommends: '176'
+        },
+        {
+          name: 'Gabel Sheber',
+          nick: '@gabelsh',
+          description: 'Company´s Legal Advisor & Chess Amateur',
+          connections: '210',
+          recommends: '176'
+        },
+        {
+          name: 'Gabel Sheber',
+          nick: '@gabelsh',
+          description: 'Company´s Legal Advisor & Chess Amateur',
+          connections: '210',
+          recommends: '176'
+        }
+      ]
     }
   },
   methods: {

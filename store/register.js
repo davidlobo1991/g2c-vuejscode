@@ -203,8 +203,8 @@ const actions = {
       const response = await this.$axios
         .post('g2c/server/application/users/create', {
           userauth: dataObject.userauth,
-          nick: sessionStorage.registerNick,
-          application: dataObject.application
+          application: dataObject.application,
+          nick: sessionStorage.registerNick
         })
         .then((response) => response)
 

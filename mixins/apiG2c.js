@@ -8,7 +8,8 @@ export const apiG2c = {
       g2c_application: 'networksv.com',
       g2c_nick: '',
       g2c_tokenid: '',
-      g2c_tokens1: ''
+      g2c_tokens1: '',
+      g2c_tokenc1: ''
     }
   },
   methods: {
@@ -27,6 +28,37 @@ export const apiG2c = {
       }
     },
 
+    /**
+     *
+     * @param value
+     * @param mode
+     * @returns {Promise<string | null>}
+     */
+    exchangeRates(value, mode = 'BSV2USD') {
+      try {
+        return new Promise((resolve, reject) => {
+          // eslint-disable-next-line no-undef
+          g2c_exchangeRates({ value, mode }, (response) => {
+            if (response === undefined) {
+              reject(Error('Undefined response'))
+            }
+            if (response.hasOwnProperty('error')) {
+              reject(new Error(response.error))
+            } else {
+              resolve(response)
+            }
+          })
+        })
+          .then((response) => response)
+          .catch((error) => {
+            this.handleError(error, 'G2C@exchangeRates - Error')
+            throw error
+          })
+      } catch (error) {
+        this.handleError(error, 'G2C@exchangeRates - Error')
+        throw error
+      }
+    },
     /**
      * Create User
      * @param {any} nick - Alias that will be used by the user.
