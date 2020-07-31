@@ -81,6 +81,30 @@
               ></v-textarea>
             </div>
             <div
+              v-if="modalStep === 2"
+              class="connectbutton__modal--textarea-cont"
+            >
+              {{ connectMessage }}
+            </div>
+            <div class="connectbutton__modal--setprice-cont">
+              <div class="connectbutton__modal--setprice">
+                <v-text-field
+                  class="connectbutton__modal--setprice-input"
+                  outlined
+                  hide-details="0"
+                ></v-text-field>
+                <v-btn
+                  class="connectbutton__modal--setprice-button"
+                  depressed
+                  color="#0885F6"
+                  dark
+                  width="100%"
+                >
+                  Set Price
+                </v-btn>
+              </div>
+            </div>
+            <div
               v-if="modalStep === 1"
               @click="nextModalStep()"
               class="connectbutton__modal--connect-button"
@@ -88,12 +112,7 @@
               <span v-if="cost">{{ cost }}$ - </span>
               Connect
             </div>
-            <div
-              v-if="modalStep === 2"
-              class="connectbutton__modal--textarea-cont"
-            >
-              {{ connectMessage }}
-            </div>
+
             <div
               v-if="modalStep === 2"
               @click="confirmConnection()"
@@ -134,6 +153,9 @@ export default {
   watch: {
     isShowingConnectModal(value) {
       this.$emit('sendIsShowingConnectModal', value)
+    },
+    connectMessage(value) {
+      console.log(value)
     }
   },
   methods: {
@@ -168,6 +190,28 @@ export default {
   .connectbutton__modal {
     max-width: 100%;
   }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: lightgrey;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #0278fe;
+  border-radius: 50px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #006ce0;
 }
 </style>
 <style lang="scss" scoped>
@@ -225,9 +269,36 @@ export default {
     &--textarea-cont {
       width: 70%;
       margin: 0 auto;
+      height: 325px;
+
+      white-space: pre-line;
+      overflow-y: auto;
+    }
+    &--setprice-cont {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 70px;
+    }
+    &--setprice {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      grid-column-gap: 15px;
+      &-input {
+        ::v-deep {
+          .v-input__control .v-input__slot {
+            /*font-size: 18px;*/
+            min-height: 56px;
+          }
+        }
+      }
+      &-button {
+        height: 56px !important;
+      }
     }
     &--connect-button {
       background-image: linear-gradient(to left, #0278fe, #bedffe, #0278fe);
+      font-size: 17px;
       background-position: left;
       background-size: 200%;
       border-radius: 50px;
@@ -272,6 +343,21 @@ export default {
     }
     &--button {
       width: 80%;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .connectbutton__modal {
+    &--setprice {
+      grid-template-columns: 1fr;
+      grid-row-gap: 15px;
+      width: 100%;
+      &-cont {
+        margin-bottom: 30px;
+      }
+    }
+    &--connect-button {
+      width: 100%;
     }
   }
 }

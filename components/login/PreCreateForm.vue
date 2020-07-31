@@ -11,6 +11,8 @@
           @blur="checkUser"
           label="Username (Handle)"
           outlined
+          autocorrect="off"
+          autocapitalize="none"
           class="c-login__cont--input u-mrb-s"
         >
         </v-text-field>
@@ -119,6 +121,7 @@ export default {
 
         const validation = await this.checkUserApi()
 
+        console.log(validation)
         if (validation.error === true) {
           this.nickTaken = this.$i18n.t('register.error.nick.exists')
         } else {

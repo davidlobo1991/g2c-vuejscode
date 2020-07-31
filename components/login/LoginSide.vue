@@ -13,7 +13,7 @@
       </div>
       <div
         :class="[
-          viewportWidth <= 768 && (!createAccountIsVisible || !loginIsVisible)
+          viewportWidth <= 768 && (createAccountIsVisible || loginIsVisible)
             ? 'space-top'
             : ''
         ]"
@@ -147,12 +147,13 @@ export default {
   width: 100%;
 }
 .space-top {
-  margin-top: 80px !important;
+  margin-top: 50px !important;
 }
 .c-login {
   display: flex;
   justify-content: center;
   height: 100%;
+
   &__wrapper {
     padding-top: 80px;
     display: flex;
@@ -268,8 +269,9 @@ export default {
 }
 @media screen and (max-width: 768px) {
   .c-login {
+    background-color: #fff;
     &__logo {
-      width: 110px;
+      width: 150px;
     }
     &__wrapper {
       position: initial;
@@ -277,7 +279,7 @@ export default {
       width: 100%;
     }
     &__subtitle {
-      font-size: 14px;
+      font-size: 16px;
     }
     &__button {
       padding-bottom: 12px;

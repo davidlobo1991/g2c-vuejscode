@@ -10,9 +10,13 @@ import Home from '~/components/Home.vue'
 export default {
   layout: 'default',
   name: 'HomeDashboard',
-  // middleware: ['auth'],
+  // middleware: ['authG2CUser'],
   components: {
     Home
+  },
+  mounted() {
+    console.log(this.$auth.loggedIn)
+    console.log(this.$auth.strategy.name)
   }
 }
 </script>

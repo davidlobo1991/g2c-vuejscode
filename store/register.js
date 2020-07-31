@@ -1,10 +1,4 @@
 const state = () => ({
-  // items: [],
-  // errorValidation: false,
-  // userChecked: false,
-  // emailChecked: false,
-  // phoneChecked: false,
-  // checkoutStatus: null,
   nick: null,
   password: null,
   email: null,
@@ -34,13 +28,15 @@ const actions = {
   async validationCode({ getters, commit }, code) {
     try {
       const email = getters.getEmail
+      const response = await this.$axios.post(
+        '/users/email-validation/validate',
+        {
+          email,
+          validation_code: code
+        }
+      )
 
-      const data = await this.$axios.post('/users/email-validation/validate', {
-        email,
-        validation_code: code
-      })
-
-      return data
+      return response
     } catch (error) {
       throw error
     }
@@ -68,7 +64,6 @@ const actions = {
         }
       )
 
-      console.log(response)
       return response
     } catch (error) {
       throw error
@@ -83,11 +78,13 @@ const actions = {
     try {
       const email = getters.getEmail
 
-      return await this.$axios
+      const response = await this.$axios
         .post('/users/email-validation/send', {
           email
         })
-        .then((response) => response.data)
+        .then((response) => response)
+
+      return response
     } catch (error) {
       throw error
     }
@@ -103,9 +100,11 @@ const actions = {
       const mobileNumber = getters.getMobileNumber
       const phone = `${mobilePrefix}${mobileNumber}`
 
-      return await this.$axios
+      const response = await this.$axios
         .post('/twilio/services/verify/send-sms-verification', { to: phone })
-        .then((response) => response.data)
+        .then((response) => response)
+
+      return response
     } catch (error) {
       throw error
     }
@@ -117,8 +116,11 @@ const actions = {
   async checkUserApi({ getters, commit }) {
     try {
       const nick = getters.getNick
-      const { data } = await this.$axios.get(`/users/check-nickname/${nick}`)
-      return data
+      const response = await this.$axios
+        .get(`/users/check-nickname/${nick}`)
+        .then((response) => response)
+
+      return response
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error)
@@ -133,9 +135,11 @@ const actions = {
     try {
       const email = getters.getEmail
 
-      return await this.$axios
+      const response = await this.$axios
         .get(`/users/check-email/${email}`)
-        .then((response) => response.data)
+        .then((response) => response)
+
+      return response
     } catch (error) {
       this.handleError(error, 'APINetworkUser@checkEmailApi - Error')
       throw error
@@ -151,9 +155,11 @@ const actions = {
       const mobileNumber = getters.getMobileNumber
       const phone = `${mobilePrefix}${mobileNumber}`
 
-      return await this.$axios
+      const response = await this.$axios
         .get(`/users/check-mobile/${phone}`)
-        .then((response) => response.data)
+        .then((response) => response)
+
+      return response
     } catch (error) {
       this.handleError(error, 'APINetworkUser@checkPhoneApi - Error')
       throw error
@@ -162,31 +168,64 @@ const actions = {
   /**
    * Sign in backend and firebase
    */
-  async signInApi({ getters }, dataObject) {
+  async createUserApi({ getters }) {
     // eslint-disable-next-line camelcase
-    const g2c_user = {
-      userauth: dataObject.userauth,
-      nick: sessionStorage.registerNick,
-      application: dataObject.application
-    }
     const user = {
-      nick: sessionStorage.registerNick,
-      password: sessionStorage.registerPassword,
+      nick: getters.getNick,
+      password: getters.getPassword,
       email: getters.getEmail,
       mobile_prefix: getters.getMobilePrefix,
       mobile_number: getters.getMobileNumber,
       ukresident: getters.getUkresident
     }
 
+    try {
+      const response = await this.$axios
+        .post('users/create', user)
+        .then((response) => response)
+
+      return response
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error)
+      throw error
+    }
+  },
+
+  /**
+   * Sign in backend and firebase
+   */
+  async createUserServerApplication({ getters }, dataObject) {
+    try {
+      const response = await this.$axios
+        .post('g2c/server/application/users/create', {
+          userauth: dataObject.userauth,
+          nick: sessionStorage.registerNick,
+          application: dataObject.application
+        })
+        .then((response) => response)
+
+      return response
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error)
+      throw error
+    }
+  },
+  /**
+   * Sign in backend and firebase
+   */
+  async checkUserServerApplicationStatus({ getters }, jobId) {
     const data = {
-      user,
-      g2c_user
+      job_id: jobId
     }
 
     try {
-      return await this.$axios
-        .post('users/create', data)
-        .then((response) => response.data)
+      const response = await this.$axios
+        .post('g2c/server/application/users/create/status', data)
+        .then((response) => response)
+
+      return response
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error)
@@ -199,9 +238,11 @@ const actions = {
    */
   async resetPasswordApi({ getters }, data) {
     try {
-      return await this.$axios
+      const response = await this.$axios
         .post('password/reset', data)
-        .then((response) => response.data)
+        .then((response) => response)
+
+      return response
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error)
@@ -215,9 +256,11 @@ const actions = {
    */
   async sendRecoverPasswordEmail({ getters }, email) {
     try {
-      return await this.$axios
+      const response = await this.$axios
         .get(`password/email/${email}`)
-        .then((response) => response.data)
+        .then((response) => response)
+
+      return response
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error)
