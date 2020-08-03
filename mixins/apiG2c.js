@@ -35,10 +35,14 @@ export const apiG2c = {
      * @returns {Promise<string | null>}
      */
     exchangeRates(value, mode = 'BSV2USD') {
+      mode = 'USD2SAT'
+      value = 0.5
+
+      console.log(mode, value)
       try {
         return new Promise((resolve, reject) => {
           // eslint-disable-next-line no-undef
-          g2c_exchangeRates({ value, mode }, (response) => {
+          g2c_exchangeRates(value, mode, (response) => {
             if (response === undefined) {
               reject(Error('Undefined response'))
             }
