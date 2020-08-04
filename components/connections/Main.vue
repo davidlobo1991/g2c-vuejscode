@@ -1,24 +1,28 @@
 <template>
   <div class="c-connections">
-    <ConnectionsNavbar />
-    <Messages />
+    <TopMobile />
+    <ConnectionsNavbar activeTab="messages" />
+    <div class="c-messages">test</div>
+    <BottomMobile />
   </div>
 </template>
 
 <script>
 import ConnectionsNavbar from '~/components/connections/ConnectionsNavbar'
-import Messages from '~/components/connections/Messages'
+import TopMobile from '~/components/site/TopMobile'
+import BottomMobile from '~/components/site/BottomMobile'
 
 export default {
   name: 'Main.vue',
   components: {
     ConnectionsNavbar,
-    Messages
+    TopMobile,
+    BottomMobile
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .c-connections {
   width: 100%;
 }

@@ -1,20 +1,20 @@
 <template>
   <div class="u-custom-wrapper">
     <Sidebar />
-    <Main />
+    <Requests />
   </div>
 </template>
 
 <script>
 import Sidebar from '~/components/site/Sidebar'
-import Main from '~/components/connections/Main'
+import Requests from '~/components/connections/Requests'
 
 export default {
-  name: 'Messages.vue',
+  name: 'RequestsConnections.vue',
   layout: 'default',
   components: {
     Sidebar,
-    Main
+    Requests
   }
 }
 </script>

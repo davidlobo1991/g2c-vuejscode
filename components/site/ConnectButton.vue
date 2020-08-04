@@ -218,6 +218,7 @@ export default {
 .connectbutton {
   width: 100%;
   &__accept {
+    padding: 0 15px;
     width: 100%;
     height: 40px;
     border: 2px solid #4dd695;

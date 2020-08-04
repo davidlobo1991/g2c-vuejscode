@@ -1,41 +1,36 @@
 <template>
   <div class="c-account__navbar">
-    <div class="c-account__navbar--logout-cont">
-      <span class="c-account__navbar--logout-text">Logout</span>
-      <v-icon>
-        mdi-exit-to-app
-      </v-icon>
-    </div>
     <ul class="c-account__navbar--menu">
       <li
         v-bind:class="
-          activeTab === 'Messages' ? 'c-account__navbar--item-active' : ''
+          activeTab === 'messages' ? 'c-account__navbar--item-active' : ''
         "
         class="c-account__navbar--item"
       >
-        <nuxt-link to="/account/profile" class="c-account__navbar--link">
+        <nuxt-link to="/connections/messages" class="c-account__navbar--link">
           Messages
         </nuxt-link>
       </li>
       <li
         v-bind:class="
-          activeTab === 'Requests Connection'
-            ? 'c-account__navbar--item-active'
-            : ''
+          activeTab === 'requests' ? 'c-account__navbar--item-active' : ''
         "
         class="c-account__navbar--item"
       >
-        <nuxt-link to="/account/profile" class="c-account__navbar--link">
+        <nuxt-link to="/connections/request" class="c-account__navbar--link">
           Requests Connection
         </nuxt-link>
       </li>
       <li
         v-bind:class="
-          activeTab === 'Sent requests' ? 'c-account__navbar--item-active' : ''
+          activeTab === 'sent-requests' ? 'c-account__navbar--item-active' : ''
         "
         class="c-account__navbar--item"
       >
-        <nuxt-link to="/account/settings" class="c-account__navbar--link">
+        <nuxt-link
+          to="/connections/sent-requests"
+          class="c-account__navbar--link"
+        >
           Sent requests
         </nuxt-link>
       </li>
@@ -45,7 +40,13 @@
 
 <script>
 export default {
-  name: 'ConnectionsNavbar.vue'
+  name: 'ConnectionsNavbar.vue',
+  props: {
+    activeTab: {
+      type: String,
+      default: ''
+    }
+  }
 }
 </script>
 
