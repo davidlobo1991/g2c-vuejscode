@@ -13,7 +13,7 @@
         <div class="c-contact-card__profile">
           <div class="c-contact-card__profile--img-cont">
             <nuxt-link
-              :src="require('@/assets/images/persona1.png')"
+              :src="require('~/assets/images/network/users/persona1.png')"
               tag="img"
               to="/"
               class="c-contact-card__profile--img"
@@ -23,11 +23,15 @@
             ></div>
             <div class="c-contact-card__profile--details-cont">
               <div class="c-contact-card__profile--details">
-                <span class="c-contact-card__profile--details-num">210</span>
+                <span class="c-contact-card__profile--details-num">{{
+                  connection.connections
+                }}</span>
                 Connections
               </div>
               <div class="c-contact-card__profile--details">
-                <span class="c-contact-card__profile--details-num">176</span>
+                <span class="c-contact-card__profile--details-num">{{
+                  connection.recommends
+                }}</span>
                 Recommends
               </div>
             </div>
@@ -37,77 +41,50 @@
               status="connect"
               cost="1"
             />
-            <!--              <v-btn-->
-            <!--                depressed-->
-            <!--                class="c-home__cards__card&#45;&#45;button"-->
-            <!--                color="#0087FF"-->
-            <!--                dark-->
-            <!--              >-->
-            <!--                1$ - Connect-->
-            <!--              </v-btn>-->
           </div>
           <div class="c-contact-card__profile--text-cont">
-            <div class="c-contact-card__profile--name">Jessica O'Mallie</div>
-            <div class="c-contact-card__profile--username">@jessomallie</div>
+            <div class="c-contact-card__profile--name">
+              {{ connection.name }}
+            </div>
+            <div class="c-contact-card__profile--username">
+              {{ connection.nick }}
+            </div>
             <div class="c-contact-card__profile--description">
-              Bitcoin Estrategics, Formation in UX/UI & Animal Lover
+              {{ connection.description }}
             </div>
             <div class="c-contact-card__profile--title">Knowledge</div>
             <div class="c-contact-card__profile--label-cont">
               <v-chip
+                v-for="knowledge in connection.knowledge"
                 class="c-contact-card__profile--label"
                 color="#EFF1F2"
                 label
               >
-                Design
-              </v-chip>
-              <v-chip
-                class="c-contact-card__profile--label"
-                color="#EFF1F2"
-                label
-              >
-                Bitcoin
-              </v-chip>
-              <v-chip
-                class="c-contact-card__profile--label"
-                color="#EFF1F2"
-                label
-              >
-                Startups
+                {{ knowledge }}
               </v-chip>
             </div>
             <div class="c-contact-card__profile--title">Summary</div>
             <div class="c-contact-card__profile--summary">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-              urna, et sodales arcu. Vestibulum at mauris ultrices, posuere,
-              egestas neque. Sed erat neque, euismod vitae faucibus sit amet,
-              pharetra dui. Duis vulputate eu est rutrum. Cras fermentum finibus
-              iaculis lacus vehicula egestas neque. Sed erat neque, vita.
+              {{ connection.summary }}
             </div>
             <div class="c-contact-card__profile--title">Languages</div>
             <div class="c-contact-card__profile--label-cont">
               <v-chip
+                v-for="language in connection.languages"
                 class="c-contact-card__profile--label"
                 color="#EFF1F2"
                 label
               >
-                English
+                {{ language }}
               </v-chip>
-              <v-chip
-                class="c-contact-card__profile--label"
-                color="#EFF1F2"
-                label
-              >
-                Spanish
-              </v-chip>
-            </div>
-            <div class="c-contact-card__profile--title">Social Media</div>
-            <div class="c-contact-card__profile--username">
-              <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>
-              <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>
-              <v-icon color="#8C8C8C">mdi-twitter</v-icon>
-              <v-icon color="#8C8C8C">mdi-facebook-box</v-icon>
-              <v-icon color="#8C8C8C">mdi-instagram</v-icon>
+              <div class="c-contact-card__profile--title">Social Media</div>
+              <div class="c-contact-card__profile--username">
+                <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>
+                <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>
+                <v-icon color="#8C8C8C">mdi-twitter</v-icon>
+                <v-icon color="#8C8C8C">mdi-facebook-box</v-icon>
+                <v-icon color="#8C8C8C">mdi-instagram</v-icon>
+              </div>
             </div>
           </div>
         </div>
@@ -128,6 +105,11 @@ export default {
     isShowingContactInfo: {
       type: Boolean,
       default: false
+    },
+    connection: {
+      type: Object,
+      // eslint-disable-next-line vue/require-valid-default-prop
+      default: {}
     }
   },
   watch: {

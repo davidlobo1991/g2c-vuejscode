@@ -33,7 +33,7 @@
     </v-btn>
 
     <div v-if="status === 'accept'" depressed class="connectbutton__accept">
-      <span v-if="cost">{{ cost }}$ - </span>
+      <span v-if="cost">{{ cost }}$ - &nbsp;</span>
       Accept
     </div>
     <v-dialog
@@ -60,7 +60,7 @@
             <div class="connectbutton__modal--profile-cont">
               <div class="connectbutton__modal--profile-img-cont">
                 <nuxt-link
-                  :src="require('@/assets/images/persona1.png')"
+                  :src="require('~/assets/images/network/users/persona1.png')"
                   tag="img"
                   to="/"
                   class="connectbutton__modal--profile-img"

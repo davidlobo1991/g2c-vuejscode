@@ -24,7 +24,7 @@
             <div class="c-edit-account__modal--avatar-cont">
               <v-avatar size="215">
                 <img
-                  :src="require('@/assets/images/persona1.png')"
+                  :src="require('~/assets/images/network/users/persona1.png')"
                   alt="John"
                 />
                 <div class="c-edit-account__modal--avatar-edit">
