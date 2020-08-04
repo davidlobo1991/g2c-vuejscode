@@ -174,7 +174,8 @@ export default {
             this.setLoginData()
 
             const checkStatus = setInterval(function() {
-              const status = this.checkUserServerApplicationStatus(
+              // console.log(this.$nuxt)
+              const status = this.$nuxt.checkUserServerApplicationStatus(
                 register.job_id
               )
 
@@ -183,10 +184,13 @@ export default {
               }
             }, 5000)
 
+            console.log('User status checked')
             const userCreated = await this.createUserApi()
 
             if (!userCreated.error) {
               this.login()
+            } else {
+              this.handleError(userCreated)
             }
           } else {
             this.handleError(register)
