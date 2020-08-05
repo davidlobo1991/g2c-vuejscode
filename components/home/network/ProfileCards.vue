@@ -1,8 +1,14 @@
 <template>
   <div class="c-home__cards">
     <div class="c-home__cards__wrapper">
-      <div v-for="connection in connections" class="c-home__cards__card">
-        <div @click="showContact" class="c-home__cards__card--text-wrapper">
+      <div
+        v-for="connection in filteredConnections"
+        class="c-home__cards__card"
+      >
+        <div
+          @click="showContact(connection)"
+          class="c-home__cards__card--text-wrapper"
+        >
           <div class="c-home__cards__card--img-cont">
             <img
               :src="`_nuxt/assets/images/network/users/${connection.image}`"
@@ -41,13 +47,13 @@
           :status="`${connection.status}`"
           :cost="`${connection.cost}`"
         />
-        <ModalProfile
-          :isShowingContactInfo="IsShowingContactInfo"
-          :connection="connection"
-          @isShowingContactInfo="isShowingContactInfoChild"
-          @sendIsShowingConnectModal="setIsShowingConnectModal"
-        ></ModalProfile>
       </div>
+      <ModalProfile
+        :isShowingContactInfo="IsShowingContactInfo"
+        :activeConnection="activeConnection"
+        @isShowingContactInfo="isShowingContactInfoChild"
+        @sendIsShowingConnectModal="setIsShowingConnectModal"
+      ></ModalProfile>
     </div>
   </div>
 </template>
@@ -116,36 +122,76 @@ export default {
           description: 'Ingeniero aeroespacial',
           connections: '321',
           recommends: '123',
+          knowledge: ['Education', 'Bitcoin', 'Marketing'],
           cost: '20',
           status: 'accept'
         },
         {
-          name: 'Pau Coll',
+          name: 'Julian Martinez',
           image: 'persona1.png',
           nick: '@pcoll',
           description: 'Ingeniero aeroespacial',
           connections: '321',
           recommends: '123',
+          knowledge: ['Education', 'Bitcoin', 'Finance'],
           cost: '20',
           status: 'pending'
         }
-      ]
+      ],
+      filteredConnections: [],
+      activeConnection: {}
+    }
+  },
+  props: {
+    filterNetwork: {
+      type: String,
+      default: ''
+    },
+    categoryNetwork: {
+      type: String,
+      default: ''
+    }
+  },
+  watch: {
+    filterNetwork(val) {
+      this.filter(val)
+      this.filterCategory(this.categoryNetwork)
+    },
+    categoryNetwork(val) {
+      this.filterCategory(val)
+      this.filter(this.filterNetwork)
     }
   },
   methods: {
     isShowingContactInfoChild(value) {
       this.IsShowingContactInfo = value
     },
-    showContact() {
-      // Llamada AJAX al endpoint
+    showContact(connection) {
       this.IsShowingContactInfo = true
+      this.activeConnection = connection
     },
     setIsShowingConnectModal(value) {
       if (this.IsShowingContactInfo === true) {
         this.IsShowingContactInfo = false
       }
       this.IsShowingConnectModal = value
+    },
+    filter(val) {
+      this.filteredConnections = this.connections.filter(
+        (connection) =>
+          connection.name.toLowerCase().includes(val.toLowerCase()) ||
+          connection.nick.toLowerCase().includes(val.toLowerCase()) ||
+          connection.description.toLowerCase().includes(val.toLowerCase())
+      )
+    },
+    filterCategory(val) {
+      this.filteredConnections = this.connections.filter((connection) =>
+        connection.knowledge.includes(val)
+      )
     }
+  },
+  mounted() {
+    this.filteredConnections = this.connections
   }
 }
 </script>

@@ -131,7 +131,7 @@
 import { apiG2c } from '~/mixins/apiG2c'
 
 export default {
-  name: 'ProfileCards',
+  name: 'ConnectButton',
   mixins: { apiG2c },
   props: {
     status: {

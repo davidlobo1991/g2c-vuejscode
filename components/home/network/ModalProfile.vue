@@ -13,7 +13,9 @@
         <div class="c-contact-card__profile">
           <div class="c-contact-card__profile--img-cont">
             <nuxt-link
-              :src="require('~/assets/images/network/users/persona1.png')"
+              :src="
+                `_nuxt/assets/images/network/users/${activeConnection.image}`
+              "
               tag="img"
               to="/"
               class="c-contact-card__profile--img"
@@ -24,13 +26,13 @@
             <div class="c-contact-card__profile--details-cont">
               <div class="c-contact-card__profile--details">
                 <span class="c-contact-card__profile--details-num">{{
-                  connection.connections
+                  activeConnection.connections
                 }}</span>
                 Connections
               </div>
               <div class="c-contact-card__profile--details">
                 <span class="c-contact-card__profile--details-num">{{
-                  connection.recommends
+                  activeConnection.recommends
                 }}</span>
                 Recommends
               </div>
@@ -44,18 +46,18 @@
           </div>
           <div class="c-contact-card__profile--text-cont">
             <div class="c-contact-card__profile--name">
-              {{ connection.name }}
+              {{ activeConnection.name }}
             </div>
             <div class="c-contact-card__profile--username">
-              {{ connection.nick }}
+              {{ activeConnection.nick }}
             </div>
             <div class="c-contact-card__profile--description">
-              {{ connection.description }}
+              {{ activeConnection.description }}
             </div>
             <div class="c-contact-card__profile--title">Knowledge</div>
             <div class="c-contact-card__profile--label-cont">
               <v-chip
-                v-for="knowledge in connection.knowledge"
+                v-for="knowledge in activeConnection.knowledge"
                 class="c-contact-card__profile--label"
                 color="#EFF1F2"
                 label
@@ -65,19 +67,21 @@
             </div>
             <div class="c-contact-card__profile--title">Summary</div>
             <div class="c-contact-card__profile--summary">
-              {{ connection.summary }}
+              {{ activeConnection.summary }}
             </div>
             <div class="c-contact-card__profile--title">Languages</div>
             <div class="c-contact-card__profile--label-cont">
               <v-chip
-                v-for="language in connection.languages"
+                v-for="language in activeConnection.language"
                 class="c-contact-card__profile--label"
                 color="#EFF1F2"
                 label
               >
                 {{ language }}
               </v-chip>
-              <div class="c-contact-card__profile--title">Social Media</div>
+              <div class="c-contact-card__profile--title">
+                Social Media
+              </div>
               <div class="c-contact-card__profile--username">
                 <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>
                 <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>
@@ -94,19 +98,19 @@
 </template>
 
 <script>
-import ConnectButton from '~/components/site/ConnectButton'
+// import ConnectButton from '~/components/site/ConnectButton'
 
 export default {
   name: 'ModalProfile',
-  components: {
-    ConnectButton
-  },
+  // components: {
+  //   ConnectButton
+  // },
   props: {
     isShowingContactInfo: {
       type: Boolean,
       default: false
     },
-    connection: {
+    activeConnection: {
       type: Object,
       // eslint-disable-next-line vue/require-valid-default-prop
       default: {}
@@ -229,7 +233,7 @@ export default {
     }
 
     &--label {
-      margin-bottom: 5px;
+      margin: 5px;
     }
 
     &--title {
