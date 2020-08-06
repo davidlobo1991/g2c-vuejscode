@@ -54,6 +54,9 @@
         @isShowingContactInfo="isShowingContactInfoChild"
         @sendIsShowingConnectModal="setIsShowingConnectModal"
       ></ModalProfile>
+      <span v-if="filteredConnections.length === 0">{{
+        this.$i18n.t('profile.cards.not_found')
+      }}</span>
     </div>
   </div>
 </template>
