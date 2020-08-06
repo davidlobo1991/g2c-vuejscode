@@ -154,12 +154,12 @@ export default {
   },
   watch: {
     filterNetwork(val) {
-      this.filter(val)
-      this.filterCategory(this.categoryNetwork)
+      this.filter(this.connections, val)
+      this.filterCategory(this.filteredConnections, this.categoryNetwork)
     },
     categoryNetwork(val) {
-      this.filterCategory(val)
-      this.filter(this.filterNetwork)
+      this.filterCategory(this.connections, val)
+      this.filter(this.filteredConnections, this.filterNetwork)
     }
   },
   methods: {
@@ -176,18 +176,26 @@ export default {
       }
       this.IsShowingConnectModal = value
     },
-    filter(val) {
-      this.filteredConnections = this.connections.filter(
-        (connection) =>
-          connection.name.toLowerCase().includes(val.toLowerCase()) ||
-          connection.nick.toLowerCase().includes(val.toLowerCase()) ||
-          connection.description.toLowerCase().includes(val.toLowerCase())
-      )
+    filter(connections, val) {
+      if (val) {
+        this.filteredConnections = connections.filter(
+          (connection) =>
+            connection.name.toLowerCase().includes(val.toLowerCase()) ||
+            connection.nick.toLowerCase().includes(val.toLowerCase()) ||
+            connection.description.toLowerCase().includes(val.toLowerCase())
+        )
+      } else {
+        this.filteredConnections = connections
+      }
     },
-    filterCategory(val) {
-      this.filteredConnections = this.connections.filter((connection) =>
-        connection.knowledge.includes(val)
-      )
+    filterCategory(connections, val) {
+      if (val) {
+        this.filteredConnections = connections.filter((connection) =>
+          connection.knowledge.includes(val)
+        )
+      } else {
+        this.filteredConnections = connections
+      }
     }
   },
   mounted() {
