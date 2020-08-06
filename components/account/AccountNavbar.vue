@@ -66,6 +66,7 @@ export default {
     align-items: flex-end;
     height: 76px;
     position: relative;
+    z-index: 1;
     &--logout-cont {
       position: absolute;
       top: 25px;
