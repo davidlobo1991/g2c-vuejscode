@@ -13,10 +13,6 @@ export default {
   // middleware: ['authG2CUser'],
   components: {
     Home
-  },
-  mounted() {
-    console.log(this.$auth.loggedIn)
-    console.log(this.$auth.strategy.name)
   }
 }
 </script>

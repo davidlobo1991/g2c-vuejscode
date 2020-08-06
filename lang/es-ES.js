@@ -39,6 +39,11 @@ export default {
       message: 'Usuario y/o contraseña invalidos'
     }
   },
+  profile: {
+    cards: {
+      not_found: 'No se han encontrado usuarios con el filtro seleccionado'
+    }
+  },
   welcome: 'Bienvenido/a',
   welcome_banner_message:
     'Fill your profile information to appear on the Network and start receving and requesting connections.'

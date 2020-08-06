@@ -33,7 +33,7 @@
     </v-btn>
 
     <div v-if="status === 'accept'" depressed class="connectbutton__accept">
-      <span v-if="cost">{{ cost }}$ - </span>
+      <span v-if="cost">{{ cost }}$ - &nbsp;</span>
       Accept
     </div>
     <v-dialog
@@ -60,7 +60,7 @@
             <div class="connectbutton__modal--profile-cont">
               <div class="connectbutton__modal--profile-img-cont">
                 <nuxt-link
-                  :src="require('@/assets/images/persona1.png')"
+                  :src="require('~/assets/images/network/users/persona1.png')"
                   tag="img"
                   to="/"
                   class="connectbutton__modal--profile-img"
@@ -128,8 +128,11 @@
 </template>
 
 <script>
+import { apiG2c } from '~/mixins/apiG2c'
+
 export default {
-  name: 'ProfileCards',
+  name: 'ConnectButton',
+  mixins: { apiG2c },
   props: {
     status: {
       type: String,
@@ -163,8 +166,44 @@ export default {
       this.modalStep = 1
       this.isShowingConnectModal = true
     },
-    nextModalStep() {
-      this.modalStep = this.modalStep + 1
+    async nextModalStep() {
+      this.loading = true
+      try {
+        this.cost = await this.exchangeRates(this.cost)
+
+        const propose = this.walletPropose(
+          'tokenid',
+          'tokens1',
+          'tokenc1',
+          this.g2c_application,
+          'sourcenick',
+          'destinationnick',
+          this.cost,
+          'lockuntil',
+          'description'
+        )
+
+        if (!propose.error) {
+          console.log(propose)
+
+          const object = this.shareUserObject(
+            'tokenid',
+            'tokens1',
+            'tokenc1',
+            this.g2c_application,
+            'sourcenick',
+            'path',
+            'name',
+            'destinationnick'
+          )
+
+          console.log(object)
+
+          // TODO Save shareauth in firebase
+
+          this.modalStep = this.modalStep + 1
+        }
+      } catch (error) {}
     },
     confirmConnection() {
       this.isShowingConnectModal = false
