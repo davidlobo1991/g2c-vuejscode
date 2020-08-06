@@ -56,7 +56,7 @@
           </li>
           <li class="c-sidebar__menu--item">
             <nuxt-link
-              :to="localePath('connections')"
+              :to="localePath('/connections/messages')"
               class="c-sidebar__menu--link"
               title="Connections"
             >

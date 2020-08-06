@@ -55,7 +55,7 @@ export const login = {
             })
         }
       } catch (error) {
-        this.handleError(error, 'G2CUser@loginUser3 - Error')
+        this.handleError(error, 'G2CUser@loginUser - Error')
         throw error
       }
     },

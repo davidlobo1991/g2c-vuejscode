@@ -179,9 +179,13 @@ const actions = {
       ukresident: getters.getUkresident
     }
 
+    const data = {
+      user
+    }
+
     try {
       const response = await this.$axios
-        .post('users/create', user)
+        .post('users/create', data)
         .then((response) => response)
 
       return response
