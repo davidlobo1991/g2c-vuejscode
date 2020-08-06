@@ -9,7 +9,7 @@
       </div>
       <div class="c-banner__close">
         <v-icon dark class="c-banner__close--icon">mdi-close</v-icon>
-        <v-btn depressed class="c-banner__button">
+        <v-btn to="/account/profile" depressed class="c-banner__button">
           {{ $t('edit_profile') }}
         </v-btn>
       </div>

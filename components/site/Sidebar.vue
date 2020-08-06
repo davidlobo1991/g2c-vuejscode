@@ -23,7 +23,7 @@
             <template v-else>
               <nuxt-link
                 :to="localePath('account/profile')"
-                :src="require('@/assets/images/persona1.png')"
+                :src="require('~/assets/images/network/users/persona1.png')"
                 tag="img"
                 class="c-sidebar__profile--img"
                 title="Account Profile"
@@ -56,7 +56,7 @@
           </li>
           <li class="c-sidebar__menu--item">
             <nuxt-link
-              :to="localePath('connections')"
+              :to="localePath('/connections/messages')"
               class="c-sidebar__menu--link"
               title="Connections"
             >

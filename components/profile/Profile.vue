@@ -3,7 +3,7 @@
     <div class="c-profile__profile-card--image-info-cont">
       <div class="c-profile__profile-card--img-cont">
         <nuxt-link
-          :src="require('@/assets/images/persona1.png')"
+          :src="require('~/assets/images/network/users/persona1.png')"
           tag="img"
           to="/"
           class="c-profile__profile-card--img"

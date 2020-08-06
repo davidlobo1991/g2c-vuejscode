@@ -179,9 +179,13 @@ const actions = {
       ukresident: getters.getUkresident
     }
 
+    const data = {
+      user
+    }
+
     try {
       const response = await this.$axios
-        .post('users/create', user)
+        .post('users/create', data)
         .then((response) => response)
 
       return response
@@ -200,8 +204,8 @@ const actions = {
       const response = await this.$axios
         .post('g2c/server/application/users/create', {
           userauth: dataObject.userauth,
-          nick: sessionStorage.registerNick,
-          application: dataObject.application
+          application: dataObject.application,
+          nick: sessionStorage.registerNick
         })
         .then((response) => response)
 

@@ -164,6 +164,8 @@ export default {
           this.words
         )
 
+        console.log(response)
+
         if (!response.error) {
           const register = await this.createUserServerApplication(
             response.userauth,
@@ -188,7 +190,10 @@ export default {
             const userCreated = await this.createUserApi()
 
             if (!userCreated.error) {
-              this.login()
+              setTimeout(function() {
+                console.log('Waiting for it...')
+              }, 5000)
+              // this.login()
             } else {
               this.handleError(userCreated)
             }
@@ -244,7 +249,7 @@ export default {
       this.navigationNext()
     },
     handleError(error) {
-      this.errorCreateAccount = this.$i18n.t('register.error.creating.account')
+      this.errorCreateAccount = this.$i18n.t('login.error')
 
       this.loading = false
       // eslint-disable-next-line no-console

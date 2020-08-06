@@ -6,6 +6,7 @@
       <div class="c-home__search--cont">
         <v-text-field
           :hide-details="true"
+          v-model="filterNetwork"
           outlined
           placeholder="Who or what are you looking for?"
           append-icon="mdi-magnify"
@@ -17,42 +18,26 @@
       </div>
       <div class="c-home__navbar">
         <ul class="c-home__navbar--list">
-          <li class="c-home__navbar--elem">
-            <a href="#" class="c-home__navbar--link">My Connections</a>
-          </li>
-          <li class="c-home__navbar--elem-active">
-            <a href="#" class="c-home__navbar--link">Online</a>
-          </li>
-          <li class="c-home__navbar--elem">
-            <a href="#" class="c-home__navbar--link">Education</a>
-          </li>
-          <li class="c-home__navbar--elem">
-            <a href="#" class="c-home__navbar--link">Bitcoin</a>
-          </li>
-          <li class="c-home__navbar--elem">
-            <a href="#" class="c-home__navbar--link">Startups</a>
-          </li>
-          <li class="c-home__navbar--elem">
-            <a href="#" class="c-home__navbar--link">Finance</a>
-          </li>
-          <li class="c-home__navbar--elem">
-            <a href="#" class="c-home__navbar--link">Legal</a>
-          </li>
-          <li class="c-home__navbar--elem">
-            <a href="#" class="c-home__navbar--link">Health</a>
-          </li>
-          <li class="c-home__navbar--elem">
-            <a href="#" class="c-home__navbar--link">Design</a>
-          </li>
-          <li class="c-home__navbar--elem">
-            <a href="#" class="c-home__navbar--link">Marketing</a>
-          </li>
-          <li class="c-home__navbar--elem">
-            <a href="#" class="c-home__navbar--link">Coding</a>
+          <li
+            v-for="category in categories"
+            :class="
+              categoryNetwork === category
+                ? 'c-home__navbar--elem-active'
+                : 'c-home__navbar--elem'
+            "
+          >
+            <a
+              v-on:click="categoryNetwork = category"
+              class="c-home__navbar--link"
+              >{{ category }}</a
+            >
           </li>
         </ul>
       </div>
-      <ProfileCards />
+      <ProfileCards
+        :filterNetwork="filterNetwork"
+        :categoryNetwork="categoryNetwork"
+      />
     </div>
     <BottomMobile />
   </section>
@@ -75,7 +60,21 @@ export default {
   },
   data() {
     return {
-      IsShowingContactInfo: false
+      IsShowingContactInfo: false,
+      filterNetwork: null,
+      categoryNetwork: null,
+      categories: [
+        'My Connections',
+        'Online',
+        'Education',
+        'Bitcoin',
+        'Startups',
+        'Finance',
+        'Legal',
+        'Health',
+        'Design',
+        'Marketing'
+      ]
     }
   },
   methods: {
@@ -135,7 +134,6 @@ export default {
     }
     &--elem {
       display: inline-block;
-      padding: 0 5px;
       &-active {
         & a {
           display: inline-block;

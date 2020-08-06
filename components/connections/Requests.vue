@@ -7,7 +7,7 @@
         <div @click.self="showContact" class="c-requests__elem">
           <div @click="showContact" class="c-requests__elem--info-cont">
             <img
-              src="@/assets/images/persona1.png"
+              :src="require('~/assets/images/network/users/persona1.png')"
               class="c-requests__elem--image"
               alt=""
             />
