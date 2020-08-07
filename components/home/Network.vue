@@ -21,13 +21,13 @@
           <li
             v-for="category in categories"
             :class="
-              categoryNetwork === category
+              categoryNetwork.includes(category)
                 ? 'c-home__navbar--elem-active'
                 : 'c-home__navbar--elem'
             "
           >
             <a
-              v-on:click="categoryNetwork = category"
+              v-on:click="setCategoryNetwork(category)"
               class="c-home__navbar--link"
               >{{ category }}</a
             >
@@ -62,7 +62,7 @@ export default {
     return {
       IsShowingContactInfo: false,
       filterNetwork: null,
-      categoryNetwork: null,
+      categoryNetwork: [],
       categories: [
         'My Connections',
         'Online',
@@ -81,6 +81,15 @@ export default {
     showContact() {
       // Llamada AJAX al endpoint
       this.IsShowingContactInfo = true
+    },
+    setCategoryNetwork(category) {
+      if (!this.categoryNetwork.includes(category)) {
+        this.categoryNetwork.push(category)
+      } else {
+        this.categoryNetwork = this.categoryNetwork.filter(
+          (e) => e !== category
+        )
+      }
     }
   }
 }

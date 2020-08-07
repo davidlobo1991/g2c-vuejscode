@@ -3,7 +3,7 @@
     <div class="c-users-list__user c-users-list__user--active">
       <div class="c-users-list__user--last-message">12:38</div>
       <img
-        src="@/assets/images/persona1.png"
+        src="@/assets/images/network/users/persona1.png"
         class="c-users-list__user--image"
         alt=""
       />
@@ -19,7 +19,7 @@
       <div class="c-users-list__user--last-message">12:38</div>
       <div class="c-users-list__user--notification">1</div>
       <img
-        src="@/assets/images/persona1.png"
+        src="@/assets/images/network/users/persona1.png"
         class="c-users-list__user--image"
         alt=""
       />
@@ -35,7 +35,7 @@
       <div class="c-users-list__user--last-message">12:38</div>
       <div class="c-users-list__user--notification">1</div>
       <img
-        src="@/assets/images/persona1.png"
+        src="@/assets/images/network/users/persona1.png"
         class="c-users-list__user--image"
         alt=""
       />
@@ -51,7 +51,7 @@
       <div class="c-users-list__user--last-message">12:38</div>
       <div class="c-users-list__user--notification">1</div>
       <img
-        src="@/assets/images/persona1.png"
+        src="@/assets/images/network/users/persona1.png"
         class="c-users-list__user--image"
         alt=""
       />
@@ -67,7 +67,7 @@
       <div class="c-users-list__user--last-message">12:38</div>
       <div class="c-users-list__user--notification">1</div>
       <img
-        src="@/assets/images/persona1.png"
+        src="@/assets/images/network/users/persona1.png"
         class="c-users-list__user--image"
         alt=""
       />
@@ -83,7 +83,7 @@
       <div class="c-users-list__user--last-message">12:38</div>
       <div class="c-users-list__user--notification">1</div>
       <img
-        src="@/assets/images/persona1.png"
+        src="@/assets/images/network/users/persona1.png"
         class="c-users-list__user--image"
         alt=""
       />
@@ -99,7 +99,7 @@
       <div class="c-users-list__user--last-message">12:38</div>
       <div class="c-users-list__user--notification">1</div>
       <img
-        src="@/assets/images/persona1.png"
+        src="@/assets/images/network/users/persona1.png"
         class="c-users-list__user--image"
         alt=""
       />
@@ -115,7 +115,7 @@
       <div class="c-users-list__user--last-message">12:38</div>
       <div class="c-users-list__user--notification">1</div>
       <img
-        src="@/assets/images/persona1.png"
+        src="@/assets/images/network/users/persona1.png"
         class="c-users-list__user--image"
         alt=""
       />
@@ -131,7 +131,7 @@
       <div class="c-users-list__user--last-message">12:38</div>
       <div class="c-users-list__user--notification">1</div>
       <img
-        src="@/assets/images/persona1.png"
+        src="@/assets/images/network/users/persona1.png"
         class="c-users-list__user--image"
         alt=""
       />
@@ -147,7 +147,7 @@
       <div class="c-users-list__user--last-message">12:38</div>
       <div class="c-users-list__user--notification">1</div>
       <img
-        src="@/assets/images/persona1.png"
+        src="@/assets/images/network/users/persona1.png"
         class="c-users-list__user--image"
         alt=""
       />
@@ -163,7 +163,7 @@
       <div class="c-users-list__user--last-message">12:38</div>
       <div class="c-users-list__user--notification">1</div>
       <img
-        src="@/assets/images/persona1.png"
+        src="@/assets/images/network/users/persona1.png"
         class="c-users-list__user--image"
         alt=""
       />
@@ -179,7 +179,7 @@
       <div class="c-users-list__user--last-message">12:38</div>
       <div class="c-users-list__user--notification">1</div>
       <img
-        src="@/assets/images/persona1.png"
+        src="@/assets/images/network/users/persona1.png"
         class="c-users-list__user--image"
         alt=""
       />
@@ -195,7 +195,7 @@
       <div class="c-users-list__user--last-message">12:38</div>
       <div class="c-users-list__user--notification">1</div>
       <img
-        src="@/assets/images/persona1.png"
+        src="@/assets/images/network/users/persona1.png"
         class="c-users-list__user--image"
         alt=""
       />
@@ -211,7 +211,7 @@
       <div class="c-users-list__user--last-message">12:38</div>
       <div class="c-users-list__user--notification">1</div>
       <img
-        src="@/assets/images/persona1.png"
+        src="@/assets/images/network/users/persona1.png"
         class="c-users-list__user--image"
         alt=""
       />
@@ -227,7 +227,7 @@
       <div class="c-users-list__user--last-message">12:38</div>
       <div class="c-users-list__user--notification">1</div>
       <img
-        src="@/assets/images/persona1.png"
+        src="@/assets/images/network/users/persona1.png"
         class="c-users-list__user--image"
         alt=""
       />
@@ -243,7 +243,7 @@
       <div class="c-users-list__user--last-message">12:38</div>
       <div class="c-users-list__user--notification">1</div>
       <img
-        src="@/assets/images/persona1.png"
+        src="@/assets/images/network/users/persona1.png"
         class="c-users-list__user--image"
         alt=""
       />
@@ -259,7 +259,7 @@
       <div class="c-users-list__user--last-message">12:38</div>
       <div class="c-users-list__user--notification">1</div>
       <img
-        src="@/assets/images/persona1.png"
+        src="@/assets/images/network/users/persona1.png"
         class="c-users-list__user--image"
         alt=""
       />
@@ -275,7 +275,7 @@
       <div class="c-users-list__user--last-message">12:38</div>
       <div class="c-users-list__user--notification">1</div>
       <img
-        src="@/assets/images/persona1.png"
+        src="@/assets/images/network/users/persona1.png"
         class="c-users-list__user--image"
         alt=""
       />
@@ -291,7 +291,7 @@
       <div class="c-users-list__user--last-message">12:38</div>
       <div class="c-users-list__user--notification">1</div>
       <img
-        src="@/assets/images/persona1.png"
+        src="@/assets/images/network/users/persona1.png"
         class="c-users-list__user--image"
         alt=""
       />
@@ -307,7 +307,7 @@
       <div class="c-users-list__user--last-message">12:38</div>
       <div class="c-users-list__user--notification">1</div>
       <img
-        src="@/assets/images/persona1.png"
+        src="@/assets/images/network/users/persona1.png"
         class="c-users-list__user--image"
         alt=""
       />
@@ -323,7 +323,7 @@
       <div class="c-users-list__user--last-message">12:38</div>
       <div class="c-users-list__user--notification">1</div>
       <img
-        src="@/assets/images/persona1.png"
+        src="@/assets/images/network/users/persona1.png"
         class="c-users-list__user--image"
         alt=""
       />
@@ -339,7 +339,7 @@
       <div class="c-users-list__user--last-message">12:38</div>
       <div class="c-users-list__user--notification">1</div>
       <img
-        src="@/assets/images/persona1.png"
+        src="@/assets/images/network/users/persona1.png"
         class="c-users-list__user--image"
         alt=""
       />
