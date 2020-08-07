@@ -129,10 +129,11 @@
 
 <script>
 import { apiG2c } from '~/mixins/apiG2c'
+import { apiG2cConnections } from '~/mixins/apiG2cConnections'
 
 export default {
   name: 'ConnectButton',
-  mixins: { apiG2c },
+  mixins: { apiG2c, apiG2cConnections },
   props: {
     status: {
       type: String,
