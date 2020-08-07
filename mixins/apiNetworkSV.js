@@ -3,6 +3,17 @@ export const apiNetworkSv = {
     return {}
   },
   methods: {
+    async showUsers() {
+      try {
+        const response = await this.$store
+          .dispatch('users/show')
+          .then((response) => response.data)
+        return response
+      } catch (error) {
+        this.handleError(error, 'APINetworkUser@validationCode - Error')
+        throw error
+      }
+    },
     /**
      * Validate email code
      * @returns {Promise<void>}

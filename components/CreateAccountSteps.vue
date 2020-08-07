@@ -163,9 +163,6 @@ export default {
           sessionStorage.registerNick,
           this.words
         )
-
-        console.log(response)
-
         if (!response.error) {
           const register = await this.createUserServerApplication(
             response.userauth,
