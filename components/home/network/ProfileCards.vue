@@ -151,8 +151,8 @@ export default {
       default: ''
     },
     categoryNetwork: {
-      type: String,
-      default: ''
+      type: Array,
+      default: null
     }
   },
   watch: {
@@ -192,9 +192,9 @@ export default {
       }
     },
     filterCategory(connections, val) {
-      if (val) {
+      if (val.length > 0) {
         this.filteredConnections = connections.filter((connection) =>
-          connection.knowledge.includes(val)
+          connection.knowledge.some((knowledge) => val.includes(knowledge))
         )
       } else {
         this.filteredConnections = connections
