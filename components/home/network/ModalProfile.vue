@@ -11,18 +11,20 @@
           </v-icon>
         </div>
         <div class="c-contact-card__profile">
-          <div class="c-contact-card__profile--img-cont">
-            <nuxt-link
-              :src="
-                `_nuxt/assets/images/network/users/${activeConnection.image}`
-              "
-              tag="img"
-              to="/"
-              class="c-contact-card__profile--img"
-            />
-            <div
-              class="c-contact-card__profile--status u-status--available"
-            ></div>
+          <div class="c-contact-card__profile--img-side">
+            <div class="c-contact-card__profile--img-cont">
+              <nuxt-link
+                :src="
+                  `_nuxt/assets/images/network/users/${activeConnection.image}`
+                "
+                tag="img"
+                to="/"
+                class="c-contact-card__profile--img"
+              />
+              <div
+                class="c-contact-card__profile--status u-status--available"
+              ></div>
+            </div>
             <div class="c-contact-card__profile--details-cont">
               <div class="c-contact-card__profile--details">
                 <span class="c-contact-card__profile--details-num">{{
@@ -68,6 +70,7 @@
             <!--                1$ - Connect-->
             <!--              </v-btn>-->
           </div>
+
           <div class="c-contact-card__profile--text-cont">
             <div class="c-contact-card__profile--name">
               {{ activeConnection.name }}
@@ -169,6 +172,23 @@ export default {
 }
 </style>
 <style lang="scss" scoped>
+.u-status {
+  &--available {
+    background-color: #18de82;
+  }
+
+  &--bussy {
+    background-color: #dd183c;
+  }
+
+  &--absent {
+    background-color: #dbdb18;
+  }
+
+  &--invisible {
+    background-color: #d6d6d6;
+  }
+}
 .c-contact-card {
   max-width: 50%;
   &__cross {
@@ -183,6 +203,11 @@ export default {
     display: flex;
     position: relative;
     padding: 0 20px 20px 20px;
+
+    &--img-side {
+      /*width: 235px;*/
+      /*flex-shrink: 0;*/
+    }
 
     &--img-cont {
       position: relative;

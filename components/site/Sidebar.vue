@@ -74,12 +74,12 @@
           </li>
           <li class="c-sidebar__menu--item">
             <nuxt-link
-              :to="localePath('home')"
+              :to="localePath('/emeetings/requests')"
               class="c-sidebar__menu--link"
               title="eMeetings"
             >
               <v-icon class="c-sidebar__menu--icon">
-                mdi-bookmark-multiple
+                mdi-message-video
               </v-icon>
               eMeetings
             </nuxt-link>
