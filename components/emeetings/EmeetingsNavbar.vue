@@ -7,17 +7,17 @@
         "
         class="c-account__navbar--item"
       >
-        <nuxt-link to="/connections/messages" class="c-account__navbar--link">
+        <nuxt-link to="/emeetings/requests" class="c-account__navbar--link">
           Received Requests (2)
         </nuxt-link>
       </li>
       <li
         v-bind:class="
-          activeTab === 'requests' ? 'c-account__navbar--item-active' : ''
+          activeTab === 'sent' ? 'c-account__navbar--item-active' : ''
         "
         class="c-account__navbar--item"
       >
-        <nuxt-link to="/connections/request" class="c-account__navbar--link">
+        <nuxt-link to="/emeetings/sent" class="c-account__navbar--link">
           Sent Requests (2)
         </nuxt-link>
       </li>

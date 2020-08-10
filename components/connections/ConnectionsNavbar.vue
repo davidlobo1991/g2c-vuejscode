@@ -1,5 +1,8 @@
 <template>
   <div class="c-account__navbar">
+    <v-icon class="c-account__navbar--menu">
+      mdi-menu-open
+    </v-icon>
     <ul class="c-account__navbar--menu">
       <li
         v-bind:class="
