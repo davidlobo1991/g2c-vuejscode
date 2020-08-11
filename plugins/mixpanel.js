@@ -3,7 +3,7 @@ import mixpanel from 'mixpanel-browser'
 
 const token = process.env.MIX_PANEL_TOKEN || null
 
-mixpanel.init(token, { debug: process.env.MIX_PANEL_DEBUG || true })
+mixpanel.init(token, { debug: process.env.MIX_PANEL_DEBUG || false })
 
 Vue.use(mixpanel)
 
