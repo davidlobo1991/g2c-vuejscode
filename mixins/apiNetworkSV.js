@@ -19,6 +19,22 @@ export const apiNetworkSv = {
         throw error
       }
     },
+    /**
+     * Validate email code
+     * @returns {Promise<void>}
+     * @param code
+     */
+    async validationPromotionalCode(code) {
+      try {
+        const response = await this.$store
+          .dispatch('register/checkPromotionalCode', code)
+          .then((response) => response.data)
+        return response
+      } catch (error) {
+        this.handleError(error, 'APINetworkUser@promotionalCode - Error')
+        throw error
+      }
+    },
 
     /**
      * Validation phone code
