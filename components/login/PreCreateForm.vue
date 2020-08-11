@@ -177,9 +177,9 @@ export default {
           return
         }
 
-        const validationPromotionalCode = await this.validationPromotionalCode()
+        const validationInvitationCode = await this.validationInvitationCode()
 
-        if (validationPromotionalCode.error === true) {
+        if (validationInvitationCode.error === true) {
           this.promocodeError = this.$i18n.t('register.error.promocode')
           this.$v.$touch()
           this.loading = false

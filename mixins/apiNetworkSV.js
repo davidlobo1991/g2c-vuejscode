@@ -35,10 +35,10 @@ export const apiNetworkSv = {
      * @returns {Promise<void>}
      * @param code
      */
-    async validationPromotionalCode(code) {
+    async validationInvitationCode(code) {
       try {
         const response = await this.$store
-          .dispatch('register/checkPromotionalCode', code)
+          .dispatch('register/checkInvitationCode', code)
           .then((response) => response.data)
         return response
       } catch (error) {

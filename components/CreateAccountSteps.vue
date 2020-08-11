@@ -174,7 +174,6 @@ export default {
             this.setLoginData()
 
             const checkStatus = setInterval(function() {
-              // console.log(this.$nuxt)
               const status = this.$nuxt.checkUserServerApplicationStatus(
                 register.job_id
               )
