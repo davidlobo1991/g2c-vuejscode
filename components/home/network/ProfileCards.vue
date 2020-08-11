@@ -55,7 +55,7 @@
       <ModalProfile
         :isShowingContactInfo="IsShowingContactInfo"
         :activeConnection="activeConnection"
-        @isShowingContactInfo="isShowingContactInfoChild"
+        @isShowingContactInfoChild="isShowingContactInfoChild"
         @sendIsShowingConnectModal="setIsShowingConnectModal"
       ></ModalProfile>
       <span v-if="filteredConnections.length === 0">{{
@@ -89,72 +89,6 @@ export default {
     return {
       IsShowingContactInfo: false,
       IsShowingConnectModal: false,
-      connections: [
-        // {
-        //   name: 'Gabel Sheber',
-        //   image: 'persona1.png',
-        //   nick: '@gabelsh',
-        //   description: 'Company´s Legal Advisor & Chess Amateur',
-        //   connections: '210',
-        //   recommends: '176',
-        //   cost: '5',
-        //   knowledge: ['Education', 'Bitcoin', 'Finance'],
-        //   language: ['Spanish', 'English'],
-        //   summary:
-        //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla urna, et sodales arcu. ' +
-        //     'Vestibulum at mauris ultrices, posuere, egestas neque. Sed erat neque, euismod vitae faucibus' +
-        //     ' sit amet, pharetra dui. Duis vulputate eu est rutrum. Cras fermentum finibus iaculis ' +
-        //     'lacus vehicula egestas neque. Sed erat neque, vita.\n',
-        //   social: {
-        //     facebook: 'gabelsheber',
-        //     instagram: 'gabelsheber'
-        //   },
-        //   status: 'view'
-        // },
-        // {
-        //   name: 'David Gonzalez',
-        //   image: 'persona1.png',
-        //   nick: '@dgonzalez',
-        //   description: 'Programador en Refineria Web',
-        //   connections: '32',
-        //   recommends: '125',
-        //   cost: '10',
-        //   knowledge: ['Education', 'Bitcoin', 'Finance'],
-        //   language: ['Spanish', 'English'],
-        //   summary:
-        //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla urna, et sodales arcu. ' +
-        //     'Vestibulum at mauris ultrices, posuere, egestas neque. Sed erat neque, euismod vitae faucibus' +
-        //     ' sit amet, pharetra dui. Duis vulputate eu est rutrum. Cras fermentum finibus iaculis ' +
-        //     'lacus vehicula egestas neque. Sed erat neque, vita.\n',
-        //   social: {
-        //     facebook: 'gabelsheber',
-        //     instagram: 'gabelsheber'
-        //   },
-        //   status: 'connect'
-        // },
-        // {
-        //   name: 'Pau Coll',
-        //   image: 'persona1.png',
-        //   nick: '@pcoll',
-        //   description: 'Ingeniero aeroespacial',
-        //   connections: '321',
-        //   recommends: '123',
-        //   knowledge: ['Education', 'Bitcoin', 'Marketing'],
-        //   cost: '20',
-        //   status: 'accept'
-        // },
-        // {
-        //   name: 'Julian Martinez',
-        //   image: 'persona1.png',
-        //   nick: '@pcoll',
-        //   description: 'Ingeniero aeroespacial',
-        //   connections: '321',
-        //   recommends: '123',
-        //   knowledge: ['Education', 'Bitcoin', 'Finance'],
-        //   cost: '20',
-        //   status: 'pending'
-        // }
-      ],
       filteredConnections: [],
       activeConnection: {}
     }
@@ -201,7 +135,6 @@ export default {
       if (val) {
         this.filteredConnections = connections.filter(
           (connection) =>
-            // connection.name.toLowerCase().includes(val.toLowerCase()) ||
             connection.nick.toLowerCase().includes(val.toLowerCase()) ||
             connection.summary.toLowerCase().includes(val.toLowerCase())
         )
@@ -211,9 +144,14 @@ export default {
     },
     filterCategory(connections, val) {
       if (val.length > 0) {
-        this.filteredConnections = connections.filter((connection) =>
-          connection.knowledges.some((knowledge) => val.includes(knowledge))
-        )
+        this.filteredConnections = connections.filter(function(connection) {
+          if (
+            connection.knowledge &&
+            Object.keys(connection.knowledge).length > 0
+          ) {
+            connection.knowledges.some((knowledge) => val.includes(knowledge))
+          }
+        })
       } else {
         this.filteredConnections = connections
       }

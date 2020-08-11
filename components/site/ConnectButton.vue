@@ -154,7 +154,25 @@ export default {
     activeConnection: {
       type: Object,
       // eslint-disable-next-line vue/require-valid-default-prop
-      default: {}
+      default: () => ({
+        connections: 0,
+        email: '',
+        invitation_code: '',
+        is_disabled: 0,
+        is_online: 0,
+        knowledges: Object,
+        languages: Object,
+        mobile: '',
+        mobile_number: '',
+        mobile_prefix: '',
+        nick: '',
+        password: '',
+        profile_image: '',
+        recommends: '',
+        resume: '',
+        social_media: Object,
+        summary: ''
+      })
     }
   },
   data() {

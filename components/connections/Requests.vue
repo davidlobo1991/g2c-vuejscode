@@ -26,8 +26,8 @@
             <div @click="showContact" class="c-requests__elem--progress-cont">
               <div>37h 21m 54s</div>
               <v-progress-linear
+                :rounded="true"
                 value="25"
-                rounded="true"
                 color="#0186FF"
                 background-color="#F5F8FF"
                 height="7"

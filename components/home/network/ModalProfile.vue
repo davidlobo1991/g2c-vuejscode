@@ -12,7 +12,7 @@
         </div>
         <div class="c-contact-card__profile">
           <div class="c-contact-card__profile--img-cont">
-            <nuxt-linkconnectbutton__modal--profile-img-cont
+            <nuxt-link
               :src="
                 activeConnection.image
                   ? `_nuxt/assets/images/network/users/${activeConnection.image}`
@@ -52,7 +52,7 @@
               </div>
               <v-progress-linear
                 value="25"
-                rounded="true"
+                :rounded="true"
                 color="#0186FF"
                 background-color="#F5F8FF"
                 height="7"

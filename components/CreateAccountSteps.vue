@@ -157,8 +157,6 @@ export default {
     },
     async signIn() {
       try {
-        console.log(sessionStorage.registerNick)
-        console.log(this.words)
         /** Send registerNick from Storage because if we get the nick of
         the store and the user update the site, the nickname will be lost */
         const response = await this.createUser(
@@ -166,12 +164,12 @@ export default {
           this.words
         )
 
-        console.log(response)
         if (!response.error) {
           const register = await this.createUserServerApplication(
             response.userauth,
             this.g2c_application
           )
+
           if (!register.error) {
             // eslint-disable-next-line no-console
             console.log('Created user server application')
@@ -182,9 +180,12 @@ export default {
                 register.job_id
               )
 
-              if (status.finished_at !== null && !status.error) {
-                clearInterval(checkStatus)
-              }
+              status.then((data) => {
+                if (data.finished_at !== null && !data.error) {
+                  clearInterval(checkStatus)
+                  console.log(data)
+                }
+              })
             }, 5000)
 
             const userCreated = await this.createUserApi()
@@ -194,6 +195,7 @@ export default {
                 // eslint-disable-next-line no-console
                 console.log('Waiting for it...')
               }, 5000)
+
               this.login()
             } else {
               this.handleError(userCreated)
@@ -208,14 +210,6 @@ export default {
         this.handleError(error)
       }
     },
-    setLoginData() {
-      this.$store.commit('register/SET_NICK', sessionStorage.registerNick)
-      this.$store.commit(
-        'register/SET_PASSWORD',
-        sessionStorage.registerPassword
-      )
-    },
-
     getWidth() {
       return Math.max(
         document.documentElement.clientWidth,
@@ -225,7 +219,6 @@ export default {
     navigationPrevious() {
       this.step = this.step - 1
     },
-
     login() {
       try {
         this.handleLogin(
@@ -248,6 +241,13 @@ export default {
     },
     nextStep() {
       this.navigationNext()
+    },
+    setLoginData() {
+      this.$store.commit('register/SET_NICK', sessionStorage.registerNick)
+      this.$store.commit(
+        'register/SET_PASSWORD',
+        sessionStorage.registerPassword
+      )
     },
     handleError(error, message = 'Error creating account') {
       this.errorCreateAccount = message
