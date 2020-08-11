@@ -1,6 +1,7 @@
 <template>
   <div class="u-custom-wrapper">
     <h1>Pagina protegida. Login perfil usuario. (No Blockchain)</h1>
+    <Settings />
     <div v-if="$auth.loggedIn">
       <v-btn @click="logout" text class="blue white&#45;&#45;text"
         >Logout</v-btn
@@ -10,9 +11,14 @@
 </template>
 
 <script>
+import Settings from '~/components/account/settings/Settings'
+
 export default {
   name: 'UserProfile',
   middleware: ['authUser'],
+  components: {
+    Settings
+  },
   methods: {
     async logout() {
       await this.$auth.logout()

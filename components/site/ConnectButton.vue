@@ -60,13 +60,17 @@
             <div class="connectbutton__modal--profile-cont">
               <div class="connectbutton__modal--profile-img-cont">
                 <nuxt-link
-                  :src="require('~/assets/images/network/users/persona1.png')"
+                  :src="
+                    activeConnection.image
+                      ? `_nuxt/assets/images/network/users/${activeConnection.image}`
+                      : require('~/assets/images/default.png')
+                  "
                   tag="img"
                   to="/"
                   class="connectbutton__modal--profile-img"
                 />
               </div>
-              Gabel Sheber
+              {{ activeConnection.nick }}
             </div>
             <div
               v-if="modalStep == 1"
@@ -109,7 +113,7 @@
               @click="nextModalStep()"
               class="connectbutton__modal--connect-button"
             >
-              <span v-if="cost">{{ cost }}$ - </span>
+              <span v-if="cost">{{ activeConnection.cost }}$ - </span>
               Connect
             </div>
 
@@ -146,6 +150,11 @@ export default {
     modalStep: {
       type: Number,
       default: 1
+    },
+    activeConnection: {
+      type: Object,
+      // eslint-disable-next-line vue/require-valid-default-prop
+      default: {}
     }
   },
   data() {

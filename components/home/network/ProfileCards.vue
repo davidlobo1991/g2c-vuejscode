@@ -11,7 +11,11 @@
         >
           <div class="c-home__cards__card--img-cont">
             <img
-              :src="`_nuxt/assets/images/network/users/${connection.image}`"
+              :src="
+                connection.image
+                  ? `_nuxt/assets/images/network/users/${connection.image}`
+                  : require('~/assets/images/default.png')
+              "
               alt="image"
               class="c-home__cards__card--img"
             />
@@ -76,70 +80,70 @@ export default {
       IsShowingContactInfo: false,
       IsShowingConnectModal: false,
       connections: [
-        {
-          name: 'Gabel Sheber',
-          image: 'persona1.png',
-          nick: '@gabelsh',
-          description: 'Company´s Legal Advisor & Chess Amateur',
-          connections: '210',
-          recommends: '176',
-          cost: '5',
-          knowledge: ['Education', 'Bitcoin', 'Finance'],
-          language: ['Spanish', 'English'],
-          summary:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla urna, et sodales arcu. ' +
-            'Vestibulum at mauris ultrices, posuere, egestas neque. Sed erat neque, euismod vitae faucibus' +
-            ' sit amet, pharetra dui. Duis vulputate eu est rutrum. Cras fermentum finibus iaculis ' +
-            'lacus vehicula egestas neque. Sed erat neque, vita.\n',
-          social: {
-            facebook: 'gabelsheber',
-            instagram: 'gabelsheber'
-          },
-          status: 'view'
-        },
-        {
-          name: 'David Gonzalez',
-          image: 'persona1.png',
-          nick: '@dgonzalez',
-          description: 'Programador en Refineria Web',
-          connections: '32',
-          recommends: '125',
-          cost: '10',
-          knowledge: ['Education', 'Bitcoin', 'Finance'],
-          language: ['Spanish', 'English'],
-          summary:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla urna, et sodales arcu. ' +
-            'Vestibulum at mauris ultrices, posuere, egestas neque. Sed erat neque, euismod vitae faucibus' +
-            ' sit amet, pharetra dui. Duis vulputate eu est rutrum. Cras fermentum finibus iaculis ' +
-            'lacus vehicula egestas neque. Sed erat neque, vita.\n',
-          social: {
-            facebook: 'gabelsheber',
-            instagram: 'gabelsheber'
-          },
-          status: 'connect'
-        },
-        {
-          name: 'Pau Coll',
-          image: 'persona1.png',
-          nick: '@pcoll',
-          description: 'Ingeniero aeroespacial',
-          connections: '321',
-          recommends: '123',
-          knowledge: ['Education', 'Bitcoin', 'Marketing'],
-          cost: '20',
-          status: 'accept'
-        },
-        {
-          name: 'Julian Martinez',
-          image: 'persona1.png',
-          nick: '@pcoll',
-          description: 'Ingeniero aeroespacial',
-          connections: '321',
-          recommends: '123',
-          knowledge: ['Education', 'Bitcoin', 'Finance'],
-          cost: '20',
-          status: 'pending'
-        }
+        // {
+        //   name: 'Gabel Sheber',
+        //   image: 'persona1.png',
+        //   nick: '@gabelsh',
+        //   description: 'Company´s Legal Advisor & Chess Amateur',
+        //   connections: '210',
+        //   recommends: '176',
+        //   cost: '5',
+        //   knowledge: ['Education', 'Bitcoin', 'Finance'],
+        //   language: ['Spanish', 'English'],
+        //   summary:
+        //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla urna, et sodales arcu. ' +
+        //     'Vestibulum at mauris ultrices, posuere, egestas neque. Sed erat neque, euismod vitae faucibus' +
+        //     ' sit amet, pharetra dui. Duis vulputate eu est rutrum. Cras fermentum finibus iaculis ' +
+        //     'lacus vehicula egestas neque. Sed erat neque, vita.\n',
+        //   social: {
+        //     facebook: 'gabelsheber',
+        //     instagram: 'gabelsheber'
+        //   },
+        //   status: 'view'
+        // },
+        // {
+        //   name: 'David Gonzalez',
+        //   image: 'persona1.png',
+        //   nick: '@dgonzalez',
+        //   description: 'Programador en Refineria Web',
+        //   connections: '32',
+        //   recommends: '125',
+        //   cost: '10',
+        //   knowledge: ['Education', 'Bitcoin', 'Finance'],
+        //   language: ['Spanish', 'English'],
+        //   summary:
+        //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla urna, et sodales arcu. ' +
+        //     'Vestibulum at mauris ultrices, posuere, egestas neque. Sed erat neque, euismod vitae faucibus' +
+        //     ' sit amet, pharetra dui. Duis vulputate eu est rutrum. Cras fermentum finibus iaculis ' +
+        //     'lacus vehicula egestas neque. Sed erat neque, vita.\n',
+        //   social: {
+        //     facebook: 'gabelsheber',
+        //     instagram: 'gabelsheber'
+        //   },
+        //   status: 'connect'
+        // },
+        // {
+        //   name: 'Pau Coll',
+        //   image: 'persona1.png',
+        //   nick: '@pcoll',
+        //   description: 'Ingeniero aeroespacial',
+        //   connections: '321',
+        //   recommends: '123',
+        //   knowledge: ['Education', 'Bitcoin', 'Marketing'],
+        //   cost: '20',
+        //   status: 'accept'
+        // },
+        // {
+        //   name: 'Julian Martinez',
+        //   image: 'persona1.png',
+        //   nick: '@pcoll',
+        //   description: 'Ingeniero aeroespacial',
+        //   connections: '321',
+        //   recommends: '123',
+        //   knowledge: ['Education', 'Bitcoin', 'Finance'],
+        //   cost: '20',
+        //   status: 'pending'
+        // }
       ],
       filteredConnections: [],
       activeConnection: {}
@@ -183,9 +187,9 @@ export default {
       if (val) {
         this.filteredConnections = connections.filter(
           (connection) =>
-            connection.name.toLowerCase().includes(val.toLowerCase()) ||
+            // connection.name.toLowerCase().includes(val.toLowerCase()) ||
             connection.nick.toLowerCase().includes(val.toLowerCase()) ||
-            connection.description.toLowerCase().includes(val.toLowerCase())
+            connection.summary.toLowerCase().includes(val.toLowerCase())
         )
       } else {
         this.filteredConnections = connections
@@ -194,15 +198,27 @@ export default {
     filterCategory(connections, val) {
       if (val.length > 0) {
         this.filteredConnections = connections.filter((connection) =>
-          connection.knowledge.some((knowledge) => val.includes(knowledge))
+          connection.knowledges.some((knowledge) => val.includes(knowledge))
         )
       } else {
         this.filteredConnections = connections
       }
     }
   },
+
   mounted() {
-    this.filteredConnections = this.connections
+    const loadUsers = this.showUsers()
+
+    loadUsers.then((result) => {
+      if (!result.error) {
+        this.connections = Object.values(result.data)
+        this.filteredConnections = this.connections
+      } else {
+        console.log('Error users')
+      }
+    })
+
+    console.log(this.filteredConnections)
   }
 }
 </script>

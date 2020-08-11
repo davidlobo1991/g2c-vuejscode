@@ -11,20 +11,20 @@
           </v-icon>
         </div>
         <div class="c-contact-card__profile">
-          <div class="c-contact-card__profile--img-side">
-            <div class="c-contact-card__profile--img-cont">
-              <nuxt-link
-                :src="
-                  `_nuxt/assets/images/network/users/${activeConnection.image}`
-                "
-                tag="img"
-                to="/"
-                class="c-contact-card__profile--img"
-              />
-              <div
-                class="c-contact-card__profile--status u-status--available"
-              ></div>
-            </div>
+          <div class="c-contact-card__profile--img-cont">
+            <nuxt-linkconnectbutton__modal--profile-img-cont
+              :src="
+                activeConnection.image
+                  ? `_nuxt/assets/images/network/users/${activeConnection.image}`
+                  : require('~/assets/images/default.png')
+              "
+              tag="img"
+              to="/"
+              class="c-contact-card__profile--img"
+            />
+            <div
+              class="c-contact-card__profile--status u-status--available"
+            ></div>
             <div class="c-contact-card__profile--details-cont">
               <div class="c-contact-card__profile--details">
                 <span class="c-contact-card__profile--details-num">{{
@@ -40,6 +40,7 @@
               </div>
             </div>
             <ConnectButton
+              :activeConnection="activeConnection"
               @sendIsShowingConnectModal="sendIsShowingConnectModal"
               @openInfoModal="isShowingContactInfo = value"
               status="connect"
@@ -70,7 +71,6 @@
             <!--                1$ - Connect-->
             <!--              </v-btn>-->
           </div>
-
           <div class="c-contact-card__profile--text-cont">
             <div class="c-contact-card__profile--name">
               {{ activeConnection.name }}
