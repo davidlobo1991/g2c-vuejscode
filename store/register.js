@@ -117,9 +117,9 @@ const actions = {
    */
   async checkInvitationCode({ getters, commit }) {
     try {
-      const promotionalCode = getters.getPromotionalCode
+      const invitationCode = getters.getInvitationCode
       const response = await this.$axios
-        .get(`/invitation-codes/validate-code/${promotionalCode}`)
+        .get(`/invitation-codes/validate-code/${invitationCode}`)
         .then((response) => response)
 
       return response

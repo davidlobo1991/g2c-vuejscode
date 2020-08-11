@@ -31,9 +31,9 @@
 
         <v-text-field
           v-model="formRegister.promotionalCode"
-          @input="updatePromotionalCode"
-          :hide-details="handleValidationPromocodeErrors().length === 0"
-          :error-messages="handleValidationPromocodeErrors() || []"
+          @input="updateInvitationCode"
+          :hide-details="handleValidationInvitationCodeErrors().length === 0"
+          :error-messages="handleValidationInvitationCodeErrors() || []"
           type="text"
           label="Promotional Code"
           outlined
@@ -83,7 +83,7 @@ export default {
       errorValidation: null,
       nickTaken: null,
       nickInvalid: null,
-      promocodeError: null
+      invitationCodeError: null
     }
   },
   validations: {
@@ -114,8 +114,8 @@ export default {
     updatePassword(value) {
       this.$store.commit('register/SET_PASSWORD', value)
     },
-    updatePromotionalCode(value) {
-      this.$store.commit('register/SET_PROMOTIONAL_CODE', value)
+    updateInvitationCode(value) {
+      this.$store.commit('register/SET_INVITATION_CODE', value)
     },
     showLogin() {
       this.$emit('showLogin')
@@ -180,7 +180,7 @@ export default {
         const validationInvitationCode = await this.validationInvitationCode()
 
         if (validationInvitationCode.error === true) {
-          this.promocodeError = this.$i18n.t('register.error.promocode')
+          this.invitationCodeError = this.$i18n.t('register.error.promocode')
           this.$v.$touch()
           this.loading = false
           return
@@ -202,13 +202,10 @@ export default {
         // Load Create Account Workflow
         await this.$router.push(this.localePath('create-account'))
       } catch (error) {
+        this.handleError(error, 'PreCreateForm@checkUser - Error')
         this.errorValidation = this.$i18n.t('register.error.default')
         this.$v.$touch()
         this.loading = false
-        // eslint-disable-next-line no-console
-        console.error('PreCreateForm@checkUser - Error')
-        // eslint-disable-next-line no-console
-        console.error(error)
       }
     },
     /**
@@ -271,10 +268,10 @@ export default {
      * Handle Vuelidate promocode errors
      * @returns {[]}
      */
-    handleValidationPromocodeErrors() {
+    handleValidationInvitationCodeErrors() {
       const errors = []
-      if (this.promocodeError) {
-        errors.push(this.errorValidation)
+      if (this.invitationCodeError) {
+        errors.push(this.invitationCodeError)
       }
 
       return errors

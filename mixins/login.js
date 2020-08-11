@@ -85,7 +85,7 @@ export const login = {
 
       // eslint-disable-next-line no-console
       console.error(error)
-      this.errorValidation = 'login fail'
+      this.errorValidation = 'Login Fail'
       this.loading = false
     }
   }

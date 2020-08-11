@@ -157,12 +157,16 @@ export default {
     },
     async signIn() {
       try {
+        console.log(sessionStorage.registerNick)
+        console.log(this.words)
         /** Send registerNick from Storage because if we get the nick of
         the store and the user update the site, the nickname will be lost */
         const response = await this.createUser(
           sessionStorage.registerNick,
           this.words
         )
+
+        console.log(response)
         if (!response.error) {
           const register = await this.createUserServerApplication(
             response.userauth,
@@ -245,8 +249,8 @@ export default {
     nextStep() {
       this.navigationNext()
     },
-    handleError(error) {
-      this.errorCreateAccount = this.$i18n.t('login.error')
+    handleError(error, message = 'Error creating account') {
+      this.errorCreateAccount = message
 
       this.loading = false
       // eslint-disable-next-line no-console

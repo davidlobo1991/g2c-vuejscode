@@ -38,7 +38,7 @@ export default {
   },
   login: {
     error: {
-      message: 'Usuario y/o contraseña invalidos'
+      message: 'Login error'
     }
   },
   profile: {
