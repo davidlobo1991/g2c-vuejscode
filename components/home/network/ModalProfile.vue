@@ -12,9 +12,11 @@
         </div>
         <div class="c-contact-card__profile">
           <div class="c-contact-card__profile--img-cont">
-            <nuxt-link
+            <nuxt-linkconnectbutton__modal--profile-img-cont
               :src="
-                `_nuxt/assets/images/network/users/${activeConnection.image}`
+                activeConnection.image
+                  ? `_nuxt/assets/images/network/users/${activeConnection.image}`
+                  : require('~/assets/images/default.png')
               "
               tag="img"
               to="/"
@@ -38,6 +40,7 @@
               </div>
             </div>
             <ConnectButton
+              :activeConnection="activeConnection"
               @sendIsShowingConnectModal="sendIsShowingConnectModal"
               @openInfoModal="isShowingContactInfo = value"
               status="connect"

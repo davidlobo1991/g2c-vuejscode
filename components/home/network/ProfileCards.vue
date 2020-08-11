@@ -11,7 +11,11 @@
         >
           <div class="c-home__cards__card--img-cont">
             <img
-              :src="`_nuxt/assets/images/network/users/${connection.image}`"
+              :src="
+                connection.image
+                  ? `_nuxt/assets/images/network/users/${connection.image}`
+                  : require('~/assets/images/default.png')
+              "
               alt="image"
               class="c-home__cards__card--img"
             />
