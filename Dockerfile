@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:12.16
 
 ENV APP_ROOT /src
 ENV HOST 0.0.0.0

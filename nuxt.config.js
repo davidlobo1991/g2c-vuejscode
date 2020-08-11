@@ -61,7 +61,8 @@ export default {
   plugins: [
     '~/plugins/vuelidate',
     '~/plugins/api-g2c',
-    '~/plugins/api-backend-network-sv'
+    '~/plugins/api-backend-network-sv',
+    '~/plugins/mixpanel'
   ],
   /*
    ** Nuxt.js dev-modules
