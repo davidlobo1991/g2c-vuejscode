@@ -113,7 +113,7 @@ const actions = {
   },
 
   /**
-   * Check User
+   * Check promotional code
    */
   async checkPromotionalCode({ getters, commit }) {
     try {
