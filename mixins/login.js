@@ -31,6 +31,19 @@ export const login = {
                 }
               })
               .then(() => {
+                this.$auth.$storage.setCookie(
+                  'tokenid',
+                  g2cLoginResponse.tokenid
+                )
+                this.$auth.$storage.setCookie(
+                  'tokens1',
+                  g2cLoginResponse.tokens1
+                )
+                this.$auth.$storage.setCookie(
+                  'tokenc1',
+                  g2cLoginResponse.tokenc1
+                )
+
                 this.$router.push('/home')
               })
               .catch((error) => {

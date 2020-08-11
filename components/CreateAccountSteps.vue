@@ -193,7 +193,7 @@ export default {
               setTimeout(function() {
                 console.log('Waiting for it...')
               }, 5000)
-              // this.login()
+              this.login()
             } else {
               this.handleError(userCreated)
             }

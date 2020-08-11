@@ -5,12 +5,14 @@ const state = () => ({
   mobile_prefix: null,
   mobile_number: null,
   ukresident: null,
-  words: null
+  words: null,
+  promotional_code: null
 })
 
 const getters = {
   getNick: (state) => state.nick,
   getPassword: (state) => state.password,
+  getPromotionalCode: (state) => state.promotional_code,
   getEmail: (state) => state.email,
   getMobilePrefix: (state) => state.mobile_prefix,
   getMobileNumber: (state) => state.mobile_number,
@@ -106,6 +108,24 @@ const actions = {
 
       return response
     } catch (error) {
+      throw error
+    }
+  },
+
+  /**
+   * Check User
+   */
+  async checkPromotionalCode({ getters, commit }) {
+    try {
+      const promotionalCode = getters.getPromotionalCode
+      const response = await this.$axios
+        .get(`/promo-codes/validate-code/${promotionalCode}`)
+        .then((response) => response)
+
+      return response
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error)
       throw error
     }
   },
@@ -285,6 +305,9 @@ const mutations = {
   },
   SET_PASSWORD(state, password) {
     state.password = password
+  },
+  SET_PROMOTIONAL_CODE(state, promotionalCode) {
+    state.promotional_code = promotionalCode
   },
   SET_EMAIL(state, email) {
     state.email = email

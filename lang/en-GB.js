@@ -5,6 +5,7 @@ export default {
   edit_profile: 'Edit Profile',
   register: {
     error: {
+      promocode: 'The promocode is wrong or not exists',
       email: {
         exists: 'Email already exists',
         sending: 'Error sending the validation code',

@@ -28,6 +28,16 @@
           class="c-login__cont--input u-mrb-s"
         >
         </v-text-field>
+
+        <v-text-field
+          v-model="formRegister.promotionalCode"
+          @input="updatePromotionalCode"
+          type="text"
+          label="Promotional Code"
+          outlined
+          class="c-login__cont--input u-mrb-s"
+        >
+        </v-text-field>
         <div class="u-mrb-s c-login__cont--btn">
           <v-btn
             @click="nextStep"
@@ -61,6 +71,7 @@ export default {
     return {
       formRegister: {
         nick: '',
+        promotionalCode: '',
         password: null
       },
       loading: false,
@@ -94,6 +105,9 @@ export default {
     },
     updatePassword(value) {
       this.$store.commit('register/SET_PASSWORD', value)
+    },
+    updatePromotionalCode(value) {
+      this.$store.commit('register/SET_PROMOTIONAL_CODE', value)
     },
     showLogin() {
       this.$emit('showLogin')
@@ -152,6 +166,15 @@ export default {
         this.$v.$touch()
 
         if (this.$v.$invalid) {
+          this.loading = false
+          return
+        }
+
+        const validationPromotionalCode = await this.validationPromotionalCode()
+
+        if (validationPromotionalCode.error === true) {
+          this.nickTaken = this.$i18n.t('register.error.promocode')
+          this.$v.$touch()
           this.loading = false
           return
         }
