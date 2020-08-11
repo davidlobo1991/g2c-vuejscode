@@ -10,7 +10,7 @@ import Sidebar from '~/components/site/Sidebar'
 import Main from '~/components/connections/Main'
 
 export default {
-  name: 'Messages.vue',
+  name: 'Messages',
   layout: 'default',
   components: {
     Sidebar,

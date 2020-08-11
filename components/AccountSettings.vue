@@ -9,7 +9,7 @@ import Sidebar from '~/components/site/Sidebar'
 import Settings from '~/components/account/settings/Settings'
 
 export default {
-  name: 'Home',
+  name: 'AccountSettings',
   components: {
     Sidebar,
     Settings

@@ -10,7 +10,7 @@ import Sidebar from '~/components/site/Sidebar'
 import SentRequests from '~/components/connections/SentRequests'
 
 export default {
-  name: 'SentRequestsConnections.vue',
+  name: 'SentRequestsConnections',
   layout: 'default',
   components: {
     Sidebar,

@@ -100,7 +100,7 @@
 
 <script>
 export default {
-  name: 'MessagesConversation.vue'
+  name: 'MessagesConversation'
 }
 </script>
 

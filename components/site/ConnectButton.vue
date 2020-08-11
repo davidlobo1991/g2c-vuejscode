@@ -168,6 +168,7 @@ export default {
       this.$emit('sendIsShowingConnectModal', value)
     },
     connectMessage(value) {
+      // eslint-disable-next-line no-console
       console.log(value)
     }
   },
@@ -194,8 +195,6 @@ export default {
         )
 
         if (!propose.error) {
-          console.log(propose)
-
           const object = this.shareUserObject(
             'tokenid',
             'tokens1',
@@ -207,6 +206,7 @@ export default {
             'destinationnick'
           )
 
+          // eslint-disable-next-line no-console
           console.log(object)
 
           // TODO Save shareauth in firebase

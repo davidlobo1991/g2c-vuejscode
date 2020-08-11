@@ -75,6 +75,16 @@ export default {
     ConnectButton,
     ModalProfile
   },
+  props: {
+    filterNetwork: {
+      type: String,
+      default: ''
+    },
+    categoryNetwork: {
+      type: Array,
+      default: null
+    }
+  },
   data() {
     return {
       IsShowingContactInfo: false,
@@ -149,16 +159,6 @@ export default {
       activeConnection: {}
     }
   },
-  props: {
-    filterNetwork: {
-      type: String,
-      default: ''
-    },
-    categoryNetwork: {
-      type: Array,
-      default: null
-    }
-  },
   watch: {
     filterNetwork(val) {
       this.filter(this.connections, val)
@@ -168,6 +168,20 @@ export default {
       this.filterCategory(this.connections, val)
       this.filter(this.filteredConnections, this.filterNetwork)
     }
+  },
+
+  mounted() {
+    const loadUsers = this.showUsers()
+
+    loadUsers.then((result) => {
+      if (!result.error) {
+        this.connections = Object.values(result.data)
+        this.filteredConnections = this.connections
+      } else {
+        // eslint-disable-next-line no-console
+        console.log('Error users')
+      }
+    })
   },
   methods: {
     isShowingContactInfoChild(value) {
@@ -204,21 +218,6 @@ export default {
         this.filteredConnections = connections
       }
     }
-  },
-
-  mounted() {
-    const loadUsers = this.showUsers()
-
-    loadUsers.then((result) => {
-      if (!result.error) {
-        this.connections = Object.values(result.data)
-        this.filteredConnections = this.connections
-      } else {
-        console.log('Error users')
-      }
-    })
-
-    console.log(this.filteredConnections)
   }
 }
 </script>

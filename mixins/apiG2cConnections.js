@@ -10,10 +10,9 @@ export const apiG2cConnections = {
      * @returns {Promise<string | null>}
      */
     exchangeRates(value, mode = 'BSV2USD') {
-      mode = 'USD2SAT'
-      value = 0.5
+      // mode = 'USD2SAT'
+      // value = 0.5
 
-      console.log(mode, value)
       try {
         return new Promise((resolve, reject) => {
           // eslint-disable-next-line no-undef

@@ -6,7 +6,7 @@
 import EmeetingsSent from '~/components/emeetings/EmeetingsSent'
 
 export default {
-  name: 'sent.vue',
+  name: 'Sent',
   components: {
     EmeetingsSent
   }

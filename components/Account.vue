@@ -10,7 +10,7 @@ import Sidebar from '~/components/site/Sidebar'
 import Main from '~/components/account/Main'
 
 export default {
-  name: 'Home',
+  name: 'Account',
   components: {
     Sidebar,
     Main

@@ -84,7 +84,8 @@
             <div class="c-contact-card__profile--title">Knowledge</div>
             <div class="c-contact-card__profile--label-cont">
               <v-chip
-                v-for="knowledge in activeConnection.knowledge"
+                v-for="(knowledge, index) in activeConnection.knowledge"
+                :key="index"
                 class="c-contact-card__profile--label"
                 color="#EFF1F2"
                 label
@@ -99,7 +100,8 @@
             <div class="c-contact-card__profile--title">Languages</div>
             <div class="c-contact-card__profile--label-cont">
               <v-chip
-                v-for="language in activeConnection.language"
+                v-for="(language, index) in activeConnection.language"
+                :key="index"
                 class="c-contact-card__profile--label"
                 color="#EFF1F2"
                 label

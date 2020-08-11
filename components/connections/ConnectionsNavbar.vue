@@ -43,7 +43,7 @@
 
 <script>
 export default {
-  name: 'ConnectionsNavbar.vue',
+  name: 'ConnectionsNavbar',
   props: {
     activeTab: {
       type: String,

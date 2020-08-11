@@ -169,6 +169,7 @@ export default {
             this.g2c_application
           )
           if (!register.error) {
+            // eslint-disable-next-line no-console
             console.log('Created user server application')
             this.setLoginData()
 
@@ -183,11 +184,11 @@ export default {
               }
             }, 5000)
 
-            console.log('User status checked')
             const userCreated = await this.createUserApi()
 
             if (!userCreated.error) {
               setTimeout(function() {
+                // eslint-disable-next-line no-console
                 console.log('Waiting for it...')
               }, 5000)
               this.login()
@@ -235,7 +236,7 @@ export default {
         console.error('NetworkSV Login error')
         // eslint-disable-next-line no-console
         console.error(error)
-        this.errorValidation = 'login fail'
+        this.errorValidation = 'Login Fail'
         this.loading = false
       }
     },

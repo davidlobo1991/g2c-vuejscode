@@ -37,12 +37,6 @@ export const apiG2c = {
       try {
         const application = this.g2c_application
 
-        console.log(userwords)
-        console.log(application)
-        console.log(nick)
-
-        console.log('Creating user in G2C')
-
         return new Promise((resolve, reject) => {
           // eslint-disable-next-line no-undef
           g2cclient_createUser({ userwords, application, nick }, (response) => {

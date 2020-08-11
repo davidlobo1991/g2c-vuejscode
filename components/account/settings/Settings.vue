@@ -94,7 +94,7 @@
 import AccountNavbar from '~/components/account/AccountNavbar'
 
 export default {
-  name: 'Network',
+  name: 'Settings',
   components: {
     AccountNavbar
   },

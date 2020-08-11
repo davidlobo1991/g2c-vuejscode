@@ -1,7 +1,7 @@
 <template>
   <div class="c-connections">
     <TopMobile />
-    <ConnectionsNavbar activeTab="sent-requests" />
+    <ConnectionsNavbar active-tab="sent-requests" />
     <div class="c-requests">
       <div class="c-requests--cont">
         <div @click.self="showContact" class="c-requests__elem">

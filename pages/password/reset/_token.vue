@@ -24,7 +24,6 @@ export default {
 
   mounted() {
     this.tokenForm = this.$route.params.token
-    console.log(this.tokenForm)
   }
 }
 </script>
