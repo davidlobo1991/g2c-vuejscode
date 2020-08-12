@@ -27,7 +27,7 @@
 
 <script>
 export default {
-  name: 'EmeetingsNavbar.vue',
+  name: 'EmeetingsNavbar',
   props: {
     activeTab: {
       type: String,

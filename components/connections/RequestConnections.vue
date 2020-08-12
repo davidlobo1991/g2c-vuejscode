@@ -10,7 +10,7 @@ import Sidebar from '~/components/site/Sidebar'
 import Requests from '~/components/connections/Requests'
 
 export default {
-  name: 'RequestsConnections.vue',
+  name: 'RequestsConnections',
   layout: 'default',
   components: {
     Sidebar,

@@ -28,6 +28,18 @@
           class="c-login__cont--input u-mrb-s"
         >
         </v-text-field>
+
+        <v-text-field
+          v-model="formRegister.promotionalCode"
+          @input="updateInvitationCode"
+          :hide-details="handleValidationInvitationCodeErrors().length === 0"
+          :error-messages="handleValidationInvitationCodeErrors() || []"
+          type="text"
+          label="Promotional Code"
+          outlined
+          class="c-login__cont--input u-mrb-s"
+        >
+        </v-text-field>
         <div class="u-mrb-s c-login__cont--btn">
           <v-btn
             @click="nextStep"
@@ -39,6 +51,9 @@
           >
             Next
           </v-btn>
+        </div>
+        <div v-if="errorValidation !== null" class="error--text">
+          <p>{{ errorValidation }}</p>
         </div>
       </form>
     </div>
@@ -61,13 +76,14 @@ export default {
     return {
       formRegister: {
         nick: '',
+        promotionalCode: '',
         password: null
       },
       loading: false,
       errorValidation: null,
       nickTaken: null,
-      nickInvalid: null
-      // buttonDisabled: false
+      nickInvalid: null,
+      invitationCodeError: null
     }
   },
   validations: {
@@ -79,6 +95,9 @@ export default {
       password: {
         required,
         minLength: minLength(6)
+      },
+      promotionalCode: {
+        required
       }
     }
   },
@@ -94,6 +113,9 @@ export default {
     },
     updatePassword(value) {
       this.$store.commit('register/SET_PASSWORD', value)
+    },
+    updateInvitationCode(value) {
+      this.$store.commit('register/SET_INVITATION_CODE', value)
     },
     showLogin() {
       this.$emit('showLogin')
@@ -122,7 +144,6 @@ export default {
 
         const validation = await this.checkUserApi()
 
-        console.log(validation)
         if (validation.error === true) {
           this.nickTaken = this.$i18n.t('register.error.nick.exists')
         } else {
@@ -157,6 +178,15 @@ export default {
           return
         }
 
+        const validationInvitationCode = await this.validationInvitationCode()
+
+        if (validationInvitationCode.error === true) {
+          this.invitationCodeError = this.$i18n.t('register.error.promocode')
+          this.$v.$touch()
+          this.loading = false
+          return
+        }
+
         const validation = await this.checkUserApi()
 
         if (validation.error === true) {
@@ -174,13 +204,10 @@ export default {
         await this.$router.push(this.localePath('create-account'))
         this.$mixpanel.track('First Step Username/Password entered')
       } catch (error) {
-        this.errorValidation = this.$i18n.t('register.error.nick.exists')
+        this.handleError(error, 'PreCreateForm@checkUser - Error')
+        this.errorValidation = this.$i18n.t('register.error.default')
         this.$v.$touch()
         this.loading = false
-        // eslint-disable-next-line no-console
-        console.error('PreCreateForm@checkUser - Error')
-        // eslint-disable-next-line no-console
-        console.error(error)
       }
     },
     /**
@@ -209,10 +236,6 @@ export default {
         errors.push(this.$i18n.t('register.error.nick.length'))
       }
 
-      if (this.errorValidation) {
-        errors.push(this.errorValidation)
-      }
-
       if (this.nickInvalid) {
         errors.push(this.nickInvalid)
       }
@@ -239,6 +262,18 @@ export default {
 
       if (!this.$v.formRegister.password.minLength) {
         errors.push(this.$i18n.t('register.error.password.length'))
+      }
+
+      return errors
+    },
+    /**
+     * Handle Vuelidate promocode errors
+     * @returns {[]}
+     */
+    handleValidationInvitationCodeErrors() {
+      const errors = []
+      if (this.invitationCodeError) {
+        errors.push(this.invitationCodeError)
       }
 
       return errors

@@ -3,6 +3,17 @@ export const apiNetworkSv = {
     return {}
   },
   methods: {
+    async showUsers() {
+      try {
+        const response = await this.$store
+          .dispatch('users/show')
+          .then((response) => response.data)
+        return response
+      } catch (error) {
+        this.handleError(error, 'APINetworkUser@validationCode - Error')
+        throw error
+      }
+    },
     /**
      * Validate email code
      * @returns {Promise<void>}
@@ -16,6 +27,22 @@ export const apiNetworkSv = {
         return response
       } catch (error) {
         this.handleError(error, 'APINetworkUser@validationCode - Error')
+        throw error
+      }
+    },
+    /**
+     * Validate email code
+     * @returns {Promise<void>}
+     * @param code
+     */
+    async validationInvitationCode(code) {
+      try {
+        const response = await this.$store
+          .dispatch('register/checkInvitationCode', code)
+          .then((response) => response.data)
+        return response
+      } catch (error) {
+        this.handleError(error, 'APINetworkUser@promotionalCode - Error')
         throw error
       }
     },
@@ -101,8 +128,6 @@ export const apiNetworkSv = {
         const response = await this.$store
           .dispatch('register/checkEmailApi')
           .then((response) => response.data)
-
-        console.log(response)
         return response
       } catch (error) {
         throw error

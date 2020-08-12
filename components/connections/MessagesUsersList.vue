@@ -356,7 +356,7 @@
 
 <script>
 export default {
-  name: 'MessagesUsersList.vue'
+  name: 'MessagesUsersList'
 }
 </script>
 

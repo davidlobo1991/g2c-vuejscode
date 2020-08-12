@@ -10,7 +10,7 @@ import Sidebar from '~/components/site/Sidebar'
 import Main from '~/components/emeetings/Main'
 
 export default {
-  name: 'EmeetingsRequests.vue',
+  name: 'EmeetingsRequests',
   layout: 'default',
   components: {
     Sidebar,

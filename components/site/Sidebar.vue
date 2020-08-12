@@ -14,7 +14,7 @@
             <template v-if="true">
               <nuxt-link
                 :to="localePath('account/profile')"
-                :src="`${baseFilesURL}${$auth.user.profile_image.path}`"
+                :src="require('~/assets/images/default.png')"
                 tag="img"
                 class="c-sidebar__profile--img"
                 title="Account Profile"

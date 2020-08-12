@@ -14,7 +14,7 @@ import TopMobile from '~/components/site/TopMobile'
 import BottomMobile from '~/components/site/BottomMobile'
 
 export default {
-  name: 'Network',
+  name: 'ProfileMain',
   components: {
     Profile,
     TopMobile,

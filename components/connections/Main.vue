@@ -1,7 +1,7 @@
 <template>
   <div class="c-connections">
     <TopMobile />
-    <ConnectionsNavbar activeTab="messages" />
+    <ConnectionsNavbar active-tab="messages" />
     <div class="c-messages">
       <MessagesUsersList class="c-messages__users" />
       <MessagesConversation class="c-messages__conversation" />
@@ -18,7 +18,7 @@ import TopMobile from '~/components/site/TopMobile'
 import BottomMobile from '~/components/site/BottomMobile'
 
 export default {
-  name: 'Main.vue',
+  name: 'Main',
   components: {
     ConnectionsNavbar,
     MessagesUsersList,

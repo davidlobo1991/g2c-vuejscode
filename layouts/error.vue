@@ -7,8 +7,8 @@
       <div class="notfound__wrapper">
         <div class="notfound__text-cont">
           <div
-            class="notfound__text-cont--title"
             v-if="error.statusCode === 404"
+            class="notfound__text-cont--title"
           >
             {{ pageNotFound }}
           </div>

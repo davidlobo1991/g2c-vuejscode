@@ -1,7 +1,7 @@
 <template>
   <div class="c-connections">
     <TopMobile />
-    <EmeetingsNavbar activeTab="received" />
+    <EmeetingsNavbar active-tab="received" />
     <div class="c-emeetings-requests">
       <div class="c-emeetings-requests--cont">
         <div @click.self="showContact" class="c-emeetings-requests__elem">
@@ -256,7 +256,7 @@ import TopMobile from '~/components/site/TopMobile'
 import BottomMobile from '~/components/site/BottomMobile'
 
 export default {
-  name: 'Main.vue',
+  name: 'EmeetingsMain',
   components: {
     EmeetingsNavbar,
     TopMobile,

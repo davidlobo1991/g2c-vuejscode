@@ -164,36 +164,39 @@ export default {
           this.words
         )
 
-        console.log(response)
-
         if (!response.error) {
           const register = await this.createUserServerApplication(
             response.userauth,
             this.g2c_application
           )
+
           if (!register.error) {
+            // eslint-disable-next-line no-console
             console.log('Created user server application')
             this.setLoginData()
 
             const checkStatus = setInterval(function() {
-              // console.log(this.$nuxt)
               const status = this.$nuxt.checkUserServerApplicationStatus(
                 register.job_id
               )
 
-              if (status.finished_at !== null && !status.error) {
-                clearInterval(checkStatus)
-              }
+              status.then((data) => {
+                if (data.finished_at !== null && !data.error) {
+                  clearInterval(checkStatus)
+                  console.log(data)
+                }
+              })
             }, 5000)
 
-            console.log('User status checked')
             const userCreated = await this.createUserApi()
 
             if (!userCreated.error) {
               setTimeout(function() {
+                // eslint-disable-next-line no-console
                 console.log('Waiting for it...')
               }, 5000)
-              // this.login()
+
+              this.login()
             } else {
               this.handleError(userCreated)
             }
@@ -207,14 +210,6 @@ export default {
         this.handleError(error)
       }
     },
-    setLoginData() {
-      this.$store.commit('register/SET_NICK', sessionStorage.registerNick)
-      this.$store.commit(
-        'register/SET_PASSWORD',
-        sessionStorage.registerPassword
-      )
-    },
-
     getWidth() {
       return Math.max(
         document.documentElement.clientWidth,
@@ -224,7 +219,6 @@ export default {
     navigationPrevious() {
       this.step = this.step - 1
     },
-
     login() {
       try {
         this.handleLogin(
@@ -238,7 +232,7 @@ export default {
         console.error('NetworkSV Login error')
         // eslint-disable-next-line no-console
         console.error(error)
-        this.errorValidation = 'login fail'
+        this.errorValidation = 'Login Fail'
         this.loading = false
       }
     },
@@ -248,8 +242,15 @@ export default {
     nextStep() {
       this.navigationNext()
     },
-    handleError(error) {
-      this.errorCreateAccount = this.$i18n.t('login.error')
+    setLoginData() {
+      this.$store.commit('register/SET_NICK', sessionStorage.registerNick)
+      this.$store.commit(
+        'register/SET_PASSWORD',
+        sessionStorage.registerPassword
+      )
+    },
+    handleError(error, message = 'Error creating account') {
+      this.errorCreateAccount = message
 
       this.loading = false
       // eslint-disable-next-line no-console

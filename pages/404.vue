@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  name: 'notfound.vue'
+  name: 'NotFound'
 }
 </script>
 

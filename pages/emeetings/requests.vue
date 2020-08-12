@@ -6,7 +6,7 @@
 import EmeetingsRequests from '~/components/emeetings/EmeetingsRequests'
 
 export default {
-  name: 'requests.vue',
+  name: 'Requests',
   components: {
     EmeetingsRequests
   }

@@ -5,12 +5,14 @@ const state = () => ({
   mobile_prefix: null,
   mobile_number: null,
   ukresident: null,
-  words: null
+  words: null,
+  invitation_code: null
 })
 
 const getters = {
   getNick: (state) => state.nick,
   getPassword: (state) => state.password,
+  getInvitationCode: (state) => state.invitation_code,
   getEmail: (state) => state.email,
   getMobilePrefix: (state) => state.mobile_prefix,
   getMobileNumber: (state) => state.mobile_number,
@@ -111,6 +113,24 @@ const actions = {
   },
 
   /**
+   * Check promotional code
+   */
+  async checkInvitationCode({ getters, commit }) {
+    try {
+      const invitationCode = getters.getInvitationCode
+      const response = await this.$axios
+        .get(`/invitation-codes/validate-code/${invitationCode}`)
+        .then((response) => response)
+
+      return response
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error)
+      throw error
+    }
+  },
+
+  /**
    * Check User
    */
   async checkUserApi({ getters, commit }) {
@@ -176,7 +196,8 @@ const actions = {
       email: getters.getEmail,
       mobile_prefix: getters.getMobilePrefix,
       mobile_number: getters.getMobileNumber,
-      ukresident: getters.getUkresident
+      ukresident: getters.getUkresident,
+      invitation_code: getters.getInvitationCode
     }
 
     const data = {
@@ -274,17 +295,14 @@ const actions = {
 }
 
 const mutations = {
-  // SET_ERROR_VALIDATION(state, status) {
-  //   state.errorValidation = status
-  // },
-  // SET_USER_CHECKED(state, status) {
-  //   state.userChecked = status
-  // },
   SET_NICK(state, nick) {
     state.nick = nick
   },
   SET_PASSWORD(state, password) {
     state.password = password
+  },
+  SET_INVITATION_CODE(state, invitationCode) {
+    state.invitation_code = invitationCode
   },
   SET_EMAIL(state, email) {
     state.email = email

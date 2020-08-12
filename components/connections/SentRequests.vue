@@ -1,7 +1,7 @@
 <template>
   <div class="c-connections">
     <TopMobile />
-    <ConnectionsNavbar activeTab="sent-requests" />
+    <ConnectionsNavbar active-tab="sent-requests" />
     <div class="c-requests">
       <div class="c-requests--cont">
         <div @click.self="showContact" class="c-requests__elem">
@@ -26,8 +26,8 @@
             <div @click="showContact" class="c-requests__elem--progress-cont">
               <div>37h 21m 54s</div>
               <v-progress-linear
+                :rounded="true"
                 value="25"
-                rounded="true"
                 color="#0186FF"
                 background-color="#F5F8FF"
                 height="7"

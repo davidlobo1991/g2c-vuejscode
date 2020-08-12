@@ -5,6 +5,8 @@ export default {
   edit_profile: 'Editar Perfil',
   register: {
     error: {
+      default: 'Error. Ver consola para más información',
+      promocode: 'El código promocional es erroneo o no existe',
       email: {
         exists: 'Ya existe una cuenta asociada al email introducido',
         sending: 'Error al enviar el código de validación',
@@ -36,7 +38,7 @@ export default {
   },
   login: {
     error: {
-      message: 'Usuario y/o contraseña invalidos'
+      message: 'Login error'
     }
   },
   profile: {

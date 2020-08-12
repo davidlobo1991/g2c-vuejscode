@@ -60,13 +60,17 @@
             <div class="connectbutton__modal--profile-cont">
               <div class="connectbutton__modal--profile-img-cont">
                 <nuxt-link
-                  :src="require('~/assets/images/network/users/persona1.png')"
+                  :src="
+                    activeConnection.image
+                      ? `_nuxt/assets/images/network/users/${activeConnection.image}`
+                      : require('~/assets/images/default.png')
+                  "
                   tag="img"
                   to="/"
                   class="connectbutton__modal--profile-img"
                 />
               </div>
-              Gabel Sheber
+              {{ activeConnection.nick }}
             </div>
             <div
               v-if="modalStep == 1"
@@ -109,7 +113,7 @@
               @click="nextModalStep()"
               class="connectbutton__modal--connect-button"
             >
-              <span v-if="cost">{{ cost }}$ - </span>
+              <span v-if="cost">{{ activeConnection.cost }}$ - </span>
               Connect
             </div>
 
@@ -146,6 +150,29 @@ export default {
     modalStep: {
       type: Number,
       default: 1
+    },
+    activeConnection: {
+      type: Object,
+      // eslint-disable-next-line vue/require-valid-default-prop
+      default: () => ({
+        connections: 0,
+        email: '',
+        invitation_code: '',
+        is_disabled: 0,
+        is_online: 0,
+        knowledges: Object,
+        languages: Object,
+        mobile: '',
+        mobile_number: '',
+        mobile_prefix: '',
+        nick: '',
+        password: '',
+        profile_image: '',
+        recommends: '',
+        resume: '',
+        social_media: Object,
+        summary: ''
+      })
     }
   },
   data() {
@@ -159,6 +186,7 @@ export default {
       this.$emit('sendIsShowingConnectModal', value)
     },
     connectMessage(value) {
+      // eslint-disable-next-line no-console
       console.log(value)
     }
   },
@@ -185,8 +213,6 @@ export default {
         )
 
         if (!propose.error) {
-          console.log(propose)
-
           const object = this.shareUserObject(
             'tokenid',
             'tokens1',
@@ -198,6 +224,7 @@ export default {
             'destinationnick'
           )
 
+          // eslint-disable-next-line no-console
           console.log(object)
 
           // TODO Save shareauth in firebase

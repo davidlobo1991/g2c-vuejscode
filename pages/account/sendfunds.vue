@@ -51,23 +51,23 @@
       <form class="sendfunds__invoice--form">
         <label for="inv-name" class="sendfunds__invoice--input-cont">
           <span class="sendfunds__invoice--label">Name</span>
-          <input type="text" id="inv-name" placeholder="Jenny Rosen" />
+          <input id="inv-name" type="text" placeholder="Jenny Rosen" />
         </label>
         <label for="inv-email" class="sendfunds__invoice--input-cont">
           <span class="sendfunds__invoice--label">Email</span>
-          <input type="text" id="inv-email" placeholder="jenny@example.com" />
+          <input id="inv-email" type="text" placeholder="jenny@example.com" />
         </label>
         <label for="inv-address" class="sendfunds__invoice--input-cont">
           <span class="sendfunds__invoice--label">Address</span>
           <input
-            type="text"
             id="inv-address"
+            type="text"
             placeholder="185 Berry Street Suite 550"
           />
         </label>
         <label for="inv-city" class="sendfunds__invoice--input-cont">
           <span class="sendfunds__invoice--label">City</span>
-          <input type="text" id="inv-city" placeholder="San Francisco" />
+          <input id="inv-city" type="text" placeholder="San Francisco" />
         </label>
         <div class="sendfunds__invoice--double-input">
           <label
@@ -75,23 +75,23 @@
             class="sendfunds__invoice--double-input-big sendfunds__invoice--input-cont"
           >
             <span class="sendfunds__invoice--label">State</span>
-            <input type="text" id="inv-state" placeholder="CA" />
+            <input id="inv-state" type="text" placeholder="CA" />
           </label>
           <label
             for="inv-zip"
             class="sendfunds__invoice--input-cont sendfunds__invoice--double-input-small"
           >
             <span class="sendfunds__invoice--label">Zip</span>
-            <input type="text" id="inv-zip" placeholder="94107" />
+            <input id="inv-zip" type="text" placeholder="94107" />
           </label>
         </div>
         <label for="inv-country" class="sendfunds__invoice--input-cont">
           <span class="sendfunds__invoice--label">Country</span>
-          <input type="text" id="inv-country" placeholder="United States" />
+          <input id="inv-country" type="text" placeholder="United States" />
         </label>
         <label for="inv-vat" class="sendfunds__invoice--input-cont">
           <span class="sendfunds__invoice--label">VAT</span>
-          <input type="text" id="inv-vat" placeholder="000000000" />
+          <input id="inv-vat" type="text" placeholder="000000000" />
         </label>
       </form>
     </div>
@@ -100,7 +100,7 @@
 
 <script>
 export default {
-  name: 'SendFunds.vue'
+  name: 'SendFundsVue'
 }
 </script>
 

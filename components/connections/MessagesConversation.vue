@@ -47,8 +47,8 @@
         </v-btn>
       </div>
       <v-progress-linear
+        :rounded="true"
         value="25"
-        rounded="true"
         color="#0186FF"
         background-color="transparent"
         height="3"
@@ -100,7 +100,7 @@
 
 <script>
 export default {
-  name: 'MessagesConversation.vue'
+  name: 'MessagesConversation'
 }
 </script>
 

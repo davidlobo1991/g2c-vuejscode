@@ -46,7 +46,7 @@
 
 <script>
 export default {
-  name: 'Login',
+  name: 'TwelveWordsGenerator',
   data() {
     return {
       generatedWords: null,

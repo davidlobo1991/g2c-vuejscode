@@ -49,7 +49,7 @@
 import { required, sameAs, minLength } from 'vuelidate/lib/validators'
 
 export default {
-  name: 'LoginForm',
+  name: 'PasswordResetForm',
   props: {
     token: {
       type: String,

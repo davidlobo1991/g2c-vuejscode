@@ -8,7 +8,7 @@
 import Messages from '~/components/connections/Messages'
 
 export default {
-  name: 'Messages.vue',
+  name: 'Messages',
   components: {
     Messages
   }

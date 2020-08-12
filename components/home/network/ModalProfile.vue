@@ -11,20 +11,20 @@
           </v-icon>
         </div>
         <div class="c-contact-card__profile">
-          <div class="c-contact-card__profile--img-side">
-            <div class="c-contact-card__profile--img-cont">
-              <nuxt-link
-                :src="
-                  `_nuxt/assets/images/network/users/${activeConnection.image}`
-                "
-                tag="img"
-                to="/"
-                class="c-contact-card__profile--img"
-              />
-              <div
-                class="c-contact-card__profile--status u-status--available"
-              ></div>
-            </div>
+          <div class="c-contact-card__profile--img-cont">
+            <nuxt-link
+              :src="
+                activeConnection.image
+                  ? `_nuxt/assets/images/network/users/${activeConnection.image}`
+                  : require('~/assets/images/default.png')
+              "
+              tag="img"
+              to="/"
+              class="c-contact-card__profile--img"
+            />
+            <div
+              class="c-contact-card__profile--status u-status--available"
+            ></div>
             <div class="c-contact-card__profile--details-cont">
               <div class="c-contact-card__profile--details">
                 <span class="c-contact-card__profile--details-num">{{
@@ -40,6 +40,7 @@
               </div>
             </div>
             <ConnectButton
+              :activeConnection="activeConnection"
               @sendIsShowingConnectModal="sendIsShowingConnectModal"
               @openInfoModal="isShowingContactInfo = value"
               status="connect"
@@ -51,7 +52,7 @@
               </div>
               <v-progress-linear
                 value="25"
-                rounded="true"
+                :rounded="true"
                 color="#0186FF"
                 background-color="#F5F8FF"
                 height="7"
@@ -70,7 +71,6 @@
             <!--                1$ - Connect-->
             <!--              </v-btn>-->
           </div>
-
           <div class="c-contact-card__profile--text-cont">
             <div class="c-contact-card__profile--name">
               {{ activeConnection.name }}
@@ -84,7 +84,8 @@
             <div class="c-contact-card__profile--title">Knowledge</div>
             <div class="c-contact-card__profile--label-cont">
               <v-chip
-                v-for="knowledge in activeConnection.knowledge"
+                v-for="(knowledge, index) in activeConnection.knowledge"
+                :key="index"
                 class="c-contact-card__profile--label"
                 color="#EFF1F2"
                 label
@@ -99,7 +100,8 @@
             <div class="c-contact-card__profile--title">Languages</div>
             <div class="c-contact-card__profile--label-cont">
               <v-chip
-                v-for="language in activeConnection.language"
+                v-for="(language, index) in activeConnection.language"
+                :key="index"
                 class="c-contact-card__profile--label"
                 color="#EFF1F2"
                 label

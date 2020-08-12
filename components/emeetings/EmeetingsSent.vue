@@ -10,7 +10,7 @@ import Sidebar from '~/components/site/Sidebar'
 import Sent from '~/components/emeetings/Sent'
 
 export default {
-  name: 'EmeetingsSent.vue',
+  name: 'EmeetingsSent',
   layout: 'default',
   components: {
     Sidebar,
