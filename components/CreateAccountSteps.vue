@@ -44,6 +44,9 @@
       <div v-show="errorCreateAccount" class="c-error">
         {{ errorCreateAccount }}
       </div>
+      <div v-show="accountCreated" class="c-success">
+        {{ accountCreated }}
+      </div>
     </div>
   </div>
 </template>
@@ -77,6 +80,7 @@ export default {
       registerPrefix: null,
       errorValidation: null,
       errorCreateAccount: null,
+      accountCreated: false,
       loading: true
     }
   },
@@ -175,31 +179,54 @@ export default {
             console.log('Created user server application')
             this.setLoginData()
 
+            /**
+             * Interval every 5 seconds to check the status of creating user application
+             * @type {number}
+             */
             const checkStatus = setInterval(function() {
-              const status = this.$nuxt.checkUserServerApplicationStatus(
-                register.job_id
-              )
+              try {
+                const status = this.$nuxt.checkUserServerApplicationStatus(
+                  register.data.job_id
+                )
 
-              status.then((data) => {
-                if (data.finished_at !== null && !data.error) {
-                  clearInterval(checkStatus)
-                  console.log(data)
-                }
-              })
+                status
+                  .then((data) => {
+                    console.log(data)
+                    if (data.is_finished && !data.error) {
+                      clearInterval(checkStatus)
+
+                      /**
+                       * If status is finished, create user
+                       * @type {Promise<*|undefined>|Promise<TResult1|TResult2|undefined>}
+                       */
+                      const userCreated = this.$nuxt.createUserApi()
+
+                      userCreated.then((userData) => {
+                        if (!userData.error) {
+                          this.$nuxt.accountCreated = this.$nuxt.$i18n.t(
+                            'register.account.created.redirecting'
+                          )
+
+                          console.log('Usuario finalizado')
+
+                          // await this.$nuxt.$router.push('/home')
+                        } else {
+                          this.handleError(userCreated)
+                        }
+                      })
+                    } else if (data.error) {
+                      clearInterval(checkStatus)
+                      console.log(data.error)
+                      throw data.error
+                    }
+                  })
+                  .catch((error) => {
+                    throw error
+                  })
+              } catch (error) {
+                throw error
+              }
             }, 5000)
-
-            const userCreated = await this.createUserApi()
-
-            if (!userCreated.error) {
-              setTimeout(function() {
-                // eslint-disable-next-line no-console
-                console.log('Waiting for it...')
-              }, 5000)
-
-              this.login()
-            } else {
-              this.handleError(userCreated)
-            }
           } else {
             this.handleError(register)
           }
@@ -228,12 +255,7 @@ export default {
           this.g2c_application
         )
       } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error('NetworkSV Login error')
-        // eslint-disable-next-line no-console
-        console.error(error)
-        this.errorValidation = 'Login Fail'
-        this.loading = false
+        this.handleError(error)
       }
     },
     onWindowSizeChange() {
@@ -249,14 +271,16 @@ export default {
         sessionStorage.registerPassword
       )
     },
-    handleError(error, message = 'Error creating account') {
-      this.errorCreateAccount = message
 
+    /**
+     * Handle error
+     */
+    handleError(error, title = this.$i18n.t('register.error.default')) {
+      console.log(title)
       this.loading = false
-      // eslint-disable-next-line no-console
-      console.error('createUser - Error')
-      // eslint-disable-next-line no-console
-      console.error(error)
+      this.errorCreateAccount = title
+      this.errorValidation = title
+      this.handleErrors(error, title)
     }
   }
 }
@@ -295,6 +319,15 @@ input[type='number']::-webkit-outer-spin-button {
     padding-top: 4.5%;
     width: 60%;
     margin: 0 auto;
+  }
+}
+.c-success {
+  margin: 30px 0;
+  color: #18de82;
+  font-weight: 500;
+
+  .v-icon {
+    color: #18de82;
   }
 }
 

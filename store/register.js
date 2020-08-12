@@ -240,14 +240,13 @@ const actions = {
   /**
    * Sign in backend and firebase
    */
-  async checkUserServerApplicationStatus({ getters }, jobId) {
-    const data = {
-      job_id: jobId
-    }
-
+  async checkUserServerApplicationStatus({ getters }, data) {
+    console.log(data.jobId)
     try {
       const response = await this.$axios
-        .post('g2c/server/application/users/create/status', data)
+        .post('g2c/server/application/users/create/status', {
+          job_id: data.jobId
+        })
         .then((response) => response)
 
       return response

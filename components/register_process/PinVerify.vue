@@ -217,17 +217,18 @@ export default {
     async verificationPhone() {
       this.loading = true
       try {
-        if (!this.phoneCodeVerified) {
-          const code = this.getVerificationCode()
-          const validation = await this.validationPhoneCode(code)
-
-          if (validation.error === true) {
-            throw validation.message
-          }
-          this.errorValidation = null
-          this.phoneCodeVerified = true
-        }
-        this.$emit('signIn')
+        // if (!this.phoneCodeVerified) {
+        //   const code = this.getVerificationCode()
+        //   const validation = await this.validationPhoneCode(code)
+        //
+        //   if (validation.error === true) {
+        //     throw validation.message
+        //   }
+        //
+        //   this.errorValidation = null
+        //   this.phoneCodeVerified = true
+        // }
+        await this.$emit('signIn')
       } catch (error) {
         this.loading = false
         this.errorValidation = this.$i18n.t('register.error.phone.verification')
@@ -292,6 +293,7 @@ export default {
 
         if (!sendValidation.error) {
           this.resendEmail = true
+          this.errorValidation = null
           sessionStorage.verifyServiceId = sendValidation.data.verifyServiceId
         } else {
           this.errorValidation = this.$i18n.t('register.error.phone.sending')
