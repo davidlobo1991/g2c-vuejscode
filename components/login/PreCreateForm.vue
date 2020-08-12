@@ -272,6 +272,15 @@ export default {
      */
     handleValidationInvitationCodeErrors() {
       const errors = []
+
+      if (!this.$v.formRegister.promotionalCode.$dirty) {
+        return errors
+      }
+
+      if (!this.$v.formRegister.promotionalCode.required) {
+        errors.push(this.$i18n.t('register.error.promocode'))
+      }
+
       if (this.invitationCodeError) {
         errors.push(this.invitationCodeError)
       }
