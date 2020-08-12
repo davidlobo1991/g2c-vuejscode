@@ -123,11 +123,13 @@ export default {
       this.createAccountIsVisible = true
       this.loginIsVisible = false
       this.recoverPasswordIsVisible = false
+      this.$mixpanel.track('Signup Form View')
     },
     showLogin() {
       this.loginIsVisible = true
       this.createAccountIsVisible = false
       this.recoverPasswordIsVisible = false
+      this.$mixpanel.track('Login Form View')
     },
     showRecoverPassword() {
       this.recoverPasswordIsVisible = true

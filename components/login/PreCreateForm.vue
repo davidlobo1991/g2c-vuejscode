@@ -97,6 +97,7 @@ export default {
     },
     showLogin() {
       this.$emit('showLogin')
+      this.$mixpanel.track('Login Form View')
     },
     /**
      * Check if user is taken
@@ -171,6 +172,7 @@ export default {
 
         // Load Create Account Workflow
         await this.$router.push(this.localePath('create-account'))
+        this.$mixpanel.track('First Step Username/Password entered')
       } catch (error) {
         this.errorValidation = this.$i18n.t('register.error.nick.exists')
         this.$v.$touch()
