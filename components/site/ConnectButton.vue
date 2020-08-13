@@ -201,9 +201,9 @@ export default {
         this.cost = await this.exchangeRates(this.cost)
 
         const propose = this.walletPropose(
-          'tokenid',
-          'tokens1',
-          'tokenc1',
+          this.$auth.$storage.getCookie('tokenid'),
+          this.$auth.$storage.getCookie('tokens1'),
+          this.$auth.$storage.getCookie('tokenc1'),
           this.g2c_application,
           'sourcenick',
           'destinationnick',
@@ -214,9 +214,9 @@ export default {
 
         if (!propose.error) {
           const object = this.shareUserObject(
-            'tokenid',
-            'tokens1',
-            'tokenc1',
+            this.$auth.$storage.getCookie('tokenid'),
+            this.$auth.$storage.getCookie('tokens1'),
+            this.$auth.$storage.getCookie('tokenc1'),
             this.g2c_application,
             'sourcenick',
             'path',
