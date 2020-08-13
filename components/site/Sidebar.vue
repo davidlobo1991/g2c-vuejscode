@@ -110,8 +110,10 @@
 </template>
 
 <script>
+import { login } from '~/mixins/login'
 export default {
   name: 'Sidebar',
+  mixins: [login],
   data() {
     return {
       baseFilesURL: process.env.baseFilesURL,
@@ -122,7 +124,7 @@ export default {
   },
   methods: {
     async logout() {
-      await this.$auth.logout()
+      await this.handleLogout()
     }
   }
 }
@@ -163,11 +165,18 @@ export default {
     cursor: pointer;
   }
   &-logout {
-    all: unset;
+    background: transparent !important;
+    margin: 0;
+    border: 0;
+    font-size: inherit;
+    height: auto !important;
+    min-width: 0 !important;
+    text-transform: none;
+    padding: 0 !important;
 
     &:hover {
-      all: unset;
-      color: white;
+      color: black;
+      background: transparent !important;
     }
   }
   &__profile {

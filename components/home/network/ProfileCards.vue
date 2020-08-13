@@ -56,6 +56,7 @@
           @sendIsShowingConnectModal="setIsShowingConnectModal"
           @openInfoModal="showContact"
           :status="'connect'"
+          :activeConnection="connection"
           :cost="`${connection.cost}`"
         />
       </div>
@@ -118,7 +119,9 @@ export default {
     loadUsers.then((result) => {
       if (!result.error) {
         this.connections = Object.values(result.data)
-        this.filteredConnections = this.connections
+        this.filteredConnections = this.connections.filter(
+          (connection) => connection.nick !== this.$auth.$state.user.data.nick
+        )
         this.usersLoaded = true
       } else {
         // eslint-disable-next-line no-console

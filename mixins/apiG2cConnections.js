@@ -1,9 +1,6 @@
 import { functions } from '~/mixins/functions'
 
 export const apiG2cConnections = {
-  data() {
-    return {}
-  },
   mixins: [functions],
   methods: {
     /**
@@ -13,9 +10,6 @@ export const apiG2cConnections = {
      * @returns {Promise<string | null>}
      */
     exchangeRates(value, mode = 'BSV2USD') {
-      // mode = 'USD2SAT'
-      // value = 0.5
-
       try {
         return new Promise((resolve, reject) => {
           // eslint-disable-next-line no-undef

@@ -1,27 +1,29 @@
 <template>
   <div class="u-custom-wrapper">
-    <!--    <Settings />-->
     <div v-if="$auth.loggedIn">
-      <h1>
-        Pagina protegida. Bienvenido @{{ $auth.user.data.nick }}. Login perfil
-        usuario.
+      <h1 class="mt-5 mb-5 ml-5 ">
+        {{ $i18n.t('page.protected.welcome') }} <br />
+        @{{ $auth.user.data.nick }}
       </h1>
+      <AccountProfile />
 
-      <v-btn @click="logout" text class="mt-2 blue white--text">Logout</v-btn>
+      <v-btn @click="logout" text class="mt-5 ml-5 blue white--text"
+        >Logout</v-btn
+      >
     </div>
   </div>
 </template>
 
 <script>
-// import Settings from '~/components/account/settings/Settings'
+import AccountProfile from '~/components/account/AccountProfile'
 import { login } from '~/mixins/login'
 
 export default {
   name: 'UserProfile',
   middleware: ['authUser'],
-  // components: {
-  //   Settings
-  // },
+  components: {
+    AccountProfile
+  },
   mixins: [login],
   methods: {
     async logout() {
