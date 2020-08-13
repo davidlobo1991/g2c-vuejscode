@@ -25,7 +25,7 @@ export const apiG2c = {
         randomWords = g2c_getRandomWords()
         return randomWords
       } catch (error) {
-        this.handleError(error, 'G2CService@getRandomWords - Error')
+        this.handleErrors(error, 'G2CService@getRandomWords - Error')
       }
     },
     /**
@@ -53,11 +53,11 @@ export const apiG2c = {
         })
           .then((token) => token)
           .catch((error) => {
-            this.handleError(error, 'G2CUser@createUser - Error')
+            this.handleErrors(error, 'G2CUser@createUser - Error')
             throw error
           })
       } catch (error) {
-        this.handleError(error, 'G2CUser@createUser - Error')
+        this.handleErrors(error, 'G2CUser@createUser - Error')
         throw error
       }
     },
@@ -98,12 +98,14 @@ export const apiG2c = {
             }
           })
           .catch((error) => {
-            this.handleError(error, 'G2CUser@loginUser - Error')
+            this.handleErrors(error, 'G2CUser@loginUser - Error')
+            this.errorValidation = 'Login Fail'
+            this.loading = false
             throw error
           })
         // eslint-disable-next-line no-unreachable
       } catch (error) {
-        this.handleError(error, 'G2CUser@loginUser - Error')
+        this.handleErrors(error, 'G2CUser@loginUser - Error')
         throw error
       }
     },
@@ -143,11 +145,11 @@ export const apiG2c = {
         })
           .then((response) => response)
           .catch((error) => {
-            this.handleError(error, 'G2CUser@logoutUser - Error')
+            this.handleErrors(error, 'G2CUser@logoutUser - Error')
             throw error
           })
       } catch (error) {
-        this.handleError(error, 'G2CUser@logoutUser - Error')
+        this.handleErrors(error, 'G2CUser@logoutUser - Error')
         throw error
       }
     },
@@ -198,11 +200,11 @@ export const apiG2c = {
             }
           })
           .catch((error) => {
-            this.handleError(error, 'G2CUser@getUser - Error')
+            this.handleErrors(error, 'G2CUser@getUser - Error')
             throw error
           })
       } catch (error) {
-        this.handleError(error, 'G2CUser@getUser - Error')
+        this.handleErrors(error, 'G2CUser@getUser - Error')
         throw error
       }
     }

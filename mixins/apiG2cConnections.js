@@ -1,7 +1,10 @@
+import { functions } from '~/mixins/functions'
+
 export const apiG2cConnections = {
   data() {
     return {}
   },
+  mixins: [functions],
   methods: {
     /**
      *
@@ -29,11 +32,11 @@ export const apiG2cConnections = {
         })
           .then((response) => response)
           .catch((error) => {
-            this.handleError(error, 'G2C@exchangeRates - Error')
+            this.handleErrors(error, 'G2C@exchangeRates - Error')
             throw error
           })
       } catch (error) {
-        this.handleError(error, 'G2C@exchangeRates - Error')
+        this.handleErrors(error, 'G2C@exchangeRates - Error')
         throw error
       }
     },
@@ -91,12 +94,12 @@ export const apiG2cConnections = {
         })
           .then((response) => response)
           .catch((error) => {
-            this.handleError(error, 'G2CWallet@walletPropose - Error')
+            this.handleErrors(error, 'G2CWallet@walletPropose - Error')
             throw error
           })
         // eslint-disable-next-line no-unreachable
       } catch (error) {
-        this.handleError(error, 'G2CWallet@walletPropose - Error')
+        this.handleErrors(error, 'G2CWallet@walletPropose - Error')
         throw error
       }
     },
@@ -151,12 +154,12 @@ export const apiG2cConnections = {
         })
           .then((response) => response)
           .catch((error) => {
-            this.handleError(error, 'G2CWallet@walletPropose - Error')
+            this.handleErrors(error, 'G2CWallet@walletPropose - Error')
             throw error
           })
         // eslint-disable-next-line no-unreachable
       } catch (error) {
-        this.handleError(error, 'G2CWallet@walletPropose - Error')
+        this.handleErrors(error, 'G2CWallet@walletPropose - Error')
         throw error
       }
     }

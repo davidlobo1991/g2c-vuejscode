@@ -217,17 +217,17 @@ export default {
     async verificationPhone() {
       this.loading = true
       try {
-        if (!this.phoneCodeVerified) {
-          const code = this.getVerificationCode()
-          const validation = await this.validationPhoneCode(code)
-
-          if (validation.error === true) {
-            throw validation.message
-          }
-
-          this.errorValidation = null
-          this.phoneCodeVerified = true
-        }
+        // if (!this.phoneCodeVerified) {
+        //   const code = this.getVerificationCode()
+        //   const validation = await this.validationPhoneCode(code)
+        //
+        //   if (validation.error === true) {
+        //     throw validation.message
+        //   }
+        //
+        //   this.errorValidation = null
+        //   this.phoneCodeVerified = true
+        // }
         await this.$emit('signIn')
       } catch (error) {
         this.loading = false

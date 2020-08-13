@@ -54,6 +54,8 @@ export const login = {
               })
               .catch((error) => {
                 this.handleErrors(error, 'G2CUser@loginUser - Error')
+                this.errorValidation = 'Login Fail'
+                this.loading = false
                 throw error
               })
           }
@@ -70,12 +72,13 @@ export const login = {
             })
             .catch((error) => {
               this.handleErrors(error, 'G2CUser@loginUser - Error')
+              this.errorValidation = 'Login Fail'
+              this.loading = false
               throw error
             })
         }
       } catch (error) {
         this.handleErrors(error, 'G2CUser@loginUser - Error')
-        throw error
       }
     },
 
