@@ -213,8 +213,8 @@ export default {
                           console.log(_this)
                           console.log(this.$nuxt)
 
-                          _this.login()
-                          // this.$nuxt.$router.push('/home')
+                          // _this.login()
+                          this.$nuxt.$router.push('/home')
                         } else {
                           this.handleError(userCreated)
                         }
