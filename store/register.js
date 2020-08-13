@@ -208,6 +208,22 @@ const actions = {
       const response = await this.$axios
         .post('users/create', data)
         .then((response) => response)
+      let mixpanelUkResident = false
+      if (getters.getUkresident === 1) {
+        mixpanelUkResident = true
+      }
+
+      console.log('received user')
+      this.$mixpanel.alias(getters.getNick)
+      this.$mixpanel.track('Register Account Sign Up Done')
+      this.$mixpanel.people.set({
+        Username: getters.getNick,
+        $email: getters.getEmail,
+        'Mobile Prefix': getters.getMobilePrefix,
+        'Mobile Number': getters.getMobileNumber,
+        'Uk Resident': mixpanelUkResident,
+        'Invitation Code': getters.getInvitationCode
+      })
 
       return response
     } catch (error) {

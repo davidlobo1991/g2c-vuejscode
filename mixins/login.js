@@ -67,6 +67,8 @@ export const login = {
             })
             .then(() => {
               this.$router.push(this.localePath('/user-profile'))
+              this.$mixpanel.identify(registerNick)
+              this.$mixpanel.track('Log In Without Words')
             })
             .catch((error) => {
               this.handleError(error, 'G2CUser@loginUser - Error')
