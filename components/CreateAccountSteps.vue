@@ -207,7 +207,8 @@ export default {
                             'register.account.created.redirecting'
                           )
                           console.log('Usuario finalizado')
-                          this.$nuxt.$router.push('/home')
+                          this.login()
+                          // this.$nuxt.$router.push('/home')
                         } else {
                           this.handleError(userCreated)
                         }
