@@ -286,11 +286,11 @@ export default {
     /**
      * Touch validation and handle errors
      */
-    handleError(error, title) {
+    handleError(error, title = this.$i18n.t('register.error.default')) {
       this.$v.$touch()
       this.loading = false
       this.errorValidation = title
-      this.handleErrors(error)
+      this.handleErrors(error, title)
     }
   }
 }

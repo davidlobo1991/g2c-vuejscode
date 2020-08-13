@@ -10,7 +10,7 @@ export default {
       }
     },
     error: {
-      default: 'Error. Ver consola para más información',
+      default: 'Error al introducir los datos',
       promocode: 'El código promocional es erroneo o no existe',
       email: {
         exists: 'Ya existe una cuenta asociada al email introducido',

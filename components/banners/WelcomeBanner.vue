@@ -19,7 +19,10 @@
 
 <script>
 export default {
-  name: 'WelcomeBanner'
+  name: 'WelcomeBanner',
+  mounted() {
+    console.log(this.$auth)
+  }
 }
 </script>
 

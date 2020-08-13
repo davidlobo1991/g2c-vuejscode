@@ -161,6 +161,8 @@ export default {
     },
     async signIn() {
       try {
+        const _this = this
+
         /** Send registerNick from Storage because if we get the nick of
         the store and the user update the site, the nickname will be lost */
         const response = await this.createUser(
@@ -191,7 +193,6 @@ export default {
 
                 status
                   .then((statusData) => {
-                    console.log(statusData.data)
                     if (statusData.data.is_finished && !statusData.error) {
                       clearInterval(checkStatus)
 
@@ -206,8 +207,13 @@ export default {
                           this.$nuxt.accountCreated = this.$nuxt.$i18n.t(
                             'register.account.created.redirecting'
                           )
+                          // eslint-disable-next-line no-console
                           console.log('Usuario finalizado')
-                          this.login()
+                          // eslint-disable-next-line no-console
+                          console.log(_this)
+                          console.log(this.$nuxt)
+
+                          _this.login()
                           // this.$nuxt.$router.push('/home')
                         } else {
                           this.handleError(userCreated)
@@ -215,6 +221,7 @@ export default {
                       })
                     } else if (statusData.error) {
                       clearInterval(checkStatus)
+                      // eslint-disable-next-line no-console
                       console.log(statusData.error)
                       throw statusData.error
                     }
