@@ -208,8 +208,8 @@ export default {
           this.sourceNick,
           this.destinationNick,
           this.transactionCost,
-          'lockuntil',
-          'description'
+          undefined,
+          'Description'
         )
 
         if (!propose.error) {
@@ -219,9 +219,9 @@ export default {
             this.$auth.$storage.getCookie('tokenc1'),
             this.g2c_application,
             this.sourceNick,
-            this.destinationNick,
-            'path',
-            'name'
+            '/',
+            'object-name',
+            this.destinationNick
           )
 
           // eslint-disable-next-line no-console
