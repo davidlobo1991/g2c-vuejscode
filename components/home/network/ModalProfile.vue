@@ -51,8 +51,8 @@
                 Time left to accept the connection
               </div>
               <v-progress-linear
-                value="25"
                 :rounded="true"
+                value="25"
                 color="#0186FF"
                 background-color="#F5F8FF"
                 height="7"

@@ -10,7 +10,7 @@ export default {
       }
     },
     error: {
-      default: 'Error. See console to more info',
+      default: 'Error introducing data',
       promocode: 'The promocode is wrong or not exists',
       email: {
         exists: 'Email already exists',
