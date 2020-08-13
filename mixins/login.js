@@ -1,4 +1,8 @@
+import { functions } from '~/mixins/functions'
+import { cookies } from '~/mixins/cookies'
+
 export const login = {
+  mixins: [functions, cookies],
   data() {
     return {}
   },
@@ -43,7 +47,9 @@ export const login = {
                   'tokenc1',
                   g2cLoginResponse.tokenc1
                 )
-
+                // this.setCookie('tokenid', g2cLoginResponse.tokenid, 365)
+                // this.setCookie('tokens1', g2cLoginResponse.tokens1, 365)
+                // this.setCookie('tokenc1', g2cLoginResponse.tokenc1, 365)
                 this.$router.push('/home')
               })
               .catch((error) => {
@@ -72,21 +78,13 @@ export const login = {
         throw error
       }
     },
-    /**
-     * Error Handler
-     * @param {Error} error
-     * @param {string} title - Optional Title
-     */
-    handleError(error, title = '') {
-      if (title.length > 0) {
-        // eslint-disable-next-line no-console
-        console.error(title)
-      }
 
-      // eslint-disable-next-line no-console
-      console.error(error)
-      this.errorValidation = 'Login Fail'
-      this.loading = false
+    async handleLogout() {
+      this.$auth.$storage.removeCookie('tokenid')
+      this.$auth.$storage.removeCookie('tokens1')
+      this.$auth.$storage.removeCookie('tokenc1')
+
+      await this.$auth.logout()
     }
   }
 }

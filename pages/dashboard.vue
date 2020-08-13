@@ -17,7 +17,7 @@ export default {
   middleware: ['auth'],
   methods: {
     async logout() {
-      await this.$auth.logout()
+      await this.handleLogout()
       this.$router.push('/')
     }
   }

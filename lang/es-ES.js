@@ -4,6 +4,11 @@ export default {
   cerrar: 'Cerrar',
   edit_profile: 'Editar Perfil',
   register: {
+    account: {
+      created: {
+        redirecting: 'Usuario creado correctamente. Será reedirigido a la home'
+      }
+    },
     error: {
       default: 'Error. Ver consola para más información',
       promocode: 'El código promocional es erroneo o no existe',
