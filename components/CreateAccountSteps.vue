@@ -190,9 +190,9 @@ export default {
                 )
 
                 status
-                  .then((data) => {
-                    console.log(data)
-                    if (data.is_finished && !data.error) {
+                  .then((statusData) => {
+                    console.log(statusData.data)
+                    if (statusData.data.is_finished && !statusData.error) {
                       clearInterval(checkStatus)
 
                       /**
@@ -206,18 +206,16 @@ export default {
                           this.$nuxt.accountCreated = this.$nuxt.$i18n.t(
                             'register.account.created.redirecting'
                           )
-
                           console.log('Usuario finalizado')
-
-                          // await this.$nuxt.$router.push('/home')
+                          this.$nuxt.$router.push('/home')
                         } else {
                           this.handleError(userCreated)
                         }
                       })
-                    } else if (data.error) {
+                    } else if (statusData.error) {
                       clearInterval(checkStatus)
-                      console.log(data.error)
-                      throw data.error
+                      console.log(statusData.error)
+                      throw statusData.error
                     }
                   })
                   .catch((error) => {
