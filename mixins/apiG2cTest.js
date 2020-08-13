@@ -52,7 +52,7 @@ export const apiG2cTest = {
      * Test User Login
      */
     async testLoginUser() {
-      const words = this.g2c_words
+      // const words = this.g2c_words
       const application = this.g2c_application
       const nick = this.g2c_nick
 

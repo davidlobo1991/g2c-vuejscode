@@ -1,7 +1,8 @@
+import { functions } from '~/mixins/functions'
 import { cookies } from '~/mixins/cookies'
 
 export const apiG2c = {
-  mixins: [cookies],
+  mixins: [cookies, functions],
   data() {
     return {
       g2c_words: '',
@@ -204,21 +205,6 @@ export const apiG2c = {
         this.handleError(error, 'G2CUser@getUser - Error')
         throw error
       }
-    },
-
-    /**
-     * Error Handler
-     * @param {Error} error
-     * @param {string} title - Optional Title
-     */
-    handleError(error, title = '') {
-      if (title.length > 0) {
-        // eslint-disable-next-line no-console
-        console.error(title)
-      }
-
-      // eslint-disable-next-line no-console
-      console.error(error)
     }
   }
 }
