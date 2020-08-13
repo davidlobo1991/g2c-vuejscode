@@ -51,6 +51,8 @@ export const login = {
                 // this.setCookie('tokens1', g2cLoginResponse.tokens1, 365)
                 // this.setCookie('tokenc1', g2cLoginResponse.tokenc1, 365)
                 this.$router.push('/home')
+                this.$mixpanel.identify(registerNick)
+                this.$mixpanel.track('Log In to NetworkSV')
               })
               .catch((error) => {
                 this.handleErrors(error, 'G2CUser@loginUser - Error')
