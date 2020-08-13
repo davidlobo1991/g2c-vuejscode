@@ -1,11 +1,13 @@
 <template>
   <div class="u-custom-wrapper">
-    <h1>Pagina protegida. Login perfil usuario. (No Blockchain)</h1>
     <!--    <Settings />-->
     <div v-if="$auth.loggedIn">
-      <v-btn @click="logout" text class="blue white&#45;&#45;text"
-        >Logout</v-btn
-      >
+      <h1>
+        Pagina protegida. Bienvenido @{{ $auth.user.data.nick }}. Login perfil
+        usuario.
+      </h1>
+
+      <v-btn @click="logout" text class="mt-2 blue white--text">Logout</v-btn>
     </div>
   </div>
 </template>

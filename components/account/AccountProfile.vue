@@ -4,7 +4,11 @@
     <div class="c-account__profile--image-info-cont">
       <div class="c-account__profile--img-cont">
         <nuxt-link
-          :src="require('~/assets/images/network/users/persona1.png')"
+          :src="
+            $auth.user.data.image
+              ? `_nuxt/assets/images/network/users/${$auth.user.data.image}`
+              : require('~/assets/images/default.png')
+          "
           tag="img"
           to="/"
           class="c-account__profile--img"
@@ -13,20 +17,26 @@
       </div>
       <div class="c-account__profile--details-cont">
         <div class="c-account__profile--details">
-          <span class="c-account__profile--details-num">210</span>
+          <span class="c-account__profile--details-num">{{
+            $auth.user.data.total_connections
+          }}</span>
           Connections
         </div>
         <div class="c-account__profile--details">
-          <span class="c-account__profile--details-num">176</span>
+          <span class="c-account__profile--details-num">{{
+            $auth.user.data.total_recommends
+          }}</span>
           Recommends
         </div>
       </div>
     </div>
     <div class="c-account__profile--text-cont">
-      <div class="c-account__profile--name">Jessica O'Mallie</div>
-      <div class="c-account__profile--username">@jessomallie</div>
+      <div class="c-account__profile--name">{{ $auth.user.data.name }}</div>
+      <div class="c-account__profile--username">
+        @{{ $auth.user.data.nick }}
+      </div>
       <div class="c-account__profile--description">
-        Bitcoin Estrategics, Formation in UX/UI & Animal Lover
+        {{ $auth.user.data.resume }}
       </div>
       <div class="c-account__profile--title">Knowledge</div>
       <div class="c-account__profile--label-cont">
