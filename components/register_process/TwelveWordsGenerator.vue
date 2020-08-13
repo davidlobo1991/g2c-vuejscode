@@ -64,6 +64,7 @@ export default {
     },
     navigationNext() {
       this.$emit('nextStep')
+      this.$mixpanel.track('Register Account Twelve Words Step Done')
     }
   }
 }

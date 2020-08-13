@@ -131,6 +131,7 @@ export default {
         if (!validation.error) {
           sessionStorage.verifyServiceId = validation.data.verifyServiceId
           this.$emit('nextStep')
+          this.$mixpanel.track('Register Account Phone Inserted')
         } else {
           this.loading = false
           this.errorValidation = this.$i18n.t('register.error.phone.sending')

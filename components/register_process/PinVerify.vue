@@ -228,6 +228,7 @@ export default {
           this.phoneCodeVerified = true
         }
         this.$emit('signIn')
+        this.$mixpanel.track('Register Account Phone Verified')
       } catch (error) {
         this.loading = false
         this.errorValidation = this.$i18n.t('register.error.phone.verification')
@@ -254,6 +255,7 @@ export default {
           }
 
           this.errorValidation = null
+          this.$mixpanel.track('Register Account Mail Verified')
           this.$emit('nextStep')
         } catch (error) {
           this.loading = false

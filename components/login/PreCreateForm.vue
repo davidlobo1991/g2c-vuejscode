@@ -202,7 +202,7 @@ export default {
 
         // Load Create Account Workflow
         await this.$router.push(this.localePath('create-account'))
-        this.$mixpanel.track('First Step Username/Password entered')
+        this.$mixpanel.track('Register Account Username/Password Inserted')
       } catch (error) {
         this.handleError(error, 'PreCreateForm@checkUser - Error')
         this.errorValidation = this.$i18n.t('register.error.default')

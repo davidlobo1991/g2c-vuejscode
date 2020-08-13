@@ -76,6 +76,7 @@ export default {
         const validation = await this.sendValidationCode()
 
         if (!validation.error) {
+          this.$mixpanel.track('Register Account Mail Inserted')
           this.$emit('nextStep')
         } else {
           this.loading = false
