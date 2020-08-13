@@ -122,22 +122,14 @@ export default {
     },
     login() {
       this.loading = true
+      this.$v.$touch()
 
-      try {
-        this.handleLogin(
-          this.formLogin.words,
-          this.formLogin.nick,
-          this.formLogin.password,
-          this.g2c_application
-        )
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error('NetworkSV Login error')
-        // eslint-disable-next-line no-console
-        console.error(error)
-        this.errorValidation = 'login fail'
-        this.loading = false
-      }
+      this.handleLogin(
+        this.formLogin.words,
+        this.formLogin.nick,
+        this.formLogin.password,
+        this.g2c_application
+      )
     },
     handleValidationNickErrors() {
       const errors = []
@@ -169,7 +161,7 @@ export default {
     },
     handleValidationSecurityKeyErrors() {
       const errors = []
-      if (!this.$v.formLogin.password.$dirty) {
+      if (!this.$v.formLogin.words.$dirty) {
         return errors
       }
 

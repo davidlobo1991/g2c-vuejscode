@@ -204,17 +204,16 @@ export default {
 
                       userCreated.then((userData) => {
                         if (!userData.error) {
-                          this.$nuxt.accountCreated = this.$nuxt.$i18n.t(
+                          _this.accountCreated = this.$nuxt.$i18n.t(
                             'register.account.created.redirecting'
                           )
-                          // eslint-disable-next-line no-console
-                          console.log('Usuario finalizado')
-                          // eslint-disable-next-line no-console
-                          console.log(_this)
-                          console.log(this.$nuxt)
 
-                          _this.login()
-                          // this.$nuxt.$router.push('/home')
+                          setTimeout(function() {
+                            // eslint-disable-next-line no-console
+                            console.log('Waiting for it...')
+                          }, 10000)
+
+                          this.$nuxt.$router.push('/home')
                         } else {
                           this.handleError(userCreated)
                         }

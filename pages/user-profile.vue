@@ -12,6 +12,7 @@
 
 <script>
 // import Settings from '~/components/account/settings/Settings'
+import { login } from '~/mixins/login'
 
 export default {
   name: 'UserProfile',
@@ -19,6 +20,7 @@ export default {
   // components: {
   //   Settings
   // },
+  mixins: [login],
   methods: {
     async logout() {
       await this.handleLogout()

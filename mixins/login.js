@@ -53,7 +53,9 @@ export const login = {
                 this.$router.push('/home')
               })
               .catch((error) => {
-                this.handleError(error, 'G2CUser@loginUser - Error')
+                this.handleErrors(error, 'G2CUser@loginUser - Error')
+                this.errorValidation = 'Login Fail'
+                this.loading = false
                 throw error
               })
           }
@@ -71,13 +73,14 @@ export const login = {
               this.$mixpanel.track('Log In Without Words')
             })
             .catch((error) => {
-              this.handleError(error, 'G2CUser@loginUser - Error')
+              this.handleErrors(error, 'G2CUser@loginUser - Error')
+              this.errorValidation = 'Login Fail'
+              this.loading = false
               throw error
             })
         }
       } catch (error) {
-        this.handleError(error, 'G2CUser@loginUser - Error')
-        throw error
+        this.handleErrors(error, 'G2CUser@loginUser - Error')
       }
     },
 
