@@ -10,7 +10,7 @@
           <span>
             <span class="c-settings__option">Email</span>
             <span class="c-settings__current-setting">
-              jessica@emailaddress.com
+              {{ $auth.user.data.email }}
             </span>
           </span>
           <a href="#" class="c-settings--link">Add Email</a>
@@ -18,7 +18,9 @@
         <div class="c-settings__option-cont">
           <span>
             <span class="c-settings__option">Phone</span>
-            <span class="c-settings__current-setting">+34 628733965</span>
+            <span class="c-settings__current-setting">
+              {{ $auth.user.data.phone }}
+            </span>
           </span>
           <a href="#" class="c-settings--link">Change Phone</a>
         </div>

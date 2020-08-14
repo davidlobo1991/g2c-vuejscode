@@ -94,8 +94,8 @@
               <div class="connectbutton__modal--setprice">
                 <v-text-field
                   class="connectbutton__modal--setprice-input"
+                  :hide-details="true"
                   outlined
-                  hide-details="0"
                 ></v-text-field>
                 <v-btn
                   class="connectbutton__modal--setprice-button"
@@ -110,7 +110,8 @@
             </div>
             <div
               v-if="modalStep === 1"
-              @click="nextModalStep()"
+              :loading="loading"
+              @click="nextModalStep(activeConnection.nick)"
               class="connectbutton__modal--connect-button"
             >
               <span v-if="cost">{{ activeConnection.cost }}$ - </span>
@@ -132,6 +133,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { apiG2c } from '~/mixins/apiG2c'
 import { apiG2cConnections } from '~/mixins/apiG2cConnections'
 
@@ -154,48 +156,46 @@ export default {
     activeConnection: {
       type: Object,
       // eslint-disable-next-line vue/require-valid-default-prop
-      default: () => ({
-        connections: 0,
-        email: '',
-        invitation_code: '',
-        is_disabled: 0,
-        is_online: 0,
-        knowledges: Object,
-        languages: Object,
-        mobile: '',
-        mobile_number: '',
-        mobile_prefix: '',
-        nick: '',
-        password: '',
-        profile_image: '',
-        recommends: '',
-        resume: '',
-        social_media: Object,
-        summary: ''
-      })
+      default: {}
     }
+  },
+  computed: {
+    ...mapState({
+      destinationNick: (state) => state.connection.destinationNick,
+      sourceNick: (state) => state.connection.sourceNick,
+      transactionCost: (state) => state.connection.cost
+    })
   },
   data() {
     return {
       isShowingConnectModal: false,
-      connectMessage: ''
+      connectMessage: '',
+      loading: false
     }
   },
   watch: {
     isShowingConnectModal(value) {
       this.$emit('sendIsShowingConnectModal', value)
-    },
-    connectMessage(value) {
-      // eslint-disable-next-line no-console
-      console.log(value)
     }
   },
   methods: {
+    /**
+     * Set data of connection to store and open modal
+     */
     showConnectForm() {
+      this.$store.commit(
+        'connection/SET_DESTINATION_NICK',
+        this.activeConnection.nick
+      )
+      this.$store.commit(
+        'connection/SET_SOURCE_NICK',
+        this.$auth.$state.user.data.nick
+      )
+      this.$store.commit('connection/SET_COST', this.cost)
       this.modalStep = 1
       this.isShowingConnectModal = true
     },
-    async nextModalStep() {
+    async nextModalStep(nick) {
       this.loading = true
       try {
         this.cost = await this.exchangeRates(this.cost)
@@ -205,11 +205,11 @@ export default {
           this.$auth.$storage.getCookie('tokens1'),
           this.$auth.$storage.getCookie('tokenc1'),
           this.g2c_application,
-          'sourcenick',
-          'destinationnick',
-          this.cost,
-          'lockuntil',
-          'description'
+          this.sourceNick,
+          this.destinationNick,
+          this.transactionCost,
+          undefined,
+          'Description'
         )
 
         if (!propose.error) {
@@ -218,20 +218,23 @@ export default {
             this.$auth.$storage.getCookie('tokens1'),
             this.$auth.$storage.getCookie('tokenc1'),
             this.g2c_application,
-            'sourcenick',
-            'path',
-            'name',
-            'destinationnick'
+            this.sourceNick,
+            '/',
+            'object-name',
+            this.destinationNick
           )
 
           // eslint-disable-next-line no-console
           console.log(object)
 
           // TODO Save shareauth in firebase
+          await this.modalStep
 
           this.modalStep = this.modalStep + 1
         }
-      } catch (error) {}
+      } catch (error) {
+        console.log(error)
+      }
     },
     confirmConnection() {
       this.isShowingConnectModal = false

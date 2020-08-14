@@ -11,19 +11,10 @@
         />
         <div v-if="$auth.loggedIn" class="c-sidebar__profile--cont">
           <div class="c-sidebar__profile--img-cont">
-            <template v-if="true">
+            <template>
               <nuxt-link
-                :to="localePath('account/profile')"
+                :to="localePath('home')"
                 :src="require('~/assets/images/default.png')"
-                tag="img"
-                class="c-sidebar__profile--img"
-                title="Account Profile"
-              />
-            </template>
-            <template v-else>
-              <nuxt-link
-                :to="localePath('account/profile')"
-                :src="require('~/assets/images/network/users/persona1.png')"
                 tag="img"
                 class="c-sidebar__profile--img"
                 title="Account Profile"
@@ -94,7 +85,7 @@
           <li class="c-sidebar__menu--item">
             <v-btn
               @click="logout"
-              class="c-sidebar__menu--link"
+              class="c-sidebar__menu--link c-sidebar-logout"
               title="eMeetings"
             >
               <v-icon class="c-sidebar__menu--icon">
@@ -119,8 +110,10 @@
 </template>
 
 <script>
+import { login } from '~/mixins/login'
 export default {
   name: 'Sidebar',
+  mixins: [login],
   data() {
     return {
       baseFilesURL: process.env.baseFilesURL,
@@ -131,7 +124,7 @@ export default {
   },
   methods: {
     async logout() {
-      await this.$auth.logout()
+      await this.handleLogout()
     }
   }
 }
@@ -170,6 +163,21 @@ export default {
   &__logo {
     padding-bottom: 50px;
     cursor: pointer;
+  }
+  &-logout {
+    background: transparent !important;
+    margin: 0;
+    border: 0;
+    font-size: inherit;
+    height: auto !important;
+    min-width: 0 !important;
+    text-transform: none;
+    padding: 0 !important;
+
+    &:hover {
+      color: black;
+      background: transparent !important;
+    }
   }
   &__profile {
     &--cont {

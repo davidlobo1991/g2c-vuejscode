@@ -1,6 +1,6 @@
 <template>
   <div class="c-home__cards">
-    <div class="c-home__cards__wrapper">
+    <div v-if="filteredConnections.length > 0" class="c-home__cards__wrapper">
       <div
         v-for="connection in filteredConnections"
         class="c-home__cards__card"
@@ -19,7 +19,14 @@
               alt="image"
               class="c-home__cards__card--img"
             />
-            <div class="c-home__cards__card--status u-status--available"></div>
+            <div
+              :class="
+                connection.is_online
+                  ? 'u-status--available'
+                  : 'u-status--absent'
+              "
+              class="c-home__cards__card--status"
+            ></div>
           </div>
           <div class="c-home__cards__card--name">
             {{ connection.name }}
@@ -33,13 +40,13 @@
           <div class="c-home__cards__card--details-cont">
             <div class="c-home__cards__card--details">
               <span class="c-home__cards__card--details-num">{{
-                Object.keys(connection.connections).length
+                connection.total_connections
               }}</span>
               Connections
             </div>
             <div class="c-home__cards__card--details">
               <span class="c-home__cards__card--details-num">{{
-                connection.recommends
+                connection.total_recommends
               }}</span>
               Recommends
             </div>
@@ -49,6 +56,7 @@
           @sendIsShowingConnectModal="setIsShowingConnectModal"
           @openInfoModal="showContact"
           :status="'connect'"
+          :activeConnection="connection"
           :cost="`${connection.cost}`"
         />
       </div>
@@ -58,10 +66,10 @@
         @isShowingContactInfo="isShowingContactInfo"
         @sendIsShowingConnectModal="setIsShowingConnectModal"
       ></ModalProfile>
-      <span v-if="filteredConnections.length === 0">{{
-        this.$i18n.t('profile.cards.not_found')
-      }}</span>
     </div>
+    <span v-if="filteredConnections.length === 0 && usersLoaded">{{
+      this.$i18n.t('profile.cards.not_found')
+    }}</span>
   </div>
 </template>
 
@@ -90,7 +98,8 @@ export default {
       IsShowingContactInfo: false,
       IsShowingConnectModal: false,
       filteredConnections: [],
-      activeConnection: {}
+      activeConnection: {},
+      usersLoaded: false
     }
   },
   watch: {
@@ -110,7 +119,10 @@ export default {
     loadUsers.then((result) => {
       if (!result.error) {
         this.connections = Object.values(result.data)
-        this.filteredConnections = this.connections
+        this.filteredConnections = this.connections.filter(
+          (connection) => connection.nick !== this.$auth.$state.user.data.nick
+        )
+        this.usersLoaded = true
       } else {
         // eslint-disable-next-line no-console
         console.log('Error users')
@@ -136,7 +148,7 @@ export default {
         this.filteredConnections = connections.filter(
           (connection) =>
             connection.nick.toLowerCase().includes(val.toLowerCase()) ||
-            connection.summary.toLowerCase().includes(val.toLowerCase())
+            connection.resume.toLowerCase().includes(val.toLowerCase())
         )
       } else {
         this.filteredConnections = connections

@@ -229,5 +229,18 @@ export const apiNetworkSv = {
         throw error
       }
     }
+    // /**
+    //  * Edit users
+    //  */
+    // async editUser() {
+    //   try {
+    //     const response = await this.$store
+    //       .dispatch('register/createUserApi')
+    //       .then((response) => response.data)
+    //     return response
+    //   } catch (error) {
+    //     throw error
+    //   }
+    // }
   }
 }

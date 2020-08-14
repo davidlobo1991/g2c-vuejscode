@@ -53,5 +53,11 @@ export default {
   },
   welcome: 'Bienvenido/a',
   welcome_banner_message:
-    'Fill your profile information to appear on the Network and start receving and requesting connections.'
+    'Fill your profile information to appear on the Network and start receving and requesting connections.',
+  page: {
+    protected: {
+      welcome:
+        'Bienvenidos a NetworkSV. Introduce las 12 palabras para acceder a BlockChain'
+    }
+  }
 }
