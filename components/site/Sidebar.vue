@@ -22,12 +22,20 @@
             </template>
             <div class="c-sidebar__profile--status u-status--available"></div>
           </div>
-          <div class="c-sidebar__profile--name">
+          <div class="c-sidebar__profile--name" v-if="$auth.user.name">
             {{ $auth.user.name }} {{ $auth.user.surname }}
+          </div>
+          <div class="c-sidebar__profile--name" v-else>
+            @{{ $auth.user.data.nick }}
           </div>
         </div>
         <ul class="c-sidebar__menu--cont">
-          <li class="c-sidebar__menu--item c-sidebar__menu--item-active">
+          <li
+            v-bind:class="
+              activeTab === 'network' ? 'c-sidebar__menu--item-active' : ''
+            "
+            class="c-sidebar__menu--item"
+          >
             <nuxt-link
               :to="localePath('home')"
               class="c-sidebar__menu--link"
@@ -45,7 +53,12 @@
               {{ badgeNetworkTotal }}
             </span>
           </li>
-          <li class="c-sidebar__menu--item">
+          <li
+            v-bind:class="
+              activeTab === 'connections' ? 'c-sidebar__menu--item-active' : ''
+            "
+            class="c-sidebar__menu--item"
+          >
             <nuxt-link
               :to="localePath('/connections/messages')"
               class="c-sidebar__menu--link"
@@ -63,7 +76,12 @@
               {{ badgeConnectionsTotal }}
             </span>
           </li>
-          <li class="c-sidebar__menu--item">
+          <li
+            v-bind:class="
+              activeTab === 'emeetings' ? 'c-sidebar__menu--item-active' : ''
+            "
+            class="c-sidebar__menu--item"
+          >
             <nuxt-link
               :to="localePath('/emeetings/requests')"
               class="c-sidebar__menu--link"
@@ -87,6 +105,7 @@
               @click="logout"
               class="c-sidebar__menu--link c-sidebar-logout"
               title="eMeetings"
+              depressed
             >
               <v-icon class="c-sidebar__menu--icon">
                 mdi-login
@@ -114,6 +133,12 @@ import { login } from '~/mixins/login'
 export default {
   name: 'Sidebar',
   mixins: [login],
+  props: {
+    activeTab: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
       baseFilesURL: process.env.baseFilesURL,
@@ -193,17 +218,18 @@ export default {
       height: 105px;
       margin-bottom: 13px;
       border: 2px solid #fff;
-      border-radius: 50px;
+      border-radius: 100%;
+      background-color: #fff;
     }
     &--img {
       object-fit: cover;
       width: 100%;
       height: 100%;
-      border-radius: 50px;
+      border-radius: 100%;
     }
     &--status {
       position: absolute;
-      border-radius: 50px;
+      border-radius: 100%;
       border: 2px solid #fff;
       width: 15px;
       height: 15px;
@@ -211,6 +237,7 @@ export default {
       right: 6%;
     }
     &--name {
+      color: #8c8c8c;
     }
   }
   &__menu {
@@ -231,7 +258,7 @@ export default {
         justify-content: space-between;
         align-items: center;
         & .c-sidebar__menu--icon {
-          color: #fff;
+          color: #fff !important;
         }
         & .c-sidebar__menu--link {
           color: #fff;
@@ -243,7 +270,7 @@ export default {
       &:hover {
         color: #fff;
         & .c-sidebar__menu--icon {
-          color: #fff;
+          color: #fff !important;
         }
       }
     }
@@ -261,7 +288,7 @@ export default {
     }
     &--icon {
       padding-right: 15px;
-      color: #8c8c8c;
+      color: #8c8c8c !important;
     }
   }
 }
