@@ -2,14 +2,21 @@ const state = () => ({
   nick: null,
   email: null,
   mobile_prefix: null,
-  mobile_number: null
+  mobile_number: null,
+  name: null,
+  last_name: null,
+  summary: null,
+  title: null
 })
 
 const getters = {
   getNick: (state) => state.nick,
   getEmail: (state) => state.email,
   getMobilePrefix: (state) => state.mobile_prefix,
-  getMobileNumber: (state) => state.mobile_number
+  getName: (state) => state.name,
+  getLastName: (state) => state.last_name,
+  getSummary: (state) => state.summary,
+  getTitle: (state) => state.title
 }
 
 const actions = {
@@ -17,6 +24,23 @@ const actions = {
     try {
       const response = await this.$axios
         .get('users')
+        .then((response) => response)
+
+      return response
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error)
+      throw error
+    }
+  },
+
+  async edit({ getters }, dataObject) {
+    try {
+      const response = await this.$axios
+        .put(`users/${this.$auth.$state.user.data.id}`, {
+          name: getters.getName,
+          surname: getters.getLastName
+        })
         .then((response) => response)
 
       return response
@@ -40,6 +64,15 @@ const mutations = {
   },
   SET_MOBILE_NUMBER(state, mobileNumber) {
     state.mobile_number = mobileNumber
+  },
+  SET_NAME(state, name) {
+    state.name = name
+  },
+  SET_LAST_NAME(state, lastName) {
+    state.last_name = lastName
+  },
+  SET_SUMMARY(state, summary) {
+    state.summary = summary
   }
 }
 

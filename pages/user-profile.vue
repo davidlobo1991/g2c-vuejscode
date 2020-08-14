@@ -26,8 +26,8 @@ export default {
   },
   mixins: [login],
   methods: {
-    async logout() {
-      await this.handleLogout()
+    logout() {
+      this.handleLogout()
       this.$router.push('/')
     }
   }

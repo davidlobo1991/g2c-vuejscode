@@ -122,6 +122,11 @@ export default {
       badgeeMeetingsTotal: 0
     }
   },
+  mounted() {
+    // TODO filter and count connections pending. Access to user info from store
+    console.log(this.$auth.$state.user.data.connections)
+    // this.badgeConnectionsTotal = this.$auth.$state.user.connections
+  },
   methods: {
     async logout() {
       await this.handleLogout()

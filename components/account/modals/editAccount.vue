@@ -24,7 +24,11 @@
             <div class="c-edit-account__modal--avatar-cont">
               <v-avatar size="215">
                 <img
-                  :src="require('~/assets/images/network/users/persona1.png')"
+                  :src="
+                    $auth.user.data.profile_image
+                      ? `_nuxt/assets/images/network/users/${$auth.user.data.profile_image}`
+                      : require('~/assets/images/default.png')
+                  "
                   alt="John"
                 />
                 <div class="c-edit-account__modal--avatar-edit">
@@ -45,33 +49,37 @@
             <!--            </div>-->
             <div class="c-edit-account__modal--inputs-cont">
               <v-text-field
+                @input="updateName"
                 color="#1976d2"
+                :hide-details="true"
                 label="Name"
                 class="c-edit-account__modal--input"
-                hide-details="auto"
                 outlined
               ></v-text-field>
               <v-text-field
+                @input="updateLastName"
                 color="#1976d2"
                 label="Last Name"
+                :hide-details="true"
                 class="c-edit-account__modal--input"
-                hide-details="auto"
                 outlined
               ></v-text-field>
               <v-text-field
+                @input="updateTitle"
                 color="#1976d2"
                 label="Title"
+                :hide-details="true"
                 class="c-edit-account__modal--input"
-                hide-details="auto"
                 outlined
               ></v-text-field>
             </div>
           </div>
           <v-textarea
+            @input="updateSummary"
             color="#1976d2"
             label="Summary"
+            :hide-details="true"
             class="c-edit-account__modal--textarea"
-            hide-details="true"
             outlined
           >
             <template v-slot:label>
@@ -103,7 +111,7 @@
             Cancel
           </v-btn>
 
-          <v-btn @click="dialog = false" color="#1976d2" text>
+          <v-btn @click="saveUser()" color="#1976d2" text>
             Save
           </v-btn>
         </v-card-actions>
@@ -125,7 +133,31 @@ export default {
       knowledgeValue: ['foo', 'bar', 'fizz', 'buzz']
     }
   },
-  methods: {}
+  methods: {
+    updateName(value) {
+      this.$store.commit('users/SET_NAME', value)
+    },
+    updateLastName(value) {
+      this.$store.commit('users/SET_LAST_NAME', value)
+    },
+    updateTitle(value) {
+      this.$store.commit('users/SET_TITLE', value)
+    },
+    updateSummary(value) {
+      this.$store.commit('users/SET_SUMMARY', value)
+    },
+    async saveUser() {
+      try {
+        const editUser = await this.editUserApi()
+
+        if (!editUser.error) {
+          this.dialog = false
+        }
+      } catch (error) {
+        this.handleError(error)
+      }
+    }
+  }
 }
 </script>
 

@@ -31,10 +31,10 @@
       </div>
     </div>
     <div class="c-account__profile--text-cont">
-      <div class="c-account__profile--name">{{ $auth.user.data.name }}</div>
-      <div class="c-account__profile--username">
-        @{{ $auth.user.data.nick }}
+      <div class="c-account__profile--name">
+        {{ userNameData }} {{ userLastNameData }}
       </div>
+      <div class="c-account__profile--username">@{{ userNickData }}</div>
       <div class="c-account__profile--description">
         {{ $auth.user.data.resume }}
       </div>
@@ -52,12 +52,7 @@
       </div>
       <div class="c-account__profile--title">Summary</div>
       <div class="c-account__profile--summary">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla id rutrum
-        urna, et sodales arcu. Vestibulum at mauris ultrices, posuere neque eu,
-        egestas neque. Sed erat neque, euismod vitae faucibus sit amet, euismod
-        pharetra dui. Duis vulputate eu est rutrum. Cras fermentum ex nisl,
-        finibus iaculis lacus vehicula egestas neque. Sed erat neque, euismod
-        vita.
+        {{ userSummaryData }}
       </div>
       <div class="c-account__profile--title">Languages</div>
       <div class="c-account__profile--label-cont">
@@ -81,6 +76,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import editAccountModal from '~/components/account/modals/editAccount'
 
 export default {
@@ -90,7 +86,33 @@ export default {
   },
   data() {
     return {
-      dialog: false
+      dialog: false,
+      userNameData: this.userName,
+      userLastNameData: this.userLastName,
+      userNickData: this.userNick,
+      userSummaryData: this.userSummary
+    }
+  },
+  computed: {
+    ...mapState({
+      userName: (state) => state.users.name,
+      userLastName: (state) => state.users.last_name,
+      userNick: (state) => state.users.nick,
+      userSummary: (state) => state.users.summary
+    })
+  },
+  watch: {
+    userName(val) {
+      this.userNameData = val
+    },
+    userLastName(val) {
+      this.userLastNameData = val
+    },
+    userNick(val) {
+      this.userNickData = val
+    },
+    userSummaryData(val) {
+      this.userSummaryData = val
     }
   }
 }
