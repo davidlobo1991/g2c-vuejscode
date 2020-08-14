@@ -1,4 +1,5 @@
 const state = () => ({
+  id: null,
   nick: null,
   email: null,
   mobile_prefix: null,
@@ -10,6 +11,7 @@ const state = () => ({
 })
 
 const getters = {
+  getId: (state) => state.id,
   getNick: (state) => state.nick,
   getEmail: (state) => state.email,
   getMobilePrefix: (state) => state.mobile_prefix,
@@ -53,6 +55,9 @@ const actions = {
 }
 
 const mutations = {
+  SET_ID(state, id) {
+    state.id = id
+  },
   SET_NICK(state, nick) {
     state.nick = nick
   },

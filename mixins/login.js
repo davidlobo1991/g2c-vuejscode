@@ -93,10 +93,14 @@ export const login = {
     },
 
     setDataInStore() {
+      this.setUserId()
       this.setUserName()
       this.setUserLastname()
       this.setUserNick()
       this.setUserSummary()
+    },
+    setUserId() {
+      this.$store.commit('users/SET_ID', this.$auth.$state.user.data.id)
     },
     setUserName() {
       this.$store.commit('users/SET_NAME', this.$auth.$state.user.data.name)
