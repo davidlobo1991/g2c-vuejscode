@@ -9,7 +9,7 @@ export const apiG2cConnections = {
      * @param mode
      * @returns {Promise<string | null>}
      */
-    exchangeRates(value, mode = 'BSV2USD') {
+    exchangeRates(value, mode = 'USD2SAT') {
       try {
         return new Promise((resolve, reject) => {
           // eslint-disable-next-line no-undef
@@ -26,11 +26,11 @@ export const apiG2cConnections = {
         })
           .then((response) => response)
           .catch((error) => {
-            this.handleErrors(error, 'G2C@exchangeRates - Error')
+            this.handleErrors(error)
             throw error
           })
       } catch (error) {
-        this.handleErrors(error, 'G2C@exchangeRates - Error')
+        this.handleErrors(error)
         throw error
       }
     },
@@ -88,12 +88,12 @@ export const apiG2cConnections = {
         })
           .then((response) => response)
           .catch((error) => {
-            this.handleErrors(error, 'G2CWallet@walletPropose - Error')
+            this.handleErrors(error)
             throw error
           })
         // eslint-disable-next-line no-unreachable
       } catch (error) {
-        this.handleErrors(error, 'G2CWallet@walletPropose - Error')
+        this.handleErrors(error)
         throw error
       }
     },
@@ -148,12 +148,12 @@ export const apiG2cConnections = {
         })
           .then((response) => response)
           .catch((error) => {
-            this.handleErrors(error, 'G2CWallet@walletPropose - Error')
+            this.handleErrors(error)
             throw error
           })
         // eslint-disable-next-line no-unreachable
       } catch (error) {
-        this.handleErrors(error, 'G2CWallet@walletPropose - Error')
+        this.handleErrors(error)
         throw error
       }
     }

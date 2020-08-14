@@ -228,7 +228,27 @@ export const apiNetworkSv = {
       } catch (error) {
         throw error
       }
+    },
+
+    /**
+     *
+     * @param id
+     * @returns {Promise<any>}
+     */
+    async createConnection(id, newStatus) {
+      try {
+        const response = await this.$store
+          .dispatch('users/{id}/connections/create', {
+            destination_user_id: id,
+            status: newStatus
+          })
+          .then((response) => response.data)
+        return response
+      } catch (error) {
+        throw error
+      }
     }
+
     // /**
     //  * Edit users
     //  */

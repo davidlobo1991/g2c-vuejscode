@@ -19,22 +19,15 @@
       color="#0087FF"
       dark
     >
-      <div>
-        <span v-if="cost">{{ cost }}$ - </span>
-        Connect
-      </div>
+      <div>{{ sendCost }}$ - Connect</div>
     </v-btn>
 
     <v-btn v-if="status === 'pending'" depressed class="connectbutton--button">
-      <div>
-        <span v-if="cost">{{ cost }}$ - </span>
-        Pending
-      </div>
+      <div>{{ sendCost }}$ - Pending</div>
     </v-btn>
 
     <div v-if="status === 'accept'" depressed class="connectbutton__accept">
-      <span v-if="cost">{{ cost }}$ - &nbsp;</span>
-      Accept
+      {{ sendCost }}$ - &nbsp; Accept
     </div>
     <v-dialog
       v-model="isShowingConnectModal"
@@ -61,8 +54,8 @@
               <div class="connectbutton__modal--profile-img-cont">
                 <nuxt-link
                   :src="
-                    activeConnection.image
-                      ? `_nuxt/assets/images/network/users/${activeConnection.image}`
+                    activeConnection.profile_image
+                      ? `_nuxt/assets/images/network/users/${activeConnection.profile_image}`
                       : require('~/assets/images/default.png')
                   "
                   tag="img"
@@ -93,11 +86,13 @@
             <div class="connectbutton__modal--setprice-cont">
               <div class="connectbutton__modal--setprice">
                 <v-text-field
-                  class="connectbutton__modal--setprice-input"
                   :hide-details="true"
+                  v-model="inputCost"
+                  class="connectbutton__modal--setprice-input"
                   outlined
                 ></v-text-field>
                 <v-btn
+                  @click.prevent="cost = inputCost"
                   class="connectbutton__modal--setprice-button"
                   depressed
                   color="#0885F6"
@@ -108,15 +103,14 @@
                 </v-btn>
               </div>
             </div>
-            <div
+            <v-btn
               v-if="modalStep === 1"
               :loading="loading"
-              @click="nextModalStep(activeConnection.nick)"
+              @click.prevent="nextModalStep(activeConnection.nick)"
               class="connectbutton__modal--connect-button"
             >
-              <span v-if="cost">{{ activeConnection.cost }}$ - </span>
-              Connect
-            </div>
+              {{ cost }}$ - Connect
+            </v-btn>
 
             <div
               v-if="modalStep === 2"
@@ -125,6 +119,12 @@
             >
               Okay
             </div>
+            <span
+              v-if="errorValidation"
+              class="c-error connectbutton__modal--error"
+            >
+              {{ errorValidation }}
+            </span>
           </div>
         </v-card-text>
       </v-card>
@@ -139,15 +139,11 @@ import { apiG2cConnections } from '~/mixins/apiG2cConnections'
 
 export default {
   name: 'ConnectButton',
-  mixins: { apiG2c, apiG2cConnections },
+  mixins: [apiG2c, apiG2cConnections],
   props: {
     status: {
       type: String,
       default: 'none'
-    },
-    cost: {
-      type: String,
-      default: '10'
     },
     modalStep: {
       type: Number,
@@ -156,7 +152,23 @@ export default {
     activeConnection: {
       type: Object,
       // eslint-disable-next-line vue/require-valid-default-prop
+      // eslint-disable-next-line vue/require-valid-default-prop
       default: {}
+    },
+    sendCost: {
+      type: Number,
+      default: 0
+    }
+  },
+  data() {
+    return {
+      isShowingConnectModal: false,
+      connectMessage: '',
+      loading: false,
+      cost: this.sendCost,
+      inputCost: 0,
+      exchangedCost: 0,
+      errorValidation: null
     }
   },
   computed: {
@@ -166,16 +178,12 @@ export default {
       transactionCost: (state) => state.connection.cost
     })
   },
-  data() {
-    return {
-      isShowingConnectModal: false,
-      connectMessage: '',
-      loading: false
-    }
-  },
   watch: {
     isShowingConnectModal(value) {
       this.$emit('sendIsShowingConnectModal', value)
+    },
+    cost() {
+      this.setTransactionCost()
     }
   },
   methods: {
@@ -183,37 +191,31 @@ export default {
      * Set data of connection to store and open modal
      */
     showConnectForm() {
-      this.$store.commit(
-        'connection/SET_DESTINATION_NICK',
-        this.activeConnection.nick
-      )
-      this.$store.commit(
-        'connection/SET_SOURCE_NICK',
-        this.$auth.$state.user.data.nick
-      )
-      this.$store.commit('connection/SET_COST', this.cost)
+      this.setDestinationNick()
+      this.setSourceNick()
+      this.setTransactionCost()
       this.modalStep = 1
       this.isShowingConnectModal = true
     },
     async nextModalStep(nick) {
       this.loading = true
       try {
-        this.cost = await this.exchangeRates(this.cost)
+        this.exchangedCost = await this.exchangeRates(this.transactionCost)
 
-        const propose = this.walletPropose(
+        const propose = await this.walletPropose(
           this.$auth.$storage.getCookie('tokenid'),
           this.$auth.$storage.getCookie('tokens1'),
           this.$auth.$storage.getCookie('tokenc1'),
           this.g2c_application,
           this.sourceNick,
           this.destinationNick,
-          this.transactionCost,
+          this.exchangedCost,
           undefined,
           'Description'
         )
 
         if (!propose.error) {
-          const object = this.shareUserObject(
+          const object = await this.shareUserObject(
             this.$auth.$storage.getCookie('tokenid'),
             this.$auth.$storage.getCookie('tokens1'),
             this.$auth.$storage.getCookie('tokenc1'),
@@ -224,16 +226,25 @@ export default {
             this.destinationNick
           )
 
+          if (!object.error) {
+            this.createConnection('id', 'pending')
+          }
+
           // eslint-disable-next-line no-console
           console.log(object)
 
           // TODO Save shareauth in firebase
-          await this.modalStep
 
           this.modalStep = this.modalStep + 1
+        } else {
+          this.loading = false
+          // this.errorValidation = propose.message
         }
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.log(error)
+        this.loading = false
+        this.errorValidation = error.message.replace(/['"]+/g, '')
       }
     },
     confirmConnection() {
@@ -242,6 +253,21 @@ export default {
     returnToProfile() {
       this.isShowingConnectModal = false
       this.$emit('openInfoModal', true)
+    },
+    setDestinationNick() {
+      this.$store.commit(
+        'connection/SET_DESTINATION_NICK',
+        this.activeConnection.nick
+      )
+    },
+    setSourceNick() {
+      this.$store.commit(
+        'connection/SET_SOURCE_NICK',
+        this.$auth.$state.user.data.nick
+      )
+    },
+    setTransactionCost() {
+      this.$store.commit('connection/SET_COST', this.cost)
     }
   }
 }
@@ -309,6 +335,11 @@ export default {
     height: 40px !important;
   }
   &__modal {
+    &--error {
+      display: block;
+      padding: 30px;
+      text-align: center;
+    }
     &--wrapper {
       padding: 20px;
     }
@@ -405,6 +436,12 @@ export default {
       }
     }
   }
+}
+.errorValidation {
+  display: block;
+  padding: 30px;
+  color: red;
+  text-align: center;
 }
 @media screen and (max-width: 992px) {
   .connectbutton__modal {

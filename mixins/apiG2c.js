@@ -25,7 +25,7 @@ export const apiG2c = {
         randomWords = g2c_getRandomWords()
         return randomWords
       } catch (error) {
-        this.handleErrors(error, 'G2CService@getRandomWords - Error')
+        this.handleErrors(error)
       }
     },
     /**
@@ -53,11 +53,11 @@ export const apiG2c = {
         })
           .then((token) => token)
           .catch((error) => {
-            this.handleErrors(error, 'G2CUser@createUser - Error')
+            this.handleErrors(error)
             throw error
           })
       } catch (error) {
-        this.handleErrors(error, 'G2CUser@createUser - Error')
+        this.handleErrors(error)
         throw error
       }
     },
@@ -98,14 +98,14 @@ export const apiG2c = {
             }
           })
           .catch((error) => {
-            this.handleErrors(error, 'G2CUser@loginUser - Error')
+            this.handleErrors(error)
             this.errorValidation = 'Login Fail'
             this.loading = false
             throw error
           })
         // eslint-disable-next-line no-unreachable
       } catch (error) {
-        this.handleErrors(error, 'G2CUser@loginUser - Error')
+        this.handleErrors(error)
         throw error
       }
     },
@@ -145,11 +145,11 @@ export const apiG2c = {
         })
           .then((response) => response)
           .catch((error) => {
-            this.handleErrors(error, 'G2CUser@logoutUser - Error')
+            this.handleErrors(error)
             throw error
           })
       } catch (error) {
-        this.handleErrors(error, 'G2CUser@logoutUser - Error')
+        this.handleErrors(error)
         throw error
       }
     },
@@ -200,11 +200,11 @@ export const apiG2c = {
             }
           })
           .catch((error) => {
-            this.handleErrors(error, 'G2CUser@getUser - Error')
+            this.handleErrors(error)
             throw error
           })
       } catch (error) {
-        this.handleErrors(error, 'G2CUser@getUser - Error')
+        this.handleErrors(error)
         throw error
       }
     }

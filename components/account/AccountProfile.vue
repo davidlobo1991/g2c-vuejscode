@@ -5,8 +5,8 @@
       <div class="c-account__profile--img-cont">
         <nuxt-link
           :src="
-            $auth.user.data.image
-              ? `_nuxt/assets/images/network/users/${$auth.user.data.image}`
+            $auth.user.data.profile_image
+              ? `_nuxt/assets/images/network/users/${$auth.user.data.profile_image}`
               : require('~/assets/images/default.png')
           "
           tag="img"

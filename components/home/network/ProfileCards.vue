@@ -12,8 +12,8 @@
           <div class="c-home__cards__card--img-cont">
             <img
               :src="
-                connection.image
-                  ? `_nuxt/assets/images/network/users/${connection.image}`
+                connection.profile_image
+                  ? `_nuxt/assets/images/network/users/${connection.profile_image}`
                   : require('~/assets/images/default.png')
               "
               alt="image"
@@ -55,9 +55,9 @@
         <ConnectButton
           @sendIsShowingConnectModal="setIsShowingConnectModal"
           @openInfoModal="showContact"
+          :sendCost="connection.cost"
           :status="'connect'"
           :activeConnection="connection"
-          :cost="`${connection.cost}`"
         />
       </div>
       <ModalProfile
@@ -119,7 +119,7 @@ export default {
     loadUsers.then((result) => {
       if (!result.error) {
         this.connections = Object.values(result.data)
-        this.filteredConnections = this.connections.filter(
+        this.connections = this.filteredConnections = this.connections.filter(
           (connection) => connection.nick !== this.$auth.$state.user.data.nick
         )
         this.usersLoaded = true
@@ -157,11 +157,14 @@ export default {
     filterCategory(connections, val) {
       if (val.length > 0) {
         this.filteredConnections = connections.filter(function(connection) {
+          if (val.includes('Online')) {
+            if (connection.is_online) return true
+          }
           if (
             connection.knowledge &&
             Object.keys(connection.knowledge).length > 0
           ) {
-            connection.knowledges.some((knowledge) => val.includes(knowledge))
+            connection.knowledge.some((knowledge) => val.includes(knowledge))
           }
         })
       } else {

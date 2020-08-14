@@ -8,12 +8,7 @@ export const functions = {
      * @param {Error} error
      * @param {string} title - Optional Title
      */
-    handleErrors(error, title) {
-      if (title.length > 0) {
-        // eslint-disable-next-line no-console
-        console.error(title)
-      }
-
+    handleErrors(error) {
       // eslint-disable-next-line no-console
       console.error(error)
     }

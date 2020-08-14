@@ -53,7 +53,7 @@ export const login = {
                 this.$router.push('/home')
               })
               .catch((error) => {
-                this.handleErrors(error, 'G2CUser@loginUser - Error')
+                this.handleErrors(error)
                 this.errorValidation = 'Login Fail'
                 this.loading = false
                 throw error
@@ -71,14 +71,14 @@ export const login = {
               this.$router.push(this.localePath('/user-profile'))
             })
             .catch((error) => {
-              this.handleErrors(error, 'G2CUser@loginUser - Error')
+              this.handleErrors(error)
               this.errorValidation = 'Login Fail'
               this.loading = false
               throw error
             })
         }
       } catch (error) {
-        this.handleErrors(error, 'G2CUser@loginUser - Error')
+        this.handleErrors(error)
       }
     },
 

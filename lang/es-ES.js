@@ -59,5 +59,8 @@ export default {
       welcome:
         'Bienvenidos a NetworkSV. Introduce las 12 palabras para acceder a BlockChain'
     }
+  },
+  connections: {
+    notfounds: 'No tiene sufientes fondos'
   }
 }

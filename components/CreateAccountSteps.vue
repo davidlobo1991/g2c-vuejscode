@@ -285,7 +285,7 @@ export default {
       this.loading = false
       this.errorCreateAccount = title
       this.errorValidation = title
-      this.handleErrors(error, title)
+      this.handleErrors(error)
     }
   }
 }
