@@ -11,20 +11,22 @@
           </v-icon>
         </div>
         <div class="c-contact-card__profile">
-          <div class="c-contact-card__profile--img-cont">
-            <nuxt-link
-              :src="
-                activeConnection.image
-                  ? `_nuxt/assets/images/network/users/${activeConnection.image}`
-                  : require('~/assets/images/default.png')
-              "
-              tag="img"
-              to="/"
-              class="c-contact-card__profile--img"
-            />
-            <div
-              class="c-contact-card__profile--status u-status--available"
-            ></div>
+          <div class="c-contact-card__profile--img-side">
+            <div class="c-contact-card__profile--img-cont">
+              <nuxt-link
+                :src="
+                  activeConnection.image
+                    ? `_nuxt/assets/images/network/users/${activeConnection.image}`
+                    : require('~/assets/images/default.png')
+                "
+                tag="img"
+                to="/"
+                class="c-contact-card__profile--img"
+              />
+              <div
+                class="c-contact-card__profile--status u-status--available"
+              ></div>
+            </div>
             <div class="c-contact-card__profile--details-cont">
               <div class="c-contact-card__profile--details">
                 <span class="c-contact-card__profile--details-num">{{
@@ -324,9 +326,11 @@ export default {
       flex-flow: column;
       &--img-cont {
         height: auto;
+        width: 120px;
+        margin: 0 auto;
       }
       &--status {
-        bottom: 37%;
+        bottom: 10%;
       }
       &--text-cont {
         padding-left: 0;

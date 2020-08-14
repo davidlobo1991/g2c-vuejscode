@@ -39,7 +39,7 @@
         :categoryNetwork="categoryNetwork"
       />
     </div>
-    <BottomMobile />
+    <BottomMobile activeTab="network" />
   </section>
 </template>
 
