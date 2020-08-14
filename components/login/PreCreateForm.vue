@@ -290,7 +290,7 @@ export default {
       this.$v.$touch()
       this.loading = false
       this.errorValidation = title
-      this.handleErrors(error, title)
+      this.handleErrors(error)
     }
   }
 }

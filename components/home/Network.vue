@@ -18,6 +18,7 @@
       </div>
       <div class="c-home__navbar">
         <ul class="c-home__navbar--list">
+          <li></li>
           <li
             v-for="category in categories"
             :class="
@@ -39,7 +40,7 @@
         :categoryNetwork="categoryNetwork"
       />
     </div>
-    <BottomMobile />
+    <BottomMobile activeTab="network" />
   </section>
 </template>
 

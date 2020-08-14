@@ -6,7 +6,7 @@
       <MessagesUsersList class="c-messages__users" />
       <MessagesConversation class="c-messages__conversation" />
     </div>
-    <BottomMobile />
+    <BottomMobile activeTab="connections" />
   </div>
 </template>
 

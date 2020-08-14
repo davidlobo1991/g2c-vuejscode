@@ -3,7 +3,7 @@
     <div class="c-banner">
       <div class="c-banner__text">
         <span v-if="$auth.loggedIn" class="c-banner__text--pdr">
-          {{ $t('welcome') }} @{{ $auth.user.nick }}!
+          {{ $t('welcome') }} @{{ $auth.user.data.nick }}!
         </span>
         {{ $t('welcome_banner_message') }}
       </div>

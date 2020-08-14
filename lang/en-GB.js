@@ -53,5 +53,14 @@ export default {
   },
   welcome: 'Welcome',
   welcome_banner_message:
-    'Fill your profile information to appear on the Network and start receving and requesting connections.'
+    'Fill your profile information to appear on the Network and start receving and requesting connections.',
+  page: {
+    protected: {
+      welcome:
+        'Welcome to NetworkSV. Insert the 12 words to access to Blockchain'
+    }
+  },
+  connections: {
+    notfounds: 'You don´t have enough founds'
+  }
 }

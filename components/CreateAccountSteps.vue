@@ -213,7 +213,7 @@ export default {
                             console.log('Waiting for it...')
                           }, 10000)
 
-                          this.$nuxt.$router.push('/home')
+                          this.$nuxt.$router.push('/')
                         } else {
                           this.handleError(userCreated)
                         }
@@ -285,7 +285,7 @@ export default {
       this.loading = false
       this.errorCreateAccount = title
       this.errorValidation = title
-      this.handleErrors(error, title)
+      this.handleErrors(error)
     }
   }
 }

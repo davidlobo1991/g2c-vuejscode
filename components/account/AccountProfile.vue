@@ -4,7 +4,11 @@
     <div class="c-account__profile--image-info-cont">
       <div class="c-account__profile--img-cont">
         <nuxt-link
-          :src="require('~/assets/images/network/users/persona1.png')"
+          :src="
+            $auth.user.data.profile_image
+              ? `_nuxt/assets/images/network/users/${$auth.user.data.profile_image}`
+              : require('~/assets/images/default.png')
+          "
           tag="img"
           to="/"
           class="c-account__profile--img"
@@ -13,20 +17,26 @@
       </div>
       <div class="c-account__profile--details-cont">
         <div class="c-account__profile--details">
-          <span class="c-account__profile--details-num">210</span>
+          <span class="c-account__profile--details-num">{{
+            $auth.user.data.total_connections
+          }}</span>
           Connections
         </div>
         <div class="c-account__profile--details">
-          <span class="c-account__profile--details-num">176</span>
+          <span class="c-account__profile--details-num">{{
+            $auth.user.data.total_recommends
+          }}</span>
           Recommends
         </div>
       </div>
     </div>
     <div class="c-account__profile--text-cont">
-      <div class="c-account__profile--name">Jessica O'Mallie</div>
-      <div class="c-account__profile--username">@jessomallie</div>
+      <div class="c-account__profile--name">
+        {{ userNameData }} {{ userLastNameData }}
+      </div>
+      <div class="c-account__profile--username">@{{ userNickData }}</div>
       <div class="c-account__profile--description">
-        Bitcoin Estrategics, Formation in UX/UI & Animal Lover
+        {{ $auth.user.data.resume }}
       </div>
       <div class="c-account__profile--title">Knowledge</div>
       <div class="c-account__profile--label-cont">
@@ -42,12 +52,7 @@
       </div>
       <div class="c-account__profile--title">Summary</div>
       <div class="c-account__profile--summary">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla id rutrum
-        urna, et sodales arcu. Vestibulum at mauris ultrices, posuere neque eu,
-        egestas neque. Sed erat neque, euismod vitae faucibus sit amet, euismod
-        pharetra dui. Duis vulputate eu est rutrum. Cras fermentum ex nisl,
-        finibus iaculis lacus vehicula egestas neque. Sed erat neque, euismod
-        vita.
+        {{ userSummaryData }}
       </div>
       <div class="c-account__profile--title">Languages</div>
       <div class="c-account__profile--label-cont">
@@ -71,6 +76,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import editAccountModal from '~/components/account/modals/editAccount'
 
 export default {
@@ -80,7 +86,33 @@ export default {
   },
   data() {
     return {
-      dialog: false
+      dialog: false,
+      userNameData: this.userName,
+      userLastNameData: this.userLastName,
+      userNickData: this.userNick,
+      userSummaryData: this.userSummary
+    }
+  },
+  computed: {
+    ...mapState({
+      userName: (state) => state.users.name,
+      userLastName: (state) => state.users.last_name,
+      userNick: (state) => state.users.nick,
+      userSummary: (state) => state.users.summary
+    })
+  },
+  watch: {
+    userName(val) {
+      this.userNameData = val
+    },
+    userLastName(val) {
+      this.userLastNameData = val
+    },
+    userNick(val) {
+      this.userNickData = val
+    },
+    userSummaryData(val) {
+      this.userSummaryData = val
     }
   }
 }

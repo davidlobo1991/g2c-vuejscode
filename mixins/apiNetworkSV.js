@@ -217,7 +217,8 @@ export const apiNetworkSv = {
       }
     },
     /**
-     * Sign in backend and firebase
+     * Sign up user
+     * @returns {Promise<any>}
      */
     async createUserApi() {
       try {
@@ -228,6 +229,54 @@ export const apiNetworkSv = {
       } catch (error) {
         throw error
       }
+    },
+
+    /**
+     * Edit user
+     * @returns {Promise<any>}
+     */
+    async editUserApi() {
+      try {
+        const response = await this.$store
+          .dispatch('users/edit')
+          .then((response) => response.data)
+        return response
+      } catch (error) {
+        throw error
+      }
+    },
+
+    /**
+     *
+     * @param id
+     * @returns {Promise<any>}
+     */
+    async createConnection(id) {
+      try {
+        const response = await this.$store
+          .dispatch('connection/create', {
+            destination_user_id: id,
+            status: 'pending'
+          })
+          .then((response) => response.data)
+        return response
+      } catch (error) {
+        throw error
+      }
     }
+
+    // /**
+    //  * Edit users
+    //  */
+    // async editUser() {
+    //   try {
+    //     const response = await this.$store
+    //       .dispatch('register/createUserApi')
+    //       .then((response) => response.data)
+    //     return response
+    //   } catch (error) {
+    //     throw error
+    //   }
+    // }
   }
 }

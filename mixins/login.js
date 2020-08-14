@@ -47,13 +47,15 @@ export const login = {
                   'tokenc1',
                   g2cLoginResponse.tokenc1
                 )
+
+                this.setDataInStore()
                 // this.setCookie('tokenid', g2cLoginResponse.tokenid, 365)
                 // this.setCookie('tokens1', g2cLoginResponse.tokens1, 365)
                 // this.setCookie('tokenc1', g2cLoginResponse.tokenc1, 365)
                 this.$router.push('/home')
               })
               .catch((error) => {
-                this.handleErrors(error, 'G2CUser@loginUser - Error')
+                this.handleErrors(error)
                 this.errorValidation = 'Login Fail'
                 this.loading = false
                 throw error
@@ -71,14 +73,14 @@ export const login = {
               this.$router.push(this.localePath('/user-profile'))
             })
             .catch((error) => {
-              this.handleErrors(error, 'G2CUser@loginUser - Error')
+              this.handleErrors(error)
               this.errorValidation = 'Login Fail'
               this.loading = false
               throw error
             })
         }
       } catch (error) {
-        this.handleErrors(error, 'G2CUser@loginUser - Error')
+        this.handleErrors(error)
       }
     },
 
@@ -88,6 +90,31 @@ export const login = {
       this.$auth.$storage.removeCookie('tokenc1')
 
       await this.$auth.logout()
+    },
+
+    setDataInStore() {
+      this.setUserName()
+      this.setUserLastname()
+      this.setUserNick()
+      this.setUserSummary()
+    },
+    setUserName() {
+      this.$store.commit('users/SET_NAME', this.$auth.$state.user.data.name)
+    },
+    setUserLastname() {
+      this.$store.commit(
+        'users/SET_LAST_NAME',
+        this.$auth.$state.user.data.last_name
+      )
+    },
+    setUserNick() {
+      this.$store.commit('users/SET_NICK', this.$auth.$state.user.data.nick)
+    },
+    setUserSummary() {
+      this.$store.commit(
+        'users/SET_SUMMARY',
+        this.$auth.$state.user.data.resume
+      )
     }
   }
 }
