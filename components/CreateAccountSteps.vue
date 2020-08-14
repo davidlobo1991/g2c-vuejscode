@@ -281,6 +281,7 @@ export default {
      * Handle error
      */
     handleError(error, title = this.$i18n.t('register.error.default')) {
+      // eslint-disable-next-line no-console
       console.log(title)
       this.loading = false
       this.errorCreateAccount = title

@@ -1,6 +1,6 @@
 <template>
   <div class="u-custom-wrapper">
-    <Sidebar activeTab="connections" />
+    <Sidebar active-tab="connections" />
     <Main />
   </div>
 </template>

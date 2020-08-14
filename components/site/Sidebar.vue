@@ -22,10 +22,10 @@
             </template>
             <div class="c-sidebar__profile--status u-status--available"></div>
           </div>
-          <div class="c-sidebar__profile--name" v-if="$auth.user.name">
+          <div v-if="$auth.user.name" class="c-sidebar__profile--name">
             {{ $auth.user.name }} {{ $auth.user.surname }}
           </div>
-          <div class="c-sidebar__profile--name" v-else>
+          <div v-else class="c-sidebar__profile--name">
             @{{ $auth.user.data.nick }}
           </div>
         </div>

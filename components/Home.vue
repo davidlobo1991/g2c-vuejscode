@@ -1,6 +1,6 @@
 <template>
   <div class="u-custom-wrapper">
-    <Sidebar activeTab="network" />
+    <Sidebar active-tab="network" />
     <Network />
   </div>
 </template>

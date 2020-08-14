@@ -50,25 +50,25 @@
             <div class="c-edit-account__modal--inputs-cont">
               <v-text-field
                 @input="updateName"
-                color="#1976d2"
                 :hide-details="true"
+                color="#1976d2"
                 label="Name"
                 class="c-edit-account__modal--input"
                 outlined
               ></v-text-field>
               <v-text-field
                 @input="updateLastName"
+                :hide-details="true"
                 color="#1976d2"
                 label="Last Name"
-                :hide-details="true"
                 class="c-edit-account__modal--input"
                 outlined
               ></v-text-field>
               <v-text-field
                 @input="updateTitle"
+                :hide-details="true"
                 color="#1976d2"
                 label="Title"
-                :hide-details="true"
                 class="c-edit-account__modal--input"
                 outlined
               ></v-text-field>
@@ -76,9 +76,9 @@
           </div>
           <v-textarea
             @input="updateSummary"
+            :hide-details="true"
             color="#1976d2"
             label="Summary"
-            :hide-details="true"
             class="c-edit-account__modal--textarea"
             outlined
           >
