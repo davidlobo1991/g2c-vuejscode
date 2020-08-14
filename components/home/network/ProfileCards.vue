@@ -25,7 +25,7 @@
             {{ connection.name }}
           </div>
           <div class="c-home__cards__card--username">
-            {{ connection.nick }}
+            @{{ connection.nick }}
           </div>
           <div class="c-home__cards__card--description">
             {{ connection.description }}
@@ -33,7 +33,7 @@
           <div class="c-home__cards__card--details-cont">
             <div class="c-home__cards__card--details">
               <span class="c-home__cards__card--details-num">{{
-                connection.connections
+                Object.keys(connection.connections).length
               }}</span>
               Connections
             </div>
@@ -48,14 +48,14 @@
         <ConnectButton
           @sendIsShowingConnectModal="setIsShowingConnectModal"
           @openInfoModal="showContact"
-          :status="`${connection.status}`"
+          :status="'connect'"
           :cost="`${connection.cost}`"
         />
       </div>
       <ModalProfile
         :isShowingContactInfo="IsShowingContactInfo"
         :activeConnection="activeConnection"
-        @isShowingContactInfoChild="isShowingContactInfoChild"
+        @isShowingContactInfo="isShowingContactInfo"
         @sendIsShowingConnectModal="setIsShowingConnectModal"
       ></ModalProfile>
       <span v-if="filteredConnections.length === 0">{{
@@ -118,7 +118,7 @@ export default {
     })
   },
   methods: {
-    isShowingContactInfoChild(value) {
+    isShowingContactInfo(value) {
       this.IsShowingContactInfo = value
     },
     showContact(connection) {

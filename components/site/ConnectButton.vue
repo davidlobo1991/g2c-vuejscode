@@ -145,7 +145,7 @@ export default {
     },
     cost: {
       type: String,
-      default: ''
+      default: '10'
     },
     modalStep: {
       type: Number,
