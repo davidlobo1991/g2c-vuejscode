@@ -38,7 +38,7 @@ export default {
         defer: true
       },
       {
-        src: 'https://unpkg.com/minercraft',
+        src: 'js/minercraft/0.0.8/minercraft.min.js',
         defer: true
       },
       {
