@@ -175,32 +175,24 @@ export default {
             console.log('Created user server application')
             this.setLoginData()
 
-            const checkStatus = setInterval(function() {
-              const status = this.$nuxt.checkUserServerApplicationStatus(
-                register.job_id
-              )
+            const jobId = register.data.job_id
 
-              status.then((data) => {
-                if (data.finished_at !== null && !data.error) {
-                  clearInterval(checkStatus)
-                  // eslint-disable-next-line no-console
-                  console.log(data)
+            const _this = this
+            const checkStatus = setInterval(async function() {
+              const status = await _this.checkUserServerApplicationStatus(jobId)
+
+              if (status.data.is_finished && !status.error) {
+                clearInterval(checkStatus)
+
+                const userCreated = await _this.createUserApi()
+
+                if (!userCreated.error) {
+                  _this.login()
+                } else {
+                  _this.handleError(userCreated)
                 }
-              })
+              }
             }, 5000)
-
-            const userCreated = await this.createUserApi()
-
-            if (!userCreated.error) {
-              setTimeout(function() {
-                // eslint-disable-next-line no-console
-                console.log('Waiting for it...')
-              }, 5000)
-
-              this.login()
-            } else {
-              this.handleError(userCreated)
-            }
           } else {
             this.handleError(register)
           }
@@ -225,7 +217,7 @@ export default {
         this.handleLogin(
           this.words,
           this.nick,
-          this.registerPassword,
+          this.password,
           this.g2c_application
         )
       } catch (error) {

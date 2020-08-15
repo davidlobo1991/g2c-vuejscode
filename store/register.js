@@ -240,7 +240,7 @@ const actions = {
   /**
    * Sign in backend and firebase
    */
-  async checkUserServerApplicationStatus({ getters }, jobId) {
+  async checkUserServerApplicationStatus({ getters }, { jobId }) {
     const data = {
       job_id: jobId
     }
