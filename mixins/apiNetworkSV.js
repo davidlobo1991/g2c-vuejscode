@@ -263,6 +263,36 @@ export const apiNetworkSv = {
       } catch (error) {
         throw error
       }
+    },
+
+    /**
+     * Get Languages
+     * @returns {Promise<any>}
+     */
+    async getLanguages() {
+      try {
+        const { data } = await this.$store
+          .dispatch('languages/getAll')
+          .then((response) => response.data)
+        return data
+      } catch (error) {
+        throw error
+      }
+    },
+
+    /**
+     * Get Knowledges
+     * @returns {Promise<any>}
+     */
+    async getKnowledges() {
+      try {
+        const { data } = await this.$store
+          .dispatch('knowledges/getAll')
+          .then((response) => response.data)
+        return data
+      } catch (error) {
+        throw error
+      }
     }
 
     // /**

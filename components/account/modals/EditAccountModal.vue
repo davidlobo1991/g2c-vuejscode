@@ -1,7 +1,7 @@
 <template>
   <span class="c-account__profile--edit">
     <v-btn
-      @click.stop="dialog = true"
+      @click.stop="open"
       color="#1976d2"
       text
       class="c-edit-account--button"
@@ -11,7 +11,7 @@
     <v-dialog v-model="dialog" content-class="c-edit-account__modal">
       <v-card>
         <div class="c-edit-account__modal--cross">
-          <v-icon @click="dialog = false">
+          <v-icon @click="close">
             mdi-close
           </v-icon>
         </div>
@@ -29,7 +29,7 @@
                       ? `_nuxt/assets/images/network/users/${$auth.user.data.profile_image}`
                       : require('~/assets/images/default.png')
                   "
-                  alt="John"
+                  alt="Image"
                 />
                 <div class="c-edit-account__modal--avatar-edit">
                   <v-icon class="c-bottom-mobile__icon">
@@ -49,6 +49,7 @@
             <!--            </div>-->
             <div class="c-edit-account__modal--inputs-cont">
               <v-text-field
+                :value="userName"
                 @input="updateName"
                 :hide-details="true"
                 color="#1976d2"
@@ -57,6 +58,7 @@
                 outlined
               ></v-text-field>
               <v-text-field
+                :value="userLastName"
                 @input="updateLastName"
                 :hide-details="true"
                 color="#1976d2"
@@ -65,6 +67,7 @@
                 outlined
               ></v-text-field>
               <v-text-field
+                :value="userTitle"
                 @input="updateTitle"
                 :hide-details="true"
                 color="#1976d2"
@@ -75,6 +78,7 @@
             </div>
           </div>
           <v-textarea
+            :value="userSummary"
             @input="updateSummary"
             :hide-details="true"
             color="#1976d2"
@@ -88,7 +92,8 @@
           </v-textarea>
           <v-select
             v-model="knowledgeValue"
-            :items="knowledgeItems"
+            :items="knowledgeArray"
+            @input="updateKnowledges"
             chips
             label="Knowledge"
             multiple
@@ -96,9 +101,10 @@
           ></v-select>
           <v-select
             v-model="langValue"
-            :items="langItems"
+            :items="langsArray"
+            @input="updateLanguages"
             chips
-            label="Knowledge"
+            label="Languages"
             multiple
             outlined
           ></v-select>
@@ -121,19 +127,88 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'EditAccountModal',
   components: {},
+  computed: {
+    ...mapState({
+      userName: (state) => state.users.name,
+      userLastName: (state) => state.users.last_name,
+      userTitle: (state) => state.users.title,
+      userSummary: (state) => state.users.summary,
+      userKnowledges: (state) => state.users.knowledges,
+      userLanguages: (state) => state.users.languages
+    })
+  },
   data() {
     return {
       dialog: false,
-      langItems: ['foo', 'bar', 'fizz', 'buzz'],
-      langValue: ['foo', 'bar', 'fizz', 'buzz'],
-      knowledgeItems: ['foo', 'bar', 'fizz', 'buzz'],
-      knowledgeValue: ['foo', 'bar', 'fizz', 'buzz']
+      langItems: [],
+      langValue: [],
+      langsArray: [],
+      knowledgeItems: [],
+      knowledgeValue: [],
+      knowledgeArray: []
     }
   },
+  async mounted() {
+    this.knowledgeItems = await this.getKnowledges()
+    this.langItems = await this.getLanguages()
+
+    this.parsedLanguagesToSelect()
+    this.parsedKnowledgesToSelect()
+
+    // @TODO: Select stored languages
+
+    // @TODO: Select stored knowledges
+  },
   methods: {
+    open() {
+      this.dialog = true
+
+      // @TODO Force set params
+      this.getUserInfo()
+    },
+    close() {
+      this.dialog = false
+    },
+    async getUserInfo() {
+      await this.$auth.fetchUser()
+
+      // Update store.
+      this.updateName(this.$auth.user.data.name)
+      this.updateLastName(this.$auth.user.data.surname)
+      this.updateTitle(this.$auth.user.data.title)
+      this.updateSummary(this.$auth.user.data.summary)
+      this.updateKnowledges(this.$auth.user.data.knowledges)
+      this.updateLanguages(this.$auth.user.data.languages)
+    },
+    parsedLanguagesToSelect() {
+      const languages = this.langItems
+      this.langsArray = []
+      if (languages) {
+        for (const key in languages) {
+          this.langsArray.push({
+            text: `${languages[key].en}`,
+            value: key
+          })
+        }
+      }
+    },
+    parsedKnowledgesToSelect() {
+      const knowledges = this.knowledgeItems
+      this.knowledgeArray = []
+      if (knowledges) {
+        for (const key in knowledges) {
+          this.knowledgeArray.push({
+            text: `${knowledges[key].en}`,
+            value: key
+          })
+        }
+      }
+    },
     updateName(value) {
       this.$store.commit('users/SET_NAME', value)
     },
@@ -146,12 +221,21 @@ export default {
     updateSummary(value) {
       this.$store.commit('users/SET_SUMMARY', value)
     },
+    updateKnowledges(value) {
+      this.$store.commit('users/SET_KNOWLEDGES', value)
+    },
+    updateLanguages(value) {
+      this.$store.commit('users/SET_LANGUAGES', value)
+    },
     async saveUser() {
       try {
         const editUser = await this.editUserApi()
 
         if (!editUser.error) {
           this.dialog = false
+
+          // Upate auth user info
+          await this.$auth.fetchUser()
         }
       } catch (error) {
         this.handleError(error)

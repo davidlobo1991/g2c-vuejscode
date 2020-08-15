@@ -13,7 +13,7 @@
           <div class="c-sidebar__profile--img-cont">
             <template>
               <nuxt-link
-                :to="localePath('home')"
+                :to="localePath('/account/profile')"
                 :src="require('~/assets/images/default.png')"
                 tag="img"
                 class="c-sidebar__profile--img"

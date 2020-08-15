@@ -14,7 +14,8 @@ export default {
   components: {
     Sidebar,
     Main
-  }
+  },
+  middleware: ['auth']
 }
 </script>
 
