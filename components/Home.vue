@@ -1,6 +1,6 @@
 <template>
   <div class="u-custom-wrapper">
-    <Sidebar />
+    <Sidebar active-tab="network" />
     <Network />
   </div>
 </template>
@@ -11,6 +11,7 @@ import Network from '~/components/home/Network'
 
 export default {
   name: 'Home',
+  middleware: ['authG2CUser'],
   components: {
     Sidebar,
     Network

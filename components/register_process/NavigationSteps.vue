@@ -79,11 +79,11 @@ export default {
   width: 118px;
 }
 .v-icon {
-  font-size: 40px;
+  font-size: 40px !important;
   padding-right: 25px;
 }
 .mdi-check-circle-outline {
-  color: #18de82;
+  color: #18de82 !important;
 }
 .c-step {
   min-width: 250px;
@@ -112,7 +112,7 @@ export default {
 }
 @media screen and (max-width: 1500px) {
   .v-icon {
-    font-size: 27px;
+    font-size: 27px !important;
   }
   .c-step {
     min-width: 200px;

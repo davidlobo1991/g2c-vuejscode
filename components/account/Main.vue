@@ -36,8 +36,7 @@ export default {
     TopMobile,
     BottomMobile
   },
-  data: () => ({}),
-  methods: {}
+  data: () => ({})
 }
 </script>
 
@@ -64,6 +63,7 @@ export default {
   .c-account {
     &__wrapper-section {
       flex-flow: column;
+      padding: 25px 25px 80px 25px;
     }
     &__right-cont {
       width: 100%;
@@ -72,6 +72,13 @@ export default {
     &__left-cont {
       width: 100%;
       margin: 0 0 15px 0;
+    }
+  }
+}
+@media screen and (max-width: 400px) {
+  .c-account {
+    &__wrapper-section {
+      padding: 25px;
     }
   }
 }

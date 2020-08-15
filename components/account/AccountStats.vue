@@ -1,34 +1,38 @@
 <template>
   <div class="c-account__stats">
     <div v-show="AreStatsVisible" class="c-account__stats--content">
-      <div class="c-account__stats--total">
-        <sup class="c-account__stats--superindex">$</sup>0
-      </div>
-      <div class="c-account__stats--sats">0 SATS</div>
-      <div class="c-account__stats--lastmonth-cont">
-        <v-select
-          :items="items"
-          class="c-account__stats--lastmonth"
-          color="#fff"
-          item-color="#fff"
-          dark
-        >
-        </v-select>
-      </div>
-      <div class="c-account__stats--balance-cont">
-        <div class="c-account__stats--balance u-color-green">
-          <span class="c-account__stats--balance-tit">Ins</span>$0
+      <div>
+        <div class="c-account__stats--total">
+          <sup class="c-account__stats--superindex">$</sup>0
         </div>
-        <div class="c-account__stats--balance u-color-blue">
-          <span class="c-account__stats--balance-tit">
-            Outs
-          </span>
-          $0
-        </div>
+        <div class="c-account__stats--sats">0 SATS</div>
       </div>
+      <!--      <div class="c-account__stats&#45;&#45;lastmonth-cont">-->
+      <!--        <v-select-->
+      <!--          :items="items"-->
+      <!--          class="c-account__stats&#45;&#45;lastmonth"-->
+      <!--          color="#fff"-->
+      <!--          item-color="#fff"-->
+      <!--          dark-->
+      <!--        >-->
+      <!--        </v-select>-->
+      <!--      </div>-->
+      <!--      <div class="c-account__stats&#45;&#45;balance-cont">-->
+      <!--        <div class="c-account__stats&#45;&#45;balance u-color-green">-->
+      <!--          <span class="c-account__stats&#45;&#45;balance-tit">Ins</span>$0-->
+      <!--        </div>-->
+      <!--        <div class="c-account__stats&#45;&#45;balance u-color-blue">-->
+      <!--          <span class="c-account__stats&#45;&#45;balance-tit">-->
+      <!--            Outs-->
+      <!--          </span>-->
+      <!--          $0-->
+      <!--        </div>-->
+      <!--      </div>-->
       <div class="c-account__stats--buttons">
-        <div class="c-account__stats--link">ADD FUNDS</div>
-        <div class="c-account__stats--link">SEND</div>
+        <AddFundsModal />
+        <SendFundsModal />
+        <!--        <div class="c-account__stats&#45;&#45;link">ADD FUNDS</div>-->
+        <!--        <div class="c-account__stats&#45;&#45;link">SEND</div>-->
       </div>
     </div>
     <div @click="toggleStats" class="c-account__stats--eye">
@@ -39,8 +43,15 @@
 </template>
 
 <script>
+import AddFundsModal from '~/components/account/AddFundsModal'
+import SendFundsModal from '~/components/account/SendFundsModal'
+
 export default {
   name: 'AccountStats',
+  components: {
+    AddFundsModal,
+    SendFundsModal
+  },
   data: () => ({
     items: ['Today', 'Last week', 'Last month', 'Last year'],
     AreStatsVisible: true
@@ -73,10 +84,15 @@ export default {
     background: linear-gradient(227.33deg, #002e65 0%, #0087ff 100%);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
     color: #fff;
+    box-sizing: border-box;
     &--content {
+      position: absolute;
+      height: 91%;
       display: flex;
       flex-flow: column;
       align-items: flex-end;
+      /*align-items: space-between;*/
+      justify-content: space-between;
     }
     &--total {
       font-size: 44px;
@@ -129,13 +145,26 @@ export default {
       left: 20px;
       cursor: pointer;
     }
-    &--link {
-      display: flex;
-      font-size: 18px;
-      font-weight: 500;
-      padding-right: 21px;
-      &:last-of-type {
-        padding-right: 0;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .c-account {
+    &__stats {
+      &--eye {
+        top: 20px;
+        bottom: auto;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .c-account {
+    &__stats {
+      &--eye {
+        bottom: 20px;
+        top: auto;
       }
     }
   }

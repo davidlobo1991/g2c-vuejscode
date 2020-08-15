@@ -1,5 +1,11 @@
 <template>
   <div class="c-account__navbar">
+    <div @click="logout" class="c-account__navbar--logout-cont">
+      <span class="c-account__navbar--logout-text">Logout</span>
+      <v-icon>
+        mdi-exit-to-app
+      </v-icon>
+    </div>
     <ul class="c-account__navbar--menu">
       <li
         v-bind:class="
@@ -9,16 +15,6 @@
       >
         <nuxt-link to="/account/profile" class="c-account__navbar--link">
           ACCOUNT
-        </nuxt-link>
-      </li>
-      <li
-        v-bind:class="
-          activeTab === 'Calendar' ? 'c-account__navbar--item-active' : ''
-        "
-        class="c-account__navbar--item"
-      >
-        <nuxt-link to="/account/profile" class="c-account__navbar--link">
-          CALENDAR
         </nuxt-link>
       </li>
       <li
@@ -46,12 +42,20 @@
 </template>
 
 <script>
+import { login } from '~/mixins/login'
+
 export default {
   name: 'AccountNavbar',
+  mixins: [login],
   props: {
     activeTab: {
       type: String,
       default: ''
+    }
+  },
+  methods: {
+    logout() {
+      this.handleLogout()
     }
   }
 }
@@ -69,12 +73,28 @@ export default {
     justify-content: center;
     align-items: flex-end;
     height: 76px;
+    position: relative;
+    z-index: 1;
+    &--logout-cont {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    &--logout-text {
+      padding-right: 15px;
+    }
     &--menu {
       padding: 0;
     }
     &--item {
       display: inline-block;
       margin-right: 45px;
+      &:last-of-type {
+        margin-right: 0;
+      }
       &-active {
         color: #0087ff;
         border-bottom: 2px solid #0087ff;
@@ -108,6 +128,9 @@ export default {
       font-size: 13px;
       font-weight: normal;
       height: 45px;
+      &--logout-cont {
+        display: none;
+      }
       &--item {
         &-active {
           color: #fff;

@@ -12,7 +12,7 @@
         them in a safe place.
       </span>
     </div>
-    <div class="c-info__secretword u-align-center">
+    <div v-html="generatedWords" class="c-info__secretword u-align-center">
       sudden awkward slam gown vapor change meat cable hover section cart
     </div>
     <div class="c-info__responsability">
@@ -29,32 +29,59 @@
         </div>
       </div>
     </div>
+    <div class="c-info__button-cont u-align-right">
+      <v-btn
+        :disabled="responsabilityCheck === false"
+        @click="navigationNext"
+        depressed
+        x-large
+        color="#0086ff"
+        class="c-info__button rw-normal-text white--text"
+      >
+        Next
+      </v-btn>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Login',
+  name: 'TwelveWordsGenerator',
   data() {
     return {
+      generatedWords: null,
       responsabilityCheck: false
     }
+  },
+  mounted() {
+    this.generatedWords = this.getRandomWords()
+    this.$store.commit('register/SET_WORDS', this.generatedWords)
   },
   methods: {
     acceptedCheck(value) {
       this.responsabilityCheck = !this.responsabilityCheck
       this.$emit('CheckResponsability', value)
+    },
+    navigationNext() {
+      this.$emit('nextStep')
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.rw-normal-text {
+  text-transform: none;
+}
 .c-info {
   color: #4d4d4d;
   padding-left: 120px;
   padding-right: 120px;
   font-size: 20px;
+  &__button {
+    min-height: 80px;
+    width: 180px;
+  }
   &__text {
     color: #4d4d4d;
     font-family: Roboto;
@@ -85,7 +112,8 @@ export default {
     // color: #4d4d4d;
     // font-family: Roboto;
     width: 95%;
-    margin: 00 auto;
+    margin: 0 auto;
+    padding-bottom: 30px;
     &--title {
       font-weight: 500;
     }
@@ -131,7 +159,15 @@ export default {
         padding-bottom: 7px;
       }
     }
-
+    &__button {
+      flex-flow: column;
+      align-items: flex-start;
+      width: 100%;
+      min-height: 46px;
+      & button {
+        min-width: 100% !important;
+      }
+    }
     &__secretword {
       padding-top: 33px !important;
       padding-bottom: 33px !important;

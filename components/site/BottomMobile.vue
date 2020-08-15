@@ -11,33 +11,54 @@
           />
         </div>
       </div>
-      <div>
-        <v-icon class="c-bottom-mobile__icon-active">
+      <nuxt-link :to="localePath('home')" title="Network">
+        <v-icon
+          v-bind:class="
+            activeTab === 'network' ? 'c-bottom-mobile__icon-active' : ''
+          "
+          class="c-bottom-mobile__icon"
+        >
           mdi-account-multiple
         </v-icon>
-      </div>
-      <div>
-        <v-icon class="c-bottom-mobile__icon">
+      </nuxt-link>
+      <nuxt-link :to="localePath('/connections/messages')" title="Network">
+        <v-icon
+          v-bind:class="
+            activeTab === 'connections' ? 'c-bottom-mobile__icon-active' : ''
+          "
+          class="c-bottom-mobile__icon"
+        >
           mdi-message-text
         </v-icon>
-      </div>
-      <div>
-        <v-icon class="c-bottom-mobile__icon">
-          mdi-bookmark-multiple
+      </nuxt-link>
+      <nuxt-link :to="localePath('/emeetings/requests')" title="Network">
+        <v-icon
+          v-bind:class="
+            activeTab === 'emeetings' ? 'c-bottom-mobile__icon-active' : ''
+          "
+          class="c-bottom-mobile__icon"
+        >
+          mdi-message-video
         </v-icon>
-      </div>
-      <div>
-        <v-icon class="c-bottom-mobile__icon">
-          mdi-forum
-        </v-icon>
-      </div>
+      </nuxt-link>
+      <!--      <div>-->
+      <!--        <v-icon class="c-bottom-mobile__icon">-->
+      <!--          mdi-forum-->
+      <!--        </v-icon>-->
+      <!--      </div>-->
     </div>
   </section>
 </template>
 
 <script>
 export default {
-  name: 'BottomMobile'
+  name: 'BottomMobile',
+  props: {
+    activeTab: {
+      type: String,
+      default: ''
+    }
+  }
 }
 </script>
 
@@ -52,12 +73,12 @@ export default {
     bottom: 0;
     background-color: #21273b;
     width: 100%;
-    height: 40px;
+    height: 80px;
 
     &__wrapper {
       height: 100%;
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       justify-items: center;
       align-items: center;
     }
@@ -68,8 +89,8 @@ export default {
       height: 100%;
       border-radius: 50%;
       &-cont {
-        width: 22px;
-        height: 22px;
+        width: 44px;
+        height: 44px;
         position: relative;
         border-radius: 50px;
         flex-shrink: 0;
@@ -79,11 +100,29 @@ export default {
     &__icon {
       color: #fff;
       opacity: 50%;
-      font-size: 18px;
+      font-size: 30px;
 
       &-active {
         opacity: 100%;
         color: #fff;
+        font-size: 30px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 400px) {
+  .c-bottom-mobile {
+    height: 40px;
+    &__profile-img {
+      &-cont {
+        width: 22px;
+        height: 22px;
+      }
+    }
+    &__icon {
+      font-size: 18px;
+
+      &-active {
         font-size: 18px;
       }
     }

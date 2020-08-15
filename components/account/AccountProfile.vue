@@ -1,30 +1,42 @@
 <template>
   <div class="c-account__profile">
-    <div class="c-account__profile--edit">Edit</div>
-    <div class="c-account__profile--img-cont">
-      <nuxt-link
-        :src="require('@/assets/images/persona1.png')"
-        tag="img"
-        to="/"
-        class="c-account__profile--img"
-      />
-      <div class="c-account__profile--status u-status--available"></div>
+    <editAccountModal></editAccountModal>
+    <div class="c-account__profile--image-info-cont">
+      <div class="c-account__profile--img-cont">
+        <nuxt-link
+          :src="
+            $auth.user.data.profile_image
+              ? `_nuxt/assets/images/network/users/${$auth.user.data.profile_image}`
+              : require('~/assets/images/default.png')
+          "
+          tag="img"
+          to="/"
+          class="c-account__profile--img"
+        />
+        <div class="c-account__profile--status u-status--available"></div>
+      </div>
       <div class="c-account__profile--details-cont">
         <div class="c-account__profile--details">
-          <span class="c-account__profile--details-num">210</span>
+          <span class="c-account__profile--details-num">{{
+            $auth.user.data.total_connections
+          }}</span>
           Connections
         </div>
         <div class="c-account__profile--details">
-          <span class="c-account__profile--details-num">176</span>
+          <span class="c-account__profile--details-num">{{
+            $auth.user.data.total_recommends
+          }}</span>
           Recommends
         </div>
       </div>
     </div>
     <div class="c-account__profile--text-cont">
-      <div class="c-account__profile--name">Jessica O'Mallie</div>
-      <div class="c-account__profile--username">@jessomallie</div>
+      <div class="c-account__profile--name">
+        {{ userNameData }} {{ userLastNameData }}
+      </div>
+      <div class="c-account__profile--username">@{{ userNickData }}</div>
       <div class="c-account__profile--description">
-        Bitcoin Estrategics, Formation in UX/UI & Animal Lover
+        {{ $auth.user.data.resume }}
       </div>
       <div class="c-account__profile--title">Knowledge</div>
       <div class="c-account__profile--label-cont">
@@ -40,12 +52,7 @@
       </div>
       <div class="c-account__profile--title">Summary</div>
       <div class="c-account__profile--summary">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla id rutrum
-        urna, et sodales arcu. Vestibulum at mauris ultrices, posuere neque eu,
-        egestas neque. Sed erat neque, euismod vitae faucibus sit amet, euismod
-        pharetra dui. Duis vulputate eu est rutrum. Cras fermentum ex nisl,
-        finibus iaculis lacus vehicula egestas neque. Sed erat neque, euismod
-        vita.
+        {{ userSummaryData }}
       </div>
       <div class="c-account__profile--title">Languages</div>
       <div class="c-account__profile--label-cont">
@@ -69,8 +76,45 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import editAccountModal from '~/components/account/modals/editAccount'
+
 export default {
-  name: 'AccountProfile'
+  name: 'AccountProfile',
+  components: {
+    editAccountModal
+  },
+  data() {
+    return {
+      dialog: false,
+      userNameData: this.userName,
+      userLastNameData: this.userLastName,
+      userNickData: this.userNick,
+      userSummaryData: this.userSummary
+    }
+  },
+  computed: {
+    ...mapState({
+      userName: (state) => state.users.name,
+      userLastName: (state) => state.users.last_name,
+      userNick: (state) => state.users.nick,
+      userSummary: (state) => state.users.summary
+    })
+  },
+  watch: {
+    userName(val) {
+      this.userNameData = val
+    },
+    userLastName(val) {
+      this.userLastNameData = val
+    },
+    userNick(val) {
+      this.userNickData = val
+    },
+    userSummaryData(val) {
+      this.userSummaryData = val
+    }
+  }
 }
 </script>
 
@@ -99,13 +143,13 @@ export default {
     border-radius: 4px;
     background-color: #ffffff;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-    &--edit {
-      position: absolute;
-      top: 23px;
-      right: 23px;
-      color: #0087ff;
-      font-size: 18px;
-      font-weight: 500;
+    &--image-info-cont {
+      display: flex;
+      align-items: center;
+      flex-flow: column;
+      height: auto;
+      width: 235px;
+      flex-shrink: 0;
     }
     &--img-cont {
       position: relative;
@@ -138,7 +182,6 @@ export default {
     }
     &--details {
       text-align: center;
-      // width: 45%;
       font-size: 15px;
       color: #8c8c8c;
       &-num {
@@ -225,6 +268,81 @@ export default {
       &--title {
         font-size: 14px;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .c-account {
+    &__profile {
+      flex-flow: column;
+      &--img-cont {
+        height: auto;
+      }
+      &--edit {
+        font-size: 15px;
+      }
+      &--img-cont {
+        position: relative;
+        width: 178px;
+        height: 178px;
+        border: 2px solid #fff;
+        border-radius: 50px;
+        flex-shrink: 0;
+      }
+      &--status {
+        border: 1px solid #fff;
+        width: 16px;
+        height: 16px;
+        bottom: 37%;
+      }
+      &--details {
+        font-size: 14px;
+        &-num {
+          font-size: 15px;
+        }
+      }
+      &--name {
+        font-size: 16px;
+      }
+      &--username {
+        font-size: 14px;
+      }
+      &--description {
+        font-size: 15px;
+      }
+      &--summary {
+        font-size: 15px;
+      }
+      &--title {
+        font-size: 14px;
+      }
+      &--text-cont {
+        padding-left: 0;
+      }
+    }
+  }
+}
+@media screen and (max-width: 992px) {
+  .c-account {
+    &__profile {
+      flex-flow: column;
+      &--img-cont {
+        height: auto;
+      }
+      &--status {
+        bottom: 37%;
+      }
+      &--text-cont {
+        padding-left: 0;
+      }
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .c-account {
+    &__profile {
+      /*flex-flow: row;*/
     }
   }
 }

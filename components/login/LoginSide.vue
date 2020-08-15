@@ -2,91 +2,61 @@
   <div class="c-login">
     <div class="c-login__wrapper">
       <div class="c-login__logo">
-        <img @click="showMenu" src="@/assets/svg/networksv_logo.svg" />
+        <img
+          @click="showMenu"
+          src="@/assets/svg/networksv_logo.svg"
+          alt="apiNetworkSV Logo"
+        />
       </div>
       <div class="c-login__subtitle">
         Global Knowledge Network
       </div>
       <div
-        v-bind:class="[
-          viewportWidth <= 768 && (!createAccountIsVisible || !loginIsVisible)
+        :class="[
+          viewportWidth <= 768 && (createAccountIsVisible || loginIsVisible)
             ? 'space-top'
             : ''
         ]"
         class="c-login__login-cont"
       >
-        <div
+        <PreCreateForm
           v-show="createAccountIsVisible"
-          v-bind:class="[
+          :class="[
             viewportWidth <= 768 && (createAccountIsVisible || loginIsVisible)
               ? 'u-mrb-s'
               : ''
           ]"
+          @showLogin="showLogin"
           class="c-login__cont"
-        >
-          <div class="full-width">
-            <v-text-field
-              :hide-details="true"
-              label="Username (Handle)"
-              outlined
-              class="c-login__cont--input u-mrb-s"
-            >
-            </v-text-field>
-            <div class="u-mrb-s c-login__cont--btn">
-              <v-btn depressed color="#0885F6" dark to="/step-2" nuxt>
-                Next
-              </v-btn>
-            </div>
-          </div>
-          <p class="c-login__details">
-            Already a member?
-            <a @click="showLogin" href="#">
-              Login
-            </a>
-          </p>
-        </div>
-        <div
+        />
+        <LoginForm
           v-show="loginIsVisible"
-          v-bind:class="[
+          :class="[
             viewportWidth <= 768 && (createAccountIsVisible || loginIsVisible)
-              ? 'u-mrb-s space-top'
+              ? 'u-mrb-s'
               : ''
           ]"
+          @showCreateUser="showCreateUser"
+          @showRecoverPassword="showRecoverPassword"
           class="c-login__cont"
-        >
-          <div class="full-width">
-            <v-text-field
-              :hide-details="true"
-              label="Username (Handle)"
-              outlined
-              class="c-login__cont--input u-mrb-s"
-            >
-            </v-text-field>
-            <v-textarea
-              :hide-details="true"
-              outlined
-              class="c-login__cont--textarea u-mrb-s"
-              label="Security Key"
-            >
-            </v-textarea>
-            <div class="u-mrb-s c-login__cont--btn">
-              <v-btn depressed dark color="#0885F6">
-                Login
-              </v-btn>
-            </div>
-          </div>
-          <p class="c-login__details">
-            Don’t have an account?
-            <a @click="showCreateUser" href="#">
-              Create Account
-            </a>
-          </p>
-        </div>
+        />
+        <SendEmailPasswordForm
+          v-show="recoverPasswordIsVisible"
+          :class="[
+            viewportWidth <= 768 && (createAccountIsVisible || loginIsVisible)
+              ? 'u-mrb-s'
+              : ''
+          ]"
+        />
         <div
-          v-show="!createAccountIsVisible && !loginIsVisible"
+          v-show="
+            !createAccountIsVisible &&
+              !loginIsVisible &&
+              !recoverPasswordIsVisible
+          "
           class="c-login__main-options"
         >
-          <div class="u-pdb-s">
+          <div class="u-pdb-l@m c-login__button">
             <v-btn
               @click="showCreateUser"
               depressed
@@ -97,7 +67,7 @@
               Create Account
             </v-btn>
           </div>
-          <div class="u-pdb-s">
+          <div class="u-pdb-l c-login__button">
             <v-btn @click="showLogin" outlined color="#0885F6">Login</v-btn>
           </div>
         </div>
@@ -107,12 +77,32 @@
 </template>
 
 <script>
+import { apiNetworkSv } from '~/mixins/apiNetworkSV'
+import { apiG2c } from '~/mixins/apiG2c'
+import LoginForm from '~/components/login/LoginForm'
+import PreCreateForm from '~/components/login/PreCreateForm'
+import SendEmailPasswordForm from '~/components/login/SendEmailPasswordForm'
+
 export default {
-  name: 'Login',
+  name: 'LoginSide',
+  components: {
+    LoginForm,
+    PreCreateForm,
+    SendEmailPasswordForm
+  },
+  mixins: [apiNetworkSv, apiG2c],
+  props: {
+    viewportWidth: {
+      type: Number,
+      default: null
+    }
+  },
   data() {
     return {
       createAccountIsVisible: false,
-      loginIsVisible: false
+      loginIsVisible: false,
+      errorValidation: false,
+      recoverPasswordIsVisible: false
     }
   },
   watch: {
@@ -127,199 +117,43 @@ export default {
     showMenu() {
       this.createAccountIsVisible = false
       this.loginIsVisible = false
+      this.recoverPasswordIsVisible = false
     },
     showCreateUser() {
       this.createAccountIsVisible = true
       this.loginIsVisible = false
+      this.recoverPasswordIsVisible = false
     },
     showLogin() {
       this.loginIsVisible = true
       this.createAccountIsVisible = false
+      this.recoverPasswordIsVisible = false
+    },
+    showRecoverPassword() {
+      this.recoverPasswordIsVisible = true
+      this.loginIsVisible = false
+      this.createAccountIsVisible = false
+    },
+    async logout() {
+      await this.$auth.logout()
+      this.$router.push('/')
     }
   }
 }
 </script>
-<style>
-.c-login__cont--input .v-input__control .v-input__slot {
-  font-size: 21px;
-  min-height: 70px;
-}
-.c-login__cont--input
-  .v-input__control
-  .v-input__slot
-  .v-text-field__slot
-  .v-label {
-  font-size: 21px;
-  top: 26px !important;
-}
-.c-login__cont--input
-  .v-input__control
-  .v-input__slot
-  .v-text-field__slot
-  .v-label--active {
-  transform: translateY(-30px) scale(0.75) !important;
-}
-.c-login__cont--textarea .v-input__control .v-input__slot {
-  font-size: 21px;
-  min-height: 70px;
-}
-.c-login__cont--textarea
-  .v-input__control
-  .v-input__slot
-  .v-text-field__slot
-  .v-label {
-  font-size: 21px;
-  top: 26px !important;
-}
-.c-login__cont--textarea
-  .v-input__control
-  .v-input__slot
-  .v-text-field__slot
-  .v-label--active {
-  transform: translateY(-30px) scale(0.75) !important;
-}
-@media screen and (max-width: 1500px) {
-  .c-login__cont--input .v-input__control .v-input__slot {
-    font-size: 21px;
-    min-height: 70px;
-  }
-  .c-login__cont--input
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label {
-    font-size: 21px;
-    top: 26px !important;
-  }
-  .c-login__cont--input
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label--active {
-    transform: translateY(-30px) scale(0.75) !important;
-  }
-  .c-login__cont--textarea .v-input__control .v-input__slot {
-    font-size: 21px;
-    min-height: 70px;
-  }
-  .c-login__cont--textarea
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label {
-    font-size: 21px;
-    top: 26px !important;
-  }
-  .c-login__cont--textarea
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label--active {
-    transform: translateY(-30px) scale(0.75) !important;
-  }
-}
-@media screen and (max-width: 992px) {
-  .c-login__cont--input .v-input__control .v-input__slot {
-    font-size: 18px;
-    min-height: 55px;
-  }
-  .c-login__cont--input
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label {
-    font-size: 18px;
-    top: 18px !important;
-  }
-  .c-login__cont--input
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label--active {
-    transform: translateY(-25px) scale(0.75) !important;
-  }
-  .c-login__cont--textarea .v-input__control .v-input__slot {
-    font-size: 21px;
-    min-height: 70px;
-  }
-  .c-login__cont--textarea
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label {
-    font-size: 21px;
-    top: 26px !important;
-  }
-  .c-login__cont--textarea
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label--active {
-    transform: translateY(-30px) scale(0.75) !important;
-  }
-}
-@media screen and (max-width: 768px) {
-  .c-login__cont--input .v-input__control .v-input__slot {
-    font-size: 14px;
-    min-height: 46px;
-  }
-  .c-login__cont--input
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label {
-    font-size: 14px;
-    top: 14px !important;
-  }
-  .c-login__cont--input
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label--active {
-    transform: translateY(-23px) scale(0.75) !important;
-  }
-  .c-login__cont--textarea .v-input__control .v-input__slot {
-    font-size: 14px;
-    /*min-height: 70px;*/
-  }
-  .c-login__cont--textarea
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label {
-    font-size: 14px;
-    top: 14px !important;
-  }
-  .c-login__cont--textarea
-    .v-input__control
-    .v-input__slot
-    .v-text-field__slot
-    .v-label--active {
-    transform: translateY(-20px) scale(0.75) !important;
-  }
-}
-</style>
+
 <style lang="scss" scoped>
 .full-width {
   width: 100%;
 }
 .space-top {
-  margin-top: 80px !important;
-}
-.v-btn {
-  text-transform: capitalize;
-  min-width: 350px !important;
-  height: 70px !important;
-  letter-spacing: 0;
-  // font-weight: 500;
-  letter-spacing: 0;
-  font-family: Roboto;
-  font-size: 21px;
+  margin-top: 50px !important;
 }
 .c-login {
   display: flex;
   justify-content: center;
   height: 100%;
+
   &__wrapper {
     padding-top: 80px;
     display: flex;
@@ -327,6 +161,19 @@ export default {
     align-items: center;
     // max-width: 50%;
     position: fixed;
+  }
+  &__button {
+    padding-bottom: 32px;
+    ::v-deep {
+      .v-btn {
+        font-size: 21px;
+        text-transform: capitalize;
+        min-width: 350px !important;
+        height: 70px !important;
+        letter-spacing: 0;
+        font-family: Roboto;
+      }
+    }
   }
   &__logo {
     width: 210px;
@@ -339,7 +186,6 @@ export default {
   }
   &__subtitle {
     padding-top: 20px;
-    // padding-bottom: 160px;
     color: #29363d;
     font-family: Roboto;
     font-size: 21px;
@@ -353,7 +199,6 @@ export default {
   &__details {
     padding-top: 80px;
     font-size: 21px;
-    // font-weight: 500;
     line-height: 19px;
     text-align: center;
   }
@@ -361,15 +206,6 @@ export default {
     display: flex;
     align-items: center;
     flex-flow: column;
-
-    &--input {
-      width: 350px;
-    }
-
-    &--textarea {
-      width: 350px;
-    }
-
     &--link {
       color: #1976d2;
       cursor: pointer;
@@ -378,9 +214,6 @@ export default {
   }
 }
 @media screen and (max-width: 1500px) {
-  .v-btn {
-    min-width: 300px !important;
-  }
   .c-login {
     &__logo {
       width: 190px;
@@ -391,45 +224,28 @@ export default {
     &__subtitle {
       padding-top: 5px;
     }
-    &__cont {
-      &--input {
-        width: 300px;
+    &__button {
+      ::v-deep {
+        .v-btn {
+          min-width: 300px !important;
+        }
       }
-      &--textarea {
-        width: 300px;
-      }
-    }
-    &__details {
-      font-size: 14px;
-      max-width: 300px;
     }
   }
 }
 @media screen and (max-width: 1200px) {
-  .v-btn {
-    min-width: 240px !important;
-  }
   .c-login {
-    &__cont {
-      &--input {
-        width: 240px;
+    &__button {
+      ::v-deep {
+        .v-btn {
+          min-width: 240px !important;
+        }
       }
-      &--textarea {
-        width: 240px;
-      }
-    }
-    &__details {
-      max-width: 240px;
     }
   }
 }
 
 @media screen and (max-width: 992px) {
-  .v-btn {
-    min-width: 200px !important;
-    height: 55px !important;
-    font-size: 18px;
-  }
   .c-login {
     &__logo {
       width: 150px;
@@ -440,26 +256,22 @@ export default {
     &__subtitle {
       font-size: 18px;
     }
-    &__cont {
-      &--input {
-        width: 200px;
+    &__button {
+      ::v-deep {
+        .v-btn {
+          min-width: 200px !important;
+          height: 55px !important;
+          font-size: 18px;
+        }
       }
-      &--textarea {
-        width: 200px;
-      }
-    }
-    &__details {
-      /*max-width: 200px;*/
     }
   }
 }
 @media screen and (max-width: 768px) {
-  .v-btn {
-    min-width: 100% !important;
-  }
   .c-login {
+    background-color: #fff;
     &__logo {
-      width: 110px;
+      width: 150px;
     }
     &__wrapper {
       position: initial;
@@ -467,7 +279,15 @@ export default {
       width: 100%;
     }
     &__subtitle {
-      font-size: 14px;
+      font-size: 16px;
+    }
+    &__button {
+      padding-bottom: 12px;
+      ::v-deep {
+        .v-btn {
+          min-width: 100% !important;
+        }
+      }
     }
     &__login-cont {
       margin-top: 20px;
@@ -479,19 +299,9 @@ export default {
       flex-flow: column;
       justify-content: space-between;
       height: 100%;
-      &--input {
-        width: 100%;
-      }
       &--btn {
         width: 100%;
       }
-      &--textarea {
-        width: auto;
-      }
-    }
-    &__details {
-      padding: 0;
-      font-size: 12px;
     }
   }
 }

@@ -1,547 +1,179 @@
 <template>
   <div class="c-home__cards">
-    <div class="c-home__cards__wrapper">
-      <div v-on:click="showContact" class="c-home__cards__card">
-        <div class="c-home__cards__card--img-cont">
-          <nuxt-link
-            :src="require('@/assets/images/persona1.png')"
-            tag="img"
-            to="/"
-            class="c-home__cards__card--img"
-          />
-          <div class="c-home__cards__card--status u-status--available"></div>
-        </div>
-        <div class="c-home__cards__card--name">
-          Gabel Shebera
-        </div>
-        <div class="c-home__cards__card--username">
-          @gabelsh
-        </div>
-        <div class="c-home__cards__card--description">
-          Company’s Legal Advisor & Chess Amateur
-        </div>
-        <div class="c-home__cards__card--details-cont">
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">210</span>
-            Connections
-          </div>
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">176</span>
-            Recommends
-          </div>
-        </div>
-        <ConnectButton status="view" />
-      </div>
-
-      <div class="c-home__cards__card">
-        <div class="c-home__cards__card--img-cont">
-          <nuxt-link
-            :src="require('@/assets/images/persona1.png')"
-            tag="img"
-            to="/"
-            class="c-home__cards__card--img"
-          />
-          <div class="c-home__cards__card--status u-status--available"></div>
-        </div>
-        <div class="c-home__cards__card--name">
-          Gabel Shebera
-        </div>
-        <div class="c-home__cards__card--username">
-          @gabelsh
-        </div>
-        <div class="c-home__cards__card--description">
-          Company’s Legal Advisor & Chess Amateur
-        </div>
-        <div class="c-home__cards__card--details-cont">
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">210</span>
-            Connections
-          </div>
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">176</span>
-            Recommends
-          </div>
-        </div>
-        <ConnectButton status="connect" cost="35" />
-      </div>
-
-      <div class="c-home__cards__card">
-        <div class="c-home__cards__card--img-cont">
-          <nuxt-link
-            :src="require('@/assets/images/persona1.png')"
-            tag="img"
-            to="/"
-            class="c-home__cards__card--img"
-          />
-          <div class="c-home__cards__card--status u-status--available"></div>
-        </div>
-        <div class="c-home__cards__card--name">
-          Gabel Sheber
-        </div>
-        <div class="c-home__cards__card--username">
-          @gabelsh
-        </div>
-        <div class="c-home__cards__card--description">
-          Company’s Legal Advisor & Chess Amateur
-        </div>
-        <div class="c-home__cards__card--details-cont">
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">210</span>
-            Connections
-          </div>
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">176</span>
-            Recommends
-          </div>
-        </div>
-        <ConnectButton status="connect" />
-      </div>
-
-      <div class="c-home__cards__card">
-        <div class="c-home__cards__card--img-cont">
-          <nuxt-link
-            :src="require('@/assets/images/persona1.png')"
-            tag="img"
-            to="/"
-            class="c-home__cards__card--img"
-          />
-          <div class="c-home__cards__card--status u-status--available"></div>
-        </div>
-        <div class="c-home__cards__card--name">
-          Gabel Sheber
-        </div>
-        <div class="c-home__cards__card--username">
-          @gabelsh
-        </div>
-        <div class="c-home__cards__card--description">
-          Company’s Legal Advisor & Chess Amateur
-        </div>
-        <div class="c-home__cards__card--details-cont">
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">210</span>
-            Connections
-          </div>
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">176</span>
-            Recommends
-          </div>
-        </div>
-        <ConnectButton status="pending" cost="1" />
-      </div>
-      <div class="c-home__cards__card">
-        <div class="c-home__cards__card--img-cont">
-          <nuxt-link
-            :src="require('@/assets/images/persona1.png')"
-            tag="img"
-            to="/"
-            class="c-home__cards__card--img"
-          />
-          <div class="c-home__cards__card--status u-status--available"></div>
-        </div>
-        <div class="c-home__cards__card--name">
-          Gabel Sheber
-        </div>
-        <div class="c-home__cards__card--username">
-          @gabelsh
-        </div>
-        <div class="c-home__cards__card--description">
-          Company’s Legal Advisor & Chess Amateur
-        </div>
-        <div class="c-home__cards__card--details-cont">
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">210</span>
-            Connections
-          </div>
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">176</span>
-            Recommends
-          </div>
-        </div>
-        <v-btn
-          depressed
-          class="c-home__cards__card--button"
-          color="#0087FF"
-          dark
+    <div v-if="filteredConnections.length > 0" class="c-home__cards__wrapper">
+      <div
+        v-for="connection in filteredConnections"
+        class="c-home__cards__card"
+      >
+        <div
+          @click="showContact(connection)"
+          class="c-home__cards__card--text-wrapper"
         >
-          1$ - Connect
-        </v-btn>
+          <div class="c-home__cards__card--img-cont">
+            <img
+              :src="
+                connection.profile_image
+                  ? `_nuxt/assets/images/network/users/${connection.profile_image}`
+                  : require('~/assets/images/default.png')
+              "
+              alt="image"
+              class="c-home__cards__card--img"
+            />
+            <div
+              :class="
+                connection.is_online
+                  ? 'u-status--available'
+                  : 'u-status--absent'
+              "
+              class="c-home__cards__card--status"
+            ></div>
+          </div>
+          <div class="c-home__cards__card--name">
+            {{ connection.name }}
+          </div>
+          <div class="c-home__cards__card--username">
+            @{{ connection.nick }}
+          </div>
+          <div class="c-home__cards__card--description">
+            {{ connection.description }}
+          </div>
+          <div class="c-home__cards__card--details-cont">
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">{{
+                connection.total_connections
+              }}</span>
+              Connections
+            </div>
+            <div class="c-home__cards__card--details">
+              <span class="c-home__cards__card--details-num">{{
+                connection.total_recommends
+              }}</span>
+              Recommends
+            </div>
+          </div>
+        </div>
+        <ConnectButton
+          @sendIsShowingConnectModal="setIsShowingConnectModal"
+          @openInfoModal="showContact"
+          :sendCost="connection.cost"
+          :status="'connect'"
+          :activeConnection="connection"
+        />
       </div>
-
-      <div class="c-home__cards__card">
-        <div class="c-home__cards__card--img-cont">
-          <nuxt-link
-            :src="require('@/assets/images/persona1.png')"
-            tag="img"
-            to="/"
-            class="c-home__cards__card--img"
-          />
-          <div class="c-home__cards__card--status u-status--available"></div>
-        </div>
-        <div class="c-home__cards__card--name">
-          Gabel Sheber
-        </div>
-        <div class="c-home__cards__card--username">
-          @gabelsh
-        </div>
-        <div class="c-home__cards__card--description">
-          Company’s Legal Advisor & Chess Amateur
-        </div>
-        <div class="c-home__cards__card--details-cont">
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">210</span>
-            Connections
-          </div>
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">176</span>
-            Recommends
-          </div>
-        </div>
-        <v-btn
-          depressed
-          class="c-home__cards__card--button"
-          color="#0087FF"
-          dark
-        >
-          1$ - Connect
-        </v-btn>
-      </div>
-
-      <div class="c-home__cards__card">
-        <div class="c-home__cards__card--img-cont">
-          <nuxt-link
-            :src="require('@/assets/images/persona1.png')"
-            tag="img"
-            to="/"
-            class="c-home__cards__card--img"
-          />
-          <div class="c-home__cards__card--status u-status--available"></div>
-        </div>
-        <div class="c-home__cards__card--name">
-          Gabel Sheber
-        </div>
-        <div class="c-home__cards__card--username">
-          @gabelsh
-        </div>
-        <div class="c-home__cards__card--description">
-          Company’s Legal Advisor & Chess Amateur
-        </div>
-        <div class="c-home__cards__card--details-cont">
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">210</span>
-            Connections
-          </div>
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">176</span>
-            Recommends
-          </div>
-        </div>
-        <v-btn
-          depressed
-          class="c-home__cards__card--button"
-          color="#0087FF"
-          dark
-        >
-          1$ - Connect
-        </v-btn>
-      </div>
-
-      <div class="c-home__cards__card">
-        <div class="c-home__cards__card--img-cont">
-          <nuxt-link
-            :src="require('@/assets/images/persona1.png')"
-            tag="img"
-            to="/"
-            class="c-home__cards__card--img"
-          />
-          <div class="c-home__cards__card--status u-status--available"></div>
-        </div>
-        <div class="c-home__cards__card--name">
-          Gabel Sheber
-        </div>
-        <div class="c-home__cards__card--username">
-          @gabelsh
-        </div>
-        <div class="c-home__cards__card--description">
-          Company’s Legal Advisor & Chess Amateur
-        </div>
-        <div class="c-home__cards__card--details-cont">
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">210</span>
-            Connections
-          </div>
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">176</span>
-            Recommends
-          </div>
-        </div>
-        <v-btn
-          depressed
-          class="c-home__cards__card--button"
-          color="#0087FF"
-          dark
-        >
-          1$ - Connect
-        </v-btn>
-      </div>
-
-      <div class="c-home__cards__card">
-        <div class="c-home__cards__card--img-cont">
-          <nuxt-link
-            :src="require('@/assets/images/persona1.png')"
-            tag="img"
-            to="/account"
-            class="c-home__cards__card--img"
-          />
-          <div class="c-home__cards__card--status u-status--available"></div>
-        </div>
-        <div class="c-home__cards__card--name">
-          Gabel Sheber
-        </div>
-        <div class="c-home__cards__card--username">
-          @gabelsh
-        </div>
-        <div class="c-home__cards__card--description">
-          Company’s Legal Advisor & Chess Amateur
-        </div>
-        <div class="c-home__cards__card--details-cont">
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">210</span>
-            Connections
-          </div>
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">176</span>
-            Recommends
-          </div>
-        </div>
-        <v-btn
-          depressed
-          class="c-home__cards__card--button"
-          color="#0087FF"
-          dark
-        >
-          1$ - Connect
-        </v-btn>
-      </div>
-
-      <div class="c-home__cards__card">
-        <div class="c-home__cards__card--img-cont">
-          <nuxt-link
-            :src="require('@/assets/images/persona1.png')"
-            tag="img"
-            to="/"
-            class="c-home__cards__card--img"
-          />
-          <div class="c-home__cards__card--status u-status--available"></div>
-        </div>
-        <div class="c-home__cards__card--name">
-          Gabel Sheber
-        </div>
-        <div class="c-home__cards__card--username">
-          @gabelsh
-        </div>
-        <div class="c-home__cards__card--description">
-          Company’s Legal Advisor & Chess Amateur
-        </div>
-        <div class="c-home__cards__card--details-cont">
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">210</span>
-            Connections
-          </div>
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">176</span>
-            Recommends
-          </div>
-        </div>
-        <v-btn
-          depressed
-          class="c-home__cards__card--button"
-          color="#0087FF"
-          dark
-        >
-          1$ - Connect
-        </v-btn>
-      </div>
-
-      <div class="c-home__cards__card">
-        <div class="c-home__cards__card--img-cont">
-          <nuxt-link
-            :src="require('@/assets/images/persona1.png')"
-            tag="img"
-            to="/"
-            class="c-home__cards__card--img"
-          />
-          <div class="c-home__cards__card--status u-status--available"></div>
-        </div>
-        <div class="c-home__cards__card--name">
-          Gabel Sheber
-        </div>
-        <div class="c-home__cards__card--username">
-          @gabelsh
-        </div>
-        <div class="c-home__cards__card--description">
-          Company’s Legal Advisor & Chess Amateur
-        </div>
-        <div class="c-home__cards__card--details-cont">
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">210</span>
-            Connections
-          </div>
-          <div class="c-home__cards__card--details">
-            <span class="c-home__cards__card--details-num">176</span>
-            Recommends
-          </div>
-        </div>
-        <v-btn
-          depressed
-          class="c-home__cards__card--button"
-          color="#0087FF"
-          dark
-        >
-          1$ - Connect
-        </v-btn>
-      </div>
+      <ModalProfile
+        :isShowingContactInfo="IsShowingContactInfo"
+        :activeConnection="activeConnection"
+        @isShowingContactInfo="isShowingContactInfo"
+        @sendIsShowingConnectModal="setIsShowingConnectModal"
+      ></ModalProfile>
     </div>
-    <v-dialog v-model="IsShowingContactInfo" width="50%" class="c-contact-card">
-      <v-card>
-        <v-card-text>
-          <div class="c-contact-card__cross--cont">
-            <v-icon
-              @click="IsShowingContactInfo = false"
-              class="c-contact-card__cross"
-            >
-              mdi-close
-            </v-icon>
-          </div>
-          <div class="c-contact-card__profile">
-            <div class="c-contact-card__profile--img-cont">
-              <nuxt-link
-                :src="require('@/assets/images/persona1.png')"
-                tag="img"
-                to="/"
-                class="c-contact-card__profile--img"
-              />
-              <div
-                class="c-contact-card__profile--status u-status--available"
-              ></div>
-              <div class="c-contact-card__profile--details-cont">
-                <div class="c-contact-card__profile--details">
-                  <span class="c-contact-card__profile--details-num">210</span>
-                  Connections
-                </div>
-                <div class="c-contact-card__profile--details">
-                  <span class="c-contact-card__profile--details-num">176</span>
-                  Recommends
-                </div>
-              </div>
-              <ConnectButton status="connect" cost="1" />
-              <!--              <v-btn-->
-              <!--                depressed-->
-              <!--                class="c-home__cards__card&#45;&#45;button"-->
-              <!--                color="#0087FF"-->
-              <!--                dark-->
-              <!--              >-->
-              <!--                1$ - Connect-->
-              <!--              </v-btn>-->
-            </div>
-            <div class="c-contact-card__profile--text-cont">
-              <div class="c-contact-card__profile--name">Jessica O'Mallie</div>
-              <div class="c-contact-card__profile--username">@jessomallie</div>
-              <div class="c-contact-card__profile--description">
-                Bitcoin Estrategics, Formation in UX/UI & Animal Lover
-              </div>
-              <div class="c-contact-card__profile--title">Knowledge</div>
-              <div class="c-contact-card__profile--label-cont">
-                <v-chip
-                  class="c-contact-card__profile--label"
-                  color="#EFF1F2"
-                  label
-                >
-                  Design
-                </v-chip>
-                <v-chip
-                  class="c-contact-card__profile--label"
-                  color="#EFF1F2"
-                  label
-                >
-                  Bitcoin
-                </v-chip>
-                <v-chip
-                  class="c-contact-card__profile--label"
-                  color="#EFF1F2"
-                  label
-                >
-                  Startups
-                </v-chip>
-              </div>
-              <div class="c-contact-card__profile--title">Summary</div>
-              <div class="c-contact-card__profile--summary">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                urna, et sodales arcu. Vestibulum at mauris ultrices, posuere,
-                egestas neque. Sed erat neque, euismod vitae faucibus sit amet,
-                pharetra dui. Duis vulputate eu est rutrum. Cras fermentum
-                finibus iaculis lacus vehicula egestas neque. Sed erat neque,
-                vita.
-              </div>
-              <div class="c-contact-card__profile--title">Languages</div>
-              <div class="c-contact-card__profile--label-cont">
-                <v-chip
-                  class="c-contact-card__profile--label"
-                  color="#EFF1F2"
-                  label
-                >
-                  English
-                </v-chip>
-                <v-chip
-                  class="c-contact-card__profile--label"
-                  color="#EFF1F2"
-                  label
-                >
-                  Spanish
-                </v-chip>
-              </div>
-              <div class="c-contact-card__profile--title">Social Media</div>
-              <div class="c-contact-card__profile--username">
-                <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>
-                <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>
-                <v-icon color="#8C8C8C">mdi-twitter</v-icon>
-                <v-icon color="#8C8C8C">mdi-facebook-box</v-icon>
-                <v-icon color="#8C8C8C">mdi-instagram</v-icon>
-              </div>
-            </div>
-          </div>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
+    <span v-if="filteredConnections.length === 0 && usersLoaded">{{
+      this.$i18n.t('profile.cards.not_found')
+    }}</span>
   </div>
 </template>
 
 <script>
 import ConnectButton from '~/components/site/ConnectButton'
+import ModalProfile from '~/components/home/network/ModalProfile'
 
 export default {
   name: 'ProfileCards',
   components: {
-    ConnectButton
+    ConnectButton,
+    ModalProfile
+  },
+  props: {
+    filterNetwork: {
+      type: String,
+      default: ''
+    },
+    categoryNetwork: {
+      type: Array,
+      default: null
+    }
   },
   data() {
     return {
-      IsShowingContactInfo: false
+      IsShowingContactInfo: false,
+      IsShowingConnectModal: false,
+      filteredConnections: [],
+      activeConnection: {},
+      usersLoaded: false
     }
   },
+  watch: {
+    filterNetwork(val) {
+      this.filter(this.connections, val)
+      this.filterCategory(this.filteredConnections, this.categoryNetwork)
+    },
+    categoryNetwork(val) {
+      this.filterCategory(this.connections, val)
+      this.filter(this.filteredConnections, this.filterNetwork)
+    }
+  },
+
+  mounted() {
+    const loadUsers = this.showUsers()
+
+    loadUsers.then((result) => {
+      if (!result.error) {
+        this.connections = Object.values(result.data)
+        this.connections = this.filteredConnections = this.connections.filter(
+          (connection) => connection.nick !== this.$auth.$state.user.data.nick
+        )
+        this.usersLoaded = true
+      } else {
+        // eslint-disable-next-line no-console
+        console.log('Error users')
+      }
+    })
+  },
   methods: {
-    showContact() {
-      // Llamada AJAX al endpoint
+    isShowingContactInfo(value) {
+      this.IsShowingContactInfo = value
+    },
+    showContact(connection) {
       this.IsShowingContactInfo = true
+      this.activeConnection = connection
+    },
+    setIsShowingConnectModal(value) {
+      if (this.IsShowingContactInfo === true) {
+        this.IsShowingContactInfo = false
+      }
+      this.IsShowingConnectModal = value
+    },
+    filter(connections, val) {
+      if (val) {
+        this.filteredConnections = connections.filter(
+          (connection) =>
+            connection.nick.toLowerCase().includes(val.toLowerCase()) ||
+            connection.resume.toLowerCase().includes(val.toLowerCase())
+        )
+      } else {
+        this.filteredConnections = connections
+      }
+    },
+    filterCategory(connections, val) {
+      if (val.length > 0) {
+        this.filteredConnections = connections.filter(function(connection) {
+          if (val.includes('Online')) {
+            if (connection.is_online) return true
+          }
+          if (
+            connection.knowledge &&
+            Object.keys(connection.knowledge).length > 0
+          ) {
+            connection.knowledge.some((knowledge) => val.includes(knowledge))
+          }
+        })
+      } else {
+        this.filteredConnections = connections
+      }
     }
   }
 }
 </script>
-
-<style>
-.c-home__cards .v-dialog {
-  width: 50%;
-}
-</style>
 <style lang="scss" scoped>
 /* Clase repetida en componente Sidebar. Buescar manera de ponerla global */
 .u-status {
@@ -577,14 +209,24 @@ export default {
       color: #29363d;
       background-color: #fff;
       padding: 15px;
-      width: 365px;
-      height: 500px;
+      /*width: 365px;*/
+      width: 92%;
+      /*height: 500px;*/
+      height: auto;
       display: flex;
       flex-flow: column;
       justify-content: space-between;
-      align-items: center;
+      /*align-items: center;*/
       border-radius: 5px;
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+      &--text-wrapper {
+        display: flex;
+        flex-flow: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+      }
       &--img-cont {
         position: relative;
         width: 163px;
@@ -651,114 +293,15 @@ export default {
     }
   }
 }
-.c-contact-card {
-  width: 60% !important;
-  &__cross {
-    cursor: pointer;
-    &--cont {
-      width: 100%;
-      text-align: right;
-      padding-top: 20px;
-    }
-  }
-  &__profile {
-    display: flex;
-    position: relative;
-    padding: 0 20px 20px 20px;
-
-    &--img-cont {
-      position: relative;
-      width: 235px;
-      height: 235px;
-      border: 2px solid #fff;
-      border-radius: 50px;
-      flex-shrink: 0;
-    }
-
-    &--img {
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-    }
-
-    &--status {
-      position: absolute;
-      border-radius: 50px;
-      border: 2px solid #fff;
-      width: 21px;
-      height: 21px;
-      bottom: 10%;
-      right: 10%;
-    }
-
-    &--details-cont {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      padding-top: 25px;
-      padding-bottom: 30px;
-    }
-
-    &--details {
-      text-align: center;
-      // width: 45%;
-      font-size: 15px;
-      color: #8c8c8c;
-
-      &-num {
-        display: block;
-        color: #4d4d4d;
-        font-size: 19px;
-        font-weight: bold;
-      }
-    }
-
-    &--text-cont {
-      padding-left: 40px;
-    }
-
-    &--name {
-      color: #21273b;
-      padding-top: 15px;
-      font-size: 19px;
-      font-weight: 500;
-    }
-
-    &--username {
-      color: rgba(33, 39, 59, 0.5);
-      font-size: 17px;
-      font-weight: 500;
-    }
-
-    &--description {
-      opacity: 0.8;
-      color: #525252;
-      font-size: 18px;
-      width: 72%;
-      padding-top: 10px;
-    }
-
-    &--label {
-      margin-bottom: 5px;
-    }
-
-    &--title {
-      color: #21273b;
-      font-size: 17px;
-      font-weight: 500;
-      padding-top: 25px;
-      padding-bottom: 10px;
-    }
-  }
-}
 
 @media screen and (max-width: 1800px) {
   .c-home {
     &__cards {
       &__card {
-        width: 280px;
-        height: 360px;
+        /*width: 280px;*/
+        /*width: 92%;*/
+        /*height: 360px;*/
+        height: auto;
         font-size: 15px;
         &--img-cont {
           width: 122px;
@@ -786,7 +329,21 @@ export default {
   .c-home {
     &__cards {
       &__card {
-        width: 95%;
+        /*width: 95%;*/
+      }
+    }
+  }
+}
+@media screen and (max-width: 1200px) {
+  .c-home {
+    &__cards {
+      &__wrapper {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+      &__card {
+        &--details-cont {
+          padding: 0 0 7px 0;
+        }
       }
     }
   }
@@ -795,7 +352,12 @@ export default {
   .c-home {
     &__cards {
       &__wrapper {
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+      }
+      &__card {
+        &--details-cont {
+          padding: 0;
+        }
       }
     }
   }
@@ -804,7 +366,7 @@ export default {
   .c-home {
     &__cards {
       &__wrapper {
-        grid-template-columns: 1fr 1fr;
+        /*grid-template-columns: 1fr 1fr;*/
       }
     }
   }
