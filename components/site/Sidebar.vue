@@ -11,19 +11,10 @@
         />
         <div v-if="$auth.loggedIn" class="c-sidebar__profile--cont">
           <div class="c-sidebar__profile--img-cont">
-            <template v-if="true">
+            <template>
               <nuxt-link
-                :to="localePath('account/profile')"
+                :to="localePath('home')"
                 :src="require('~/assets/images/default.png')"
-                tag="img"
-                class="c-sidebar__profile--img"
-                title="Account Profile"
-              />
-            </template>
-            <template v-else>
-              <nuxt-link
-                :to="localePath('account/profile')"
-                :src="require('~/assets/images/network/users/persona1.png')"
                 tag="img"
                 class="c-sidebar__profile--img"
                 title="Account Profile"
@@ -31,12 +22,20 @@
             </template>
             <div class="c-sidebar__profile--status u-status--available"></div>
           </div>
-          <div class="c-sidebar__profile--name">
+          <div v-if="$auth.user.name" class="c-sidebar__profile--name">
             {{ $auth.user.name }} {{ $auth.user.surname }}
+          </div>
+          <div v-else class="c-sidebar__profile--name">
+            @{{ $auth.user.data.nick }}
           </div>
         </div>
         <ul class="c-sidebar__menu--cont">
-          <li class="c-sidebar__menu--item c-sidebar__menu--item-active">
+          <li
+            v-bind:class="
+              activeTab === 'network' ? 'c-sidebar__menu--item-active' : ''
+            "
+            class="c-sidebar__menu--item"
+          >
             <nuxt-link
               :to="localePath('home')"
               class="c-sidebar__menu--link"
@@ -54,7 +53,12 @@
               {{ badgeNetworkTotal }}
             </span>
           </li>
-          <li class="c-sidebar__menu--item">
+          <li
+            v-bind:class="
+              activeTab === 'connections' ? 'c-sidebar__menu--item-active' : ''
+            "
+            class="c-sidebar__menu--item"
+          >
             <nuxt-link
               :to="localePath('/connections/messages')"
               class="c-sidebar__menu--link"
@@ -72,7 +76,12 @@
               {{ badgeConnectionsTotal }}
             </span>
           </li>
-          <li class="c-sidebar__menu--item">
+          <li
+            v-bind:class="
+              activeTab === 'emeetings' ? 'c-sidebar__menu--item-active' : ''
+            "
+            class="c-sidebar__menu--item"
+          >
             <nuxt-link
               :to="localePath('/emeetings/requests')"
               class="c-sidebar__menu--link"
@@ -94,8 +103,9 @@
           <li class="c-sidebar__menu--item">
             <v-btn
               @click="logout"
-              class="c-sidebar__menu--link"
+              class="c-sidebar__menu--link c-sidebar-logout"
               title="eMeetings"
+              depressed
             >
               <v-icon class="c-sidebar__menu--icon">
                 mdi-login
@@ -119,8 +129,16 @@
 </template>
 
 <script>
+import { login } from '~/mixins/login'
 export default {
   name: 'Sidebar',
+  mixins: [login],
+  props: {
+    activeTab: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
       baseFilesURL: process.env.baseFilesURL,
@@ -129,9 +147,15 @@ export default {
       badgeeMeetingsTotal: 0
     }
   },
+  mounted() {
+    // TODO filter and count connections pending. Access to user info from store
+    // eslint-disable-next-line no-console
+    console.log(this.$auth.$state.user.data.connections)
+    // this.badgeConnectionsTotal = this.$auth.$state.user.connections
+  },
   methods: {
     async logout() {
-      await this.$auth.logout()
+      await this.handleLogout()
     }
   }
 }
@@ -171,6 +195,21 @@ export default {
     padding-bottom: 50px;
     cursor: pointer;
   }
+  &-logout {
+    background: transparent !important;
+    margin: 0;
+    border: 0;
+    font-size: inherit;
+    height: auto !important;
+    min-width: 0 !important;
+    text-transform: none;
+    padding: 0 !important;
+
+    &:hover {
+      color: black;
+      background: transparent !important;
+    }
+  }
   &__profile {
     &--cont {
       display: flex;
@@ -185,17 +224,18 @@ export default {
       height: 105px;
       margin-bottom: 13px;
       border: 2px solid #fff;
-      border-radius: 50px;
+      border-radius: 100%;
+      background-color: #fff;
     }
     &--img {
       object-fit: cover;
       width: 100%;
       height: 100%;
-      border-radius: 50px;
+      border-radius: 100%;
     }
     &--status {
       position: absolute;
-      border-radius: 50px;
+      border-radius: 100%;
       border: 2px solid #fff;
       width: 15px;
       height: 15px;
@@ -203,6 +243,7 @@ export default {
       right: 6%;
     }
     &--name {
+      color: #8c8c8c;
     }
   }
   &__menu {
@@ -223,7 +264,7 @@ export default {
         justify-content: space-between;
         align-items: center;
         & .c-sidebar__menu--icon {
-          color: #fff;
+          color: #fff !important;
         }
         & .c-sidebar__menu--link {
           color: #fff;
@@ -235,7 +276,7 @@ export default {
       &:hover {
         color: #fff;
         & .c-sidebar__menu--icon {
-          color: #fff;
+          color: #fff !important;
         }
       }
     }
@@ -253,7 +294,7 @@ export default {
     }
     &--icon {
       padding-right: 15px;
-      color: #8c8c8c;
+      color: #8c8c8c !important;
     }
   }
 }

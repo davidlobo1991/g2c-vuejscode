@@ -11,30 +11,32 @@
           </v-icon>
         </div>
         <div class="c-contact-card__profile">
-          <div class="c-contact-card__profile--img-cont">
-            <nuxt-link
-              :src="
-                activeConnection.image
-                  ? `_nuxt/assets/images/network/users/${activeConnection.image}`
-                  : require('~/assets/images/default.png')
-              "
-              tag="img"
-              to="/"
-              class="c-contact-card__profile--img"
-            />
-            <div
-              class="c-contact-card__profile--status u-status--available"
-            ></div>
+          <div class="c-contact-card__profile--img-side">
+            <div class="c-contact-card__profile--img-cont">
+              <nuxt-link
+                :src="
+                  activeConnection.profile_image
+                    ? `_nuxt/assets/images/network/users/${activeConnection.profile_image}`
+                    : require('~/assets/images/default.png')
+                "
+                tag="img"
+                to="/"
+                class="c-contact-card__profile--img"
+              />
+              <div
+                class="c-contact-card__profile--status u-status--available"
+              ></div>
+            </div>
             <div class="c-contact-card__profile--details-cont">
               <div class="c-contact-card__profile--details">
                 <span class="c-contact-card__profile--details-num">{{
-                  activeConnection.connections
+                  activeConnection.total_connections
                 }}</span>
                 Connections
               </div>
               <div class="c-contact-card__profile--details">
                 <span class="c-contact-card__profile--details-num">{{
-                  activeConnection.recommends
+                  activeConnection.total_recommends
                 }}</span>
                 Recommends
               </div>
@@ -44,7 +46,6 @@
               @sendIsShowingConnectModal="sendIsShowingConnectModal"
               @openInfoModal="isShowingContactInfo = value"
               status="connect"
-              cost="1"
             />
             <div class="c-contact-card__profile--progress-cont">
               <div class="c-contact-card__profile--progress-text">
@@ -76,7 +77,7 @@
               {{ activeConnection.name }}
             </div>
             <div class="c-contact-card__profile--username">
-              {{ activeConnection.nick }}
+              @{{ activeConnection.nick }}
             </div>
             <div class="c-contact-card__profile--description">
               {{ activeConnection.description }}
@@ -95,7 +96,7 @@
             </div>
             <div class="c-contact-card__profile--title">Summary</div>
             <div class="c-contact-card__profile--summary">
-              {{ activeConnection.summary }}
+              {{ activeConnection.resume }}
             </div>
             <div class="c-contact-card__profile--title">Languages</div>
             <div class="c-contact-card__profile--label-cont">
@@ -324,9 +325,11 @@ export default {
       flex-flow: column;
       &--img-cont {
         height: auto;
+        width: 120px;
+        margin: 0 auto;
       }
       &--status {
-        bottom: 37%;
+        bottom: 10%;
       }
       &--text-cont {
         padding-left: 0;

@@ -4,8 +4,13 @@ export default {
   cerrar: 'Close',
   edit_profile: 'Edit Profile',
   register: {
+    account: {
+      created: {
+        redirecting: 'User created correctly. You will be redirected to home'
+      }
+    },
     error: {
-      default: 'Error. See console to more info',
+      default: 'Error introducing data',
       promocode: 'The promocode is wrong or not exists',
       invitation_code: 'The invitation code is wrong or not exists',
       email: {
@@ -49,5 +54,14 @@ export default {
   },
   welcome: 'Welcome',
   welcome_banner_message:
-    'Fill your profile information to appear on the Network and start receving and requesting connections.'
+    'Fill your profile information to appear on the Network and start receving and requesting connections.',
+  page: {
+    protected: {
+      welcome:
+        'Welcome to NetworkSV. Insert the 12 words to access to Blockchain'
+    }
+  },
+  connections: {
+    notfounds: 'You don´t have enough founds'
+  }
 }

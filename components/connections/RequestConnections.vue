@@ -1,6 +1,6 @@
 <template>
   <div class="u-custom-wrapper">
-    <Sidebar />
+    <Sidebar active-tab="connections" />
     <Requests />
   </div>
 </template>

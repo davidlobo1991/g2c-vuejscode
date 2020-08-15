@@ -1,9 +1,13 @@
 <template>
   <div class="u-custom-wrapper">
-    <h1>Pagina protegida. Login perfil usuario. (No Blockchain)</h1>
-    <!--    <Settings />-->
     <div v-if="$auth.loggedIn">
-      <v-btn @click="logout" text class="blue white&#45;&#45;text"
+      <h1 class="mt-5 mb-5 ml-5 ">
+        {{ $i18n.t('page.protected.welcome') }} <br />
+        @{{ $auth.user.data.nick }}
+      </h1>
+      <AccountProfile />
+
+      <v-btn @click="logout" text class="mt-5 ml-5 blue white--text"
         >Logout</v-btn
       >
     </div>
@@ -11,17 +15,19 @@
 </template>
 
 <script>
-// import Settings from '~/components/account/settings/Settings'
+import AccountProfile from '~/components/account/AccountProfile'
+import { login } from '~/mixins/login'
 
 export default {
   name: 'UserProfile',
   middleware: ['authUser'],
-  // components: {
-  //   Settings
-  // },
+  components: {
+    AccountProfile
+  },
+  mixins: [login],
   methods: {
-    async logout() {
-      await this.$auth.logout()
+    logout() {
+      this.handleLogout()
       this.$router.push('/')
     }
   }

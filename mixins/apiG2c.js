@@ -1,7 +1,8 @@
+import { functions } from '~/mixins/functions'
 import { cookies } from '~/mixins/cookies'
 
 export const apiG2c = {
-  mixins: [cookies],
+  mixins: [cookies, functions],
   data() {
     return {
       g2c_words: '',
@@ -24,7 +25,7 @@ export const apiG2c = {
         randomWords = g2c_getRandomWords()
         return randomWords
       } catch (error) {
-        this.handleError(error, 'G2CService@getRandomWords - Error')
+        this.handleErrors(error)
       }
     },
     /**
@@ -52,11 +53,11 @@ export const apiG2c = {
         })
           .then((token) => token)
           .catch((error) => {
-            this.handleError(error, 'G2CUser@createUser - Error')
+            this.handleErrors(error)
             throw error
           })
       } catch (error) {
-        this.handleError(error, 'G2CUser@createUser - Error')
+        this.handleErrors(error)
         throw error
       }
     },
@@ -97,12 +98,14 @@ export const apiG2c = {
             }
           })
           .catch((error) => {
-            this.handleError(error, 'G2CUser@loginUser - Error')
+            this.handleErrors(error)
+            this.errorValidation = 'Login Fail'
+            this.loading = false
             throw error
           })
         // eslint-disable-next-line no-unreachable
       } catch (error) {
-        this.handleError(error, 'G2CUser@loginUser - Error')
+        this.handleErrors(error)
         throw error
       }
     },
@@ -142,11 +145,11 @@ export const apiG2c = {
         })
           .then((response) => response)
           .catch((error) => {
-            this.handleError(error, 'G2CUser@logoutUser - Error')
+            this.handleErrors(error)
             throw error
           })
       } catch (error) {
-        this.handleError(error, 'G2CUser@logoutUser - Error')
+        this.handleErrors(error)
         throw error
       }
     },
@@ -197,28 +200,13 @@ export const apiG2c = {
             }
           })
           .catch((error) => {
-            this.handleError(error, 'G2CUser@getUser - Error')
+            this.handleErrors(error)
             throw error
           })
       } catch (error) {
-        this.handleError(error, 'G2CUser@getUser - Error')
+        this.handleErrors(error)
         throw error
       }
-    },
-
-    /**
-     * Error Handler
-     * @param {Error} error
-     * @param {string} title - Optional Title
-     */
-    handleError(error, title = '') {
-      if (title.length > 0) {
-        // eslint-disable-next-line no-console
-        console.error(title)
-      }
-
-      // eslint-disable-next-line no-console
-      console.error(error)
     }
   }
 }

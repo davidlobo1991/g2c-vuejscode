@@ -57,7 +57,7 @@
         </div>
       </div>
     </div>
-    <BottomMobile />
+    <BottomMobile active-tab="connections" />
     <ModalProfile
       :isShowingContactInfo="IsShowingContactInfo"
       @isShowingContactInfo="isShowingContactInfoChild"

@@ -44,6 +44,9 @@
       <div v-show="errorCreateAccount" class="c-error">
         {{ errorCreateAccount }}
       </div>
+      <div v-show="accountCreated" class="c-success">
+        {{ accountCreated }}
+      </div>
     </div>
   </div>
 </template>
@@ -77,6 +80,7 @@ export default {
       registerPrefix: null,
       errorValidation: null,
       errorCreateAccount: null,
+      accountCreated: false,
       loading: true
     }
   },
@@ -184,13 +188,25 @@ export default {
               if (status.data.is_finished && !status.error) {
                 clearInterval(checkStatus)
 
+                /**
+                 * If status is finished, create user
+                 * @type {Promise<*|undefined>|Promise<TResult1|TResult2|undefined>}
+                 */
                 const userCreated = await _this.createUserApi()
 
                 if (!userCreated.error) {
+                  _this.accountCreated = this.$nuxt.$i18n.t(
+                    'register.account.created.redirecting'
+                  )
                   _this.login()
                 } else {
                   _this.handleError(userCreated)
                 }
+              } else if (status.error) {
+                clearInterval(checkStatus)
+                // eslint-disable-next-line no-console
+                console.log(status.error)
+                throw status.error
               }
             }, 5000)
           } else {
@@ -221,12 +237,7 @@ export default {
           this.g2c_application
         )
       } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error('NetworkSV Login error')
-        // eslint-disable-next-line no-console
-        console.error(error)
-        this.errorValidation = 'Login Fail'
-        this.loading = false
+        this.handleError(error)
       }
     },
     onWindowSizeChange() {
@@ -242,14 +253,17 @@ export default {
         sessionStorage.registerPassword
       )
     },
-    handleError(error, message = 'Error creating account') {
-      this.errorCreateAccount = message
 
+    /**
+     * Handle error
+     */
+    handleError(error, title = this.$i18n.t('register.error.default')) {
+      // eslint-disable-next-line no-console
+      console.log(title)
       this.loading = false
-      // eslint-disable-next-line no-console
-      console.error('createUser - Error')
-      // eslint-disable-next-line no-console
-      console.error(error)
+      this.errorCreateAccount = title
+      this.errorValidation = title
+      this.handleErrors(error)
     }
   }
 }
@@ -288,6 +302,15 @@ input[type='number']::-webkit-outer-spin-button {
     padding-top: 4.5%;
     width: 60%;
     margin: 0 auto;
+  }
+}
+.c-success {
+  margin: 30px 0;
+  color: #18de82;
+  font-weight: 500;
+
+  .v-icon {
+    color: #18de82;
   }
 }
 

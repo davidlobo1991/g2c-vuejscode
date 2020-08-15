@@ -11,13 +11,16 @@
 </template>
 
 <script>
+import { login } from '~/mixins/login'
+
 export default {
   layout: 'default',
   name: 'Dashboard',
+  mixins: [login],
   middleware: ['auth'],
   methods: {
     async logout() {
-      await this.$auth.logout()
+      await this.handleLogout()
       this.$router.push('/')
     }
   }

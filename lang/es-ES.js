@@ -4,8 +4,13 @@ export default {
   cerrar: 'Cerrar',
   edit_profile: 'Editar Perfil',
   register: {
+    account: {
+      created: {
+        redirecting: 'Usuario creado correctamente. Será reedirigido a la home'
+      }
+    },
     error: {
-      default: 'Error. Ver consola para más información',
+      default: 'Error al introducir los datos',
       promocode: 'El código promocional es erroneo o no existe',
       invitation_code: 'El código de invitación es erroneo o no existe',
       email: {
@@ -49,5 +54,14 @@ export default {
   },
   welcome: 'Bienvenido/a',
   welcome_banner_message:
-    'Fill your profile information to appear on the Network and start receving and requesting connections.'
+    'Fill your profile information to appear on the Network and start receving and requesting connections.',
+  page: {
+    protected: {
+      welcome:
+        'Bienvenidos a NetworkSV. Introduce las 12 palabras para acceder a BlockChain'
+    }
+  },
+  connections: {
+    notfounds: 'No tiene sufientes fondos'
+  }
 }

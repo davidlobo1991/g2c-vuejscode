@@ -74,6 +74,7 @@ import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 
 export default {
   name: 'PreCreateForm',
+  mixins: ['functions'],
   data() {
     return {
       formRegister: {
@@ -106,7 +107,8 @@ export default {
   computed: {
     ...mapState({
       nick: (state) => state.register.nick,
-      password: (state) => state.register.password
+      password: (state) => state.register.password,
+      invitationCode: (state) => state.register.invitationCode
     })
   },
   methods: {
@@ -170,46 +172,30 @@ export default {
 
         if (!checkLowercase) {
           this.nickInvalid = this.$i18n.t('register.error.nick.invalid')
-        }
-        // eslint-disable-next-line no-unreachable
-        this.$v.$touch()
-
-        if (this.$v.$invalid) {
-          this.loading = false
-          return
+          throw checkLowercase
         }
 
         const validationInvitationCode = await this.validationInvitationCode()
 
         if (validationInvitationCode.error === true) {
-          this.invitationCodeError = this.$i18n.t(
-            'register.error.invitation_code'
-          )
-          this.$v.$touch()
-          this.loading = false
-          return
+          this.invitationCodeError = this.$i18n.t('register.error.promocode')
+          throw validationInvitationCode.data
         }
 
         const validation = await this.checkUserApi()
 
         if (validation.error === true) {
           this.nickTaken = this.$i18n.t('register.error.nick.exists')
-          this.$v.$touch()
-          this.loading = false
-          return
+          throw validation.data
         }
 
         // Save nick and password in session because if the user update the site they will be lost
-        sessionStorage.registerNick = this.nick
-        sessionStorage.registerPassword = this.password
+        this.saveDataInSession()
 
         // Load Create Account Workflow
         await this.$router.push(this.localePath('create-account'))
       } catch (error) {
-        this.handleError(error, 'PreCreateForm@checkUser - Error')
-        this.errorValidation = this.$i18n.t('register.error.default')
-        this.$v.$touch()
-        this.loading = false
+        this.handleError(error)
       }
     },
     /**
@@ -288,6 +274,25 @@ export default {
       }
 
       return errors
+    },
+
+    /**
+     *  Save nick and password in session because if the
+     *  user update the site they will be lost
+     */
+    saveDataInSession() {
+      sessionStorage.registerNick = this.nick
+      sessionStorage.registerPassword = this.password
+      sessionStorage.registerInvitationCode = this.invitationCode
+    },
+    /**
+     * Touch validation and handle errors
+     */
+    handleError(error, title = this.$i18n.t('register.error.default')) {
+      this.$v.$touch()
+      this.loading = false
+      this.errorValidation = title
+      this.handleErrors(error)
     }
   }
 }

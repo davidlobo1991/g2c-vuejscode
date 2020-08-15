@@ -1,6 +1,6 @@
 <template>
   <div class="c-account__navbar">
-    <div class="c-account__navbar--logout-cont">
+    <div @click="logout" class="c-account__navbar--logout-cont">
       <span class="c-account__navbar--logout-text">Logout</span>
       <v-icon>
         mdi-exit-to-app
@@ -42,12 +42,20 @@
 </template>
 
 <script>
+import { login } from '~/mixins/login'
+
 export default {
   name: 'AccountNavbar',
+  mixins: [login],
   props: {
     activeTab: {
       type: String,
       default: ''
+    }
+  },
+  methods: {
+    logout() {
+      this.handleLogout()
     }
   }
 }
@@ -73,6 +81,7 @@ export default {
       right: 25px;
       display: flex;
       align-items: center;
+      cursor: pointer;
     }
     &--logout-text {
       padding-right: 15px;
