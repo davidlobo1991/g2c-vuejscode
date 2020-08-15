@@ -183,6 +183,7 @@ export default {
               status.then((data) => {
                 if (data.finished_at !== null && !data.error) {
                   clearInterval(checkStatus)
+                  // eslint-disable-next-line no-console
                   console.log(data)
                 }
               })
