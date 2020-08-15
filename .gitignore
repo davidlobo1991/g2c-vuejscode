@@ -88,3 +88,6 @@ sw.*
 
 # Vim swap files
 *.swp
+
+# Exclude yarn.lock to prevent conflicts with package-lock.json
+yarn.lock
