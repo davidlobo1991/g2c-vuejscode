@@ -219,11 +219,13 @@ export const apiG2c = {
 
           // eslint-disable-next-line no-undef
           g2cclient_getUserBalance(
-            tokenid,
-            tokens1,
-            tokenc1,
-            application,
-            nick,
+            {
+              tokenid,
+              tokens1,
+              tokenc1,
+              application,
+              nick
+            },
             (response) => {
               if (response === undefined) {
                 reject(Error('Undefined response'))
