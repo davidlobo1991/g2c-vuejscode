@@ -12,6 +12,7 @@ export default {
     error: {
       default: 'Error al introducir los datos',
       promocode: 'El código promocional es erroneo o no existe',
+      invitation_code: 'El código de invitación es erroneo o no existe',
       email: {
         exists: 'Ya existe una cuenta asociada al email introducido',
         sending: 'Error al enviar el código de validación',
@@ -59,5 +60,8 @@ export default {
       welcome:
         'Bienvenidos a NetworkSV. Introduce las 12 palabras para acceder a BlockChain'
     }
+  },
+  connections: {
+    notfounds: 'No tiene sufientes fondos'
   }
 }

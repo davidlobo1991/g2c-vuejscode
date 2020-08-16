@@ -12,6 +12,7 @@ export default {
     error: {
       default: 'Error introducing data',
       promocode: 'The promocode is wrong or not exists',
+      invitation_code: 'The invitation code is wrong or not exists',
       email: {
         exists: 'Email already exists',
         sending: 'Error sending the validation code',
@@ -59,5 +60,8 @@ export default {
       welcome:
         'Welcome to NetworkSV. Insert the 12 words to access to Blockchain'
     }
+  },
+  connections: {
+    notfounds: 'You don´t have enough founds'
   }
 }

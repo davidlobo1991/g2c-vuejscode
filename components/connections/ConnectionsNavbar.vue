@@ -1,8 +1,8 @@
 <template>
   <div class="c-account__navbar">
-    <v-icon class="c-account__navbar--menu">
-      mdi-menu-open
-    </v-icon>
+    <!--    <v-icon class="c-account__navbar&#45;&#45;openchat">-->
+    <!--      mdi-menu-open-->
+    <!--    </v-icon>-->
     <ul class="c-account__navbar--menu">
       <li
         v-bind:class="
@@ -76,6 +76,12 @@ export default {
     }
     &--logout-text {
       padding-right: 15px;
+    }
+    &--openchat {
+      position: absolute;
+      left: 15px;
+      bottom: 15px;
+      font-size: 43px;
     }
     &--menu {
       padding: 0;

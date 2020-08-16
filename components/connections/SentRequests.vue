@@ -2,6 +2,7 @@
   <div class="c-connections">
     <TopMobile />
     <ConnectionsNavbar active-tab="sent-requests" />
+    <SoonBanner />
     <div class="c-requests">
       <div class="c-requests--cont">
         <div @click.self="showContact" class="c-requests__elem">
@@ -42,7 +43,7 @@
         </div>
       </div>
     </div>
-    <BottomMobile />
+    <BottomMobile active-tab="connections" />
     <ModalProfile
       :isShowingContactInfo="IsShowingContactInfo"
       @isShowingContactInfo="isShowingContactInfoChild"
@@ -56,6 +57,7 @@ import ModalProfile from '~/components/home/network/ModalProfile'
 import ConnectionsNavbar from '~/components/connections/ConnectionsNavbar'
 import TopMobile from '~/components/site/TopMobile'
 import BottomMobile from '~/components/site/BottomMobile'
+import SoonBanner from '~/components/banners/SoonBanner'
 
 export default {
   name: 'SentRequests',
@@ -63,6 +65,7 @@ export default {
     ConnectionsNavbar,
     TopMobile,
     ModalProfile,
+    SoonBanner,
     BottomMobile
   },
   data() {
@@ -86,6 +89,7 @@ export default {
 <style lang="scss" scoped>
 .c-connections {
   width: 100%;
+  height: 100vh;
 }
 .connectbutton {
   width: 100%;

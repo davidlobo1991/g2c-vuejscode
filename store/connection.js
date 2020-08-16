@@ -12,7 +12,24 @@ const getters = {
   getStateConnection: (state) => state.stateConnection
 }
 
-const actions = {}
+const actions = {
+  async create(destinationId, connectionStatus) {
+    try {
+      const response = await this.$axios
+        .post(`users/${this.$auth.$state.user.id}/connections/create`, {
+          destination_user_id: destinationId,
+          status: connectionStatus
+        })
+        .then((response) => response)
+
+      return response
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error)
+      throw error
+    }
+  }
+}
 
 const mutations = {
   SET_DESTINATION_NICK(state, destinationNick) {

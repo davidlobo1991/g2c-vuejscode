@@ -1,12 +1,12 @@
 <template>
   <div class="c-account__profile">
-    <editAccountModal></editAccountModal>
+    <EditAccountModal />
     <div class="c-account__profile--image-info-cont">
       <div class="c-account__profile--img-cont">
         <nuxt-link
           :src="
-            $auth.user.data.image
-              ? `_nuxt/assets/images/network/users/${$auth.user.data.image}`
+            $auth.user.data.profile_image
+              ? `_nuxt/assets/images/network/users/${$auth.user.data.profile_image}`
               : require('~/assets/images/default.png')
           "
           tag="img"
@@ -22,16 +22,18 @@
           }}</span>
           Connections
         </div>
-        <div class="c-account__profile--details">
-          <span class="c-account__profile--details-num">{{
-            $auth.user.data.total_recommends
-          }}</span>
-          Recommends
-        </div>
+        <!--        <div class="c-account__profile&#45;&#45;details">-->
+        <!--          <span class="c-account__profile&#45;&#45;details-num">{{-->
+        <!--            $auth.user.data.total_recommends-->
+        <!--          }}</span>-->
+        <!--          Recommends-->
+        <!--        </div>-->
       </div>
     </div>
     <div class="c-account__profile--text-cont">
-      <div class="c-account__profile--name">{{ $auth.user.data.name }}</div>
+      <div class="c-account__profile--name">
+        {{ $auth.user.data.name }} {{ $auth.user.data.surname }}
+      </div>
       <div class="c-account__profile--username">
         @{{ $auth.user.data.nick }}
       </div>
@@ -40,57 +42,82 @@
       </div>
       <div class="c-account__profile--title">Knowledge</div>
       <div class="c-account__profile--label-cont">
-        <v-chip class="c-account__profile--label" color="#EFF1F2" label>
-          Design
-        </v-chip>
-        <v-chip class="c-account__profile--label" color="#EFF1F2" label>
-          Bitcoin
-        </v-chip>
-        <v-chip class="c-account__profile--label" color="#EFF1F2" label>
-          Startups
+        <v-chip
+          v-for="knowledge in $auth.user.data.knowledges"
+          :key="knowledge.en"
+          class="c-account__profile--label"
+          color="#EFF1F2"
+          label
+        >
+          {{ knowledge.en }}
         </v-chip>
       </div>
       <div class="c-account__profile--title">Summary</div>
       <div class="c-account__profile--summary">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla id rutrum
-        urna, et sodales arcu. Vestibulum at mauris ultrices, posuere neque eu,
-        egestas neque. Sed erat neque, euismod vitae faucibus sit amet, euismod
-        pharetra dui. Duis vulputate eu est rutrum. Cras fermentum ex nisl,
-        finibus iaculis lacus vehicula egestas neque. Sed erat neque, euismod
-        vita.
+        {{ $auth.user.data.summary }}
       </div>
       <div class="c-account__profile--title">Languages</div>
       <div class="c-account__profile--label-cont">
-        <v-chip class="c-account__profile--label" color="#EFF1F2" label>
-          English
-        </v-chip>
-        <v-chip class="c-account__profile--label" color="#EFF1F2" label>
-          Spanish
+        <v-chip
+          v-for="language in $auth.user.data.languages"
+          :key="language.en"
+          class="c-account__profile--label"
+          color="#EFF1F2"
+          label
+        >
+          {{ language.en }}
         </v-chip>
       </div>
-      <div class="c-account__profile--title">Social Media</div>
-      <div class="c-account__profile--username">
-        <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>
-        <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>
-        <v-icon color="#8C8C8C">mdi-twitter</v-icon>
-        <v-icon color="#8C8C8C">mdi-facebook-box</v-icon>
-        <v-icon color="#8C8C8C">mdi-instagram</v-icon>
-      </div>
+      <!--      <div class="c-account__profile&#45;&#45;title">Social Media</div>-->
+      <!--      <div class="c-account__profile&#45;&#45;username">-->
+      <!--        <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>-->
+      <!--        <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>-->
+      <!--        <v-icon color="#8C8C8C">mdi-twitter</v-icon>-->
+      <!--        <v-icon color="#8C8C8C">mdi-facebook-box</v-icon>-->
+      <!--        <v-icon color="#8C8C8C">mdi-instagram</v-icon>-->
+      <!--      </div>-->
     </div>
   </div>
 </template>
 
 <script>
-import editAccountModal from '~/components/account/modals/editAccount'
+import { mapState } from 'vuex'
+import EditAccountModal from '@/components/account/modals/EditAccountModal'
 
 export default {
   name: 'AccountProfile',
   components: {
-    editAccountModal
+    EditAccountModal
   },
   data() {
     return {
-      dialog: false
+      dialog: false,
+      userNameData: this.userName,
+      userLastNameData: this.userLastName,
+      userNickData: this.userNick,
+      userSummaryData: this.userSummary
+    }
+  },
+  computed: {
+    ...mapState({
+      userName: (state) => state.users.name,
+      userLastName: (state) => state.users.last_name,
+      userNick: (state) => state.users.nick,
+      userSummary: (state) => state.users.summary
+    })
+  },
+  watch: {
+    userName(val) {
+      this.userNameData = val
+    },
+    userLastName(val) {
+      this.userLastNameData = val
+    },
+    userNick(val) {
+      this.userNickData = val
+    },
+    userSummaryData(val) {
+      this.userSummaryData = val
     }
   }
 }
@@ -272,7 +299,7 @@ export default {
         border: 1px solid #fff;
         width: 16px;
         height: 16px;
-        bottom: 37%;
+        bottom: 10%;
       }
       &--details {
         font-size: 14px;
@@ -309,7 +336,7 @@ export default {
         height: auto;
       }
       &--status {
-        bottom: 37%;
+        bottom: 10%;
       }
       &--text-cont {
         padding-left: 0;

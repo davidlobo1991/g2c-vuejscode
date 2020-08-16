@@ -17,32 +17,32 @@
       <v-switch @change="toggleMeetings" class="mt-0 pt-0" hide-details>
       </v-switch>
     </div>
-    <div v-show="IseMeetingActive" class="c-meetings--inner-check-cont">
-      <div class="c-meetings--inner-check">
-        <div>
-          Open Availability
-          <v-tooltip right color="#25273A" max-width="270px">
-            <template v-slot:activator="{ on }">
-              <v-icon v-on="on" class="c-meetings__more-info">
-                mdi-help-circle
-              </v-icon>
-            </template>
-            <span>
-              Lorem ipsum dolor sit amet, consectetur asipiscing elit
-            </span>
-          </v-tooltip>
-        </div>
-        <v-switch class="mt-0 pt-0" hide-details></v-switch>
-      </div>
-      <div class="c-meetings--inner-check">
-        Setup when you're available on your Calendar
-        <span>
-          <nuxt-link to="#" class="c-meetings--link" disabled>
-            Set Availability
-          </nuxt-link>
-        </span>
-      </div>
-    </div>
+    <!--    <div v-show="IseMeetingActive" class="c-meetings&#45;&#45;inner-check-cont">-->
+    <!--      <div class="c-meetings&#45;&#45;inner-check">-->
+    <!--        <div>-->
+    <!--          Open Availability-->
+    <!--          <v-tooltip right color="#25273A" max-width="270px">-->
+    <!--            <template v-slot:activator="{ on }">-->
+    <!--              <v-icon v-on="on" class="c-meetings__more-info">-->
+    <!--                mdi-help-circle-->
+    <!--              </v-icon>-->
+    <!--            </template>-->
+    <!--            <span>-->
+    <!--              Lorem ipsum dolor sit amet, consectetur asipiscing elit-->
+    <!--            </span>-->
+    <!--          </v-tooltip>-->
+    <!--        </div>-->
+    <!--        <v-switch class="mt-0 pt-0" hide-details></v-switch>-->
+    <!--      </div>-->
+    <!--      <div class="c-meetings&#45;&#45;inner-check">-->
+    <!--        Setup when you're available on your Calendar-->
+    <!--        <span>-->
+    <!--          <nuxt-link to="#" class="c-meetings&#45;&#45;link" disabled>-->
+    <!--            Set Availability-->
+    <!--          </nuxt-link>-->
+    <!--        </span>-->
+    <!--      </div>-->
+    <!--    </div>-->
   </div>
 </template>
 

@@ -2,20 +2,23 @@
   <div class="c-connections">
     <TopMobile />
     <EmeetingsNavbar active-tab="received" />
+    <SoonBanner />
     <div class="c-emeetings-requests">
       <div class="c-emeetings-requests--cont">
         <div @click.self="showContact" class="c-emeetings-requests__elem">
           <div class="c-emeetings-requests__elem--info-cont">
-            <div class="c-emeetings-requests__elem--time-cont">
-              <div class="c-emeetings-requests__elem--time-title">6 Jul</div>
-              <div class="c-emeetings-requests__elem--time-description">
-                Mon
+            <div class="c-emeetings-requests__elem--time">
+              <div class="c-emeetings-requests__elem--time-cont">
+                <div class="c-emeetings-requests__elem--time-title">6 Jul</div>
+                <div class="c-emeetings-requests__elem--time-description">
+                  Mon
+                </div>
               </div>
-            </div>
-            <div class="c-emeetings-requests__elem--time-cont">
-              <div class="c-emeetings-requests__elem--time-title">18:15</div>
-              <div class="c-emeetings-requests__elem--time-description">
-                1 hour
+              <div class="c-emeetings-requests__elem--time-cont">
+                <div class="c-emeetings-requests__elem--time-title">18:15</div>
+                <div class="c-emeetings-requests__elem--time-description">
+                  1 hour
+                </div>
               </div>
             </div>
             <div
@@ -66,16 +69,18 @@
         </div>
         <div @click.self="showContact" class="c-emeetings-requests__elem">
           <div class="c-emeetings-requests__elem--info-cont">
-            <div class="c-emeetings-requests__elem--time-cont">
-              <div class="c-emeetings-requests__elem--time-title">6 Jul</div>
-              <div class="c-emeetings-requests__elem--time-description">
-                Mon
+            <div class="c-emeetings-requests__elem--time">
+              <div class="c-emeetings-requests__elem--time-cont">
+                <div class="c-emeetings-requests__elem--time-title">6 Jul</div>
+                <div class="c-emeetings-requests__elem--time-description">
+                  Mon
+                </div>
               </div>
-            </div>
-            <div class="c-emeetings-requests__elem--time-cont">
-              <div class="c-emeetings-requests__elem--time-title">18:15</div>
-              <div class="c-emeetings-requests__elem--time-description">
-                1 hour
+              <div class="c-emeetings-requests__elem--time-cont">
+                <div class="c-emeetings-requests__elem--time-title">18:15</div>
+                <div class="c-emeetings-requests__elem--time-description">
+                  1 hour
+                </div>
               </div>
             </div>
             <div
@@ -126,16 +131,18 @@
         </div>
         <div @click.self="showContact" class="c-emeetings-requests__elem">
           <div class="c-emeetings-requests__elem--info-cont">
-            <div class="c-emeetings-requests__elem--time-cont">
-              <div class="c-emeetings-requests__elem--time-title">6 Jul</div>
-              <div class="c-emeetings-requests__elem--time-description">
-                Mon
+            <div class="c-emeetings-requests__elem--time">
+              <div class="c-emeetings-requests__elem--time-cont">
+                <div class="c-emeetings-requests__elem--time-title">6 Jul</div>
+                <div class="c-emeetings-requests__elem--time-description">
+                  Mon
+                </div>
               </div>
-            </div>
-            <div class="c-emeetings-requests__elem--time-cont">
-              <div class="c-emeetings-requests__elem--time-title">18:15</div>
-              <div class="c-emeetings-requests__elem--time-description">
-                1 hour
+              <div class="c-emeetings-requests__elem--time-cont">
+                <div class="c-emeetings-requests__elem--time-title">18:15</div>
+                <div class="c-emeetings-requests__elem--time-description">
+                  1 hour
+                </div>
               </div>
             </div>
             <div
@@ -186,16 +193,18 @@
         </div>
         <div @click.self="showContact" class="c-emeetings-requests__elem">
           <div class="c-emeetings-requests__elem--info-cont">
-            <div class="c-emeetings-requests__elem--time-cont">
-              <div class="c-emeetings-requests__elem--time-title">6 Jul</div>
-              <div class="c-emeetings-requests__elem--time-description">
-                Mon
+            <div class="c-emeetings-requests__elem--time">
+              <div class="c-emeetings-requests__elem--time-cont">
+                <div class="c-emeetings-requests__elem--time-title">6 Jul</div>
+                <div class="c-emeetings-requests__elem--time-description">
+                  Mon
+                </div>
               </div>
-            </div>
-            <div class="c-emeetings-requests__elem--time-cont">
-              <div class="c-emeetings-requests__elem--time-title">18:15</div>
-              <div class="c-emeetings-requests__elem--time-description">
-                1 hour
+              <div class="c-emeetings-requests__elem--time-cont">
+                <div class="c-emeetings-requests__elem--time-title">18:15</div>
+                <div class="c-emeetings-requests__elem--time-description">
+                  1 hour
+                </div>
               </div>
             </div>
             <div
@@ -246,7 +255,7 @@
         </div>
       </div>
     </div>
-    <BottomMobile />
+    <BottomMobile active-tab="emeetings" />
   </div>
 </template>
 
@@ -254,12 +263,14 @@
 import EmeetingsNavbar from '~/components/emeetings/EmeetingsNavbar'
 import TopMobile from '~/components/site/TopMobile'
 import BottomMobile from '~/components/site/BottomMobile'
+import SoonBanner from '~/components/banners/SoonBanner'
 
 export default {
   name: 'EmeetingsMain',
   components: {
     EmeetingsNavbar,
     TopMobile,
+    SoonBanner,
     BottomMobile
   }
 }
@@ -268,6 +279,7 @@ export default {
 <style lang="scss" scoped>
 .c-connections {
   width: 100%;
+  /*height: 100vh;*/
 }
 .connectbutton {
   width: 100%;
@@ -315,6 +327,9 @@ export default {
     &--info-cont {
       display: flex;
       align-items: center;
+    }
+    &--time {
+      display: flex;
     }
     &--time-cont {
       flex-shrink: 0;
@@ -389,14 +404,18 @@ export default {
 @media screen and (max-width: 1200px) {
   .c-emeetings-requests {
     &__elem {
+      flex-flow: column;
+      &--info-cont {
+        width: 100%;
+      }
       &--progress-buttons-cont {
-        flex-flow: column;
+        /*flex-flow: column;*/
         align-items: flex-end;
-        width: 60%;
+        width: 100%;
       }
       &--progress-cont {
-        width: 100%;
-        padding-bottom: 20px;
+        width: auto;
+        padding-bottom: 0;
       }
     }
   }
@@ -429,9 +448,26 @@ export default {
     &__elem {
       &--info-cont {
         flex-flow: column;
+        padding: 0;
+      }
+      &--time {
+        flex-flow: row;
+        width: 100%;
+        justify-content: space-between;
+      }
+      &--time-cont {
+        margin-right: 0;
       }
       &--image {
         margin-bottom: 15px;
+      }
+      &--progress-cont {
+        width: 100%;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      &--progress-buttons-cont {
+        flex-flow: column;
       }
       &--button-cont {
         flex-flow: column;

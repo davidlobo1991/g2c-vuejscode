@@ -11,21 +11,36 @@
           />
         </div>
       </div>
-      <div>
-        <v-icon class="c-bottom-mobile__icon-active">
+      <nuxt-link :to="localePath('home')" title="Network">
+        <v-icon
+          v-bind:class="
+            activeTab === 'network' ? 'c-bottom-mobile__icon-active' : ''
+          "
+          class="c-bottom-mobile__icon"
+        >
           mdi-account-multiple
         </v-icon>
-      </div>
-      <div>
-        <v-icon class="c-bottom-mobile__icon">
+      </nuxt-link>
+      <nuxt-link :to="localePath('/connections/messages')" title="Network">
+        <v-icon
+          v-bind:class="
+            activeTab === 'connections' ? 'c-bottom-mobile__icon-active' : ''
+          "
+          class="c-bottom-mobile__icon"
+        >
           mdi-message-text
         </v-icon>
-      </div>
-      <!--      <div>-->
-      <!--        <v-icon class="c-bottom-mobile__icon">-->
-      <!--          mdi-bookmark-multiple-->
-      <!--        </v-icon>-->
-      <!--      </div>-->
+      </nuxt-link>
+      <nuxt-link :to="localePath('/emeetings/requests')" title="Network">
+        <v-icon
+          v-bind:class="
+            activeTab === 'emeetings' ? 'c-bottom-mobile__icon-active' : ''
+          "
+          class="c-bottom-mobile__icon"
+        >
+          mdi-message-video
+        </v-icon>
+      </nuxt-link>
       <!--      <div>-->
       <!--        <v-icon class="c-bottom-mobile__icon">-->
       <!--          mdi-forum-->
@@ -37,7 +52,13 @@
 
 <script>
 export default {
-  name: 'BottomMobile'
+  name: 'BottomMobile',
+  props: {
+    activeTab: {
+      type: String,
+      default: ''
+    }
+  }
 }
 </script>
 
@@ -53,11 +74,12 @@ export default {
     background-color: #21273b;
     width: 100%;
     height: 80px;
+    z-index: 999999999999999;
 
     &__wrapper {
       height: 100%;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       justify-items: center;
       align-items: center;
     }
