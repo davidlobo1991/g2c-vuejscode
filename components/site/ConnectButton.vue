@@ -197,7 +197,7 @@ export default {
       this.modalStep = 1
       this.isShowingConnectModal = true
     },
-    async nextModalStep(nick) {
+    async nextModalStep() {
       this.loading = true
       try {
         this.exchangedCost = await this.exchangeRates(this.transactionCost)
@@ -229,7 +229,7 @@ export default {
 
             if (!shareObject.error) {
               // TODO Save shareauth in firebase
-              this.createConnection('id', 'pending')
+              this.createConnection('id')
             }
           }
           this.modalStep = this.modalStep + 1
