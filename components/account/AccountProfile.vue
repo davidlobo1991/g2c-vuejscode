@@ -294,7 +294,7 @@ export default {
         border: 1px solid #fff;
         width: 16px;
         height: 16px;
-        bottom: 37%;
+        bottom: 10%;
       }
       &--details {
         font-size: 14px;
@@ -331,7 +331,7 @@ export default {
         height: auto;
       }
       &--status {
-        bottom: 37%;
+        bottom: 10%;
       }
       &--text-cont {
         padding-left: 0;

@@ -2,6 +2,7 @@
   <div class="c-connections">
     <TopMobile />
     <EmeetingsNavbar active-tab="sent" />
+    <SoonBanner />
     <div class="c-emeetings-requests">
       <div class="c-emeetings-requests--cont">
         <div @click.self="showContact" class="c-emeetings-requests__elem">
@@ -262,12 +263,14 @@
 import EmeetingsNavbar from '~/components/emeetings/EmeetingsNavbar'
 import TopMobile from '~/components/site/TopMobile'
 import BottomMobile from '~/components/site/BottomMobile'
+import SoonBanner from '~/components/banners/SoonBanner'
 
 export default {
   name: 'Sent',
   components: {
     EmeetingsNavbar,
     TopMobile,
+    SoonBanner,
     BottomMobile
   }
 }
@@ -276,6 +279,7 @@ export default {
 <style lang="scss" scoped>
 .c-connections {
   width: 100%;
+  /*height: 100vh;*/
 }
 .connectbutton {
   width: 100%;
