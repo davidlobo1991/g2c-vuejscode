@@ -44,6 +44,7 @@
       <div class="c-account__profile--label-cont">
         <v-chip
           v-for="knowledge in $auth.user.data.knowledges"
+          :key="knowledge.en"
           class="c-account__profile--label"
           color="#EFF1F2"
           label
@@ -59,6 +60,7 @@
       <div class="c-account__profile--label-cont">
         <v-chip
           v-for="language in $auth.user.data.languages"
+          :key="language.en"
           class="c-account__profile--label"
           color="#EFF1F2"
           label

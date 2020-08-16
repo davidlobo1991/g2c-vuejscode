@@ -215,6 +215,9 @@ export default {
         )
 
         if (!propose.error) {
+          // eslint-disable-next-line no-console
+          console.log(propose)
+
           const object = await this.shareUserObject(
             this.$auth.$storage.getCookie('tokenid'),
             this.$auth.$storage.getCookie('tokens1'),

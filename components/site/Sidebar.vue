@@ -150,7 +150,7 @@ export default {
   mounted() {
     // TODO filter and count connections pending. Access to user info from store
     // eslint-disable-next-line no-console
-    console.log(this.$auth.$state.user.data.connections)
+    // console.log(this.$auth.$state.user.data.connections)
     // this.badgeConnectionsTotal = this.$auth.$state.user.connections
   },
   methods: {

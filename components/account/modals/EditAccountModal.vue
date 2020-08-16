@@ -38,15 +38,6 @@
                 </div>
               </v-avatar>
             </div>
-            <!--            <div class="c-edit-account__modal&#45;&#45;img-cont">-->
-            <!--              <nuxt-link-->
-            <!--                :src="require('@/assets/images/persona1.png')"-->
-            <!--                tag="img"-->
-            <!--                to="/"-->
-            <!--                class="c-edit-account__modal&#45;&#45;img"-->
-            <!--              />-->
-            <!--              <div class="c-account__profile&#45;&#45;status u-status&#45;&#45;available"></div>-->
-            <!--            </div>-->
             <div class="c-edit-account__modal--inputs-cont">
               <v-text-field
                 :value="userName"
@@ -132,16 +123,6 @@ import { mapState } from 'vuex'
 export default {
   name: 'EditAccountModal',
   components: {},
-  computed: {
-    ...mapState({
-      userName: (state) => state.users.name,
-      userLastName: (state) => state.users.last_name,
-      userTitle: (state) => state.users.title,
-      userSummary: (state) => state.users.summary,
-      userKnowledges: (state) => state.users.knowledges,
-      userLanguages: (state) => state.users.languages
-    })
-  },
   data() {
     return {
       dialog: false,
@@ -152,6 +133,16 @@ export default {
       knowledgeValue: [],
       knowledgeArray: []
     }
+  },
+  computed: {
+    ...mapState({
+      userName: (state) => state.users.name,
+      userLastName: (state) => state.users.last_name,
+      userTitle: (state) => state.users.title,
+      userSummary: (state) => state.users.summary,
+      userKnowledges: (state) => state.users.knowledges,
+      userLanguages: (state) => state.users.languages
+    })
   },
   async mounted() {
     this.knowledgeItems = await this.getKnowledges()
@@ -251,11 +242,11 @@ export default {
         if (!editUser.error) {
           this.dialog = false
 
-          // Upate auth user info
+          // Update auth user info
           await this.$auth.fetchUser()
         }
       } catch (error) {
-        this.handleError(error)
+        this.handleErrors(error)
       }
     }
   }
