@@ -203,11 +203,6 @@ export default {
         this.exchangedCost = await this.exchangeRates(this.transactionCost)
 
         const propose = await this.walletPropose(
-          this.$auth.$storage.getCookie('tokenid'),
-          this.$auth.$storage.getCookie('tokens1'),
-          this.$auth.$storage.getCookie('tokenc1'),
-          this.g2c_application,
-          this.sourceNick,
           this.destinationNick,
           this.exchangedCost,
           undefined,
@@ -218,26 +213,25 @@ export default {
           // eslint-disable-next-line no-console
           console.log(propose)
 
-          const object = await this.shareUserObject(
-            this.$auth.$storage.getCookie('tokenid'),
-            this.$auth.$storage.getCookie('tokens1'),
-            this.$auth.$storage.getCookie('tokenc1'),
-            this.g2c_application,
-            this.sourceNick,
-            '/',
-            'object-name',
-            this.destinationNick
+          const object = await this.createUserObject(
+            this.destinationNick,
+            this.connectMessage,
+            propose
           )
 
-          if (!object.error) {
-            this.createConnection('id', 'pending')
-          }
-
-          // eslint-disable-next-line no-console
           console.log(object)
 
-          // TODO Save shareauth in firebase
+          if (!object.error) {
+            const shareObject = await this.shareUserObject(
+              object.data,
+              this.destinationNick
+            )
 
+            if (!shareObject.error) {
+              // TODO Save shareauth in firebase
+              this.createConnection('id', 'pending')
+            }
+          }
           this.modalStep = this.modalStep + 1
         } else {
           this.loading = false

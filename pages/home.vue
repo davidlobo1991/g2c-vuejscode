@@ -10,7 +10,7 @@ import Home from '~/components/Home.vue'
 export default {
   layout: 'default',
   name: 'HomeDashboard',
-  // middleware: ['authG2CUser'], // @TODO: Temporol disconnect. Not creating cookies tokenid, ... in local
+  middleware: ['authG2CUser'],
   components: {
     Home
   }

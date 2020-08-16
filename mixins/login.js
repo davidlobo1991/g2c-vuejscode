@@ -88,9 +88,8 @@ export const login = {
       const response = await this.logoutUser(
         this.$auth.$storage.getCookie('tokenid'),
         this.$auth.$storage.getCookie('tokens1'),
-        this.$auth.$storage.getCookie('tokenc1'),
         this.g2c_application,
-        'rsanchez11'
+        this.$auth.user.data.nick
       )
 
       if (!response.error) {
@@ -98,8 +97,6 @@ export const login = {
         this.$auth.$storage.removeCookie('tokens1')
         this.$auth.$storage.removeCookie('tokenc1')
 
-        // eslint-disable-next-line no-console
-        console.log(response)
         await this.$auth.logout()
       } else {
         this.handleErrors(response)
