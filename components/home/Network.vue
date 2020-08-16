@@ -92,6 +92,9 @@ export default {
         )
       }
     }
+  },
+  created() {
+    this.$mixpanel.track('Network Page View')
   }
 }
 </script>

@@ -61,7 +61,8 @@ export default {
   plugins: [
     '~/plugins/vuelidate',
     '~/plugins/api-g2c',
-    '~/plugins/api-backend-network-sv'
+    '~/plugins/api-backend-network-sv',
+    '~/plugins/mixpanel'
   ],
   /*
    ** Nuxt.js dev-modules
@@ -268,7 +269,9 @@ export default {
     apiURL:
       process.env.API_URL || 'https://networksv-backend.herokuapp.com/api/',
     baseFilesURL:
-      process.env.BASE_FILES_URL || 'https://networksv-backend.rwdesarrollos'
+      process.env.BASE_FILES_URL || 'https://networksv-backend.rwdesarrollos',
+    mixPanelToken:
+      process.env.MIX_PANEL_TOKEN || '6853623bf838a6be74c88550a816bd2a'
   },
   robots: {
     /* module options */

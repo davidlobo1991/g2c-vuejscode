@@ -21,6 +21,7 @@ export default {
   methods: {
     async logout() {
       await this.handleLogout()
+      this.$mixpanel.track('Log Out')
       this.$router.push('/')
     }
   }

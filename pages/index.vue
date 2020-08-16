@@ -12,6 +12,9 @@ export default {
   middleware: ['home'],
   components: {
     Login
+  },
+  created() {
+    this.$mixpanel.track('Home Page View')
   }
 }
 </script>

@@ -55,6 +55,7 @@ export default {
   },
   methods: {
     logout() {
+      this.$mixpanel.track('Log Out')
       this.handleLogout()
     }
   }

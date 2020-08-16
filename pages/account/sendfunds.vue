@@ -100,7 +100,10 @@
 
 <script>
 export default {
-  name: 'SendFundsVue'
+  name: 'SendFundsVue',
+  created() {
+    this.$mixpanel.track('Account Send Funds Page View')
+  }
 }
 </script>
 

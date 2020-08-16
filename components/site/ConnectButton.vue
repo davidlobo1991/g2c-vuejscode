@@ -196,6 +196,7 @@ export default {
       this.setTransactionCost()
       this.modalStep = 1
       this.isShowingConnectModal = true
+      this.$mixpanel.track('Click on Connect Button')
     },
     async nextModalStep() {
       this.loading = true
@@ -208,6 +209,7 @@ export default {
           undefined,
           'Description'
         )
+        this.$mixpanel.track('Click on Connect Button Second Step')
 
         if (!propose.error) {
           // eslint-disable-next-line no-console
@@ -259,6 +261,7 @@ export default {
     },
     confirmConnection() {
       this.isShowingConnectModal = false
+      this.$mixpanel.track('Confirm Connection Button')
     },
     returnToProfile() {
       this.isShowingConnectModal = false

@@ -11,6 +11,9 @@ export default {
   name: 'Request',
   components: {
     RequestConnections
+  },
+  created() {
+    this.$mixpanel.track('Connection Received Request Page View')
   }
 }
 </script>

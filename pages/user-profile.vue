@@ -25,6 +25,9 @@ export default {
     AccountProfile
   },
   mixins: [login],
+  created() {
+    this.$mixpanel.track('User Profile Page View')
+  },
   methods: {
     logout() {
       this.handleLogout()

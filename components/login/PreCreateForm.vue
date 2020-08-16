@@ -123,6 +123,7 @@ export default {
     },
     showLogin() {
       this.$emit('showLogin')
+      this.$mixpanel.track('Login Form View')
     },
     /**
      * Check if user is taken
@@ -194,6 +195,7 @@ export default {
 
         // Load Create Account Workflow
         await this.$router.push(this.localePath('create-account'))
+        this.$mixpanel.track('Register Account Username/Password Inserted')
       } catch (error) {
         this.handleError(error)
       }

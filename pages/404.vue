@@ -25,7 +25,10 @@
 
 <script>
 export default {
-  name: 'NotFound'
+  name: 'NotFound',
+  created() {
+    this.$mixpanel.track('404 Page View')
+  }
 }
 </script>
 

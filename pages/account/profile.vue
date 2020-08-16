@@ -11,6 +11,9 @@ import Account from '~/components/Account.vue'
 export default {
   components: {
     Account
+  },
+  created() {
+    this.$mixpanel.track('Account Profile Page View')
   }
 }
 </script>

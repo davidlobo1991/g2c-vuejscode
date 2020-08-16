@@ -9,6 +9,9 @@ export default {
   name: 'Requests',
   components: {
     EmeetingsRequests
+  },
+  created() {
+    this.$mixpanel.track('eMeetings Received Request Page View')
   }
 }
 </script>
