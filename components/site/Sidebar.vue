@@ -13,7 +13,7 @@
           <div class="c-sidebar__profile--img-cont">
             <template>
               <nuxt-link
-                :to="localePath('home')"
+                :to="localePath('/account/profile')"
                 :src="require('~/assets/images/default.png')"
                 tag="img"
                 class="c-sidebar__profile--img"
@@ -150,7 +150,7 @@ export default {
   mounted() {
     // TODO filter and count connections pending. Access to user info from store
     // eslint-disable-next-line no-console
-    console.log(this.$auth.$state.user.data.connections)
+    // console.log(this.$auth.$state.user.data.connections)
     // this.badgeConnectionsTotal = this.$auth.$state.user.connections
   },
   methods: {

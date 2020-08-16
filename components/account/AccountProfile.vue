@@ -1,6 +1,6 @@
 <template>
   <div class="c-account__profile">
-    <editAccountModal></editAccountModal>
+    <EditAccountModal />
     <div class="c-account__profile--image-info-cont">
       <div class="c-account__profile--img-cont">
         <nuxt-link
@@ -22,67 +22,72 @@
           }}</span>
           Connections
         </div>
-        <div class="c-account__profile--details">
-          <span class="c-account__profile--details-num">{{
-            $auth.user.data.total_recommends
-          }}</span>
-          Recommends
-        </div>
+        <!--        <div class="c-account__profile&#45;&#45;details">-->
+        <!--          <span class="c-account__profile&#45;&#45;details-num">{{-->
+        <!--            $auth.user.data.total_recommends-->
+        <!--          }}</span>-->
+        <!--          Recommends-->
+        <!--        </div>-->
       </div>
     </div>
     <div class="c-account__profile--text-cont">
       <div class="c-account__profile--name">
-        {{ userNameData }} {{ userLastNameData }}
+        {{ $auth.user.data.name }} {{ $auth.user.data.surname }}
       </div>
-      <div class="c-account__profile--username">@{{ userNickData }}</div>
+      <div class="c-account__profile--username">
+        @{{ $auth.user.data.nick }}
+      </div>
       <div class="c-account__profile--description">
         {{ $auth.user.data.resume }}
       </div>
       <div class="c-account__profile--title">Knowledge</div>
       <div class="c-account__profile--label-cont">
-        <v-chip class="c-account__profile--label" color="#EFF1F2" label>
-          Design
-        </v-chip>
-        <v-chip class="c-account__profile--label" color="#EFF1F2" label>
-          Bitcoin
-        </v-chip>
-        <v-chip class="c-account__profile--label" color="#EFF1F2" label>
-          Startups
+        <v-chip
+          v-for="knowledge in $auth.user.data.knowledges"
+          :key="knowledge.en"
+          class="c-account__profile--label"
+          color="#EFF1F2"
+          label
+        >
+          {{ knowledge.en }}
         </v-chip>
       </div>
       <div class="c-account__profile--title">Summary</div>
       <div class="c-account__profile--summary">
-        {{ userSummaryData }}
+        {{ $auth.user.data.summary }}
       </div>
       <div class="c-account__profile--title">Languages</div>
       <div class="c-account__profile--label-cont">
-        <v-chip class="c-account__profile--label" color="#EFF1F2" label>
-          English
-        </v-chip>
-        <v-chip class="c-account__profile--label" color="#EFF1F2" label>
-          Spanish
+        <v-chip
+          v-for="language in $auth.user.data.languages"
+          :key="language.en"
+          class="c-account__profile--label"
+          color="#EFF1F2"
+          label
+        >
+          {{ language.en }}
         </v-chip>
       </div>
-      <div class="c-account__profile--title">Social Media</div>
-      <div class="c-account__profile--username">
-        <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>
-        <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>
-        <v-icon color="#8C8C8C">mdi-twitter</v-icon>
-        <v-icon color="#8C8C8C">mdi-facebook-box</v-icon>
-        <v-icon color="#8C8C8C">mdi-instagram</v-icon>
-      </div>
+      <!--      <div class="c-account__profile&#45;&#45;title">Social Media</div>-->
+      <!--      <div class="c-account__profile&#45;&#45;username">-->
+      <!--        <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>-->
+      <!--        <v-icon color="#8C8C8C">mdi-linkedin-box</v-icon>-->
+      <!--        <v-icon color="#8C8C8C">mdi-twitter</v-icon>-->
+      <!--        <v-icon color="#8C8C8C">mdi-facebook-box</v-icon>-->
+      <!--        <v-icon color="#8C8C8C">mdi-instagram</v-icon>-->
+      <!--      </div>-->
     </div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import editAccountModal from '~/components/account/modals/editAccount'
+import EditAccountModal from '@/components/account/modals/EditAccountModal'
 
 export default {
   name: 'AccountProfile',
   components: {
-    editAccountModal
+    EditAccountModal
   },
   data() {
     return {

@@ -54,11 +54,24 @@ export default {
   },
   data: () => ({
     items: ['Today', 'Last week', 'Last month', 'Last year'],
-    AreStatsVisible: true
+    AreStatsVisible: true,
+    userBalanceUSD: null,
+    userBalanceSAT: null
   }),
+  mounted() {
+    this.getBalance()
+  },
   methods: {
     toggleStats() {
       this.AreStatsVisible = !this.AreStatsVisible
+    },
+    async getBalance() {
+      const test = await this.getUserBalance()
+
+      if (!test.error) {
+        // eslint-disable-next-line no-console
+        console.log(test)
+      }
     }
   }
 }

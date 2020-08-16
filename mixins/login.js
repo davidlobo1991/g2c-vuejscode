@@ -85,11 +85,22 @@ export const login = {
     },
 
     async handleLogout() {
-      this.$auth.$storage.removeCookie('tokenid')
-      this.$auth.$storage.removeCookie('tokens1')
-      this.$auth.$storage.removeCookie('tokenc1')
+      const response = await this.logoutUser(
+        this.$auth.$storage.getCookie('tokenid'),
+        this.$auth.$storage.getCookie('tokens1'),
+        this.g2c_application,
+        this.$auth.user.data.nick
+      )
 
-      await this.$auth.logout()
+      if (!response.error) {
+        this.$auth.$storage.removeCookie('tokenid')
+        this.$auth.$storage.removeCookie('tokens1')
+        this.$auth.$storage.removeCookie('tokenc1')
+
+        await this.$auth.logout()
+      } else {
+        this.handleErrors(response)
+      }
     },
 
     setDataInStore() {

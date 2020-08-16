@@ -109,29 +109,28 @@ export const apiG2c = {
         throw error
       }
     },
-
     /**
      * Logout User
      * @param {string} tokenid
      * @param {string} tokens1
      * @param {string} application - Retrieved user's Application. (Must be the same than the caller).
      * @param {string} nick - Retrieved user's alias.
-     * @return {string} Example: "Successfully logged out"
+     * @return {object} Schema:
+     * {
+     *   tokenid: The user identificator. Will be stored as a encrypted cookie on the browser.
+     *   tokens1: Token required for API operations. Stored as cookie.
+     *   tokenc1: Token required for API operations. Stored as cookie.
+     * }
      */
+
     logoutUser(tokenid, tokens1, application, nick) {
       try {
         return new Promise((resolve, reject) => {
-          // @TODO: First, delete cookies:
-          this.deleteCookie('tokenid')
-          this.deleteCookie('tokens1')
-          this.deleteCookie('tokenc1')
-          this.deleteCookie('application')
-          this.deleteCookie('nick')
-
           // eslint-disable-next-line no-undef
           g2cclient_logoutUser(
             { tokenid, tokens1, application, nick },
             (response) => {
+              console.log(response)
               if (response === undefined) {
                 reject(Error('Undefined response'))
               }
@@ -207,6 +206,55 @@ export const apiG2c = {
         this.handleErrors(error)
         throw error
       }
+    },
+
+    getUserBalance() {
+      try {
+        return new Promise((resolve, reject) => {
+          const tokenid = this.g2c_tokenid
+          const tokens1 = this.g2c_tokens1
+          const tokenc1 = this.g2c_tokenc1
+          const application = this.g2c_application
+          const nick = this.g2c_nick
+
+          // eslint-disable-next-line no-undef
+          g2cclient_getUserBalance(
+            tokenid,
+            tokens1,
+            tokenc1,
+            application,
+            nick,
+            (response) => {
+              if (response === undefined) {
+                reject(Error('Undefined response'))
+              }
+              if (response.hasOwnProperty('error')) {
+                reject(new Error(response.error))
+              } else {
+                resolve(response.data)
+              }
+            }
+          )
+        })
+          .then((response) => {
+            return {
+              status_id: response.status
+            }
+          })
+          .catch((error) => {
+            this.handleErrors(error)
+            throw error
+          })
+      } catch (error) {
+        this.handleErrors(error)
+        throw error
+      }
     }
+  },
+  mounted() {
+    this.g2c_nick = this.$auth.user.data.nick
+    this.g2c_tokenid = this.$auth.$storage.getCookie('tokenid')
+    this.g2c_tokens1 = this.$auth.$storage.getCookie('tokens1')
+    this.g2c_tokenc1 = this.$auth.$storage.getCookie('tokenc1')
   }
 }

@@ -26,19 +26,19 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     script: [
       {
-        src: 'js/bsv/1.5.0/bsv.min.js',
+        src: '/js/bsv/1.5.0/bsv.min.js',
         defer: true
       },
       {
-        src: 'js/bsv/1.5.0/bsv-message.min.js',
+        src: '/js/bsv/1.5.0/bsv-message.min.js',
         defer: true
       },
       {
-        src: 'js/bsv/1.5.0/bsv-mnemonic.min.js',
+        src: '/js/bsv/1.5.0/bsv-mnemonic.min.js',
         defer: true
       },
       {
-        src: 'js/minercraft/0.0.8/minercraft.min.js',
+        src: '/js/minercraft/0.0.8/minercraft.min.js',
         defer: true
       },
       {

@@ -7,7 +7,9 @@ const state = () => ({
   name: null,
   last_name: null,
   summary: null,
-  title: null
+  title: null,
+  languages: null,
+  knowledges: null
 })
 
 const getters = {
@@ -18,7 +20,9 @@ const getters = {
   getName: (state) => state.name,
   getLastName: (state) => state.last_name,
   getSummary: (state) => state.summary,
-  getTitle: (state) => state.title
+  getTitle: (state) => state.title,
+  getLanguages: (state) => state.languages,
+  getKnowledges: (state) => state.knowledges
 }
 
 const actions = {
@@ -41,7 +45,11 @@ const actions = {
       const response = await this.$axios
         .put(`users/${this.$auth.$state.user.data.id}`, {
           name: getters.getName,
-          surname: getters.getLastName
+          surname: getters.getLastName,
+          title: getters.getTitle,
+          summary: getters.getSummary,
+          languages: JSON.stringify(getters.getLanguages),
+          knowledges: JSON.stringify(getters.getKnowledges)
         })
         .then((response) => response)
 
@@ -76,8 +84,17 @@ const mutations = {
   SET_LAST_NAME(state, lastName) {
     state.last_name = lastName
   },
+  SET_TITLE(state, title) {
+    state.title = title
+  },
   SET_SUMMARY(state, summary) {
     state.summary = summary
+  },
+  SET_LANGUAGES(state, languages) {
+    state.languages = languages
+  },
+  SET_KNOWLEDGES(state, knowledges) {
+    state.knowledges = knowledges
   }
 }
 
