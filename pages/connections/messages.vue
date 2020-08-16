@@ -11,6 +11,9 @@ export default {
   name: 'ConnectionsMessages',
   components: {
     Messages
+  },
+  created() {
+    this.$mixpanel.track('Connection Messages Page View')
   }
 }
 </script>
