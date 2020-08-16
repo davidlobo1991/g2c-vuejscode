@@ -160,9 +160,8 @@ export default {
     this.parsedLanguagesToSelect()
     this.parsedKnowledgesToSelect()
 
-    // @TODO: Select stored languages
-
-    // @TODO: Select stored knowledges
+    this.loadUserLanguages()
+    this.loadUserKnowledges()
   },
   methods: {
     open() {
@@ -206,6 +205,24 @@ export default {
             text: `${knowledges[key].en}`,
             value: key
           })
+        }
+      }
+    },
+    loadUserLanguages() {
+      const languages = this.$auth.user.data.languages
+      this.langValue = []
+      if (languages) {
+        for (const key in languages) {
+          this.langValue.push(key)
+        }
+      }
+    },
+    loadUserKnowledges() {
+      const knowledges = this.$auth.user.data.knowledges
+      this.knowledgeValue = []
+      if (knowledges) {
+        for (const key in knowledges) {
+          this.knowledgeValue.push(key)
         }
       }
     },
