@@ -74,6 +74,7 @@ export default {
     background-color: #21273b;
     width: 100%;
     height: 80px;
+    z-index: 999999999999999;
 
     &__wrapper {
       height: 100%;

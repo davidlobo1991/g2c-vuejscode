@@ -241,7 +241,6 @@ const actions = {
    * Sign in backend and firebase
    */
   async checkUserServerApplicationStatus({ getters }, data) {
-    console.log(data.jobId)
     try {
       const response = await this.$axios
         .post('g2c/server/application/users/create/status', {

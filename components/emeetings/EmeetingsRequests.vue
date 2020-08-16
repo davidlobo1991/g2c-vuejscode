@@ -1,6 +1,6 @@
 <template>
   <div class="u-custom-wrapper">
-    <Sidebar activeTab="emeetings" />
+    <Sidebar active-tab="emeetings" />
     <Main />
   </div>
 </template>

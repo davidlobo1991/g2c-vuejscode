@@ -161,8 +161,6 @@ export default {
     },
     async signIn() {
       try {
-        const _this = this
-
         /** Send registerNick from Storage because if we get the nick of
         the store and the user update the site, the nickname will be lost */
         const response = await this.createUser(
@@ -181,55 +179,34 @@ export default {
             console.log('Created user server application')
             this.setLoginData()
 
-            /**
-             * Interval every 5 seconds to check the status of creating user application
-             * @type {number}
-             */
-            const checkStatus = setInterval(function() {
-              try {
-                const status = this.$nuxt.checkUserServerApplicationStatus(
-                  register.data.job_id
-                )
+            const jobId = register.data.job_id
 
-                status
-                  .then((statusData) => {
-                    if (statusData.data.is_finished && !statusData.error) {
-                      clearInterval(checkStatus)
+            const _this = this
+            const checkStatus = setInterval(async function() {
+              const status = await _this.checkUserServerApplicationStatus(jobId)
 
-                      /**
-                       * If status is finished, create user
-                       * @type {Promise<*|undefined>|Promise<TResult1|TResult2|undefined>}
-                       */
-                      const userCreated = this.$nuxt.createUserApi()
+              if (status.data.is_finished && !status.error) {
+                clearInterval(checkStatus)
 
-                      userCreated.then((userData) => {
-                        if (!userData.error) {
-                          _this.accountCreated = this.$nuxt.$i18n.t(
-                            'register.account.created.redirecting'
-                          )
+                /**
+                 * If status is finished, create user
+                 * @type {Promise<*|undefined>|Promise<TResult1|TResult2|undefined>}
+                 */
+                const userCreated = await _this.createUserApi()
 
-                          setTimeout(function() {
-                            // eslint-disable-next-line no-console
-                            console.log('Waiting for it...')
-                          }, 10000)
-
-                          this.$nuxt.$router.push('/')
-                        } else {
-                          this.handleError(userCreated)
-                        }
-                      })
-                    } else if (statusData.error) {
-                      clearInterval(checkStatus)
-                      // eslint-disable-next-line no-console
-                      console.log(statusData.error)
-                      throw statusData.error
-                    }
-                  })
-                  .catch((error) => {
-                    throw error
-                  })
-              } catch (error) {
-                throw error
+                if (!userCreated.error) {
+                  _this.accountCreated = this.$nuxt.$i18n.t(
+                    'register.account.created.redirecting'
+                  )
+                  _this.login()
+                } else {
+                  _this.handleError(userCreated)
+                }
+              } else if (status.error) {
+                clearInterval(checkStatus)
+                // eslint-disable-next-line no-console
+                console.log(status.error)
+                throw status.error
               }
             }, 5000)
           } else {
@@ -256,7 +233,7 @@ export default {
         this.handleLogin(
           this.words,
           this.nick,
-          this.registerPassword,
+          this.password,
           this.g2c_application
         )
       } catch (error) {
@@ -281,6 +258,7 @@ export default {
      * Handle error
      */
     handleError(error, title = this.$i18n.t('register.error.default')) {
+      // eslint-disable-next-line no-console
       console.log(title)
       this.loading = false
       this.errorCreateAccount = title

@@ -22,10 +22,10 @@
             </template>
             <div class="c-sidebar__profile--status u-status--available"></div>
           </div>
-          <div class="c-sidebar__profile--name" v-if="$auth.user.name">
+          <div v-if="$auth.user.name" class="c-sidebar__profile--name">
             {{ $auth.user.name }} {{ $auth.user.surname }}
           </div>
-          <div class="c-sidebar__profile--name" v-else>
+          <div v-else class="c-sidebar__profile--name">
             @{{ $auth.user.data.nick }}
           </div>
         </div>
@@ -146,6 +146,12 @@ export default {
       badgeConnectionsTotal: 4,
       badgeeMeetingsTotal: 0
     }
+  },
+  mounted() {
+    // TODO filter and count connections pending. Access to user info from store
+    // eslint-disable-next-line no-console
+    console.log(this.$auth.$state.user.data.connections)
+    // this.badgeConnectionsTotal = this.$auth.$state.user.connections
   },
   methods: {
     async logout() {

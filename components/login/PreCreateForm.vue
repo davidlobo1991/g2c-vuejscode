@@ -14,6 +14,7 @@
           autocorrect="off"
           autocapitalize="none"
           class="c-login__cont--input u-mrb-s"
+          autocomplete="username"
         >
         </v-text-field>
         <v-text-field
@@ -26,6 +27,7 @@
           label="Password"
           outlined
           class="c-login__cont--input u-mrb-s"
+          autocomplete="current-password"
         >
         </v-text-field>
 
@@ -136,7 +138,7 @@ export default {
           this.nickInvalid = null
         }
         // eslint-disable-next-line no-unreachable
-        this.$v.$touch()
+        this.$v.formRegister.nick.$touch()
 
         if (this.$v.$invalid) {
           this.loading = false
@@ -150,7 +152,7 @@ export default {
         } else {
           this.nickTaken = null
         }
-        this.$v.$touch()
+        this.$v.formRegister.nick.$touch()
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error('PreCreateForm@checkUser - Error')
@@ -253,7 +255,7 @@ export default {
       return errors
     },
     /**
-     * Handle Vuelidate promocode errors
+     * Handle Vuelidate invitation code errors
      * @returns {[]}
      */
     handleValidationInvitationCodeErrors() {
@@ -264,7 +266,7 @@ export default {
       }
 
       if (!this.$v.formRegister.invitationCode.required) {
-        errors.push(this.$i18n.t('register.error.promocode'))
+        errors.push(this.$i18n.t('register.error.invitation_code'))
       }
 
       if (this.invitationCodeError) {
