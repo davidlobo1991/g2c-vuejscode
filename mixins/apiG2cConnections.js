@@ -59,11 +59,11 @@ export const apiG2cConnections = {
     walletPropose(destinationnick, amount, lockuntil, description) {
       try {
         return new Promise((resolve, reject) => {
-          const tokenid = this.g2c_connections_tokenid
-          const tokens1 = this.g2c_connections_tokens1
-          const tokenc1 = this.g2c_connections_tokenc1
+          const tokenid = this.$auth.$storage.getCookie('tokenid')
+          const tokens1 = this.$auth.$storage.getCookie('tokens1')
+          const tokenc1 = this.$auth.$storage.getCookie('tokenc1')
           const application = this.g2c_connections_application
-          const sourceNick = this.g2c_connections_nick
+          const nick = this.$auth.user.data.nick
 
           // eslint-disable-next-line no-undef
           g2cclient_walletConditionalPropose(
@@ -72,7 +72,7 @@ export const apiG2cConnections = {
               tokens1,
               tokenc1,
               application,
-              sourceNick,
+              nick,
               destinationnick,
               amount,
               lockuntil,
@@ -109,11 +109,11 @@ export const apiG2cConnections = {
     createUserObject(destinationnick, sendMessage, txid) {
       try {
         return new Promise((resolve, reject) => {
-          const tokenid = this.g2c_connections_tokenid
-          const tokens1 = this.g2c_connections_tokens1
-          const tokenc1 = this.g2c_connections_tokenc1
+          const tokenid = this.$auth.$storage.getCookie('tokenid')
+          const tokens1 = this.$auth.$storage.getCookie('tokens1')
+          const tokenc1 = this.$auth.$storage.getCookie('tokenc1')
           const application = this.g2c_connections_application
-          const nick = this.g2c_connections_nick
+          const nick = this.$auth.user.data.nick
           const type = this.g2c_connections_type
           const path = this.g2c_connections_path
           const permissions = this.g2c_connections_permissions
@@ -172,11 +172,11 @@ export const apiG2cConnections = {
     shareUserObject(name, destinationnick) {
       try {
         return new Promise((resolve, reject) => {
-          const tokenid = this.g2c_connections_tokenid
-          const tokens1 = this.g2c_connections_tokens1
-          const tokenc1 = this.g2c_connections_tokenc1
+          const tokenid = this.$auth.$storage.getCookie('tokenid')
+          const tokens1 = this.$auth.$storage.getCookie('tokens1')
+          const tokenc1 = this.$auth.$storage.getCookie('tokenc1')
           const application = this.g2c_connections_application
-          const nick = this.g2c_connections_nick
+          const nick = this.$auth.user.data.nick
           const path = this.g2c_connections_path
 
           // eslint-disable-next-line no-undef
@@ -214,11 +214,5 @@ export const apiG2cConnections = {
         throw error
       }
     }
-  },
-  mounted() {
-    this.g2c_connections_nick = this.$auth.user.data.nick
-    this.g2c_connections_tokenid = this.$auth.$storage.getCookie('tokenid')
-    this.g2c_connections_tokens1 = this.$auth.$storage.getCookie('tokens1')
-    this.g2c_connections_tokenc1 = this.$auth.$storage.getCookie('tokenc1')
   }
 }

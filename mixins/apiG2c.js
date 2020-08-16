@@ -211,10 +211,10 @@ export const apiG2c = {
     getUserBalance() {
       try {
         return new Promise((resolve, reject) => {
-          const tokenid = this.g2c_tokenid
-          const tokens1 = this.g2c_tokens1
-          const tokenc1 = this.g2c_tokenc1
-          const application = this.g2c_application
+          const tokenid = this.$auth.$storage.getCookie('tokenid')
+          const tokens1 = this.$auth.$storage.getCookie('tokens1')
+          const tokenc1 = this.$auth.$storage.getCookie('tokenc1')
+          const application = this.$auth.user.data.nick
           const nick = this.g2c_nick
 
           // eslint-disable-next-line no-undef
@@ -250,11 +250,5 @@ export const apiG2c = {
         throw error
       }
     }
-  },
-  mounted() {
-    this.g2c_nick = this.$auth.user.data.nick
-    this.g2c_tokenid = this.$auth.$storage.getCookie('tokenid')
-    this.g2c_tokens1 = this.$auth.$storage.getCookie('tokens1')
-    this.g2c_tokenc1 = this.$auth.$storage.getCookie('tokenc1')
   }
 }
