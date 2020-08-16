@@ -63,7 +63,7 @@ export const apiG2cConnections = {
           const tokens1 = this.$auth.$storage.getCookie('tokens1')
           const tokenc1 = this.$auth.$storage.getCookie('tokenc1')
           const application = this.g2c_connections_application
-          const nick = this.$auth.user.data.nick
+          const sourcennick = this.$auth.user.data.nick
 
           // eslint-disable-next-line no-undef
           g2cclient_walletConditionalPropose(
@@ -72,7 +72,7 @@ export const apiG2cConnections = {
               tokens1,
               tokenc1,
               application,
-              nick,
+              sourcennick,
               destinationnick,
               amount,
               lockuntil,

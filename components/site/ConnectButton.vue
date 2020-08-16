@@ -219,6 +219,7 @@ export default {
             propose
           )
 
+          // eslint-disable-next-line no-console
           console.log(object)
 
           if (!object.error) {
@@ -229,13 +230,25 @@ export default {
 
             if (!shareObject.error) {
               // TODO Save shareauth in firebase
-              this.createConnection('id')
+              const createConnection = this.createConnection(
+                this.activeConnection.id
+              )
+
+              if (!createConnection.error) {
+                // eslint-disable-next-line no-console
+                console.log('Created connection')
+                this.modalStep = this.modalStep + 1
+              } else {
+                this.handleErrors(createConnection.error)
+              }
+            } else {
+              this.handleErrors(shareObject.error)
             }
+          } else {
+            this.handleErrors(object.error)
           }
-          this.modalStep = this.modalStep + 1
         } else {
-          this.loading = false
-          // this.errorValidation = propose.message
+          this.handleErrors(propose.error)
         }
       } catch (error) {
         // eslint-disable-next-line no-console
