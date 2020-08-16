@@ -155,6 +155,7 @@ export default {
   },
   methods: {
     async logout() {
+      this.$mixpanel.track('Log Out')
       await this.handleLogout()
     }
   }
